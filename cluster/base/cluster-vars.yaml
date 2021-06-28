@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-vars
+  namespace: flux-system
+data:
+  CONFIG_METALLB_RANGE: "192.168.200.244-192.168.200.254"
+  CONFIG_NFS_SERVER_ADDRESS: "192.168.200.220"
+  CONFIG_NFS_SERVER_PATH: "/Kubernetes-Volume"
