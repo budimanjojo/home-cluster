@@ -16,5 +16,5 @@ jobs:
     - name: Lint YAML
       uses: ibiqlik/action-yamllint@v3
       with:
-        file_or_dir: "./fluxcd"
+        file_or_dir: "./cluster"
         config_file: "./.github/yamllint.yaml"
