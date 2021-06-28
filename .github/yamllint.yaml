@@ -1,0 +1,18 @@
+yaml-files:
+- '*.yaml'
+- '*.yml'
+ignore: |
+  .github/
+extends: default
+rules:
+  empty-lines:
+    max: 1
+  indentation:
+    spaces: 2
+    indent-sequences: consistent
+    level: warning
+  line-length: disable
+  new-line-at-end-of-file: disable
+  trailing-spaces: {}
+  truthy:
+    allowed-values: ['true', 'false', 'on', 'off']

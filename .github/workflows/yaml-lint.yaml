@@ -1,0 +1,20 @@
+name: YAML Lint
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ '*' ]
+  pull_request:
+
+jobs:
+  yaml-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: Lint YAML
+      uses: ibiqlik/action-yamllint@v3
+      with:
+        file_or_dir: "./fluxcd"
+        config_file: "./.github/yamllint.yaml"
