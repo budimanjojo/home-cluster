@@ -1,0 +1,58 @@
+{
+    "enabled": true,
+    "semanticCommits": "enabled",
+    "labels": ["renovatebot"],
+    "commitBody": "Signed-Off-by: Budiman JOJO <budimanjojo@gmail.com>",
+    "semanticCommitScope": "images",
+    "dependencyDashboard": true,
+    "dependencyDashboardTitle": "Renovate Dashboard",
+    "suppressNotifications": ["prIgnoreNotification"],
+    "rebaseWhen": "conflicted",
+    "kubernetes": {
+        "fileMatch": [
+            "fluxcd/.+/deployment\\.yaml$",
+            "fluxcd/.+/daemonset\\.yaml$",
+            "fluxcd/.+/statefulset\\.yaml$"
+        ]
+    },
+    "regexManagers": [
+        {
+            "fileMatch": ["fluxcd/.+/kustomization\\.yaml$"],
+            "matchStrings": [
+                "- (\\w+://)?github\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+(?<currentValue>v[\\d\\.]+)",
+                "- (\\w+://)?github\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
+            ],
+            "datasourceTemplate": "github-tags"
+        }
+    ],
+    "packageRules": [
+        {
+            "matchDatasources": ["docker"],
+            "matchUpdateTypes": ["major"],
+            "enabled": true
+        },
+        {
+            "matchDatasources": ["docker"],
+            "addLabels": ["docker/image"]
+        },
+        {
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin",
+                "digest"
+            ],
+            "automerge": true
+        },
+        {
+            "matchDatasources": ["docker"],
+            "matchUpdateTypes": ["major"],
+            "addLabels": [ "dep/major"]
+        },
+        {
+            "matchDatasources": ["docker"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "addLabels": [ "dep/minor"]
+        }
+    ]
+}
