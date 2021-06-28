@@ -1,0 +1,26 @@
+name: Manifest validate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ '*' ]
+  pull_request:
+
+jobs:
+  manifest-validate:
+    runs-on: ubuntu-latest
+    container: deck15/kubeval-tools:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Validate Kubernetes Manifests
+      run: |
+        #!/usr/bin/env bash
+        set -o errexit
+
+        kustomize_config="kustomization.yaml"
+
+        find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' file;
+          do
+            echo "INFO - Validating kustomization ${file/%$kustomize_config}"
+            kustomize build "$(dirname $file)" | kubeconform -strict -summary -skip Secret
+        done
