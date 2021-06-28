@@ -10,14 +10,14 @@
     "rebaseWhen": "conflicted",
     "kubernetes": {
         "fileMatch": [
-            "fluxcd/.+/deployment\\.yaml$",
-            "fluxcd/.+/daemonset\\.yaml$",
-            "fluxcd/.+/statefulset\\.yaml$"
+            "cluter/.+/deployment\\.yaml$",
+            "cluster/.+/daemonset\\.yaml$",
+            "cluster/.+/statefulset\\.yaml$"
         ]
     },
     "regexManagers": [
         {
-            "fileMatch": ["fluxcd/.+/kustomization\\.yaml$"],
+            "fileMatch": ["cluster/.+/kustomization\\.yaml$"],
             "matchStrings": [
                 "- (\\w+://)?github\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+(?<currentValue>v[\\d\\.]+)",
                 "- (\\w+://)?github\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
