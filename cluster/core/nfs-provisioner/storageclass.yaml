@@ -1,0 +1,16 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-provisioner
+  labels:
+    app.kubernetes.io/name: nfs-provisioner
+provisioner: nfs-provisioner
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+parameters:
+  archiveOnDelete: "true"
+mountOptions:
+- nfsvers=4
+- nolock
+- soft
+- rw

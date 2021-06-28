@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-provisioner
+  namespace: nfs-system
+  labels:
+    app.kubernetes.io/name: nfs-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nfs-provisioner
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nfs-provisioner
+    spec:
+      containers:
+      - name: nfs-provisioner
+        image: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: nfs-provisioner-root
+          mountPath: /persistentvolumes
+        env:
+        - name: PROVISIONER_NAME
+          value: nfs-provisioner
+        - name: NFS_SERVER
+          value: "${CONFIG_NFS_SERVER_ADDRESS}"
+        - name: NFS_PATH
+          value: "${CONFIG_NFS_SERVER_PATH}"
+        - name: ENABLE_LEADER_ELECTION
+          value: "false"
+      serviceAccountName: nfs-provisioner
+      volumes:
+      - name: nfs-provisioner-root
+        nfs:
+          server: "${CONFIG_NFS_SERVER_ADDRESS}"
+          path: "${CONFIG_NFS_SERVER_PATH}"
