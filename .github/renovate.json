@@ -10,7 +10,7 @@
     "rebaseWhen": "conflicted",
     "kubernetes": {
         "fileMatch": [
-            "cluter/.+/deployment\\.yaml$",
+            "cluster/.+/deployment\\.yaml$",
             "cluster/.+/daemonset\\.yaml$",
             "cluster/.+/statefulset\\.yaml$"
         ]
