@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis:alpine
+        image: redis:6.2.4-alpine
         imagePullPolicy: IfNotPresent
         resources:
           requests:
