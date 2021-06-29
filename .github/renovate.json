@@ -51,12 +51,10 @@
             "automerge": true
         },
         {
-            "matchDatasources": ["docker"],
             "matchUpdateTypes": ["major"],
             "addLabels": [ "dep/major"]
         },
         {
-            "matchDatasources": ["docker"],
             "matchUpdateTypes": ["minor", "patch"],
             "addLabels": [ "dep/minor"]
         }
