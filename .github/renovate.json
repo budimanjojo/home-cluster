@@ -25,7 +25,7 @@
             "datasourceTemplate": "github-tags"
         },
         {
-            "fileMatch": ["cluster/.+/\\.yaml"],
+            "fileMatch": ["cluster/.+/.+\\.yaml"],
             "matchStrings": [
                 "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\n *tag: (?<currentValue>.*)\n"
             ]
