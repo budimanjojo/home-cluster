@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-configs
+  namespace: ingress-system
+  labels:
+    app.kubernetes.io/name: traefik
+data:
+  dynamic.yaml: |
+    http:
+      # routers:
+      #   redirect:
+      #     rule: HostRegexp(`{host:.+}`)
+      #     entryPoints:
+      #     - http
+      #     service: noop@internal
+      #     middlewares:
+      #     - redirect
+      middlewares:
+        # redirect:
+        #   redirectScheme:
+        #     scheme: https
+        #     permanent: true
+        authelia:
+          forwardAuth:
+            address: "http://authelia-svc:9091/api/verify?rd=https://auth.${SECRET_DOMAIN_0}"
+            trustForwardHeader: true
+            authResponseHeaders:
+            - Remote-User
+            - Remote-Groups
+            - Remote-Name
+            - Remote-Email
+        headers:
+          headers:
+            sslRedirect: true
+            sslHost: "${SECRET_DOMAIN_0}"
+            stsSeconds: 315360000
+            stsIncludeSubdomains: true
+            stsPreload: true
+            forceSTSHeader: true
+            frameDeny: true
+            customFrameOptionsValue: SAMEORIGIN
+            contentTypeNosniff: true
+            browserXSSFilter: true
+        nextcloud:
+          redirectRegex:
+            permanent: true
+            regex: "https://(.*)/.well-known/(card|cal)dav"
+            replacement: "https://$1/remote.php/dav/"
+        dashboard-headers:
+          headers:
+            sslRedirect: true
+            sslHost: "${SECRET_DOMAIN_0}"
+            stsSeconds: 315360000
+            stsIncludeSubdomains: true
+            stsPreload: true
+            forceSTSHeader: true
+            frameDeny: false
+            customFrameOptionsValue: SAMEORIGIN
+            contentTypeNosniff: true
+            browserXSSFilter: true
+        wordpress:
+          redirectRegex:
+            permanent: true
+            regex: "^https?://www.${SECRET_DOMAIN_0}/(.*)"
+            replacement: "https://${SECRET_DOMAIN_0}/${1}"

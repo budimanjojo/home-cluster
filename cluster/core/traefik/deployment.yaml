@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: ingress-system
+  labels:
+    app.kubernetes.io/name: traefik
+  annotations:
+    keel.sh/policy: all
+    keel.sh/trigger: poll
+    keel.sh/pollSchedule: "@daily"
+    keel.sh/approvals: "1"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: traefik
+    spec:
+      containers:
+      - name: traefik
+        image: traefik
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 300m
+            memory: 150Mi
+        args:
+        - --global.checknewversion=true
+        - --global.sendanonymoususage=false
+        - --entrypoints.http.address=:80/tcp
+        - --entrypoints.http.http.redirections.entrypoint.to=https
+        - --entrypoints.http.http.redirections.entrypoint.scheme=https
+        - --entrypoints.http.http.redirections.entrypoint.permanent=true
+        - --entrypoints.http.proxyprotocol.trustedips=127.0.0.1
+        - --entrypoints.http.forwardedheaders.trustedips=127.0.0.1/32
+        - --entrypoints.https.address=:443/tcp
+        - --entrypoints.https.proxyprotocol.trustedips=127.0.0.1
+        - --entrypoints.https.forwardedheaders.trustedips=127.0.0.1/32
+        - --entrypoints.traefik.address=:8080/tcp
+        - --providers.providersthrottleduration=2
+        - --providers.kubernetescrd=true
+        - --providers.kubernetesingress=true
+        - --providers.file.directory=/etc/traefik
+        - --api.dashboard=true
+        - --api.debug=true
+        - --ping=true
+        - --ping.entrypoint=traefik
+        - --log.level=ERROR
+        - --log.filepath=/tmp/traefik.log
+        - --log.format=json
+        - --accesslog=true
+        - --accesslog.format=json
+        - --accesslog.filters.statuscodes=200,300-302
+        - --accesslog.filters.retryattempts=true
+        - --accesslog.fields.defaultmode=keep
+        - --accesslog.fields.names.ClientUsername=drop
+        - --accesslog.fields.headers.defaultmode=keep
+        - --accesslog.fields.headers.names.User-Agent=redact
+        - --accesslog.fields.headers.names.Authorization=drop
+        - --accesslog.fields.headers.names.Content-Type=keep
+        ports:
+        - name: traefik-port
+          protocol: TCP
+          containerPort: 8080
+        - name: traefik-http
+          protocol: TCP
+          containerPort: 80
+        - name: traefik-https
+          protocol: TCP
+          containerPort: 443
+        volumeMounts:
+        - name: traefik-config
+          mountPath: /etc/traefik
+        - name: traefik-logs
+          mountPath: /tmp
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: traefik-port
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: traefik-port
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 1
+        env:
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: tz
+      serviceAccountName: traefik
+      volumes:
+      - name: traefik-config
+        configMap:
+          name: traefik-configs
+      - name: traefik-logs
+        emptyDir: {}
