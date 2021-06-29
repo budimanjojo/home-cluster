@@ -23,6 +23,12 @@
                 "- (\\w+://)?github\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
             ],
             "datasourceTemplate": "github-tags"
+        },
+        {
+            "fileMatch": ["cluster/.+/\\.yaml"],
+            "matchStrings": [
+                "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\n *tag: (?<currentValue>.*)\n"
+            ]
         }
     ],
     "packageRules": [
