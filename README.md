@@ -40,8 +40,8 @@ The Git repository contains the following directories under `cluster` and are or
 
 - **base** directory is the entrypoint to Flux
 - **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
-- **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
-- **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
+- **core** directory (depends on **crds**) are important infrastructure applications that should never be pruned by Flux
+- **apps** directory (depends on **core**) is where your common applications could be placed, Flux will prune resources here if they are not tracked by Git anymore
 
 ```
 ./cluster
@@ -62,6 +62,6 @@ A lot of inspiration for my cluster came from the people that have shared their 
 ## Todo List
 
 - [ ] Move everything here
-- [ ] Use Renovate to auto PR updates
+- [v] Use Renovate to auto PR updates
 - [ ] Document stuffs
 - [ ] Pre-commit checks
