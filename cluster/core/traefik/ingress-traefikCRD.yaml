@@ -18,4 +18,4 @@ spec:
     - name: api@internal
       kind: TraefikService
   tls:
-    secretName: "${SECRET_CERT_NAME_0}"
+    secretName: "${SECRET_CERT_NAME_0}-prod-tls"
