@@ -27,7 +27,7 @@
         {
             "fileMatch": ["cluster/.+/.+\\.yaml"],
             "matchStrings": [
-                "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\n *tag: (?<currentValue>.*)\b"
+                "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\\n *tag: (?<currentValue>.*)\\b"
             ]
         }
     ],
