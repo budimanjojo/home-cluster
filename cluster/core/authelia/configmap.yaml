@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authelia-configs
+  namespace: authentication-system
+  labels:
+    app.kubernetes.io/name: authelia
+data:
+  configuration.yaml: |
+    host: 0.0.0.0
+    port: 9091
+    theme: dark
+    server:
+      read_buffer_size: 4096
+      write_buffer_size: 4096
+      path: ""
+    log_level: debug
+    default_redirection_url: https://auth.${SECRET_DOMAIN_0}
+    totp:
+      issuer: "${SECRET_DOMAIN_0}"
+      period: 30
+      skew: 1
+    duo_api:
+      hostname: ${SECRET_DUO_HOSTNAME_0}
+      integration_key: ${SECRETE_DUO_KEY_0}
+    authentication_backend:
+      disable_reset_password: true
+      refresh_interval: disable
+      file:
+        path: /config/users.yaml
+        password:
+          algorithm: argon2id
+          iterations: 1
+          key_length: 32
+          salt_length: 16
+          memory: 1024
+          parallelism: 8
+    access_control:
+      default_policy: deny
+      rules:
+      - domain: auth.${SECRET_DOMAIN_0}
+        policy: bypass
+      - domain: "*.${SECRET_DOMAIN_0}"
+        policy: two_factor
+    session:
+      name: authelia_session
+      expiration: 1h
+      inactivity: 15m
+      remember_me_duration: 1M
+      domain: ${SECRET_DOMAIN_0}
+      redis:
+        host: redis-svc.default.svc.cluster.local
+        port: 6379
+    regulation:
+      max_retries: 3
+      find_time: 2m
+      ban_time: 5m
+    storage:
+      mysql:
+        host: mariadb-svc.default.svc.cluster.local
+        port: 3306
+        database: authelia
+        username: authelia
+    notifier:
+      disable_startup_check: false
+      filesystem:
+        filename: /notification.txt
+
+  users.yaml: |
+    users:
+      budiman:
+        displayname: Budiman JOJO
+        password: "${SECRET_AUTHELIA_PASSWORD_0}"
+        email: ${SECRET_EMAIL_0}
+        groups:
+        - admins
+        - dev
