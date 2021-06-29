@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  labels:
+    app.kubernetes.io/name: mariadb
+spec:
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mariadb
+  serviceName: mariadb-svc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: ghcr.io/linuxserver/mariadb
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 250Mi
+          limits:
+            cpu: 1000m
+            memory: 1000Mi
+        ports:
+        - name: mariadb-port
+          protocol: TCP
+          containerPort: 3306
+        volumeMounts:
+        - name: mariadb-data
+          mountPath: /config
+        livenessProbe:
+          tcpSocket:
+            port: mariadb-port
+          # exec:
+          #   command:
+          #     - /bin/bash
+          #     - -ec
+          #     - |
+          #       password_aux="${MYSQL_ROOT_PASSWORD:-}"
+          #       mysqladmin status -uroot -p"${password_aux}"
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 300
+        readinessProbe:
+          tcpSocket:
+            port: mariadb-port
+          # exec:
+          #   command:
+          #     - /bin/bash
+          #     - -ec
+          #     - |
+          #       password_aux="${MYSQL_ROOT_PASSWORD:-}"
+          #       mysqladmin status -uroot -p"${password_aux}"
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 300
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: tz
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: mysql_root_password
+  volumeClaimTemplates:
+  - metadata:
+      name: mariadb-data
+      labels:
+        app.kubernetes.io/name: mariadb
+    spec:
+      accessModes:
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 8Gi
+      storageClassName: nfs-provisioner
