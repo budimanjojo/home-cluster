@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: node-feature-discovery-master
+  namespace: nfd-system
+  labels:
+    app.kubernetes.io/name: node-feature-discovery
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-feature-discovery-master
+  labels:
+    app.kubernetes.io/name: node-feature-discovery
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - patch
+  - update
+  - list
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: node-feature-discovery-master
+  labels:
+    app.kubernetes.io/name: node-feature-discovery
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: node-feature-discovery-master
+subjects:
+- kind: ServiceAccount
+  name: node-feature-discovery-master
+  namespace: nfd-system

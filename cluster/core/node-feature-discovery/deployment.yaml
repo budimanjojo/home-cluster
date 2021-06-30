@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-feature-discovery-master
+  namespace: nfd-system
+  labels:
+    app.kubernetes.io/name: node-feature-discovery
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: node-feature-discovery
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: node-feature-discovery
+    spec:
+      containers:
+      - name: node-feature-discovery-master
+        image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.1
+        imagePullPolicy: IfNotPresent
+        command:
+        - "nfd-master"
+        ports:
+        - name: nfd-port
+          protocol: TCP
+          containerPort: 8080
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+      serviceAccountName: node-feature-discovery-master
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: "node-role.kubernetes.io/master"
+                    operator: In
+                    values: [""]
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
