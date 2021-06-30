@@ -33,6 +33,14 @@
     ],
     "packageRules": [
         {
+            "matchPackagePatterns": ["^ghcr.io/linuxserver"],
+            "versionScheme": "regex:^version-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)"
+        },
+        {
+            "matchPackageNames": "ghcr.io/linuxserver/mariadb",
+            "versionScheme": "regex:^version-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)"
+        },
+        {
             "matchDatasources": ["docker"],
             "matchUpdateTypes": ["major"],
             "enabled": true
