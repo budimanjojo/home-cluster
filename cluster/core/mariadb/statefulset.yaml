@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: mariadb
-        image: ghcr.io/linuxserver/mariadb:version-110.4.19mariabionic
+        image: ghcr.io/linuxserver/mariadb:version-110.4.20mariabionic
         imagePullPolicy: IfNotPresent
         resources:
           requests:
