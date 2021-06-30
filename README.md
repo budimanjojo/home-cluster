@@ -62,6 +62,7 @@ A lot of inspiration for my cluster came from the people that have shared their 
 ## Todo List
 
 - [ ] Move everything here
-- [v] Use Renovate to auto PR updates
+- [x] Use Renovate to auto PR updates
 - [ ] Document stuffs
 - [ ] Pre-commit checks
+- [ ] Replace kubed with fluxcd envsubs
