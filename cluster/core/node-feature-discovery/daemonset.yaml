@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: node-feature-discovery-worker
-        image: gcr.io/k8s-staging-nfd/node-feature-discovery:master
+        image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.1
         imagePullPolicy: IfNotPresent
         securityContext:
           allowPrivilegeEscalation: false
