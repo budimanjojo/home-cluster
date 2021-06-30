@@ -6,4 +6,4 @@ resources:
 - issuer.yaml
 - secret.yaml
 patchesStrategicMerge:
-- delete-crds-patches.yaml
+- delete-crds-patch.yaml
