@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-media
+  labels:
+    app.kubernetes.io/name: common
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  storageClassName: nfs-provisioner
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-downloads
+  labels:
+    app.kubernetes.io/name: common
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  storageClassName: nfs-provisioner
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-folder-nfs
+  labels:
+    app.kubernetes.io/name: common
+spec:
+  storageClassName: ""
+  volumeName: shared-folder-nfs
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
