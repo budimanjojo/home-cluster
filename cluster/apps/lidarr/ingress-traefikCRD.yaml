@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lidarr
+  labels:
+    app.kubernetes.io/name: lidarr
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`music.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: headers@file
+    - name: authelia
+      namespace: authentication-system
+    services:
+    - name: lidarr-svc
+      port: 8686
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
