@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radarr
+  labels:
+    app.kubernetes.io/name: radarr
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`movie.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: headers@file
+    - name: authelia
+      namespace: authentication-system
+    services:
+    - name: radarr-svc
+      port: 7878
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
