@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+  labels:
+    app.kubernetes.io/name: adminer
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: adminer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: adminer
+    spec:
+      containers:
+      - name: adminer
+        image: adminer:4.8.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100Mi
+        ports:
+        - name: adminer-port
+          protocol: TCP
+          containerPort: 8080
+        env:
+        - name: ADMINER_DEFAULT_SERVER
+          value: mariadb-svc

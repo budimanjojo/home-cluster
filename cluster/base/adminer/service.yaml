@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer-svc
+  labels:
+    app.kubernetes.io/name: adminer
+spec:
+  selector:
+    app.kubernetes.io/name: adminer
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: adminer-port
+  type: LoadBalancer
