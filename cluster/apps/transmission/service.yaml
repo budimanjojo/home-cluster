@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission-svc
+  labels:
+    app.kubernetes.io/name: transmission
+spec:
+  selector:
+    app.kubernetes.io/name: transmission
+  ports:
+  - name: tcp
+    protocol: TCP
+    port: 51413
+    targetPort: tcp-port
+  - name: udp
+    protocol: UDP
+    port: 51413
+    targetPort: udp-port
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission-svc-gui
+  labels:
+    app.kubernetes.io/name: transmission
+spec:
+  selector:
+    app.kubernetes.io/name: transmission
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9091
+    targetPort: gui-port
+  type: LoadBalancer
