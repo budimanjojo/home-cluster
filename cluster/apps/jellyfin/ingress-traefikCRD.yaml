@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jellyfin
+  labels:
+    app.kubernetes.io/name: jellyfin
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`jellyfin.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: dashboard-headers@file
+    services:
+    - name: jellyfin-svc
+      port: 8096
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls"

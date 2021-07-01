@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+  labels:
+    app.kubernetes.io/name: jellyfin
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jellyfin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jellyfin
+    spec:
+      initContainers:
+      - name: init-permission
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          chown -R $PUID:$PGID /data &&
+          chmod -R 755 /data
+        volumeMounts:
+        - name: jellyfin-media
+          mountPath: /data
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+      containers:
+      - name: jellyfin
+        image: jellyfin:10.7.5
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 500m
+            memory: 200Mi
+          limits:
+            cpu: 2000m
+            memory: 1Gi
+            gpu.intel.com/i915: 1
+        ports:
+        - name: jellyfin-port
+          protocol: TCP
+          containerPort: 8096
+        volumeMounts:
+        - name: jellyfin-config
+          mountPath: /config
+        - name: jellyfin-media
+          mountPath: /data
+        livenessProbe:
+          tcpSocket:
+            port: jellyfin-port
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 150
+        readinessProbe:
+          tcpSocket:
+            port: jellyfin-port
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 150
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: tz
+      volumes:
+      - name: jellyfin-config
+        persistentVolumeClaim:
+          claimName: jellyfin-config
+      - name: jellyfin-media
+        persistentVolumeClaim:
+          claimName: shared-media

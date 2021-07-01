@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-svc
+  labels:
+    app.kubernetes.io/name: jellyfin
+spec:
+  selector:
+    app.kubernetes.io/name: jellyfin
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8096
+    targetPort: jellyfin-port
+  type: ClusterIP
