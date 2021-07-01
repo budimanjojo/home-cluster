@@ -34,7 +34,8 @@
     "packageRules": [
         {
             "matchPackagePatterns": ["^ghcr.io/linuxserver"],
-            "versionScheme": "regex:^version-(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)"
+            "extractVersion": "^version-(?<version>.*)$",
+            "versionScheme": "loose"
         },
         {
             "matchPackageNames": "ghcr.io/linuxserver/mariadb",
