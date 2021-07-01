@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  labels:
+    app.kubernetes.io/name: sonarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sonarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sonarr
+    spec:
+      initContainers:
+      - name: init-permission
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          chown -R $PUID:$PGID /tv &&
+          chmod -R 755 /tv &&
+          chown -R $PUID:$PGID /downloads &&
+          chmod -R 755 /downloads
+        volumeMounts:
+        - name: sonarr-media
+          mountPath: /tv
+          subPath: TV
+        - name: sonarr-downloads
+          mountPath: /downloads
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 250Mi
+          limits:
+            cpu: 300m
+            memory: 500Mi
+        ports:
+        - name: sonarr-port
+          protocol: TCP
+          containerPort: 8989
+        volumeMounts:
+        - name: sonarr-config
+          mountPath: /config
+        - name: sonarr-media
+          mountPath: /tv
+          subPath: TV
+        - name: sonarr-downloads
+          mountPath: /downloads
+        livenessProbe:
+          tcpSocket:
+            port: sonarr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        readinessProbe:
+          tcpSocket:
+            port: sonarr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: tz
+      volumes:
+      - name: sonarr-config
+        persistentVolumeClaim:
+          claimName: sonarr-config
+      - name: sonarr-media
+        persistentVolumeClaim:
+          claimName: shared-media
+      - name: sonarr-downloads
+        persistentVolumeClaim:
+          claimName: shared-downloads
