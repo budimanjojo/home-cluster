@@ -48,7 +48,7 @@ spec:
               key: pgid
       containers:
       - name: sonarr
-        image: linuxserver/sonarr
+        image: ghcr.io/linuxserver/sonarr:version-3.0.6.1196
         imagePullPolicy: IfNotPresent
         resources:
           requests:
