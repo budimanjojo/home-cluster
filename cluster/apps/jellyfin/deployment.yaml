@@ -43,7 +43,7 @@ spec:
               key: pgid
       containers:
       - name: jellyfin
-        image: jellyfin/jellyfin:10.7.5
+        image: jellyfin/jellyfin:10.7.6
         imagePullPolicy: IfNotPresent
         resources:
           requests:
