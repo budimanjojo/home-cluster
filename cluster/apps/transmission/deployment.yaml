@@ -43,7 +43,7 @@ spec:
               key: pgid
       containers:
       - name: transmission
-        image: ghcr.io/linuxserver/transmission:version-3.00-r2-ls92
+        image: ghcr.io/linuxserver/transmission:version-3.00-r2
         imagePullPolicy: IfNotPresent
         resources:
           requests:
