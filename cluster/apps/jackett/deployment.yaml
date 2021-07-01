@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: jackett
-        image: ghcr.io/linuxserver/jackett:v0.18.386
+        image: ghcr.io/linuxserver/jackett:version-v0.18.386
         imagePullPolicy: IfNotPresent
         resources:
           requests:
