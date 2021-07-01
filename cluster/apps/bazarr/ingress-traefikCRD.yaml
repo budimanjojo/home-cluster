@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bazarr
+  labels:
+    app.kubernetes.io/name: bazarr
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`bazarr.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: dashboard-headers@file
+    - name: authelia
+      namespace: authentication-system
+    services:
+    - name: bazarr-svc
+      port: 6767
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME}-prod-tls

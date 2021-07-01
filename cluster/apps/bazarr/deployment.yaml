@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  labels:
+    app.kubernetes.io/name: bazarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bazarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bazarr
+    spec:
+      initContainers:
+      - name: init-permission
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          chown -R $PUID:$PGID /data &&
+          chmod -R 755 /data
+        volumeMounts:
+        - name: bazarr-media
+          mountPath: /data
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+      containers:
+      - name: bazarr
+        image: ghcr.io/linuxserver/bazarr:version-v0.9.2
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 200Mi
+        ports:
+        - name: bazarr-port
+          protocol: TCP
+          containerPort: 6767
+        volumeMounts:
+        - name: bazarr-config
+          mountPath: /config
+        - name: bazarr-media
+          mountPath: /data
+        livenessProbe:
+          tcpSocket:
+            port: bazarr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          tcpSocket:
+            port: bazarr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: tz
+      volumes:
+      - name: bazarr-config
+        persistentVolumeClaim:
+          claimName: bazarr-config
+      - name: bazarr-media
+        persistentVolumeClaim:
+          claimName: shared-media
