@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jackett
+  labels:
+    app.kubernetes.io/name: jackett
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`jackett.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: headers@file
+    - name: authelia
+      namespace: authentication-system
+    services:
+    - name: jackett-svc
+      port: 9117
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
