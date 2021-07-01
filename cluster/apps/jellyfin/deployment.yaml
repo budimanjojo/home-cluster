@@ -61,7 +61,7 @@ spec:
         - name: jellyfin-config
           mountPath: /config
         - name: jellyfin-media
-          mountPath: /data
+          mountPath: /media
         livenessProbe:
           tcpSocket:
             port: jellyfin-port
@@ -94,6 +94,11 @@ spec:
             configMapKeyRef:
               name: linuxserver-default-env
               key: tz
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       volumes:
       - name: jellyfin-config
         persistentVolumeClaim:
