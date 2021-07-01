@@ -1,0 +1,205 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+    spec:
+      initContainers:
+      - name: wait-database
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+          do echo "Waiting for database";
+          done
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: mysql_host
+      - name: wait-redis
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          until nc -w 1 -v $REDIS_HOST:$REDIS_HOST_PORT;
+          do echo "Waiting for Redis";
+          done
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: redis_host
+        - name: REDIS_HOST_PORT
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: redis_host_port
+      - name: init-permission
+        image: nextcloud:apache
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          chown -R 33:33 /data &&
+          chmod -R 750 /data
+        volumeMounts:
+        - name: nextcloud-data
+          mountPath: /data
+      containers:
+      - name: nextcloud
+        image: nextcloud:apache
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 150Mi
+        ports:
+        - name: nextcloud-port
+          protocol: TCP
+          containerPort: 80
+        volumeMounts:
+        - name: nextcloud-config
+          mountPath: /var/www/html
+        - name: nextcloud-data
+          mountPath: /var/www/data
+        startupProbe:
+          httpGet:
+            path: /status.php
+            port: nextcloud-port
+            httpHeaders:
+            - name: Host
+              value: nextcloud.${SECRET_DOMAIN_0}
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 20
+          successThreshold: 1
+          failureThreshold: 30
+        livenessProbe:
+          httpGet:
+            path: /status.php
+            port: nextcloud-port
+            httpHeaders:
+            - name: Host
+              value: nextcloud.${SECRET_DOMAIN_0}
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /status.php
+            port: nextcloud-port
+            httpHeaders:
+            - name: Host
+              value: nextcloud.${SECRET_DOMAIN_0}
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: mysql_database
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: mysql_user
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: mysql_host
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: redis_host
+        - name: REDIS_HOST_PORT
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: redis_host_port
+        - name: REDIS_HOST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: redis_host_password
+        - name: NEXTCLOUD_ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: admin_user
+        - name: NEXTCLOUD_TRUSTED_DOMAINS
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: trusted_domains
+        - name: NEXTCLOUD_DATA_DIR
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: data_dir
+        - name: NEXTCLOUD_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: admin_password
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: mysql_password
+        - name: APACHE_DISABLE_REWRITE_IP
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: disable_rewrite_ip
+        - name: TRUSTED_PROXIES
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: trusted_proxies
+      - name: nextcloud-cron
+        image: nextcloud:apache
+        imagePullPolicy: IfNotPresent
+        command:
+        - /cron.sh
+        volumeMounts:
+        - name: nextcloud-config
+          mountPath: /var/www/html
+        - name: nextcloud-data
+          mountPath: /var/www/data
+      volumes:
+      - name: nextcloud-config
+        persistentVolumeClaim:
+          claimName: nextcloud-config
+      - name: nextcloud-data
+        persistentVolumeClaim:
+          claimName: nextcloud-data

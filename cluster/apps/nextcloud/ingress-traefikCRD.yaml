@@ -1,0 +1,36 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`nextcloud.budimanjojo.com`)
+    middlewares:
+    - name: headers@file
+    - name: nextcloud
+      namespace: default
+    services:
+    - name: nextcloud-svc
+      port: 80
+      namespace: default
+  tls:
+    secretName: budimanjojo-com-prod-tls
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nextcloud
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  redirectRegex:
+    permanent: true
+    regex: "https://(.*)/.well-known/(card|cal)dav"
+    replacement: "https://$1/remote.php/dav/"
