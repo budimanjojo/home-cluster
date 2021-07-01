@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unpackerr
+  labels:
+    app.kubernetes.io/name: unpackerr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: unpackerr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: unpackerr
+    spec:
+      initContainers:
+      - name: init-permission
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        args:
+        - -c
+        - >-
+          chown -R $PUID:$PGID /downloads &&
+          chmod -R 755 /downloads
+        volumeMounts:
+        - name: unpackerr-downloads
+          mountPath: /downloads
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+      containers:
+      - name: unpackerr
+        image: hotio/unpackerr:release-0.9.6
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 250Mi
+          limits:
+            cpu: 300m
+            memory: 500Mi
+        volumeMounts:
+        - name: unpackerr-downloads
+          mountPath: /downloads
+        livenessProbe:
+          tcpSocket:
+            port: unpackerr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        readinessProbe:
+          tcpSocket:
+            port: radarr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: tz
+        envFrom:
+        - secretRef:
+            name: unpackerr-secrets
+      volumes:
+      - name: unpackerr-downloads
+        persistentVolumeClaim:
+          claimName: shared-downloads
