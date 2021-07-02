@@ -55,22 +55,6 @@ spec:
         volumeMounts:
         - name: unpackerr-downloads
           mountPath: /downloads
-        livenessProbe:
-          tcpSocket:
-            port: unpackerr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 30
-        readinessProbe:
-          tcpSocket:
-            port: radarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 30
         env:
         - name: PUID
           valueFrom:
