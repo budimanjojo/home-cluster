@@ -16,31 +16,6 @@ spec:
       labels:
         app.kubernetes.io/name: jellyfin
     spec:
-      initContainers:
-      - name: init-permission
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          chown -R $PUID:$PGID /data &&
-          chmod -R 755 /data
-        volumeMounts:
-        - name: jellyfin-media
-          mountPath: /data
-        env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
       containers:
       - name: jellyfin
         image: jellyfin/jellyfin:10.7.6
@@ -79,16 +54,6 @@ spec:
           successThreshold: 1
           failureThreshold: 150
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
