@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: unpackerr
-        image: hotio/unpackerr:release-0.9.6
+        image: golift/unpackerr:0.9.6
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -47,16 +47,6 @@ spec:
           successThreshold: 1
           failureThreshold: 30
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
@@ -66,6 +56,8 @@ spec:
         - secretRef:
             name: unpackerr-secrets
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
