@@ -59,8 +59,3 @@ data:
             customFrameOptionsValue: SAMEORIGIN
             contentTypeNosniff: true
             browserXSSFilter: true
-        wordpress:
-          redirectRegex:
-            permanent: true
-            regex: "^https?://www.${SECRET_DOMAIN_0}/(.*)"
-            replacement: "https://${SECRET_DOMAIN_0}/${1}"

@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app.kubernetes.io/name: wordpress
+  annotations:
+    keel.sh/policy: all
+    keel.sh/trigger: poll
+    keel.sh/pollSchedule: "@daily"
+    keel.sh/approvals: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: wordpress
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+        ports:
+        - name: wordpress-port
+          protocol: TCP
+          containerPort: 80
+        volumeMounts:
+        - name: wordpress-config
+          mountPath: /var/www/html
+        livenessProbe:
+          httpGet:
+            path: /wp-admin/install.php
+            port: wordpress-port
+            scheme: HTTP
+          initialDelaySeconds: 120
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 6
+        readinessProbe:
+          httpGet:
+            path: /wp-admin/install.php
+            port: wordpress-port
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 6
+        env:
+        - name: WORDPRESS_DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: wordpress-secrets
+              key: wordpress_db_host
+        - name: WORDPRESS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: wordpress-secrets
+              key: wordpress_db_user
+        - name: WORDPRESS_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: wordpress-secrets
+              key: wordpress_db_name
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wordpress-secrets
+              key: wordpress_db_password
+      volumes:
+      - name: wordpress-config
+        persistentVolumeClaim:
+          claimName: wordpress-config
