@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: lidarr
-        image: ghcr.io/k8s-at-home/lidarr:v0.8.1.2145
+        image: ghcr.io/k8s-at-home/lidarr:v0.8.1.2169
         imagePullPolicy: IfNotPresent
         resources:
           requests:
