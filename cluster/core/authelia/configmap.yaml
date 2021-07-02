@@ -22,7 +22,7 @@ data:
       skew: 1
     duo_api:
       hostname: ${SECRET_DUO_HOSTNAME_0}
-      integration_key: ${SECRETE_DUO_KEY_0}
+      integration_key: ${SECRET_DUO_KEY_0}
     authentication_backend:
       disable_reset_password: true
       refresh_interval: disable
