@@ -66,3 +66,5 @@ A lot of inspiration for my cluster came from the people that have shared their 
 - [ ] Document stuffs
 - [ ] Pre-commit checks
 - [ ] Replace kubed with fluxcd envsubs
+- [ ] Replace non standard versioning containers
+- [ ] Use security context for permissions instead
