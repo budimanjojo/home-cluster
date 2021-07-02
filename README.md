@@ -61,10 +61,10 @@ A lot of inspiration for my cluster came from the people that have shared their 
 
 ## Todo List
 
-- [ ] Move everything here
+- [x] Move everything here
 - [x] Use Renovate to auto PR updates
 - [ ] Document stuffs
 - [ ] Pre-commit checks
 - [ ] Replace kubed with fluxcd envsubs
-- [ ] Replace non standard versioning containers
-- [ ] Use security context for permissions instead
+- [x] Replace non standard versioning containers
+- [x] Use security context for permissions instead
