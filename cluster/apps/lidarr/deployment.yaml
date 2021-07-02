@@ -16,39 +16,9 @@ spec:
       labels:
         app.kubernetes.io/name: lidarr
     spec:
-      initContainers:
-      - name: init-permission
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          chown -R $PUID:$PGID /music &&
-          chmod -R 755 /music &&
-          chown -R $PUID:$PGID /downloads &&
-          chmod -R 755 /downloads
-        volumeMounts:
-        - name: lidarr-media
-          mountPath: /music
-          subPath: Music
-        - name: lidarr-downloads
-          mountPath: /downloads
-        env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
       containers:
       - name: lidarr
-        image: ghcr.io/linuxserver/lidarr:version-0.8.1.2135
+        image: ghcr.io/k8s-at-home/lidarr:v0.8.1.2145
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -83,21 +53,16 @@ spec:
           successThreshold: 1
           failureThreshold: 15
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
               name: linuxserver-default-env
               key: tz
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       volumes:
       - name: lidarr-config
         persistentVolumeClaim:
