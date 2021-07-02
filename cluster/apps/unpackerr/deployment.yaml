@@ -16,31 +16,6 @@ spec:
       labels:
         app.kubernetes.io/name: unpackerr
     spec:
-      initContainers:
-      - name: init-permission
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          chown -R $PUID:$PGID /downloads &&
-          chmod -R 755 /downloads
-        volumeMounts:
-        - name: unpackerr-downloads
-          mountPath: /downloads
-        env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
       containers:
       - name: unpackerr
         image: hotio/unpackerr:release-0.9.6
@@ -56,16 +31,6 @@ spec:
         - name: unpackerr-downloads
           mountPath: /downloads
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
@@ -74,6 +39,11 @@ spec:
         envFrom:
         - secretRef:
             name: unpackerr-secrets
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       volumes:
       - name: unpackerr-downloads
         persistentVolumeClaim:
