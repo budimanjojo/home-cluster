@@ -16,39 +16,9 @@ spec:
       labels:
         app.kubernetes.io/name: sonarr
     spec:
-      initContainers:
-      - name: init-permission
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          chown -R $PUID:$PGID /tv &&
-          chmod -R 755 /tv &&
-          chown -R $PUID:$PGID /downloads &&
-          chmod -R 755 /downloads
-        volumeMounts:
-        - name: sonarr-media
-          mountPath: /tv
-          subPath: TV
-        - name: sonarr-downloads
-          mountPath: /downloads
-        env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
       containers:
       - name: sonarr
-        image: ghcr.io/linuxserver/sonarr:version-3.0.6.1196
+        image: ghcr.io/k8s-at-home/sonarr:v3.0.6.1196
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -86,21 +56,16 @@ spec:
           successThreshold: 1
           failureThreshold: 30
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
               name: linuxserver-default-env
               key: tz
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       volumes:
       - name: sonarr-config
         persistentVolumeClaim:
