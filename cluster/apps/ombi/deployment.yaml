@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: ombi
-        image: hotio/ombi:release-4.0.1342
+        image: ghcr.io/linuxserver/ombi:version-v4.0.1342
         imagePullPolicy: IfNotPresent
         resources:
           requests:
