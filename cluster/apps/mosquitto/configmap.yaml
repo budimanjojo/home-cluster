@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-configs
+  labels:
+    app.kubernetes.io/name: mosquitto
+data:
+  mosquitto.conf: |
+    listener 1883
+    allow_anonymous true

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto-svc
+  labels:
+    app.kubernetes.io/name: mosquitto
+spec:
+  selector:
+    app.kubernetes.io/name: mosquitto
+  ports:
+  - name: mqtt-port
+    protocol: TCP
+    port: 1883
+    targetPort: mqtt-port
+  type: ClusterIP
