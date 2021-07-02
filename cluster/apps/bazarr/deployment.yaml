@@ -16,34 +16,9 @@ spec:
       labels:
         app.kubernetes.io/name: bazarr
     spec:
-      initContainers:
-      - name: init-permission
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          chown -R $PUID:$PGID /data &&
-          chmod -R 755 /data
-        volumeMounts:
-        - name: bazarr-media
-          mountPath: /data
-        env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
       containers:
       - name: bazarr
-        image: ghcr.io/linuxserver/bazarr:version-v0.9.2
+        image: ghcr.io/k8s-at-home/bazarr:v0.9.2
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -75,21 +50,16 @@ spec:
           successThreshold: 1
           failureThreshold: 5
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
               name: linuxserver-default-env
               key: tz
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       volumes:
       - name: bazarr-config
         persistentVolumeClaim:
