@@ -18,39 +18,9 @@ spec:
       annotations:
         diun.enable: "true"
     spec:
-      initContainers:
-      - name: init-permission
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          chown -R $PUID:$PGID /movies &&
-          chmod -R 755 /movies &&
-          chown -R $PUID:$PGID /downloads &&
-          chmod -R 755 /downloads
-        volumeMounts:
-        - name: radarr-media
-          mountPath: /movies
-          subPath: Movies
-        - name: radarr-downloads
-          mountPath: /downloads
-        env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
       containers:
       - name: radarr
-        image: ghcr.io/linuxserver/radarr:version-3.0.2.4552
+        image: ghcr.io/k8s-at-home/radarr:v3.0.2.4552
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -88,21 +58,16 @@ spec:
           successThreshold: 1
           failureThreshold: 5
         env:
-        - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
-        - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
               name: linuxserver-default-env
               key: tz
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       volumes:
       - name: radarr-config
         persistentVolumeClaim:
