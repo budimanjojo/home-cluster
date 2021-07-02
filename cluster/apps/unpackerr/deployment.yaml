@@ -30,7 +30,33 @@ spec:
         volumeMounts:
         - name: unpackerr-downloads
           mountPath: /downloads
+        livenessProbe:
+          tcpSocket:
+            port: unpackerr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        readinessProbe:
+          tcpSocket:
+            port: radarr-port
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
         env:
+        - name: PUID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: puid
+        - name: PGID
+          valueFrom:
+            configMapKeyRef:
+              name: linuxserver-default-env
+              key: pgid
         - name: TZ
           valueFrom:
             configMapKeyRef:
@@ -40,8 +66,6 @@ spec:
         - secretRef:
             name: unpackerr-secrets
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
