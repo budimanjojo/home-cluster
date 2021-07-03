@@ -9,8 +9,27 @@ spec:
     organizations:
     - budimanjojo
   issuerRef:
-    name: letsencrypt-prod
+    name: ${SECRET_DOMAIN_0}-prod
     kind: ClusterIssuer
   dnsNames:
   - "${SECRET_DOMAIN_0}"
   - "*.${SECRET_DOMAIN_0}"
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "${SECRET_CERT_NAME_1}"
+  namespace: default
+spec:
+  secretName: "${SECRET_CERT_NAME_1}-prod-tls"
+  subject:
+    organizations:
+    - budimanjojo
+  issuerRef:
+    name: ${SECRET_DOMAIN_1}-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - "${SECRET_DOMAIN_1}"
+  - "*.${SECRET_DOMAIN_1}"
