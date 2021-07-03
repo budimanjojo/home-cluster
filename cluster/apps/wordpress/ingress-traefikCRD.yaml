@@ -9,7 +9,7 @@ spec:
   - https
   routes:
   - kind: Rule
-    match: Host(`${SECRET_DOMAIN_0}`,`www.${SECRET_DOMAIN_0}`)
+    match: Host(`${SECRET_DOMAIN_1}`,`www.${SECRET_DOMAIN_1}`)
     middlewares:
     - name: headers@file
     - name: wordpress
@@ -19,7 +19,7 @@ spec:
       port: 80
       namespace: default
   tls:
-    secretName: ${SECRET_CERT_NAME_0}-prod-tls
+    secretName: ${SECRET_CERT_NAME_1}-prod-tls
 
 ---
 
@@ -32,5 +32,5 @@ metadata:
 spec:
   redirectRegex:
     permanent: true
-    regex: "https?://www.${SECRET_DOMAIN_0}(.*)"
-    replacement: "https://${SECRET_DOMAIN_0}/${1}"
+    regex: "https?://www.${SECRET_DOMAIN_1}(.*)"
+    replacement: "https://${SECRET_DOMAIN_1}/${1}"
