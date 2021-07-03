@@ -97,10 +97,7 @@ spec:
           failureThreshold: 1
         env:
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
       serviceAccountName: traefik
       volumes:
       - name: traefik-config

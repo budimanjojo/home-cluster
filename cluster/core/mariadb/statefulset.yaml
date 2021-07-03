@@ -67,20 +67,11 @@ spec:
           failureThreshold: 300
         env:
         - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
+          value: "1000"
         - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
+          value: "1000"
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:

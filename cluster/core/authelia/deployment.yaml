@@ -81,10 +81,7 @@ spec:
         - name: AUTHELIA_SESSION_REDIS_PASSWORD_FILE
           value: /secrets/redis
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
       volumes:
       - name: authelia-config
         configMap:

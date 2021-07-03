@@ -52,15 +52,9 @@ spec:
           failureThreshold: 5
         env:
         - name: PUID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: puid
+          value: "1000"
         - name: PGID
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: pgid
+          value: "1000"
         - name: TZ
           value: ${CONFIG_TIMEZONE}
       securityContext:
