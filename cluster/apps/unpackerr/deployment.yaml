@@ -32,10 +32,7 @@ spec:
           mountPath: /downloads
         env:
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
         envFrom:
         - secretRef:
             name: unpackerr-secrets

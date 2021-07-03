@@ -62,10 +62,7 @@ spec:
               name: linuxserver-default-env
               key: pgid
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"

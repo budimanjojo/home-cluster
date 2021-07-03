@@ -59,10 +59,7 @@ spec:
           failureThreshold: 5
         env:
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

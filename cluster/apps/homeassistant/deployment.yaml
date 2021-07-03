@@ -57,10 +57,7 @@ spec:
           failureThreshold: 30
         env:
         - name: TZ
-          valueFrom:
-            configMapKeyRef:
-              name: linuxserver-default-env
-              key: tz
+          value: ${CONFIG_TIMEZONE}
       dnsPolicy: ClusterFirst
       securityContext:
         runAsUser: 0
