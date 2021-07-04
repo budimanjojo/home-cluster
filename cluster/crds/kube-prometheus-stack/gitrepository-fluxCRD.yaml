@@ -1,0 +1,15 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: kube-prometheus-stack-crds
+  namespace: flux-system
+spec:
+  interval: 30m0s
+  ref:
+    # renovate: depName=prometheus-operator/kube-prometheus datasource=github-tags
+    tag: v0.8.0
+  url: https://github.com/prometheus-operator/kube-prometheus.git
+  ignore: |
+    /*
+    !/manifests/setup/
