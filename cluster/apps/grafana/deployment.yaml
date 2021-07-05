@@ -26,6 +26,8 @@ spec:
         - -R
         - 472:472
         - /var/lib/grafana
+        securityContext:
+          runAsUser: 0
         volumeMounts:
         - name: grafana-config
           mountPath: /var/lib/grafana
