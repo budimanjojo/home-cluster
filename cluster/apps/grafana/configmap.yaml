@@ -40,7 +40,7 @@ data:
     providers:
     - name: watcher-dashboardproviders
       type: file
-      orgId: 2
+      orgId: 1
       folder: ""
       options:
         path: /tmp/dashboards
