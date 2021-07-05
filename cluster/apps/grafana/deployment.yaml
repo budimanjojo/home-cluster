@@ -42,6 +42,8 @@ spec:
           value: /tmp/dashboards
         - name: RESOURCE
           value: both
+        - name: NAMESPACE
+          value: ALL
         volumeMounts:
         - name: watcher-dashboard-volume
           mountPath: /tmp/dashboards
@@ -117,6 +119,7 @@ spec:
         runAsUser: 472
         runAsGroup: 472
         fsGroup: 472
+      serviceAccountName: grafana
       volumes:
       - name: grafana-config
         persistentVolumeClaim:
@@ -126,4 +129,3 @@ spec:
           name: grafana-configs
       - name: watcher-dashboard-volume
         emptyDir: {}
-
