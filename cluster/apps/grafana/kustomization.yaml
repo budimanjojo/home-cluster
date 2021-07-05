@@ -6,6 +6,7 @@ resources:
 - deployment.yaml
 - ingress-traefikCRD.yaml
 - pvc.yaml
+- rbac.yaml
 - secret.yaml
 - service.yaml
 - servmonitor-prometheusCRD.yaml
