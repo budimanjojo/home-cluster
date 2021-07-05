@@ -34,7 +34,7 @@ metadata:
   labels:
     app.kubernetes.io/name: grafana
 roleRef:
-  apiGroup: rbac.autorization.k8s.io
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: grafana
 subjects:
