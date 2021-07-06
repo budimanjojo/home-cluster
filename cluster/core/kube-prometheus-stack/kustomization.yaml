@@ -4,7 +4,6 @@ resources:
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-alertmanager.yaml
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-podDisruptionBudget.yaml
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-prometheusRule.yaml
-- https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-secret.yaml
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-service.yaml
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-serviceAccount.yaml
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/alertmanager-serviceMonitor.yaml
@@ -64,3 +63,4 @@ resources:
 - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/prometheus-roleSpecificNamespaces.yaml
 - prometheus-roleSpecificNamespaces.yaml
 - prometheus-roleBindingSpecificNamespaces.yaml
+- alertmanager-secret.yaml
