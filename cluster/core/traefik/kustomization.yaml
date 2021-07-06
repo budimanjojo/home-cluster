@@ -5,6 +5,7 @@ resources:
 - configmap.yaml
 - deployment.yaml
 - ingress-traefikCRD.yaml
+- podmonitor-prometheusCRD.yaml
 - rbac.yaml
 - service.yaml
 - tlsoptions.yaml
