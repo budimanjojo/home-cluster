@@ -62,6 +62,7 @@ spec:
         - --accesslog.fields.headers.names.User-Agent=redact
         - --accesslog.fields.headers.names.Authorization=drop
         - --accesslog.fields.headers.names.Content-Type=keep
+        - --metrics.prometheus=true
         ports:
         - name: traefik-port
           protocol: TCP
