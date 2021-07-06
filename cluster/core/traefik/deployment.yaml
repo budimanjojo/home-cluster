@@ -41,6 +41,7 @@ spec:
         - --entrypoints.https.proxyprotocol.trustedips=127.0.0.1
         - --entrypoints.https.forwardedheaders.trustedips=127.0.0.1/32
         - --entrypoints.traefik.address=:8080/tcp
+        - --entrypoints.metrics.address=:8082
         - --providers.providersthrottleduration=2
         - --providers.kubernetescrd=true
         - --providers.kubernetesingress=true
@@ -63,10 +64,14 @@ spec:
         - --accesslog.fields.headers.names.Authorization=drop
         - --accesslog.fields.headers.names.Content-Type=keep
         - --metrics.prometheus=true
+        - --metrics.prometheus.entryPoint=metrics
         ports:
         - name: traefik-port
           protocol: TCP
           containerPort: 8080
+        - name: metrics-port
+          protocol: TCP
+          containerPort: 8082
         - name: traefik-http
           protocol: TCP
           containerPort: 80
