@@ -9,10 +9,10 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
-    namespaceSelector:
-      matchNames:
-      - ingress-system
-    podMetricsEndpoints:
-    - port: traefik-port
-      path: /metrics
-      interval: 15s
+  namespaceSelector:
+    matchNames:
+    - ingress-system
+  podMetricsEndpoints:
+  - port: traefik-port
+    path: /metrics
+    interval: 15s
