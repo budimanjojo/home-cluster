@@ -13,6 +13,6 @@ spec:
     matchNames:
     - ingress-system
   podMetricsEndpoints:
-  - port: traefik-port
+  - port: traefik
     path: /metrics
     interval: 15s
