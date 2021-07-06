@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaultwarden-svc
+  labels:
+    app.kubernetes.io/name: vaultwarden
+spec:
+  selector:
+    app.kubernetes.io/name: vaultwarden
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: gui-port
+  - name: websocket
+    protocol: TCP
+    port: 3012
+    targetPort: websocket-port
+  type: ClusterIP

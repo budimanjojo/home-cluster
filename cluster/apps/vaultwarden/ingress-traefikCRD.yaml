@@ -1,0 +1,28 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vaultwarden
+  labels:
+    app.kubernetes.io/name: vaultwarden
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`vault.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: dashboard-headers@file
+    services:
+    - name: vaultwarden-svc
+      port: 80
+      namespace: default
+  - kind: Rule
+    match: Host(`vault.${SECRET_DOMAIN_0}`) && Path(`/notifications/hub`)
+    middlewares:
+    - name: dashboard-headers@file
+    services:
+    - name: vaultwarden-svc
+      port: 3012
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
