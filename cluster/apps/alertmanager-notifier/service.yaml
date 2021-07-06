@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: alertmanager-notifier
+  name: alertmanager-notifier-svc
   namespace: monitoring
   labels:
     app.kubernetes.io/name: alertmanager-notifier
