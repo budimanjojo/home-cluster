@@ -64,3 +64,5 @@ resources:
 - prometheus-roleSpecificNamespaces.yaml
 - prometheus-roleBindingSpecificNamespaces.yaml
 - alertmanager-secret.yaml
+patchesStrategicMerge:
+- prometheus-patch.yaml
