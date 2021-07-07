@@ -66,3 +66,4 @@ resources:
 - alertmanager-secret.yaml
 patchesStrategicMerge:
 - prometheus-patch.yaml
+- alertmanager-patch.yaml
