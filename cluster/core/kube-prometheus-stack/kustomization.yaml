@@ -64,6 +64,7 @@ resources:
 - prometheus-roleSpecificNamespaces.yaml
 - prometheus-roleBindingSpecificNamespaces.yaml
 - alertmanager-secret.yaml
+- kubernetes-service.yaml
 patchesStrategicMerge:
 - prometheus-patch.yaml
 - alertmanager-patch.yaml
