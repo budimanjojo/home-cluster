@@ -8,7 +8,7 @@ spec:
   interval: 30m0s
   ref:
     # renovate: depName=traefik/traefik-helm-chart datasource=github-tags
-    tag: v9.20.1
+    tag: v10.0.0
   url: https://github.com/traefik/traefik-helm-chart.git
   ignore: |
     /*
