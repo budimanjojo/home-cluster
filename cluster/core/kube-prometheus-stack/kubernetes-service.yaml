@@ -6,11 +6,12 @@ metadata:
   labels:
     app.kubernetes.io/name: kube-scheduler
 spec:
+  selector:
+    component: kube-scheduler
   ports:
   - name: https-metrics
     port: 10259
-  selector:
-    component: kube-scheduler
+    targetPort: 20259
 
 ---
 
@@ -22,8 +23,9 @@ metadata:
   labels:
     app.kubernetes.io/name: kube-controller-manager
 spec:
+  selector:
+    component: kube-controller-manager
   ports:
   - name: https-metrics
     port: 10257
-  selector:
-    component: kube-controller-manager
+    targetPort: 10257
