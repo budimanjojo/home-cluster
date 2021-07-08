@@ -5,18 +5,18 @@ metadata:
   namespace: flux-system
   labels:
     app.kubernetes.io/part-of: flux
-  spec:
-    selector:
-      matchExpressions:
-      - key: app
-        operator: In
-        values:
-        - helm-controller
-        - source-controller
-        - kustomize-controller
-        - notification-controller
-    namespaceSelector:
-      matchNames:
-      - flux-system
-    podMetricsEndpoints:
-    - port: http-prom
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - helm-controller
+      - source-controller
+      - kustomize-controller
+      - notification-controller
+  namespaceSelector:
+    matchNames:
+    - flux-system
+  podMetricsEndpoints:
+  - port: http-prom
