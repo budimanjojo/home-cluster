@@ -4,6 +4,7 @@ resources:
 - 01-namespace.yaml
 - configmap.yaml
 - deployment.yaml
+- grafana-dashboard.yaml
 - ingress-traefikCRD.yaml
 - podmonitor-prometheusCRD.yaml
 - rbac.yaml

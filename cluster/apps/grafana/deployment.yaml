@@ -71,9 +71,6 @@ spec:
           mountPath: /etc/grafana/provisioning/datasources/datasources.yaml
           subPath: datasources.yaml
         - name: grafana-configs
-          mountPath: /etc/grafana/provisioning/dashboards/dashboardproviders.yaml
-          subPath: dashboardproviders.yaml
-        - name: grafana-configs
           mountPath: /etc/grafana/provisioning/dashboards/watcher-dashboardproviders.yaml
           subPath: watcher-dashboardproviders.yaml
         - name: watcher-dashboard-volume

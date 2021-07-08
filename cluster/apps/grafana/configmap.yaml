@@ -24,17 +24,6 @@ data:
       url: http://prometheus-operated.monitoring.svc.cluster.local:9090
       isDefault: true
       editable: false
-  dashboardproviders.yaml: |
-    apiVersion: 1
-    providers:
-    - name: default
-      type: file
-      orgId: 1
-      folder: ""
-      options:
-        path: /var/lib/grafana/dashboards/default
-      disableDeletion: false
-      editable: true
   watcher-dashboardproviders.yaml: |
     apiVersion: 1
     providers:
@@ -48,3 +37,4 @@ data:
       disableDeletion: false
       allowUiUpdates: false
       updateIntervalSeconds: 30
+  plugins: grafana-piechart-panel
