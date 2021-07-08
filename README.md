@@ -60,6 +60,7 @@ The Git repository contains the following directories under `cluster` and are or
 Dashboards included in my cluster are:
 - The provided dashboard from [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
 - Traefik dashboard from [grafanalabs](https://grafana.com/grafana/dashboards/12250)
+- Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/grafana/dashboards)
 
 To add your own dashboard, create a configmap with the data include the json file of the dashboard and add label `grafana_dashboard: "1"` to the manifest. The sidecar container from this [image](https://github.com/kiwigrid/k8s-sidecar) will mount the dashboard into your grafana pod.
 
