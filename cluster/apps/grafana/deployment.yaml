@@ -104,6 +104,11 @@ spec:
             secretKeyRef:
               name: grafana-secrets
               key: gf_security_admin_password
+        - name: GF_INSTALL_PLUGINS
+          valueFrom:
+            configMapKeyRef:
+              name: grafana-configs
+              key: plugins
         - name: GF_PATHS_DATA
           value: /var/lib/grafana/data
         - name: GF_PATHS_LOGS
