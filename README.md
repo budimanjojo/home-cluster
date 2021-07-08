@@ -31,6 +31,8 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
   - [MetalLB](https://metallb.universe.tf/): Load balancer for bare metal Kubernetes cluster.
   - [keepalived](https://github.com/acassen/keepalived): Loadbalancing & high-availability for master nodes.
   - [haproxy](http://www.haproxy.org/): Load balancer for keepalived master nodes.
+  - [Prometheus](https://prometheus.io/): Scraping metrics from the entire cluster
+  - [Grafana](https://grafana.com): Visualization for the metrics from Prometheus
   
 ---
 
@@ -53,6 +55,14 @@ The Git repository contains the following directories under `cluster` and are or
 
 ---
 
+## :bar_chart:&nbsp; Grafana dashboard
+
+Dashboards included in my cluster are:
+- The provided dashboard from [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
+- Traefik dashboard from [grafanalabs](https://grafana.com/grafana/dashboards/12250)
+
+To add your own dashboard, create a configmap with the data include the json file of the dashboard and add label `grafana_dashboard: "1"` to the manifest. The sidecar container from this [image](https://github.com/kiwigrid/k8s-sidecar) will mount the dashboard into your grafana pod.
+
 ## :handshake:&nbsp; Thanks
 
 A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes)
@@ -68,3 +78,4 @@ A lot of inspiration for my cluster came from the people that have shared their 
 - [ ] Replace kubed with fluxcd envsubs
 - [x] Replace non standard versioning containers
 - [x] Use security context for permissions instead
+- [ ] Planning to use kubespray to provision cluster
