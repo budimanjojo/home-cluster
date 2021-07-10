@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   replicas: 1
-  resources:
-    limits:
-      cpu: 200m
-      memory: 600Mi
+  # resources:
+  #   limits:
+  #     cpu: 200m
+  #     memory: 600Mi
