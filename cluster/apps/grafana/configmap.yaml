@@ -21,7 +21,7 @@ data:
       type: prometheus
       orgId: 1
       access: proxy
-      url: http://prometheus-operated.monitoring.svc.cluster.local:9090
+      url: http://prometheus-operated.monitoring-system.svc.cluster.local:9090
       isDefault: true
       editable: false
   watcher-dashboardproviders.yaml: |
