@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: grafana-config
-  namespace: monitoring
+  namespace: monitoring-system
   labels:
     app.kubernetes.io/name: grafana
 spec:
