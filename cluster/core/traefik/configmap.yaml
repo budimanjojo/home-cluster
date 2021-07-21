@@ -21,15 +21,6 @@ data:
         #   redirectScheme:
         #     scheme: https
         #     permanent: true
-        authelia:
-          forwardAuth:
-            address: "http://authelia-svc:9091/api/verify?rd=https://auth.${SECRET_DOMAIN_0}"
-            trustForwardHeader: true
-            authResponseHeaders:
-            - Remote-User
-            - Remote-Groups
-            - Remote-Name
-            - Remote-Email
         headers:
           headers:
             sslRedirect: true
