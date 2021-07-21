@@ -45,6 +45,8 @@ spec:
         - --providers.providersthrottleduration=2
         - --providers.kubernetescrd=true
         - --providers.kubernetesingress=true
+        - --providers.kubernetescrd.allowexternalnameservices=true
+        - --providers.kubernetescrd.allowcrossnamespace=true
         - --providers.file.directory=/etc/traefik
         - --api.dashboard=true
         - --api.debug=true
