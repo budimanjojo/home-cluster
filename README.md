@@ -19,21 +19,29 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 
 ## :art:&nbsp; Cluster components
 
-  - [weave](https://www.weave.works/product/enterprise-kubernetes-platform/): For internal cluster networking.
-  - [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner): Provides persistent volumes from NFS server.
+### Cluster management
+  - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/): Create and update cluster (planning to move to kubespray soon).
+  - [fluxcd](https://fluxcd.io/): Sync kubernetes cluster with this repository.
   - [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/): Encrypts secrets which is safe to store - even to a public repository.
-  - [traefik](https://github.com/traefik/traefik): Ingress controller for services.
-  - [authelia](https://www.authelia.com/): Full featured authentication server.
-  - [cert-manager](https://cert-manager.io/docs/): Configured to create TLS certs for all ingress services automatically using LetsEncrypt.
-  - [Kubed](https://appscode.com/products/kubed/): Configmap and Secrets syncronization.
-  - [node-feature-discovery](https://github.com/kubernetes-sigs/node-feature-discovery): Discover features available on nodes.
-  - [smarter-device-manager](https://gitlab.com/arm-research/smarter/smarter-device-manager): Access devices available on nodes.
+  - [Kubed](https://appscode.com/products/kubed/): Configmap and Secrets syncronization (deprecated soon for fluxcd built-in envsubs)
+### Networking
+  - [weave](https://www.weave.works/product/enterprise-kubernetes-platform/): For internal cluster networking.
   - [MetalLB](https://metallb.universe.tf/): Load balancer for bare metal Kubernetes cluster.
   - [keepalived](https://github.com/acassen/keepalived): Loadbalancing & high-availability for master nodes.
   - [haproxy](http://www.haproxy.org/): Load balancer for keepalived master nodes.
+  - [cert-manager](https://cert-manager.io/docs/): Configured to create TLS certs for all ingress services automatically using LetsEncrypt.
+  - [traefik](https://github.com/traefik/traefik): Ingress controller for services.
+  - [authelia](https://www.authelia.com/): Full featured authentication server.
+### Storage
+  - [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner): Provides persistent volumes from NFS server.
+### Host devices access
+  - [Intel GPU plugin](https://github.com/intel/intel-device-plugins-for-kubernetes): Access intel gpu available on nodes.
+  - [node-feature-discovery](https://github.com/kubernetes-sigs/node-feature-discovery): Discover features available on nodes.
+  - [smarter-device-manager](https://gitlab.com/arm-research/smarter/smarter-device-manager): Access devices available on nodes.
+### Metrics
   - [Prometheus](https://prometheus.io/): Scraping metrics from the entire cluster
   - [Grafana](https://grafana.com): Visualization for the metrics from Prometheus
-  
+
 ---
 
 ## :open_file_folder:&nbsp; Repository structure
@@ -55,12 +63,20 @@ The Git repository contains the following directories under `cluster` and are or
 
 ---
 
-## :bar_chart:&nbsp; Grafana dashboard
+## :lock_with_ink_pen:&nbsp; Secret and configmaps management
+
+Secrets are encrypted using [sops](https://github.com/mozilla/sops) before being pushed into this repository. The encrypted secrets are then decrypted by sops using the private key inside the cluster. Encryption/decryption are done using [age](https://github.com/FiloSottile/age). The public key to encrypt the secret can be accessed in [.sops.yaml](.sops.yaml). Secrets environment variables for the cluster are done by the built-in fluxcd envsubs feature can be accessed in [cluster-secret-vars.yaml](.cluster/base/cluster-secret-vars.yaml). The non secret equivalent can be accessed in [cluster-vars.yaml](.cluster/base/cluster-vars.yaml).
+
+---
+
+## :bar_chart:&nbsp; Metrics and chart management
+
+Metrics scraping for the cluster are done using Prometheus. The manifests are generated from my own maintained [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus), can be accessed [here](https://github.com/budimanjojo/kube-prometheus).
 
 Dashboards included in my cluster are:
-- The provided dashboard from [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
-- Traefik dashboard from [grafanalabs](https://grafana.com/grafana/dashboards/12250)
-- Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/grafana/dashboards)
+  - The provided dashboard from [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
+  - Traefik dashboard from [grafanalabs](https://grafana.com/grafana/dashboards/12250)
+  - Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/grafana/dashboards)
 
 To add your own dashboard, create a configmap with the data include the json file of the dashboard and add label `grafana_dashboard: "1"` to the manifest. The sidecar container from this [image](https://github.com/kiwigrid/k8s-sidecar) will mount the dashboard into your grafana pod.
 
@@ -76,8 +92,7 @@ A lot of inspiration for my cluster came from the people that have shared their 
 
 - [x] Move everything here
 - [x] Use Renovate to auto PR updates
-- [ ] Document stuffs
-- [ ] Pre-commit checks
+- [x] Document stuffs
 - [ ] Replace kubed with fluxcd envsubs
 - [x] Replace non standard versioning containers
 - [x] Use security context for permissions instead
