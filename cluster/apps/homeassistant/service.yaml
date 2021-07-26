@@ -13,3 +13,21 @@ spec:
     port: 8123
     targetPort: ha-port
   type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: homeassistant-local-svc
+  labels:
+    app.kubernetes.io/name: homeassistant
+spec:
+  selector:
+    app.kubernetes.io/name: homeassistant
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8123
+    targetPort: ha-port
+  type: LoadBalancer
