@@ -15,4 +15,4 @@ rules:
   new-line-at-end-of-file: disable
   trailing-spaces: {}
   truthy:
-    allowed-values: ['true', 'false', 'on', 'off']
+    allowed-values: ['true', 'false']
