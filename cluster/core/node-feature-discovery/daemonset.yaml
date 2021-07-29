@@ -15,61 +15,61 @@ spec:
         app.kubernetes.io/name: node-feature-discovery
     spec:
       containers:
-      - name: node-feature-discovery-worker
-        image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.2
-        imagePullPolicy: IfNotPresent
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-        command:
-        - nfd-worker
-        args:
-        - --server=node-feature-discovery-svc:8080
-        env:
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        volumeMounts:
-        - name: host-boot
-          mountPath: /host-boot
-          readOnly: true
-        - name: host-os-release
-          mountPath: /host-etc/os-release
-          readOnly: true
-        - name: host-sys
-          mountPath: /host-sys
-          readOnly: true
-        - name: source-d
-          mountPath: /etc/kubernetes/node-feature-discovery/source.d/
-          readOnly: true
-        - name: feature-d
-          mountPath: /etc/kubernetes/node-feature-discovery/features.d/
-          readOnly: true
-        - name: nfd-worker-conf
-          mountPath: /etc/kubernetes/node-feature-discovery
-          readOnly: true
+        - name: node-feature-discovery-worker
+          image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.2
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          command:
+            - nfd-worker
+          args:
+            - --server=node-feature-discovery-svc:8080
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: host-boot
+              mountPath: /host-boot
+              readOnly: true
+            - name: host-os-release
+              mountPath: /host-etc/os-release
+              readOnly: true
+            - name: host-sys
+              mountPath: /host-sys
+              readOnly: true
+            - name: source-d
+              mountPath: /etc/kubernetes/node-feature-discovery/source.d/
+              readOnly: true
+            - name: feature-d
+              mountPath: /etc/kubernetes/node-feature-discovery/features.d/
+              readOnly: true
+            - name: nfd-worker-conf
+              mountPath: /etc/kubernetes/node-feature-discovery
+              readOnly: true
       serviceAccount: node-feature-discovery-master
       dnsPolicy: ClusterFirstWithHostNet
       volumes:
-      - name: host-boot
-        hostPath:
-          path: /boot
-      - name: host-os-release
-        hostPath:
-          path: /etc/os-release
-      - name: host-sys
-        hostPath:
-          path: /sys
-      - name: source-d
-        hostPath:
-          path: /etc/kubernetes/node-feature-discovery/source.d/
-      - name: feature-d
-        hostPath:
-          path: /etc/kubernetes/node-feature-discovery/features.d/
-      - name: nfd-worker-conf
-        configMap:
-          name: nfd-worker-conf
+        - name: host-boot
+          hostPath:
+            path: /boot
+        - name: host-os-release
+          hostPath:
+            path: /etc/os-release
+        - name: host-sys
+          hostPath:
+            path: /sys
+        - name: source-d
+          hostPath:
+            path: /etc/kubernetes/node-feature-discovery/source.d/
+        - name: feature-d
+          hostPath:
+            path: /etc/kubernetes/node-feature-discovery/features.d/
+        - name: nfd-worker-conf
+          configMap:
+            name: nfd-worker-conf

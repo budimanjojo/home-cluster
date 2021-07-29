@@ -1,12 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- dashboards
-- configmap.yaml
-- deployment.yaml
-- ingress-traefikCRD.yaml
-- pvc.yaml
-- rbac.yaml
-- secret.yaml
-- service.yaml
-- servmonitor-prometheusCRD.yaml
+  - dashboards
+  - configmap.yaml
+  - deployment.yaml
+  - ingress-traefikCRD.yaml
+  - pvc.yaml
+  - rbac.yaml
+  - secret.yaml
+  - service.yaml
+  - servmonitor-prometheusCRD.yaml

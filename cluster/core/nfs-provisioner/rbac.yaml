@@ -15,41 +15,41 @@ metadata:
   labels:
     app.kubernetes.io/name: nfs-provisioner
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumes
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumeclaims
-  verbs:
-  - get
-  - list
-  - watch
-  - update
-- apiGroups:
-  - storage.k8s.io
-  resources:
-  - storageclasses
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - update
-  - patch
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - update
+      - patch
 
 ---
 
@@ -60,9 +60,9 @@ metadata:
   labels:
     app.kubernetes.io/name: nfs-provisioner
 subjects:
-- kind: ServiceAccount
-  name: nfs-provisioner
-  namespace: nfs-system
+  - kind: ServiceAccount
+    name: nfs-provisioner
+    namespace: nfs-system
 roleRef:
   kind: ClusterRole
   name: nfs-provisioner-runner
@@ -78,17 +78,17 @@ metadata:
   labels:
     app.kubernetes.io/name: nfs-provisioner
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
 
 ---
 
@@ -100,9 +100,9 @@ metadata:
   labels:
     app.kubernetes.io/name: nfs-provisioner
 subjects:
-- kind: ServiceAccount
-  name: nfs-provisioner
-  namespace: nfs-system
+  - kind: ServiceAccount
+    name: nfs-provisioner
+    namespace: nfs-system
 roleRef:
   kind: Role
   name: leader-locking-nfs-provisioner

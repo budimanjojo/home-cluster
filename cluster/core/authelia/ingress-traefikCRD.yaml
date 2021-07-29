@@ -7,14 +7,14 @@ metadata:
     app.kubernetes.io/name: authelia
 spec:
   entryPoints:
-  - https
+    - https
   routes:
-  - kind: Rule
-    match: Host(`auth.${SECRET_DOMAIN_0}`)
-    services:
-    - name: authelia-svc
-      port: 9091
-      namespace: authentication-system
+    - kind: Rule
+      match: Host(`auth.${SECRET_DOMAIN_0}`)
+      services:
+        - name: authelia-svc
+          port: 9091
+          namespace: authentication-system
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
 
@@ -32,5 +32,5 @@ spec:
     address: http://authelia-svc.authentication-system.svc.cluster.local:9091/api/verify?rd=https://auth.${SECRET_DOMAIN_0}
     trustForwardHeader: true
     authResponseHeaders:
-    - Remote-User
-    - Remote-Groups
+      - Remote-User
+      - Remote-Groups

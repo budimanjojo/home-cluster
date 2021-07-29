@@ -17,52 +17,52 @@ spec:
         app.kubernetes.io/name: zigbee2mqtt
     spec:
       containers:
-      - name: zigbee2mqtt
-        image: koenkk/zigbee2mqtt:1.20.0
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
-          limits:
-            smarter-devices/ttyUSB0: 1
-        ports:
-        - name: z2mqtt-port
-          protocol: TCP
-          containerPort: 8080
-        volumeMounts:
-        - name: zigbee2mqtt-config
-          mountPath: /config
-        startupProbe:
-          tcpSocket:
-            port: z2mqtt-port
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 30
-        livenessProbe:
-          tcpSocket:
-            port: z2mqtt-port
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-        readinessProbe:
-          tcpSocket:
-            port: z2mqtt-port
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-        env:
-        - name: ZIGBEE2MQTT_DATA
-          value: "/config"
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: zigbee2mqtt
+          image: koenkk/zigbee2mqtt:1.20.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              smarter-devices/ttyUSB0: 1
+          ports:
+            - name: z2mqtt-port
+              protocol: TCP
+              containerPort: 8080
+          volumeMounts:
+            - name: zigbee2mqtt-config
+              mountPath: /config
+          startupProbe:
+            tcpSocket:
+              port: z2mqtt-port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: z2mqtt-port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: z2mqtt-port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: ZIGBEE2MQTT_DATA
+              value: "/config"
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       volumes:
-      - name: zigbee2mqtt-config
-        persistentVolumeClaim:
-          claimName: zigbee2mqtt-config
+        - name: zigbee2mqtt-config
+          persistentVolumeClaim:
+            claimName: zigbee2mqtt-config

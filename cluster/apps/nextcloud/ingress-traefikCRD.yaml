@@ -6,18 +6,18 @@ metadata:
     app.kubernetes.io/name: nextcloud
 spec:
   entryPoints:
-  - https
+    - https
   routes:
-  - kind: Rule
-    match: Host(`nextcloud.${SECRET_DOMAIN_0}`)
-    middlewares:
-    - name: headers@file
-    - name: nextcloud
-      namespace: default
-    services:
-    - name: nextcloud-svc
-      port: 80
-      namespace: default
+    - kind: Rule
+      match: Host(`nextcloud.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: headers@file
+        - name: nextcloud
+          namespace: default
+      services:
+        - name: nextcloud-svc
+          port: 80
+          namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
 

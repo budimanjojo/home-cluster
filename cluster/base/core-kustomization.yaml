@@ -10,7 +10,7 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-  - name: crds
+    - name: crds
   interval: 1m0s
   path: ./cluster/core
   prune: false
@@ -21,7 +21,7 @@ spec:
   postBuild:
     substitute: {}
     substituteFrom:
-    - kind: ConfigMap
-      name: cluster-vars
-    - kind: Secret
-      name: cluster-secret-vars
+      - kind: ConfigMap
+        name: cluster-vars
+      - kind: Secret
+        name: cluster-secret-vars

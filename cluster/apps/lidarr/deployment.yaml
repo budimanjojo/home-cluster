@@ -17,56 +17,56 @@ spec:
         app.kubernetes.io/name: lidarr
     spec:
       containers:
-      - name: lidarr
-        image: ghcr.io/k8s-at-home/lidarr:v1.0.0.2248
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 250Mi
-        ports:
-        - name: lidarr-port
-          protocol: TCP
-          containerPort: 8686
-        volumeMounts:
-        - name: lidarr-config
-          mountPath: /config
-        - name: lidarr-media
-          mountPath: /music
-          subPath: Music
-        - name: lidarr-downloads
-          mountPath: /downloads
-        livenessProbe:
-          tcpSocket:
-            port: lidarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 15
-        readinessProbe:
-          tcpSocket:
-            port: lidarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 15
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: lidarr
+          image: ghcr.io/k8s-at-home/lidarr:v1.0.0.2248
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 250Mi
+          ports:
+            - name: lidarr-port
+              protocol: TCP
+              containerPort: 8686
+          volumeMounts:
+            - name: lidarr-config
+              mountPath: /config
+            - name: lidarr-media
+              mountPath: /music
+              subPath: Music
+            - name: lidarr-downloads
+              mountPath: /downloads
+          livenessProbe:
+            tcpSocket:
+              port: lidarr-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 15
+          readinessProbe:
+            tcpSocket:
+              port: lidarr-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 15
+          env:
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
-      - name: lidarr-config
-        persistentVolumeClaim:
-          claimName: lidarr-config
-      - name: lidarr-media
-        persistentVolumeClaim:
-          claimName: shared-media
-      - name: lidarr-downloads
-        persistentVolumeClaim:
-          claimName: shared-downloads
+        - name: lidarr-config
+          persistentVolumeClaim:
+            claimName: lidarr-config
+        - name: lidarr-media
+          persistentVolumeClaim:
+            claimName: shared-media
+        - name: lidarr-downloads
+          persistentVolumeClaim:
+            claimName: shared-downloads

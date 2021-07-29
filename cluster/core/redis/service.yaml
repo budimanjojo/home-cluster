@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: redis
   ports:
-  - name: tcp
-    protocol: TCP
-    port: 6379
-    targetPort: redis-port
+    - name: tcp
+      protocol: TCP
+      port: 6379
+      targetPort: redis-port
   type: ClusterIP

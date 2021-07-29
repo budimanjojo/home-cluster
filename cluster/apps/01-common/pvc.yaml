@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: common
 spec:
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 500Gi
@@ -22,7 +22,7 @@ metadata:
     app.kubernetes.io/name: common
 spec:
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 500Gi
@@ -40,7 +40,7 @@ spec:
   storageClassName: ""
   volumeName: shared-folder-nfs
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 500Gi

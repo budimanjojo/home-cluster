@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: jackett
   ports:
-  - name: http
-    protocol: TCP
-    port: 9117
-    targetPort: jackett-port
+    - name: http
+      protocol: TCP
+      port: 9117
+      targetPort: jackett-port
   type: ClusterIP

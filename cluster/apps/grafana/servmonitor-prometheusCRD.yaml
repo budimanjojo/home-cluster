@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: grafana
   endpoints:
-  - interval: 15s
-    port: http-port
-    path: /metrics
-    scheme: http
+    - interval: 15s
+      port: http-port
+      path: /metrics
+      scheme: http

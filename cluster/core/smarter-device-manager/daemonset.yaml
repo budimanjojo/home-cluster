@@ -19,44 +19,44 @@ spec:
         node.kubernetes.io/bootstrap-checkpoint: "true"
     spec:
       containers:
-      - name: smarter-device-manager
-        image: registry.gitlab.com/arm-research/smarter/smarter-device-manager:v1.20.7
-        imagePullPolicy: IfNotPresent
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-        resources:
-          requests:
-            cpu: 10m
-            memory: 15Mi
-          limits:
-            cpu: 100m
-            memory: 15Mi
-        volumeMounts:
-        - name: device-plugin
-          mountPath: /var/lib/kubelet/device-plugins
-        - name: dev-dir
-          mountPath: /dev
-        - name: sys-dir
-          mountPath: /sys
-        - name: sdm-configs
-          mountPath: /root/config
+        - name: smarter-device-manager
+          image: registry.gitlab.com/arm-research/smarter/smarter-device-manager:v1.20.7
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 15Mi
+            limits:
+              cpu: 100m
+              memory: 15Mi
+          volumeMounts:
+            - name: device-plugin
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: dev-dir
+              mountPath: /dev
+            - name: sys-dir
+              mountPath: /sys
+            - name: sdm-configs
+              mountPath: /root/config
       priorityClassName: system-node-critical
       hostNetwork: true
       hostname: smarter-device-manager
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: device-plugin
-        hostPath:
-          path: /var/lib/kubelet/device-plugins
-      - name: dev-dir
-        hostPath:
-          path: /dev
-      - name: sys-dir
-        hostPath:
-          path: /sys
-      - name: sdm-configs
-        configMap:
-          name: sdm-configs
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: dev-dir
+          hostPath:
+            path: /dev
+        - name: sys-dir
+          hostPath:
+            path: /sys
+        - name: sdm-configs
+          configMap:
+            name: sdm-configs

@@ -15,15 +15,15 @@ metadata:
   labels:
     app.kubernetes.io/name: grafana
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - secrets
-  verbs:
-  - get
-  - watch
-  - list
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - secrets
+    verbs:
+      - get
+      - watch
+      - list
 
 ---
 
@@ -38,6 +38,6 @@ roleRef:
   kind: ClusterRole
   name: grafana
 subjects:
-- kind: ServiceAccount
-  name: grafana
-  namespace: monitoring-system
+  - kind: ServiceAccount
+    name: grafana
+    namespace: monitoring-system

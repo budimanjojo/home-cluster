@@ -19,59 +19,59 @@ spec:
         diun.enable: "true"
     spec:
       containers:
-      - name: radarr
-        image: ghcr.io/k8s-at-home/radarr:v3.2.2.5080
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 250Mi
-          limits:
-            cpu: 300m
-            memory: 500Mi
-        ports:
-        - name: radarr-port
-          protocol: TCP
-          containerPort: 7878
-        volumeMounts:
-        - name: radarr-config
-          mountPath: /config
-        - name: radarr-media
-          mountPath: /movies
-          subPath: Movies
-        - name: radarr-downloads
-          mountPath: /downloads
-        livenessProbe:
-          tcpSocket:
-            port: radarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        readinessProbe:
-          tcpSocket:
-            port: radarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: radarr
+          image: ghcr.io/k8s-at-home/radarr:v3.2.2.5080
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 250Mi
+            limits:
+              cpu: 300m
+              memory: 500Mi
+          ports:
+            - name: radarr-port
+              protocol: TCP
+              containerPort: 7878
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: radarr-media
+              mountPath: /movies
+              subPath: Movies
+            - name: radarr-downloads
+              mountPath: /downloads
+          livenessProbe:
+            tcpSocket:
+              port: radarr-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            tcpSocket:
+              port: radarr-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          env:
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
-      - name: radarr-config
-        persistentVolumeClaim:
-          claimName: radarr-config
-      - name: radarr-media
-        persistentVolumeClaim:
-          claimName: shared-media
-      - name: radarr-downloads
-        persistentVolumeClaim:
-          claimName: shared-downloads
+        - name: radarr-config
+          persistentVolumeClaim:
+            claimName: radarr-config
+        - name: radarr-media
+          persistentVolumeClaim:
+            claimName: shared-media
+        - name: radarr-downloads
+          persistentVolumeClaim:
+            claimName: shared-downloads

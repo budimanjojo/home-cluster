@@ -17,31 +17,31 @@ spec:
         app.kubernetes.io/name: unpackerr
     spec:
       containers:
-      - name: unpackerr
-        image: golift/unpackerr:0.9.7
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 250Mi
-          limits:
-            cpu: 300m
-            memory: 500Mi
-        volumeMounts:
-        - name: unpackerr-downloads
-          mountPath: /downloads
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
-        envFrom:
-        - secretRef:
-            name: unpackerr-secrets
+        - name: unpackerr
+          image: golift/unpackerr:0.9.7
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 250Mi
+            limits:
+              cpu: 300m
+              memory: 500Mi
+          volumeMounts:
+            - name: unpackerr-downloads
+              mountPath: /downloads
+          env:
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
+          envFrom:
+            - secretRef:
+                name: unpackerr-secrets
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
-      - name: unpackerr-downloads
-        persistentVolumeClaim:
-          claimName: shared-downloads
+        - name: unpackerr-downloads
+          persistentVolumeClaim:
+            claimName: shared-downloads

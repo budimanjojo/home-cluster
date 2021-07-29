@@ -17,59 +17,59 @@ spec:
         app.kubernetes.io/name: sonarr
     spec:
       containers:
-      - name: sonarr
-        image: ghcr.io/k8s-at-home/sonarr:v3.0.6.1265
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 250Mi
-          limits:
-            cpu: 300m
-            memory: 500Mi
-        ports:
-        - name: sonarr-port
-          protocol: TCP
-          containerPort: 8989
-        volumeMounts:
-        - name: sonarr-config
-          mountPath: /config
-        - name: sonarr-media
-          mountPath: /tv
-          subPath: TV
-        - name: sonarr-downloads
-          mountPath: /downloads
-        livenessProbe:
-          tcpSocket:
-            port: sonarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 30
-        readinessProbe:
-          tcpSocket:
-            port: sonarr-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 30
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: sonarr
+          image: ghcr.io/k8s-at-home/sonarr:v3.0.6.1265
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 250Mi
+            limits:
+              cpu: 300m
+              memory: 500Mi
+          ports:
+            - name: sonarr-port
+              protocol: TCP
+              containerPort: 8989
+          volumeMounts:
+            - name: sonarr-config
+              mountPath: /config
+            - name: sonarr-media
+              mountPath: /tv
+              subPath: TV
+            - name: sonarr-downloads
+              mountPath: /downloads
+          livenessProbe:
+            tcpSocket:
+              port: sonarr-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 30
+          readinessProbe:
+            tcpSocket:
+              port: sonarr-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 30
+          env:
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
-      - name: sonarr-config
-        persistentVolumeClaim:
-          claimName: sonarr-config
-      - name: sonarr-media
-        persistentVolumeClaim:
-          claimName: shared-media
-      - name: sonarr-downloads
-        persistentVolumeClaim:
-          claimName: shared-downloads
+        - name: sonarr-config
+          persistentVolumeClaim:
+            claimName: sonarr-config
+        - name: sonarr-media
+          persistentVolumeClaim:
+            claimName: shared-media
+        - name: sonarr-downloads
+          persistentVolumeClaim:
+            claimName: shared-downloads

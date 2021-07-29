@@ -17,62 +17,62 @@ spec:
         app.kubernetes.io/name: transmission
     spec:
       containers:
-      - name: transmission
-        image: ghcr.io/k8s-at-home/transmission:v3.00
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
-        ports:
-        - name: gui-port
-          protocol: TCP
-          containerPort: 9091
-        - name: tcp-port
-          protocol: TCP
-          containerPort: 51413
-        - name: udp-port
-          protocol: UDP
-          containerPort: 51413
-        volumeMounts:
-        - name: transmission-configs
-          mountPath: /config/settings.json
-          subPath: settings.json
-        - name: transmission-config
-          mountPath: /config
-        - name: transmission-downloads
-          mountPath: /downloads
-        livenessProbe:
-          tcpSocket:
-            port: tcp-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        readinessProbe:
-          tcpSocket:
-            port: tcp-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: transmission
+          image: ghcr.io/k8s-at-home/transmission:v3.00
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+          ports:
+            - name: gui-port
+              protocol: TCP
+              containerPort: 9091
+            - name: tcp-port
+              protocol: TCP
+              containerPort: 51413
+            - name: udp-port
+              protocol: UDP
+              containerPort: 51413
+          volumeMounts:
+            - name: transmission-configs
+              mountPath: /config/settings.json
+              subPath: settings.json
+            - name: transmission-config
+              mountPath: /config
+            - name: transmission-downloads
+              mountPath: /downloads
+          livenessProbe:
+            tcpSocket:
+              port: tcp-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            tcpSocket:
+              port: tcp-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          env:
+          - name: TZ
+            value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
-      - name: transmission-configs
-        configMap:
-          name: transmission-configs
-      - name: transmission-config
-        persistentVolumeClaim:
-          claimName: transmission-config
-      - name: transmission-downloads
-        persistentVolumeClaim:
-          claimName: shared-downloads
+        - name: transmission-configs
+          configMap:
+            name: transmission-configs
+        - name: transmission-config
+          persistentVolumeClaim:
+            claimName: transmission-config
+        - name: transmission-downloads
+          persistentVolumeClaim:
+            claimName: shared-downloads

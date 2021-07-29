@@ -15,61 +15,61 @@ spec:
         app.kubernetes.io/name: vaultwarden
     spec:
       initContainers:
-      - name: wait-database
-        image: busybox:1.33.1
-        imagePullPolicy: IfNotPresent
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
-          do echo "Waiting for database";
-          done
-        envFrom:
-        - secretRef:
-            name: vaultwarden-secrets
+        - name: wait-database
+          image: busybox:1.33.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+              do echo "Waiting for database";
+              done
+          envFrom:
+            - secretRef:
+                name: vaultwarden-secrets
       containers:
-      - name: vaultwarden
-        image: vaultwarden/server:1.22.2
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
-          limits:
-            cpu: 100m
-            memory: 200Mi
-        ports:
-        - name: gui-port
-          protocol: TCP
-          containerPort: 80
-        - name: websocket-port
-          protocol: TCP
-          containerPort: 3012
-        volumeMounts:
-        - name: vaultwarden-config
-          mountPath: /data
-        livenessProbe:
-          tcpSocket:
-            port: gui-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 10
-        readinessProbe:
-          tcpSocket:
-            port: gui-port
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 10
-        envFrom:
-        - secretRef:
-            name: vaultwarden-secrets
+        - name: vaultwarden
+          image: vaultwarden/server:1.22.2
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          ports:
+            - name: gui-port
+              protocol: TCP
+              containerPort: 80
+            - name: websocket-port
+              protocol: TCP
+              containerPort: 3012
+          volumeMounts:
+            - name: vaultwarden-config
+              mountPath: /data
+          livenessProbe:
+            tcpSocket:
+              port: gui-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 10
+          readinessProbe:
+            tcpSocket:
+              port: gui-port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 10
+          envFrom:
+            - secretRef:
+                name: vaultwarden-secrets
       volumes:
-      - name: vaultwarden-config
-        persistentVolumeClaim:
-          claimName: vaultwarden-config
+        - name: vaultwarden-config
+          persistentVolumeClaim:
+            claimName: vaultwarden-config

@@ -9,8 +9,8 @@ spec:
   selector:
     app.kubernetes.io/name: node-feature-discovery
   ports:
-  - name: nfd
-    protocol: TCP
-    port: 8080
-    targetPort: nfd-port
+    - name: nfd
+      protocol: TCP
+      port: 8080
+      targetPort: nfd-port
   type: ClusterIP

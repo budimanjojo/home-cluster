@@ -6,17 +6,17 @@ metadata:
     app.kubernetes.io/name: sonarr
 spec:
   entryPoints:
-  - https
+    - https
   routes:
-  - kind: Rule
-    match: Host(`tv.${SECRET_DOMAIN_0}`)
-    middlewares:
-    - name: headers@file
-    - name: authelia
-      namespace: authentication-system
-    services:
-    - name: sonarr-svc
-      port: 8989
-      namespace: default
+    - kind: Rule
+      match: Host(`tv.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: headers@file
+        - name: authelia
+          namespace: authentication-system
+      services:
+        - name: sonarr-svc
+          port: 8989
+          namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls

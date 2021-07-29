@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: adminer
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: adminer-port
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: adminer-port
   type: LoadBalancer

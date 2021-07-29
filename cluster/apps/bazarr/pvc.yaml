@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: bazarr
 spec:
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi

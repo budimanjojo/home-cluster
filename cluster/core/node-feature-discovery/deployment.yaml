@@ -18,26 +18,26 @@ spec:
         app.kubernetes.io/name: node-feature-discovery
     spec:
       containers:
-      - name: node-feature-discovery-master
-        image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.2
-        imagePullPolicy: IfNotPresent
-        command:
-        - "nfd-master"
-        ports:
-        - name: nfd-port
-          protocol: TCP
-          containerPort: 8080
-        env:
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
+        - name: node-feature-discovery-master
+          image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.2
+          imagePullPolicy: IfNotPresent
+          command:
+            - "nfd-master"
+          ports:
+            - name: nfd-port
+              protocol: TCP
+              containerPort: 8080
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
       serviceAccountName: node-feature-discovery-master
       affinity:
         nodeAffinity:

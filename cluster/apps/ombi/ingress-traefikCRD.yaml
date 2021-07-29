@@ -6,15 +6,15 @@ metadata:
     app.kubernetes.io/name: ombi
 spec:
   entryPoints:
-  - https
+    - https
   routes:
-  - kind: Rule
-    match: Host(`ombi.${SECRET_DOMAIN_0}`)
-    middlewares:
-    - name: dashboard-headers@file
-    services:
-    - name: ombi-svc
-      port: 3579
-      namespace: default
+    - kind: Rule
+      match: Host(`ombi.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: dashboard-headers@file
+      services:
+        - name: ombi-svc
+          port: 3579
+          namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls

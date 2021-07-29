@@ -6,7 +6,7 @@ metadata:
 data:
   config: |
     address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - "${CONFIG_METALLB_RANGE}"
+      - name: default
+        protocol: layer2
+        addresses:
+          - "${CONFIG_METALLB_RANGE}"

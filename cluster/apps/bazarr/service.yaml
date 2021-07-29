@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: bazarr
   ports:
-  - name: http
-    protocol: TCP
-    port: 6767
-    targetPort: bazarr-port
+    - name: http
+      protocol: TCP
+      port: 6767
+      targetPort: bazarr-port
   type: ClusterIP

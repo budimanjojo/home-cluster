@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: wordpress
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: wordpress-port
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: wordpress-port
   type: ClusterIP

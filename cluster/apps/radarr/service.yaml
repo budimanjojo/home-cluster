@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: radarr
   ports:
-  - name: http
-    protocol: TCP
-    port: 7878
-    targetPort: radarr-port
+    - name: http
+      protocol: TCP
+      port: 7878
+      targetPort: radarr-port
   type: ClusterIP

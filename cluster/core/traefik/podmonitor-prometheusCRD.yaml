@@ -11,8 +11,8 @@ spec:
       app.kubernetes.io/name: traefik
   namespaceSelector:
     matchNames:
-    - ingress-system
+      - ingress-system
   podMetricsEndpoints:
-  - port: metrics-port
-    path: /metrics
-    interval: 15s
+    - port: metrics-port
+      path: /metrics
+      interval: 15s

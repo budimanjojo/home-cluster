@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: wordpress
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi

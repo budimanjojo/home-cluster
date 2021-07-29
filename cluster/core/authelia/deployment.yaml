@@ -18,87 +18,87 @@ spec:
         app.kubernetes.io/name: authelia
     spec:
       containers:
-      - name: authelia
-        image: authelia/authelia:4.29.4
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 1m
-            memory: 50Mi
-        command:
-        - sh
-        - -c
-        - authelia --config /config/configuration.yaml
-        ports:
-        - name: authelia-port
-          protocol: TCP
-          containerPort: 9091
-        volumeMounts:
-        - name: authelia-config
-          mountPath: /config
-          readOnly: true
-        - name: authelia-secrets
-          mountPath: /secrets
-          readOnly: true
-        startupProbe:
-          httpGet:
-            path: /api/health
-            port: authelia-port
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 4
-        livenessProbe:
-          httpGet:
-            path: /api/health
-            port: authelia-port
-          initialDelaySeconds: 60
-          timeoutSeconds: 5
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 2
-        readinessProbe:
-          httpGet:
-            path: /api/health
-            port: authelia-port
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        env:
-        - name: AUTHELIA_JWT_SECRET_FILE
-          value: /secrets/jwt
-        - name: AUTHELIA_DUO_API_SECRET_KEY_FILE
-          value: /secrets/duo
-        - name: AUTHELIA_SESSION_SECRET_FILE
-          value: /secrets/session
-        - name: AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE
-          value: /secrets/mariadb
-        - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
-          value: /secrets/smtp
-        - name: AUTHELIA_SESSION_REDIS_PASSWORD_FILE
-          value: /secrets/redis
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: authelia
+          image: authelia/authelia:4.29.4
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 1m
+              memory: 50Mi
+          command:
+            - sh
+            - -c
+            - authelia --config /config/configuration.yaml
+          ports:
+            - name: authelia-port
+              protocol: TCP
+              containerPort: 9091
+          volumeMounts:
+            - name: authelia-config
+              mountPath: /config
+              readOnly: true
+            - name: authelia-secrets
+              mountPath: /secrets
+              readOnly: true
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: authelia-port
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 4
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: authelia-port
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: authelia-port
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          env:
+            - name: AUTHELIA_JWT_SECRET_FILE
+              value: /secrets/jwt
+            - name: AUTHELIA_DUO_API_SECRET_KEY_FILE
+              value: /secrets/duo
+            - name: AUTHELIA_SESSION_SECRET_FILE
+              value: /secrets/session
+            - name: AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE
+              value: /secrets/mariadb
+            - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
+              value: /secrets/smtp
+            - name: AUTHELIA_SESSION_REDIS_PASSWORD_FILE
+              value: /secrets/redis
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       volumes:
-      - name: authelia-config
-        configMap:
-          name: authelia-configs
-      - name: authelia-secrets
-        secret:
-          secretName: authelia-secrets
-          items:
-          - key: authelia_jwt
-            path: jwt
-          - key: authelia_duo
-            path: duo
-          - key: authelia_session
-            path: session
-          - key: authelia_mariadb
-            path: mariadb
-          - key: authelia_smtp
-            path: smtp
-          - key: authelia_redis
-            path: redis
+        - name: authelia-config
+          configMap:
+            name: authelia-configs
+        - name: authelia-secrets
+          secret:
+            secretName: authelia-secrets
+            items:
+              - key: authelia_jwt
+                path: jwt
+              - key: authelia_duo
+                path: duo
+              - key: authelia_session
+                path: session
+              - key: authelia_mariadb
+                path: mariadb
+              - key: authelia_smtp
+                path: smtp
+              - key: authelia_redis
+                path: redis

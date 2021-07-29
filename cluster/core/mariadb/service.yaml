@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: mariadb
   ports:
-  - name: tcp
-    protocol: TCP
-    port: 3306
-    targetPort: mariadb-port
+    - name: tcp
+      protocol: TCP
+      port: 3306
+      targetPort: mariadb-port
   type: ClusterIP

@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: lidarr
   ports:
-  - name: http
-    protocol: TCP
-    port: 8686
-    targetPort: lidarr-port
+    - name: http
+      protocol: TCP
+      port: 8686
+      targetPort: lidarr-port
   type: ClusterIP

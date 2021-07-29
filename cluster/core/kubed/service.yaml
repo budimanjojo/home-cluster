@@ -9,8 +9,8 @@ spec:
   selector:
     app.kubernetes.io/name: kubed
   ports:
-  - name: api
-    protocol: TCP
-    port: 443
-    targetPort: kubed-port
+    - name: api
+      protocol: TCP
+      port: 443
+      targetPort: kubed-port
   type: ClusterIP

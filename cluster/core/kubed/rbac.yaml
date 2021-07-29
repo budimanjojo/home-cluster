@@ -15,38 +15,38 @@ metadata:
   labels:
     app.kubernetes.io/name: kubed
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - secrets
-  verbs:
-  - get
-  - create
-  - patch
-  - delete
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - list
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - secrets
+    verbs:
+      - get
+      - create
+      - patch
+      - delete
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - list
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
 
 ---
 
@@ -61,9 +61,9 @@ roleRef:
   kind: ClusterRole
   name: system:auth-delegator
 subjects:
-- kind: ServiceAccount
-  name: kubed
-  namespace: kube-system
+  - kind: ServiceAccount
+    name: kubed
+    namespace: kube-system
 
 ---
 
@@ -78,9 +78,9 @@ roleRef:
   kind: ClusterRole
   name: kubed
 subjects:
-- kind: ServiceAccount
-  name: kubed
-  namespace: kube-system
+  - kind: ServiceAccount
+    name: kubed
+    namespace: kube-system
 
 ---
 
@@ -96,6 +96,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   name: extension-apiserver-authentication-reader
 subjects:
-- kind: ServiceAccount
-  name: kubed
-  namespace: kube-system
+  - kind: ServiceAccount
+    name: kubed
+    namespace: kube-system

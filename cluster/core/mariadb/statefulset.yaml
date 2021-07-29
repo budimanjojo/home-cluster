@@ -18,74 +18,74 @@ spec:
         app.kubernetes.io/name: mariadb
     spec:
       containers:
-      - name: mariadb
-        image: ghcr.io/linuxserver/mariadb:version-110.4.20mariabionic
-        imagePullPolicy: IfNotPresent
+        - name: mariadb
+          image: ghcr.io/linuxserver/mariadb:version-110.4.20mariabionic
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 250Mi
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+          ports:
+            - name: mariadb-port
+              protocol: TCP
+              containerPort: 3306
+          volumeMounts:
+            - name: mariadb-data
+              mountPath: /config
+          livenessProbe:
+            tcpSocket:
+              port: mariadb-port
+            # exec:
+            #   command:
+            #     - /bin/bash
+            #     - -ec
+            #     - |
+            #       password_aux="${MYSQL_ROOT_PASSWORD:-}"
+            #       mysqladmin status -uroot -p"${password_aux}"
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 300
+          readinessProbe:
+            tcpSocket:
+              port: mariadb-port
+            # exec:
+            #   command:
+            #     - /bin/bash
+            #     - -ec
+            #     - |
+            #       password_aux="${MYSQL_ROOT_PASSWORD:-}"
+            #       mysqladmin status -uroot -p"${password_aux}"
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 300
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secrets
+                  key: mysql_root_password
+  volumeClaimTemplates:
+    - metadata:
+        name: mariadb-data
+        labels:
+          app.kubernetes.io/name: mariadb
+      spec:
+        accessModes:
+          - ReadWriteMany
         resources:
           requests:
-            cpu: 50m
-            memory: 250Mi
-          limits:
-            cpu: 1000m
-            memory: 1000Mi
-        ports:
-        - name: mariadb-port
-          protocol: TCP
-          containerPort: 3306
-        volumeMounts:
-        - name: mariadb-data
-          mountPath: /config
-        livenessProbe:
-          tcpSocket:
-            port: mariadb-port
-          # exec:
-          #   command:
-          #     - /bin/bash
-          #     - -ec
-          #     - |
-          #       password_aux="${MYSQL_ROOT_PASSWORD:-}"
-          #       mysqladmin status -uroot -p"${password_aux}"
-          initialDelaySeconds: 10
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 300
-        readinessProbe:
-          tcpSocket:
-            port: mariadb-port
-          # exec:
-          #   command:
-          #     - /bin/bash
-          #     - -ec
-          #     - |
-          #       password_aux="${MYSQL_ROOT_PASSWORD:-}"
-          #       mysqladmin status -uroot -p"${password_aux}"
-          initialDelaySeconds: 10
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 300
-        env:
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mariadb-secrets
-              key: mysql_root_password
-  volumeClaimTemplates:
-  - metadata:
-      name: mariadb-data
-      labels:
-        app.kubernetes.io/name: mariadb
-    spec:
-      accessModes:
-      - ReadWriteMany
-      resources:
-        requests:
-          storage: 8Gi
-      storageClassName: nfs-provisioner
+            storage: 8Gi
+        storageClassName: nfs-provisioner

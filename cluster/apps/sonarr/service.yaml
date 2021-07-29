@@ -8,8 +8,8 @@ spec:
   selector:
     app.kubernetes.io/name: sonarr
   ports:
-  - name: http
-    protocol: TCP
-    port: 8989
-    targetPort: sonarr-port
+    - name: http
+      protocol: TCP
+      port: 8989
+      targetPort: sonarr-port
   type: ClusterIP

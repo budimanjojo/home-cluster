@@ -17,54 +17,54 @@ spec:
         app.kubernetes.io/name: jellyfin
     spec:
       containers:
-      - name: jellyfin
-        image: jellyfin/jellyfin:10.7.6
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 500m
-            memory: 200Mi
-          limits:
-            cpu: 2000m
-            memory: 1Gi
-            gpu.intel.com/i915: 1
-        ports:
-        - name: jellyfin-port
-          protocol: TCP
-          containerPort: 8096
-        volumeMounts:
-        - name: jellyfin-config
-          mountPath: /config
-        - name: jellyfin-media
-          mountPath: /media
-        livenessProbe:
-          tcpSocket:
-            port: jellyfin-port
-          initialDelaySeconds: 10
-          timeoutSeconds: 10
-          periodSeconds: 15
-          successThreshold: 1
-          failureThreshold: 150
-        readinessProbe:
-          tcpSocket:
-            port: jellyfin-port
-          initialDelaySeconds: 10
-          timeoutSeconds: 10
-          periodSeconds: 15
-          successThreshold: 1
-          failureThreshold: 150
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: jellyfin
+          image: jellyfin/jellyfin:10.7.6
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 500m
+              memory: 200Mi
+            limits:
+              cpu: 2000m
+              memory: 1Gi
+              gpu.intel.com/i915: 1
+          ports:
+            - name: jellyfin-port
+              protocol: TCP
+              containerPort: 8096
+          volumeMounts:
+            - name: jellyfin-config
+              mountPath: /config
+            - name: jellyfin-media
+              mountPath: /media
+          livenessProbe:
+            tcpSocket:
+              port: jellyfin-port
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 150
+          readinessProbe:
+            tcpSocket:
+              port: jellyfin-port
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 150
+          env:
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
-      - name: jellyfin-config
-        persistentVolumeClaim:
-          claimName: jellyfin-config
-      - name: jellyfin-media
-        persistentVolumeClaim:
-          claimName: shared-media
+        - name: jellyfin-config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: jellyfin-media
+          persistentVolumeClaim:
+            claimName: shared-media

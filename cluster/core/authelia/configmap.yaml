@@ -38,10 +38,10 @@ data:
     access_control:
       default_policy: deny
       rules:
-      - domain: auth.${SECRET_DOMAIN_0}
-        policy: bypass
-      - domain: "*.${SECRET_DOMAIN_0}"
-        policy: two_factor
+        - domain: auth.${SECRET_DOMAIN_0}
+          policy: bypass
+        - domain: "*.${SECRET_DOMAIN_0}"
+          policy: two_factor
     session:
       name: authelia_session
       expiration: 1h
@@ -73,5 +73,5 @@ data:
         password: "${SECRET_AUTHELIA_PASSWORD_0}"
         email: ${SECRET_EMAIL_0}
         groups:
-        - admins
-        - dev
+          - admins
+          - dev

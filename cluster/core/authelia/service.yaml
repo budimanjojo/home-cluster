@@ -9,8 +9,8 @@ spec:
   selector:
     app.kubernetes.io/name: authelia
   ports:
-  - name: http
-    protocol: TCP
-    port: 9091
-    targetPort: authelia-port
+    - name: http
+      protocol: TCP
+      port: 9091
+      targetPort: authelia-port
   type: ClusterIP

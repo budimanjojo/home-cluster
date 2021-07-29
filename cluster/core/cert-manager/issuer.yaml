@@ -10,15 +10,15 @@ spec:
     privateKeySecretRef:
       name: ${SECRET_DOMAIN_0}-prod-issuer-account-key
     solvers:
-    - dns01:
-        cloudflare:
-          email: "${SECRET_EMAIL_0}"
-          apiKeySecretRef:
-            name: cloudflare-secrets
-            key: api-key
-      selector:
-        dnsZones:
-        - "${SECRET_DOMAIN_0}"
+      - dns01:
+          cloudflare:
+            email: "${SECRET_EMAIL_0}"
+            apiKeySecretRef:
+              name: cloudflare-secrets
+              key: api-key
+        selector:
+          dnsZones:
+            - "${SECRET_DOMAIN_0}"
 
 ---
 
@@ -34,12 +34,12 @@ spec:
     privateKeySecretRef:
       name: ${SECRET_DOMAIN_1}-prod-issuer-account-key
     solvers:
-    - dns01:
-        cloudflare:
-          email: "${SECRET_EMAIL_0}"
-          apiKeySecretRef:
-            name: cloudflare-secrets
-            key: api-key
-      selector:
-        dnsZones:
-        - "${SECRET_DOMAIN_1}"
+      - dns01:
+          cloudflare:
+            email: "${SECRET_EMAIL_0}"
+            apiKeySecretRef:
+              name: cloudflare-secrets
+              key: api-key
+        selector:
+          dnsZones:
+            - "${SECRET_DOMAIN_1}"

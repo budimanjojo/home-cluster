@@ -8,14 +8,14 @@ spec:
   selector:
     app.kubernetes.io/name: transmission
   ports:
-  - name: tcp
-    protocol: TCP
-    port: 51413
-    targetPort: tcp-port
-  - name: udp
-    protocol: UDP
-    port: 51413
-    targetPort: udp-port
+    - name: tcp
+      protocol: TCP
+      port: 51413
+      targetPort: tcp-port
+    - name: udp
+      protocol: UDP
+      port: 51413
+      targetPort: udp-port
   type: ClusterIP
 
 ---
@@ -30,8 +30,8 @@ spec:
   selector:
     app.kubernetes.io/name: transmission
   ports:
-  - name: http
-    protocol: TCP
-    port: 9091
-    targetPort: gui-port
+    - name: http
+      protocol: TCP
+      port: 9091
+      targetPort: gui-port
   type: LoadBalancer

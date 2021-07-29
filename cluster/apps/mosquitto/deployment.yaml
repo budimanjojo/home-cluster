@@ -17,42 +17,42 @@ spec:
         app.kubernetes.io/name: mosquitto
     spec:
       containers:
-      - name: mosquitto
-        image: eclipse-mosquitto:2.0.11
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: mqtt-port
-          protocol: TCP
-          containerPort: 1883
-        volumeMounts:
-        - name: mosquitto-configs
-          mountPath: /mosquitto/config/mosquitto.conf
-          subPath: mosquitto.conf
-        startupProbe:
-          tcpSocket:
-            port: mqtt-port
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-        livenessProbe:
-          tcpSocket:
-            port: mqtt-port
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
-        readinessProbe:
-          tcpSocket:
-            port: mqtt-port
-          initialDelaySeconds: 0
-          timeoutSeconds: 1
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
+        - name: mosquitto
+          image: eclipse-mosquitto:2.0.11
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: mqtt-port
+              protocol: TCP
+              containerPort: 1883
+          volumeMounts:
+            - name: mosquitto-configs
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+          startupProbe:
+            tcpSocket:
+              port: mqtt-port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: mqtt-port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: mqtt-port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
       volumes:
-      - name: mosquitto-configs
-        configMap:
-          name: mosquitto-configs
+        - name: mosquitto-configs
+          configMap:
+            name: mosquitto-configs

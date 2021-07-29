@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: nextcloud
 spec:
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
@@ -22,7 +22,7 @@ metadata:
     app.kubernetes.io/name: nextcloud
 spec:
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 60Gi

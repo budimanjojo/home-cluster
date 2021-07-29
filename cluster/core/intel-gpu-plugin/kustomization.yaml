@@ -4,6 +4,6 @@ namespace: kube-system
 commonLabels:
   app.kubernetes.io/name: intel-gpu-plugin
 resources:
-- github.com/intel/intel-device-plugins-for-kubernetes/deployments//gpu_plugin?ref=v0.21.0
+  - github.com/intel/intel-device-plugins-for-kubernetes/deployments//gpu_plugin?ref=v0.21.0
 patchesStrategicMerge:
-- add-nodeselector-patch.yaml
+  - add-nodeselector-patch.yaml

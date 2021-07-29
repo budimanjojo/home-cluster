@@ -15,15 +15,15 @@ metadata:
   labels:
     app.kubernetes.io/name: node-feature-discovery
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - get
-  - patch
-  - update
-  - list
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+      - patch
+      - update
+      - list
 
 ---
 
@@ -38,6 +38,6 @@ roleRef:
   kind: ClusterRole
   name: node-feature-discovery-master
 subjects:
-- kind: ServiceAccount
-  name: node-feature-discovery-master
-  namespace: nfd-system
+  - kind: ServiceAccount
+    name: node-feature-discovery-master
+    namespace: nfd-system

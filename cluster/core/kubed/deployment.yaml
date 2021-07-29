@@ -18,36 +18,36 @@ spec:
         checksum/apiregistration.yaml: d1b6141c28658b76052c61b51faecbd9e2e7326ae0ba114ccbedeb0985a7b0cf
     spec:
       containers:
-      - name: kubed
-        image: appscode/kubed:v0.12.0
-        imagePullPolicy: IfNotPresent
-        args:
-        - run
-        - --v=3
-        - --secure-port=8443
-        - --audit-log-path=-
-        - --tls-cert-file=/var/serving-cert/tls.crt
-        - --tls-private-key-file=/var/serving-cert/tls.key
-        - --use-kubeapiserver-fqdn-for-aks=true
-        - --enable-analytics=true
-        - --cluster-name=unicorn
-        ports:
-        - name: kubed-port
-          protocol: TCP
-          containerPort: 8443
-        volumeMounts:
-        - name: kubed-config
-          mountPath: /srv/kubed
-        - name: serving-cert
-          mountPath: /var/serving-cert
+        - name: kubed
+          image: appscode/kubed:v0.12.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - run
+            - --v=3
+            - --secure-port=8443
+            - --audit-log-path=-
+            - --tls-cert-file=/var/serving-cert/tls.crt
+            - --tls-private-key-file=/var/serving-cert/tls.key
+            - --use-kubeapiserver-fqdn-for-aks=true
+            - --enable-analytics=true
+            - --cluster-name=unicorn
+          ports:
+            - name: kubed-port
+              protocol: TCP
+              containerPort: 8443
+          volumeMounts:
+            - name: kubed-config
+              mountPath: /srv/kubed
+            - name: serving-cert
+              mountPath: /var/serving-cert
       volumes:
-      - name: kubed-config
-        secret:
-          secretName: kubed-secrets
-      - name: serving-cert
-        secret:
-          secretName: kubed-apiserver-cert
-          defaultMode: 420
+        - name: kubed-config
+          secret:
+            secretName: kubed-secrets
+        - name: serving-cert
+          secret:
+            secretName: kubed-apiserver-cert
+            defaultMode: 420
       securityContext:
         fsGroup: 65535
       serviceAccountName: kubed

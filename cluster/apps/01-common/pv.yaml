@@ -6,7 +6,7 @@ spec:
   capacity:
     storage: 500Gi
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Delete
   nfs:
     server: ${CONFIG_NFS_SERVER_ADDRESS}

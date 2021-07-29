@@ -8,15 +8,15 @@ metadata:
 spec:
   selector:
     matchExpressions:
-    - key: app
-      operator: In
-      values:
-      - helm-controller
-      - source-controller
-      - kustomize-controller
-      - notification-controller
+      - key: app
+        operator: In
+        values:
+          - helm-controller
+          - source-controller
+          - kustomize-controller
+          - notification-controller
   namespaceSelector:
     matchNames:
-    - flux-system
+      - flux-system
   podMetricsEndpoints:
-  - port: http-prom
+    - port: http-prom

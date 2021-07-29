@@ -18,98 +18,98 @@ spec:
         app.kubernetes.io/name: traefik
     spec:
       containers:
-      - name: traefik
-        image: traefik:v2.4.12
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
-          limits:
-            cpu: 300m
-            memory: 150Mi
-        args:
-        - --global.checknewversion=true
-        - --global.sendanonymoususage=false
-        - --entrypoints.http.address=:80/tcp
-        - --entrypoints.http.http.redirections.entrypoint.to=https
-        - --entrypoints.http.http.redirections.entrypoint.scheme=https
-        - --entrypoints.http.http.redirections.entrypoint.permanent=true
-        - --entrypoints.http.proxyprotocol.trustedips=127.0.0.1
-        - --entrypoints.http.forwardedheaders.trustedips=127.0.0.1/32
-        - --entrypoints.https.address=:443/tcp
-        - --entrypoints.https.proxyprotocol.trustedips=127.0.0.1
-        - --entrypoints.https.forwardedheaders.trustedips=127.0.0.1/32
-        - --entrypoints.traefik.address=:8080/tcp
-        - --entrypoints.metrics.address=:8082
-        - --providers.providersthrottleduration=2
-        - --providers.kubernetescrd=true
-        - --providers.kubernetesingress=true
-        - --providers.kubernetescrd.allowexternalnameservices=true
-        - --providers.kubernetescrd.allowcrossnamespace=true
-        - --providers.file.directory=/etc/traefik
-        - --api.dashboard=true
-        - --api.debug=true
-        - --ping=true
-        - --ping.entrypoint=traefik
-        - --log.level=ERROR
-        - --log.filepath=/tmp/traefik.log
-        - --log.format=json
-        - --accesslog=true
-        - --accesslog.format=json
-        - --accesslog.filters.statuscodes=200,300-302
-        - --accesslog.filters.retryattempts=true
-        - --accesslog.fields.defaultmode=keep
-        - --accesslog.fields.names.ClientUsername=drop
-        - --accesslog.fields.headers.defaultmode=keep
-        - --accesslog.fields.headers.names.User-Agent=redact
-        - --accesslog.fields.headers.names.Authorization=drop
-        - --accesslog.fields.headers.names.Content-Type=keep
-        - --metrics.prometheus=true
-        - --metrics.prometheus.entryPoint=metrics
-        ports:
-        - name: traefik-port
-          protocol: TCP
-          containerPort: 8080
-        - name: metrics-port
-          protocol: TCP
-          containerPort: 8082
-        - name: traefik-http
-          protocol: TCP
-          containerPort: 80
-        - name: traefik-https
-          protocol: TCP
-          containerPort: 443
-        volumeMounts:
-        - name: traefik-config
-          mountPath: /etc/traefik
-        - name: traefik-logs
-          mountPath: /tmp
-        livenessProbe:
-          httpGet:
-            path: /ping
-            port: traefik-port
-          initialDelaySeconds: 10
-          timeoutSeconds: 2
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 2
-        readinessProbe:
-          httpGet:
-            path: /ping
-            port: traefik-port
-          initialDelaySeconds: 10
-          timeoutSeconds: 2
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 1
-        env:
-        - name: TZ
-          value: ${CONFIG_TIMEZONE}
+        - name: traefik
+          image: traefik:v2.4.12
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              cpu: 300m
+              memory: 150Mi
+          args:
+            - --global.checknewversion=true
+            - --global.sendanonymoususage=false
+            - --entrypoints.http.address=:80/tcp
+            - --entrypoints.http.http.redirections.entrypoint.to=https
+            - --entrypoints.http.http.redirections.entrypoint.scheme=https
+            - --entrypoints.http.http.redirections.entrypoint.permanent=true
+            - --entrypoints.http.proxyprotocol.trustedips=127.0.0.1
+            - --entrypoints.http.forwardedheaders.trustedips=127.0.0.1/32
+            - --entrypoints.https.address=:443/tcp
+            - --entrypoints.https.proxyprotocol.trustedips=127.0.0.1
+            - --entrypoints.https.forwardedheaders.trustedips=127.0.0.1/32
+            - --entrypoints.traefik.address=:8080/tcp
+            - --entrypoints.metrics.address=:8082
+            - --providers.providersthrottleduration=2
+            - --providers.kubernetescrd=true
+            - --providers.kubernetesingress=true
+            - --providers.kubernetescrd.allowexternalnameservices=true
+            - --providers.kubernetescrd.allowcrossnamespace=true
+            - --providers.file.directory=/etc/traefik
+            - --api.dashboard=true
+            - --api.debug=true
+            - --ping=true
+            - --ping.entrypoint=traefik
+            - --log.level=ERROR
+            - --log.filepath=/tmp/traefik.log
+            - --log.format=json
+            - --accesslog=true
+            - --accesslog.format=json
+            - --accesslog.filters.statuscodes=200,300-302
+            - --accesslog.filters.retryattempts=true
+            - --accesslog.fields.defaultmode=keep
+            - --accesslog.fields.names.ClientUsername=drop
+            - --accesslog.fields.headers.defaultmode=keep
+            - --accesslog.fields.headers.names.User-Agent=redact
+            - --accesslog.fields.headers.names.Authorization=drop
+            - --accesslog.fields.headers.names.Content-Type=keep
+            - --metrics.prometheus=true
+            - --metrics.prometheus.entryPoint=metrics
+          ports:
+            - name: traefik-port
+              protocol: TCP
+              containerPort: 8080
+            - name: metrics-port
+              protocol: TCP
+              containerPort: 8082
+            - name: traefik-http
+              protocol: TCP
+              containerPort: 80
+            - name: traefik-https
+              protocol: TCP
+              containerPort: 443
+          volumeMounts:
+            - name: traefik-config
+              mountPath: /etc/traefik
+            - name: traefik-logs
+              mountPath: /tmp
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: traefik-port
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: traefik-port
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 1
+          env:
+            - name: TZ
+              value: ${CONFIG_TIMEZONE}
       serviceAccountName: traefik
       volumes:
-      - name: traefik-config
-        configMap:
-          name: traefik-configs
-      - name: traefik-logs
-        emptyDir: {}
+        - name: traefik-config
+          configMap:
+            name: traefik-configs
+        - name: traefik-logs
+          emptyDir: {}

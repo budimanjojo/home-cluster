@@ -9,8 +9,8 @@ spec:
   selector:
     app.kubernetes.io/name: grafana
   ports:
-  - name: http-port
-    protocol: TCP
-    port: 3000
-    targetPort: http-port
+    - name: http-port
+      protocol: TCP
+      port: 3000
+      targetPort: http-port
   type: ClusterIP

@@ -23,72 +23,72 @@ spec:
         app.kubernetes.io/name: redis
     spec:
       containers:
-      - name: redis
-        image: redis:6.2.5-alpine
-        imagePullPolicy: IfNotPresent
+        - name: redis
+          image: redis:6.2.5-alpine
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              redis-server --requirepass $REDIS_PASSWORD
+          ports:
+            - name: redis-port
+              protocol: TCP
+              containerPort: 6379
+          volumeMounts:
+            - name: redis-healthcheck
+              mountPath: /health
+            - name: redis-data
+              mountPath: /data
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_liveness.sh 5
+            initialDelaySeconds: 5
+            timeoutSeconds: 6
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_readiness.sh 1
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          env:
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secrets
+                  key: redis_password
+      volumes:
+        - name: redis-healthcheck
+          configMap:
+            name: redis-healthcheck
+            defaultMode: 0755
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+        labels:
+          app.kubernetes.io/name: redis
+      spec:
+        accessModes:
+          - ReadWriteOnce
         resources:
           requests:
-            cpu: 50m
-            memory: 50Mi
-        command:
-        - sh
-        args:
-        - -c
-        - >-
-          redis-server --requirepass $REDIS_PASSWORD
-        ports:
-        - name: redis-port
-          protocol: TCP
-          containerPort: 6379
-        volumeMounts:
-        - name: redis-healthcheck
-          mountPath: /health
-        - name: redis-data
-          mountPath: /data
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - /health/ping_liveness.sh 5
-          initialDelaySeconds: 5
-          timeoutSeconds: 6
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - /health/ping_readiness.sh 1
-          initialDelaySeconds: 5
-          timeoutSeconds: 2
-          periodSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
-        env:
-        - name: REDIS_PORT
-          value: "6379"
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: redis-secrets
-              key: redis_password
-      volumes:
-      - name: redis-healthcheck
-        configMap:
-          name: redis-healthcheck
-          defaultMode: 0755
-  volumeClaimTemplates:
-  - metadata:
-      name: redis-data
-      labels:
-        app.kubernetes.io/name: redis
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 2Gi
-      storageClassName: nfs-provisioner
+            storage: 2Gi
+        storageClassName: nfs-provisioner
