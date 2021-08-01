@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: zigbee2mqtt
-          image: koenkk/zigbee2mqtt:1.20.0
+          image: koenkk/zigbee2mqtt:1.21.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
