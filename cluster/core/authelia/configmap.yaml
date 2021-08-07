@@ -63,7 +63,7 @@ data:
         database: authelia
         username: authelia
     notifier:
-      disable_startup_check: false
+      disable_startup_check: true
       filesystem:
         filename: /notification.txt
 
