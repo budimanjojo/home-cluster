@@ -76,8 +76,8 @@ spec:
               value: /secrets/session
             - name: AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE
               value: /secrets/mariadb
-            - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
-              value: /secrets/smtp
+            # - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
+              # value: /secrets/smtp
             - name: AUTHELIA_SESSION_REDIS_PASSWORD_FILE
               value: /secrets/redis
             - name: TZ
