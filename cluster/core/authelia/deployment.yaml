@@ -82,6 +82,7 @@ spec:
               value: /secrets/redis
             - name: TZ
               value: ${CONFIG_TIMEZONE}
+      enableServiceLinks: false
       volumes:
         - name: authelia-config
           configMap:
