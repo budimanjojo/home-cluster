@@ -23,7 +23,6 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
   - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/): Create and update cluster (planning to move to kubespray soon).
   - [fluxcd](https://fluxcd.io/): Sync kubernetes cluster with this repository.
   - [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/): Encrypts secrets which is safe to store - even to a public repository.
-  - [Kubed](https://appscode.com/products/kubed/): Configmap and Secrets syncronization (deprecated soon for fluxcd built-in envsubs)
 ### Networking
   - [weave](https://www.weave.works/product/enterprise-kubernetes-platform/): For internal cluster networking.
   - [MetalLB](https://metallb.universe.tf/): Load balancer for bare metal Kubernetes cluster.
@@ -93,7 +92,7 @@ A lot of inspiration for my cluster came from the people that have shared their 
 - [x] Move everything here
 - [x] Use Renovate to auto PR updates
 - [x] Document stuffs
-- [ ] Replace kubed with fluxcd envsubs
+- [x] Replace kubed with fluxcd envsubs
 - [x] Replace non standard versioning containers
 - [x] Use security context for permissions instead
 - [ ] Planning to use kubespray to provision cluster
