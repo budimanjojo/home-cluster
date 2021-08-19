@@ -49,6 +49,7 @@ rules:
       - ingressroutetcps
       - ingressrouteudps
       - middlewares
+      - middlewaretcps
       - tlsoptions
       - tlsstores
       - traefikservices
@@ -159,6 +160,7 @@ rules:
       - ingressroutetcps
       - ingressrouteudps
       - middlewares
+      - middlewaretcps
       - tlsoptions
       - tlsstores
       - traefikservices
