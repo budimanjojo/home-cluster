@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: node-feature-discovery-master
-          image: k8s.gcr.io/nfd/node-feature-discovery:v0.8.2
+          image: k8s.gcr.io/nfd/node-feature-discovery:v0.9.0
           imagePullPolicy: IfNotPresent
           command:
             - "nfd-master"
