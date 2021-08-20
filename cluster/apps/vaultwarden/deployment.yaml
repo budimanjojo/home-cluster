@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: wait-database
-          image: busybox:1.33.1
+          image: busybox:1.34.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
