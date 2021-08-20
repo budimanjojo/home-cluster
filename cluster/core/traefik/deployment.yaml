@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: traefik
-          image: traefik:v2.5.0
+          image: traefik:v2.5.1
           imagePullPolicy: IfNotPresent
           resources:
             requests:
