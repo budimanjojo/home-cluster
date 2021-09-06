@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: jellyfin
-          image: jellyfin/jellyfin:10.7.6
+          image: jellyfin/jellyfin:10.7.7
           imagePullPolicy: IfNotPresent
           resources:
             requests:
