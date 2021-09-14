@@ -85,9 +85,6 @@ spec:
               mountPath: /etc/traefik
             - name: traefik-logs
               mountPath: /tmp
-            - name: traefik-secrets
-              mountPath: /secrets
-              readOnly: true
           livenessProbe:
             httpGet:
               path: /ping
@@ -116,6 +113,3 @@ spec:
             name: traefik-configs
         - name: traefik-logs
           emptyDir: {}
-        - name: traefik-secrets
-          secret:
-            secretName: "${SECRET_CERT_NAME_0}-prod-tls"
