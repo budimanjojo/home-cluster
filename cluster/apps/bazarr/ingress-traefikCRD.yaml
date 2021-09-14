@@ -19,4 +19,4 @@ spec:
           port: 6767
           namespace: default
   tls:
-    secretName: ${SECRET_CERT_NAME}-prod-tls
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
