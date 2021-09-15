@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: authelia-router
+  name: authelia
   labels:
     app.kubernetes.io/name: authelia
 spec:
