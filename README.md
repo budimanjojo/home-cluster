@@ -62,6 +62,16 @@ The Git repository contains the following directories under `cluster` and are or
 
 ---
 
+## :satellite:&nbsp; Network structure
+
+Incoming http and https traffics from outside of my network are forwarded from OPNSense firewall into Traefik pod with a LoadBalancer service using MetalLB layer2 implementation. So, basically this is how the http(s) traffic flows:
+```
+Internet -> OPNSense firewall -> Traefik service -> Kubernetes pod
+```
+Traefik service is set to use `Local` `externalTrafficPolicy` so I can track the real IP of clients trying to access my services. For important backend services like my OPNSense and Traefik dashboards, I use `ipWhiteList` middleware to only allow access from my internal networks. I also use cert-manager to handle my https certificates.
+
+---
+
 ## :lock_with_ink_pen:&nbsp; Secret and configmaps management
 
 Secrets are encrypted using [sops](https://github.com/mozilla/sops) before being pushed into this repository. The encrypted secrets are then decrypted by sops using the private key inside the cluster. Encryption/decryption are done using [age](https://github.com/FiloSottile/age). The public key to encrypt the secret can be accessed in [.sops.yaml](.sops.yaml). Secrets environment variables for the cluster are done by the built-in fluxcd envsubs feature can be accessed in [cluster-secret-vars.yaml](.cluster/base/cluster-secret-vars.yaml). The non secret equivalent can be accessed in [cluster-vars.yaml](.cluster/base/cluster-vars.yaml).
