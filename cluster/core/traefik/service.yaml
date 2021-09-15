@@ -18,3 +18,4 @@ spec:
       port: 443
       targetPort: traefik-https
   type: LoadBalancer
+  externalTrafficPolicy: Local
