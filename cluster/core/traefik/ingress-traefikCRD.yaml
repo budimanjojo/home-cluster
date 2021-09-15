@@ -14,8 +14,25 @@ spec:
       middlewares:
         - name: authelia
           namespace: authentication-system
+        - name: traefik
+          namespace: default
       services:
         - name: api@internal
           kind: TraefikService
   tls:
     secretName: "${SECRET_CERT_NAME_0}-prod-tls"
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik
+  labels:
+    app.kubernetes.io/name: traefik
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 10.244.0.0/16
+      - 10.10.0.0/24
+      - 10.8.0.0/24
