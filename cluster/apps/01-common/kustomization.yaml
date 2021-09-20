@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - configmap.yaml
   - limitrange.yaml
-  - pv.yaml
   - pvc.yaml
