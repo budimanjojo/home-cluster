@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxmox-svc
+spec:
+  ports:
+    - name: https
+      protocol: TCP
+      port: 8006
+      targetPort: 8006
+  type: ClusterIP
