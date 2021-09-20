@@ -68,7 +68,7 @@ Incoming http and https traffics from outside of my network are forwarded from O
 ```
 Internet -> OPNSense firewall -> Traefik service -> Kubernetes pod
 ```
-Traefik service is set to use `Local` `externalTrafficPolicy` so I can track the real IP of clients trying to access my services. For important backend services like my OPNSense and Traefik dashboards, I use `ipWhiteList` middleware to only allow access from my internal networks. I also use cert-manager to handle my https certificates.
+Traefik service is set to use `Local` `externalTrafficPolicy` so I can track the real IP of clients trying to access my services. For important backend services like my OPNSense and Traefik dashboards, I use `ipWhiteList` middleware to only allow access from my internal networks. My certificates are managed with cert-manager using LetsEncrypt as the CA.
 
 ---
 
