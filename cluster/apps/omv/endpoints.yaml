@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: omv-svc
+subsets:
+  - addresses:
+      - ip: 192.168.200.31
+    ports:
+      - name: http
+        port: 80
+        protocol: TCP
