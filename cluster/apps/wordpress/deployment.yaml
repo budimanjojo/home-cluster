@@ -4,11 +4,6 @@ metadata:
   name: wordpress
   labels:
     app.kubernetes.io/name: wordpress
-  annotations:
-    keel.sh/policy: all
-    keel.sh/trigger: poll
-    keel.sh/pollSchedule: "@daily"
-    keel.sh/approvals: "1"
 spec:
   replicas: 1
   selector:
