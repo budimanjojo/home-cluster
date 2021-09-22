@@ -4,11 +4,6 @@ metadata:
   name: redis
   labels:
     app.kubernetes.io/name: redis
-  annotations:
-    keel.sh/policy: minor
-    keel.sh/trigger: poll
-    keel.sh/pollSchedule: "@daily"
-    keel.sh/approvals: "1"
 spec:
   replicas: 1
   updateStrategy:
