@@ -25,9 +25,6 @@ spec:
             requests:
               cpu: 20m
               memory: 100Mi
-            limits:
-              cpu: 40m
-              memory: 200Mi
           ports:
             - name: web-port
               protocol: TCP
