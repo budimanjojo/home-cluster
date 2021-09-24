@@ -10,7 +10,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: https://git@github.com/budimanjojo/home-cluster.git
+  url: ssh://git@github.com/budimanjojo/home-cluster.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
