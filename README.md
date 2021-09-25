@@ -11,6 +11,8 @@
 
 This repository _is_ my home Kubernetes cluster in a declarative state. The cluster itself is built using [Kubespray](https://github.com/kubernetes-sigs/kubespray). [Flux](https://github.com/fluxcd/flux2) watches my [cluster](./cluster/) folder and makes the changes to my cluster based on the YAML manifests.
 
+The variables and inventory file used to provision my kubespray cluster can be found in my [ansible-playbooks repository](https://github.com/budimanjojo/ansible-playbooks).
+
 Feel free to open a [Github issue](https://github.com/budimanjojo/home-cluster/issues/new/choose) if you have any questions.
 
 This repository is built off the [k8s-at-home/template-cluster-k3s](https://github.com/k8s-at-home/template-cluster-k3s) repository but reconfigured to not using helm at all.
