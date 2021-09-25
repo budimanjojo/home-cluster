@@ -3,13 +3,13 @@
 <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
 ### My home Kubernetes cluster :sailboat:
-... managed with Flux :robot:
+... managed with Flux and Kubespray :robot:
 
 </div>
 
 ## :book:&nbsp; Overview
 
-This repository _is_ my home Kubernetes cluster in a declarative state. [Flux](https://github.com/fluxcd/flux2) watches my [cluster](./cluster/) folder and makes the changes to my cluster based on the YAML manifests.
+This repository _is_ my home Kubernetes cluster in a declarative state. The cluster itself is built using [Kubespray](https://github.com/kubernetes-sigs/kubespray). [Flux](https://github.com/fluxcd/flux2) watches my [cluster](./cluster/) folder and makes the changes to my cluster based on the YAML manifests.
 
 Feel free to open a [Github issue](https://github.com/budimanjojo/home-cluster/issues/new/choose) if you have any questions.
 
@@ -20,11 +20,11 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 ## :art:&nbsp; Cluster components
 
 ### Cluster management
-  - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/): Create and update cluster (planning to move to kubespray soon).
+  - [Kubespray](https://github.com/kubernetes-sigs/kubespray): Create and update cluster using [Ansible](https://www.ansible.com).
   - [fluxcd](https://fluxcd.io/): Sync kubernetes cluster with this repository.
   - [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/): Encrypts secrets which is safe to store - even to a public repository.
 ### Networking
-  - [weave](https://www.weave.works/product/enterprise-kubernetes-platform/): For internal cluster networking.
+  - [Calico](https://github.com/projectcalico/calico): For internal cluster networking.
   - [MetalLB](https://metallb.universe.tf/): Load balancer for bare metal Kubernetes cluster.
   - [keepalived](https://github.com/acassen/keepalived): Loadbalancing & high-availability for master nodes.
   - [haproxy](http://www.haproxy.org/): Load balancer for keepalived master nodes.
@@ -105,4 +105,4 @@ A lot of inspiration for my cluster came from the people that have shared their 
 - [x] Replace kubed with fluxcd envsubs
 - [x] Replace non standard versioning containers
 - [x] Use security context for permissions instead
-- [ ] Planning to use kubespray to provision cluster
+- [x] Planning to use kubespray to provision cluster
