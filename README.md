@@ -51,7 +51,7 @@ The Git repository contains the following directories under `cluster` and are or
 
 - **base** directory is the entrypoint to Flux
 - **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
-- **core** directory (depends on **crds**) are important infrastructure applications that should never be pruned by Flux
+- **core** directory (depends on **crds**) are important infrastructure applications that need to be created before apps
 - **apps** directory (depends on **core**) is where your common applications could be placed, Flux will prune resources here if they are not tracked by Git anymore
 
 ```
