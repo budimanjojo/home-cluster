@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus
+  labels:
+    app.kubernetes.io/name: prometheus
+spec:
+  entryPoints:
+    - https
+  routes:
+    - kind: Rule
+      match: Host(`prom.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: headers@file
+        - name: local-only@file
+      services:
+        - name: prometheus-k8s
+          port: 9090
+          namespace: monitoring-system
+  tls:
+    secretName: "${SECRET_CERT_NAME_0}-prod-tls"
