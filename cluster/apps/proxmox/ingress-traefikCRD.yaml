@@ -12,8 +12,7 @@ spec:
       match: Host(`proxmox.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: headers@file
-        - name: proxmox
-          namespace: default
+        - name: local-only@file
       services:
         - name: proxmox-svc
           port: 8006
@@ -21,23 +20,6 @@ spec:
           serversTransport: proxmox
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: proxmox
-  labels:
-    app.kubernetes.io/name: proxmox
-spec:
-  ipWhiteList:
-    sourceRange:
-      - 10.244.0.0/16
-      - 10.10.0.0/24
-      - 10.8.0.0/24
-      - 192.168.10.0/24
-      - 192.168.200.0/24
 
 ---
 
