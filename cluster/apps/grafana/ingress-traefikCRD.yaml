@@ -12,6 +12,7 @@ spec:
       match: Host(`dashboard.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: headers@file
+        - name: local-only@file
       services:
         - name: grafana-svc
           port: 3000
