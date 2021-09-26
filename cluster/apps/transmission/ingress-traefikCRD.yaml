@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: transmission
+  labels:
+    app.kubernetes.io/name: transmission
+spec:
+  entryPoints:
+    - https
+  routes:
+    - kind: Rule
+      match: Host(`trans.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: headers@file
+        - name: local-only@file
+      services:
+        - name: transmission-gui-svc
+          port: 9091
+          namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
