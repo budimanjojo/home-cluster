@@ -8,7 +8,8 @@ provisioner: nfs-provisioner
 allowVolumeExpansion: true
 reclaimPolicy: Delete
 parameters:
-  archiveOnDelete: "true"
+  pathPattern: ${.PVC.namespace}-${.PVC.name}
+  onDelete: retain
 mountOptions:
   - nfsvers=4
   - nolock
