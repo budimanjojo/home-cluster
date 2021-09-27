@@ -4,6 +4,7 @@ metadata:
   name: nfs-provisioner
   labels:
     app.kubernetes.io/name: nfs-provisioner
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 provisioner: nfs-provisioner
 allowVolumeExpansion: true
 reclaimPolicy: Delete
