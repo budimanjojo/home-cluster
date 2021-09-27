@@ -8,3 +8,5 @@ data:
   CONFIG_NFS_SERVER_ADDRESS: "192.168.200.31"
   CONFIG_NFS_SERVER_PATH: "/Kubernetes-Volumes"
   CONFIG_TIMEZONE: "Asia/Jakarta"
+  .PVC.namespace: "${.PVC.namespace}"
+  .PVC.name: "${.PVC.name}"
