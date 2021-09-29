@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: fullykioskbrowser-svc
+subsets:
+  - addresses:
+      - ip: 192.168.10.10
+    ports:
+      - name: http
+        port: 2323
+        protocol: TCP
