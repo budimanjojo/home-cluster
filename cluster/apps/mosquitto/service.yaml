@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       port: 1883
       targetPort: mqtt-port
-  type: LoadBalancer
+  type: ClusterIP
