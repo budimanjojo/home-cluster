@@ -19,8 +19,8 @@
         {
             "fileMatch": ["cluster/.+/kustomization\\.yaml$"],
             "matchStrings": [
-                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?(?<currentValue>v[\\d+\\.]+)\\/",
-                "- (\\w+://)?github\\.com/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
+                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?(?<currentValue>v[\\d+\\.]+)\\/",
+                "- (\\w+://)?github\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
             ],
             "datasourceTemplate": "github-tags"
         },
