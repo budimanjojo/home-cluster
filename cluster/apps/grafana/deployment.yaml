@@ -48,7 +48,7 @@ spec:
             - name: watcher-dashboard-volume
               mountPath: /tmp/dashboards
         - name: grafana
-          image: grafana/grafana:8.1.6
+          image: grafana/grafana:8.1.7
           imagePullPolicy: IfNotPresent
           resources:
             requests:
