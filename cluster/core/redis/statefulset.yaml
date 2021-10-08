@@ -85,5 +85,5 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 2Gi
-        storageClassName: nfs-provisioner
+            storage: 1Gi
+        storageClassName: longhorn
