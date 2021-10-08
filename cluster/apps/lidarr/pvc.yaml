@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: lidarr
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: nfs-provisioner
+  storageClassName: longhorn
