@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: authelia
-          image: authelia/authelia:4.31.0
+          image: authelia/authelia:4.32.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
