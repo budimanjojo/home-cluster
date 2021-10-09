@@ -34,6 +34,7 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
   - [traefik](https://github.com/traefik/traefik): Ingress controller for services.
   - [authelia](https://www.authelia.com/): Full featured authentication server.
 ### Storage
+  - [longhorn](https://longhorn.io): Cloud native distributed block storage for Kubernetes
   - [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner): Provides persistent volumes from NFS server.
 ### Host devices access
   - [Intel GPU plugin](https://github.com/intel/intel-device-plugins-for-kubernetes): Access intel gpu available on nodes.
