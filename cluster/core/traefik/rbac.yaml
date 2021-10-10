@@ -184,6 +184,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: traefik
+  namespace: ingress-system
   labels:
     app.kubernetes.io/name: traefik
 roleRef:
