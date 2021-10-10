@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: ombi
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: nfs-provisioner
+      storage: 500Mi
+  storageClassName: longhorn
