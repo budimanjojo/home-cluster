@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: authentication-system
       services:
-        - name: bazarr-svc
+        - name: bazarr
           port: 6767
           namespace: default
   tls:
