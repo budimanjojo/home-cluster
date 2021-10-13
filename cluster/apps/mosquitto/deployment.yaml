@@ -21,7 +21,7 @@ spec:
           image: eclipse-mosquitto:2.0.12
           imagePullPolicy: IfNotPresent
           ports:
-            - name: mqtt-port
+            - name: mqtt
               protocol: TCP
               containerPort: 1883
           volumeMounts:
@@ -30,7 +30,7 @@ spec:
               subPath: mosquitto.conf
           startupProbe:
             tcpSocket:
-              port: mqtt-port
+              port: mqtt
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -38,7 +38,7 @@ spec:
             failureThreshold: 3
           livenessProbe:
             tcpSocket:
-              port: mqtt-port
+              port: mqtt
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -46,7 +46,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: mqtt-port
+              port: mqtt
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
