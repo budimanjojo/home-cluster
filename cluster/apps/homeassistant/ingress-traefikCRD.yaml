@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: headers@file
       services:
-        - name: homeassistant-svc
+        - name: homeassistant
           port: 8123
           namespace: default
   tls:
