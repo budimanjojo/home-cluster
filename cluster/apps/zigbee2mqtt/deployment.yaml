@@ -27,7 +27,7 @@ spec:
             limits:
               smarter-devices/ttyUSB0: 1
           ports:
-            - name: z2mqtt-port
+            - name: http
               protocol: TCP
               containerPort: 8080
           volumeMounts:
@@ -35,7 +35,7 @@ spec:
               mountPath: /config
           startupProbe:
             tcpSocket:
-              port: z2mqtt-port
+              port: http
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 5
@@ -43,7 +43,7 @@ spec:
             failureThreshold: 30
           livenessProbe:
             tcpSocket:
-              port: z2mqtt-port
+              port: http
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -51,7 +51,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: z2mqtt-port
+              port: http
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10

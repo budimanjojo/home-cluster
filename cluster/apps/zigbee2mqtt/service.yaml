@@ -11,5 +11,5 @@ spec:
     - name: http
       protocol: TCP
       port: 8080
-      targetPort: z2mqtt-port
+      targetPort: http
   type: ClusterIP

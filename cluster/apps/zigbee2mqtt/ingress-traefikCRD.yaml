@@ -14,7 +14,7 @@ spec:
         - name: headers@file
         - name: local-only@file
       services:
-        - name: zigbee2mqtt-svc
+        - name: zigbee2mqtt
           port: 8080
           namespace: default
   tls:
