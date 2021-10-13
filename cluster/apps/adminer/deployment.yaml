@@ -30,4 +30,4 @@ spec:
               containerPort: 8080
           env:
             - name: ADMINER_DEFAULT_SERVER
-              value: mariadb-svc
+              value: mariadb
