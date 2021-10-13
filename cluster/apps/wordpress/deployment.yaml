@@ -25,7 +25,7 @@ spec:
               cpu: 50m
               memory: 100Mi
           ports:
-            - name: wordpress-port
+            - name: http
               protocol: TCP
               containerPort: 80
           volumeMounts:
@@ -34,7 +34,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /wp-admin/install.php
-              port: wordpress-port
+              port: http
               scheme: HTTP
             initialDelaySeconds: 120
             timeoutSeconds: 5
@@ -44,7 +44,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /wp-admin/install.php
-              port: wordpress-port
+              port: http
               scheme: HTTP
             initialDelaySeconds: 30
             timeoutSeconds: 5
