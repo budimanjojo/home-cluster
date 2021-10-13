@@ -9,8 +9,8 @@ spec:
   selector:
     app.kubernetes.io/name: alertmanager-notifier
   ports:
-    - name: web
+    - name: http
       protocol: TCP
       port: 8899
-      targetPort: web
+      targetPort: http
   type: ClusterIP

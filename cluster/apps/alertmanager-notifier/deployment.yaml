@@ -26,15 +26,15 @@ spec:
               cpu: 20m
               memory: 100Mi
           ports:
-            - name: web
+            - name: http
               protocol: TCP
               containerPort: 8899
           livenessProbe:
             tcpSocket:
-              port: web
+              port: http
           readinessProbe:
             tcpSocket:
-              port: web
+              port: http
           envFrom:
             - secretRef:
                 name: alertmanager-notifier-secrets
