@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zigbee2mqtt-svc
+  name: zigbee2mqtt
   labels:
     app.kubernetes.io/name: zigbee2mqtt
 spec:
