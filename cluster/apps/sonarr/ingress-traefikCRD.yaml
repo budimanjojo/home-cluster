@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: authentication-system
       services:
-        - name: sonarr-svc
+        - name: sonarr
           port: 8989
           namespace: default
   tls:

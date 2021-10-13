@@ -11,5 +11,5 @@ spec:
     - name: http
       protocol: TCP
       port: 8989
-      targetPort: sonarr-port
+      targetPort: http
   type: ClusterIP
