@@ -14,7 +14,7 @@ spec:
         - name: headers@file
         - name: local-only@file
       services:
-        - name: proxmox-svc
+        - name: proxmox
           port: 8006
           namespace: default
           serversTransport: proxmox
