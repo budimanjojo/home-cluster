@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: traefik-svc
+  name: traefik
   namespace: ingress-system
   labels:
     app.kubernetes.io/name: traefik
@@ -12,10 +12,10 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: traefik-http
+      targetPort: http
     - name: https
       protocol: TCP
       port: 443
-      targetPort: traefik-https
+      targetPort: https
   type: LoadBalancer
   externalTrafficPolicy: Local

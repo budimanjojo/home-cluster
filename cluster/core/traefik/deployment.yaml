@@ -68,16 +68,16 @@ spec:
             - --metrics.prometheus=true
             - --metrics.prometheus.entryPoint=metrics
           ports:
-            - name: traefik-port
+            - name: traefik
               protocol: TCP
               containerPort: 8080
-            - name: metrics-port
+            - name: metrics
               protocol: TCP
               containerPort: 8082
-            - name: traefik-http
+            - name: http
               protocol: TCP
               containerPort: 80
-            - name: traefik-https
+            - name: https
               protocol: TCP
               containerPort: 443
           volumeMounts:
@@ -88,7 +88,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /ping
-              port: traefik-port
+              port: traefik
             initialDelaySeconds: 10
             timeoutSeconds: 2
             periodSeconds: 10
@@ -97,7 +97,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /ping
-              port: traefik-port
+              port: traefik
             initialDelaySeconds: 10
             timeoutSeconds: 2
             periodSeconds: 10
