@@ -15,7 +15,7 @@ spec:
         - name: nextcloud
           namespace: default
       services:
-        - name: nextcloud-svc
+        - name: nextcloud
           port: 80
           namespace: default
   tls:
