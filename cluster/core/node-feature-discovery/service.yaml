@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-feature-discovery-svc
+  name: node-feature-discovery
   namespace: nfd-system
   labels:
     app.kubernetes.io/name: node-feature-discovery
@@ -12,5 +12,5 @@ spec:
     - name: nfd
       protocol: TCP
       port: 8080
-      targetPort: nfd-port
+      targetPort: nfd
   type: ClusterIP
