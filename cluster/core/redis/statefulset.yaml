@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: redis
-  serviceName: redis-svc
+  serviceName: redis
   template:
     metadata:
       labels:
@@ -32,7 +32,7 @@ spec:
             - >-
               redis-server --requirepass $REDIS_PASSWORD
           ports:
-            - name: redis-port
+            - name: redis
               protocol: TCP
               containerPort: 6379
           volumeMounts:
