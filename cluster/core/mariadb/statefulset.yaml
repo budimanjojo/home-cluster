@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: mariadb
-  serviceName: mariadb-svc
+  serviceName: mariadb
   template:
     metadata:
       labels:
@@ -29,15 +29,15 @@ spec:
               cpu: 1000m
               memory: 1000Mi
           ports:
-            - name: mariadb-port
+            - name: mariadb
               protocol: TCP
               containerPort: 3306
           volumeMounts:
-            - name: mariadb-data
+            - name: mariadb
               mountPath: /config
           livenessProbe:
             tcpSocket:
-              port: mariadb-port
+              port: mariadb
             # exec:
             #   command:
             #     - /bin/bash
@@ -52,7 +52,7 @@ spec:
             failureThreshold: 300
           readinessProbe:
             tcpSocket:
-              port: mariadb-port
+              port: mariadb
             # exec:
             #   command:
             #     - /bin/bash
