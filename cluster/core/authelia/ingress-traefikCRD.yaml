@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`auth.${SECRET_DOMAIN_0}`)
       services:
-        - name: authelia-svc
+        - name: authelia
           port: 9091
           namespace: authentication-system
   tls:
@@ -29,7 +29,7 @@ metadata:
     app.kubernetes.io/name: authelia
 spec:
   forwardAuth:
-    address: http://authelia-svc.authentication-system.svc.cluster.local:9091/api/verify?rd=https://auth.${SECRET_DOMAIN_0}
+    address: http://authelia.authentication-system.svc.cluster.local:9091/api/verify?rd=https://auth.${SECRET_DOMAIN_0}
     trustForwardHeader: true
     authResponseHeaders:
       - Remote-User

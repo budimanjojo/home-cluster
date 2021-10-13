@@ -30,7 +30,7 @@ spec:
             - -c
             - authelia --config /config/configuration.yaml
           ports:
-            - name: authelia-port
+            - name: http
               protocol: TCP
               containerPort: 9091
           volumeMounts:
@@ -43,7 +43,7 @@ spec:
           startupProbe:
             httpGet:
               path: /api/health
-              port: authelia-port
+              port: http
             initialDelaySeconds: 15
             timeoutSeconds: 5
             periodSeconds: 5
@@ -52,7 +52,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /api/health
-              port: authelia-port
+              port: http
             initialDelaySeconds: 60
             timeoutSeconds: 5
             periodSeconds: 30
@@ -61,7 +61,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /api/health
-              port: authelia-port
+              port: http
             initialDelaySeconds: 15
             timeoutSeconds: 5
             periodSeconds: 5

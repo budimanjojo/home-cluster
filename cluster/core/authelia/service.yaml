@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: authelia-svc
+  name: authelia
   namespace: authentication-system
   labels:
     app.kubernetes.io/name: authelia
@@ -12,5 +12,5 @@ spec:
     - name: http
       protocol: TCP
       port: 9091
-      targetPort: authelia-port
+      targetPort: http
   type: ClusterIP
