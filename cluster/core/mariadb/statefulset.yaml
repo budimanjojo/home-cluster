@@ -33,7 +33,7 @@ spec:
               protocol: TCP
               containerPort: 3306
           volumeMounts:
-            - name: mariadb
+            - name: mariadb-data
               mountPath: /config
           livenessProbe:
             tcpSocket:
