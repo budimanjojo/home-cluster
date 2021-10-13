@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jackett-svc
+  name: jackett
   labels:
     app.kubernetes.io/name: jackett
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: http
       protocol: TCP
       port: 9117
-      targetPort: jackett-port
+      targetPort: http
   type: ClusterIP
