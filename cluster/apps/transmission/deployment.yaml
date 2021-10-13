@@ -25,13 +25,13 @@ spec:
               cpu: 50m
               memory: 50Mi
           ports:
-            - name: gui-port
+            - name: http
               protocol: TCP
               containerPort: 9091
-            - name: tcp-port
+            - name: tcp
               protocol: TCP
               containerPort: 51413
-            - name: udp-port
+            - name: udp
               protocol: UDP
               containerPort: 51413
           volumeMounts:
@@ -44,7 +44,7 @@ spec:
               mountPath: /downloads
           livenessProbe:
             tcpSocket:
-              port: tcp-port
+              port: tcp
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -52,7 +52,7 @@ spec:
             failureThreshold: 5
           readinessProbe:
             tcpSocket:
-              port: tcp-port
+              port: tcp
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
