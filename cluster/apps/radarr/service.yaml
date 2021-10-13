@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: radarr-svc
+  name: radarr
   labels:
     app.kubernetes.io/name: radarr
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: http
       protocol: TCP
       port: 7878
-      targetPort: radarr-port
+      targetPort: http
   type: ClusterIP

@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: authentication-system
       services:
-        - name: radarr-svc
+        - name: radarr
           port: 7878
           namespace: default
   tls:

@@ -30,7 +30,7 @@ spec:
               cpu: 300m
               memory: 500Mi
           ports:
-            - name: radarr-port
+            - name: http
               protocol: TCP
               containerPort: 7878
           volumeMounts:
@@ -43,7 +43,7 @@ spec:
               mountPath: /downloads
           livenessProbe:
             tcpSocket:
-              port: radarr-port
+              port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -51,7 +51,7 @@ spec:
             failureThreshold: 5
           readinessProbe:
             tcpSocket:
-              port: radarr-port
+              port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
