@@ -43,10 +43,10 @@ spec:
               cpu: 100m
               memory: 200Mi
           ports:
-            - name: gui-port
+            - name: http
               protocol: TCP
               containerPort: 80
-            - name: websocket-port
+            - name: websocket
               protocol: TCP
               containerPort: 3012
           volumeMounts:
@@ -54,7 +54,7 @@ spec:
               mountPath: /data
           livenessProbe:
             tcpSocket:
-              port: gui-port
+              port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -62,7 +62,7 @@ spec:
             failureThreshold: 10
           readinessProbe:
             tcpSocket:
-              port: gui-port
+              port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
