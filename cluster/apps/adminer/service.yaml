@@ -11,5 +11,5 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: adminer-port
+      targetPort: http
   type: ClusterIP
