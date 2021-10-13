@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: dashboard-headers@file
       services:
-        - name: ombi-svc
+        - name: ombi
           port: 3579
           namespace: default
   tls:

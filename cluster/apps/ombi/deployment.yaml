@@ -28,7 +28,7 @@ spec:
               cpu: 200m
               memory: 500Mi
           ports:
-            - name: ombi-port
+            - name: http
               protocol: TCP
               containerPort: 3579
           volumeMounts:
@@ -36,7 +36,7 @@ spec:
               mountPath: /config
           livenessProbe:
             tcpSocket:
-              port: ombi-port
+              port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -44,7 +44,7 @@ spec:
             failureThreshold: 5
           readinessProbe:
             tcpSocket:
-              port: ombi-port
+              port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
