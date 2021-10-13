@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: dashboard-headers@file
       services:
-        - name: jellyfin-svc
+        - name: jellyfin
           port: 8096
           namespace: default
   tls:

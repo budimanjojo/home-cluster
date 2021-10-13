@@ -29,7 +29,7 @@ spec:
               memory: 1Gi
               gpu.intel.com/i915: 1
           ports:
-            - name: jellyfin-port
+            - name: http
               protocol: TCP
               containerPort: 8096
           volumeMounts:
@@ -39,7 +39,7 @@ spec:
               mountPath: /media
           livenessProbe:
             tcpSocket:
-              port: jellyfin-port
+              port: http
             initialDelaySeconds: 10
             timeoutSeconds: 10
             periodSeconds: 15
@@ -47,7 +47,7 @@ spec:
             failureThreshold: 150
           readinessProbe:
             tcpSocket:
-              port: jellyfin-port
+              port: http
             initialDelaySeconds: 10
             timeoutSeconds: 10
             periodSeconds: 15
