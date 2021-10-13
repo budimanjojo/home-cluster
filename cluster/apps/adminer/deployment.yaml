@@ -25,7 +25,7 @@ spec:
               cpu: 10m
               memory: 100Mi
           ports:
-            - name: adminer-port
+            - name: adminer
               protocol: TCP
               containerPort: 8080
           env:

@@ -14,7 +14,7 @@ spec:
         - name: headers@file
         - name: local-only@file
       services:
-        - name: adminer-svc
+        - name: adminer
           port: 80
           namespace: default
   tls:
