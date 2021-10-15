@@ -33,10 +33,6 @@
     ],
     "packageRules": [
         {
-            "matchPackagePrefixes": ["ghcr.io/linuxserver"],
-            "versioning": "regex:^version-v?(?<major>\\d+).(?<minor>\\d+).(?<patch>\\d+)?.+"
-        },
-        {
             "matchDatasources": ["docker"],
             "matchUpdateTypes": ["major"],
             "enabled": true
