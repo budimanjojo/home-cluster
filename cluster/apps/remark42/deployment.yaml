@@ -61,10 +61,6 @@ spec:
         envFrom:
           - secretRef:
               name: remark42-secrets
-      securityContext:
-        runAsUser: 1000
-        fsGroup: 1000
-        runAsNonRoot: true
       volumes:
       - name: remark42-data
         persistentVolumeClaim:
