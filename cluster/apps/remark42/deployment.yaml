@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remark42
+  labels:
+    app.kubernetes.io/name: remark42
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: remark42
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: remark42
+    spec:
+      containers:
+      - name: remark42
+        image: umputun/remark42:v1.8.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 25Mi
+          limits:
+            cpu: 200m
+            memory: 500Mi
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8080
+        volumeMounts:
+        - name: remark42-data
+          mountPath: /srv/var
+        startupProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 10
+        livenessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 60
+          timeoutSeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 10
+        readinessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 60
+          timeoutSeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 10
+        envFrom:
+          - secretRef:
+              name: remark42-secrets
+      volumes:
+      - name: remark42-data
+        persistentVolumeClaim:
+          claimName: remark42-data

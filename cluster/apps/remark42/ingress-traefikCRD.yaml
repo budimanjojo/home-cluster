@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: remark42
+  labels:
+    app.kubernetes.io/name: remark42
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`comments.${SECRET_DOMAIN_1}`)
+    middlewares:
+    - name: headers@file
+    services:
+    - name: remark42
+      port: 8080
+      namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_1}-prod-tls
