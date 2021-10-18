@@ -45,7 +45,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: http
-          initialDelaySeconds: 60
+          initialDelaySeconds: 30
           timeoutSeconds: 30
           periodSeconds: 5
           successThreshold: 1
@@ -53,7 +53,7 @@ spec:
         readinessProbe:
           tcpSocket:
             port: http
-          initialDelaySeconds: 60
+          initialDelaySeconds: 30
           timeoutSeconds: 30
           periodSeconds: 5
           successThreshold: 1
