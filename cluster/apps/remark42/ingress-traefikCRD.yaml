@@ -10,8 +10,6 @@ spec:
   routes:
   - kind: Rule
     match: Host(`comments.${SECRET_DOMAIN_1}`)
-    middlewares:
-    - name: headers@file
     services:
     - name: remark42
       port: 8080
