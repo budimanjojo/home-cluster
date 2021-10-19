@@ -6,13 +6,15 @@ metadata:
     app.kubernetes.io/name: remark42
 spec:
   entryPoints:
-  - https
+    - https
   routes:
-  - kind: Rule
-    match: Host(`comments.${SECRET_DOMAIN_1}`)
-    services:
-    - name: remark42
-      port: 8080
-      namespace: default
+    - kind: Rule
+      match: Host(`comments.${SECRET_DOMAIN_1}`)
+      middlewares:
+        - site-headers@file
+      services:
+        - name: remark42
+          port: 8080
+          namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_1}-prod-tls

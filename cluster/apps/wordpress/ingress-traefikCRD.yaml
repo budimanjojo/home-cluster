@@ -11,6 +11,7 @@ spec:
     - kind: Rule
       match: Host(`${SECRET_DOMAIN_1}`,`www.${SECRET_DOMAIN_1}`)
       middlewares:
+        - name: site-headers@file
         - name: wordpress
           namespace: default
       services:

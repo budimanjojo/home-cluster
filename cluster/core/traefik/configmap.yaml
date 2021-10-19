@@ -50,6 +50,17 @@ data:
             customFrameOptionsValue: SAMEORIGIN
             contentTypeNosniff: true
             browserXSSFilter: true
+        site-headers:
+          headers:
+            sslRedirect: true
+            sslHost: "${SECRET_DOMAIN_1}"
+            stsSeconds: 315360000
+            stsIncludeSubdomains: true
+            stsPreload: true
+            forceSTSHeader: true
+            frameDeny: false
+            contentTypeNosniff: true
+            browserXSSFilter: true
         local-only:
           ipWhiteList:
             sourceRange:
