@@ -33,7 +33,7 @@ spec:
                 name: vaultwarden-secrets
       containers:
         - name: vaultwarden
-          image: vaultwarden/server:1.22.2
+          image: vaultwarden/server:1.23.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
