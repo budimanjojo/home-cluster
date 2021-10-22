@@ -27,7 +27,7 @@ spec:
           command:
             - nfd-worker
           args:
-            - --server=node-feature-discovery-svc:8080
+            - --server=node-feature-discovery:8080
           env:
             - name: NODE_NAME
               valueFrom:
