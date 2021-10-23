@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: headers@file
         - name: authelia
-          namespace: authentication-system
+          namespace: default
       services:
         - name: lidarr
           port: 8686

@@ -24,7 +24,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: authelia
-  namespace: authentication-system
+  namespace: default
   labels:
     app.kubernetes.io/name: authelia
 spec:
