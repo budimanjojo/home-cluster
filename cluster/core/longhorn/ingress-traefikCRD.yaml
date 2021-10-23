@@ -14,6 +14,8 @@ spec:
       middlewares:
         - name: authelia
           namespace: authentication-system
+        - name: longhorn
+          namespace: default
         - name: local-only@file
       services:
         - name: longhorn-frontend
@@ -21,3 +23,17 @@ spec:
           namespace: longhorn-system
   tls:
     secretName: "${SECRET_CERT_NAME_0}-prod-tls"
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn
+  namespace: default
+  labels:
+    app.kubernetes.io/name: longhorn
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forwarded-Proto: https
