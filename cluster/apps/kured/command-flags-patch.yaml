@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kured
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: kured
+          command:
+            - /usr/bin/kured
+            - --prometheus-url=http://prometheus.monitoring-system.svc.cluster.local
+            - --notify-url=telegram://${SECRET_TELEGRAM_TOKEN_0}@telegram?channels=${SECRET_TELEGRAM_CHAT_ID_0}
+            - --time-zone=${CONFIG_TIMEZONE}
