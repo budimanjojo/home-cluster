@@ -10,6 +10,7 @@ spec:
         - name: kured
           command:
             - /usr/bin/kured
+            - --period=5m
             - --prometheus-url=http://prometheus.monitoring-system.svc.cluster.local
             - --notify-url=telegram://${SECRET_TELEGRAM_TOKEN_0}@telegram?channels=${SECRET_TELEGRAM_CHAT_ID_0}
             - --time-zone=${CONFIG_TIMEZONE}
