@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: authelia
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
   selector:
