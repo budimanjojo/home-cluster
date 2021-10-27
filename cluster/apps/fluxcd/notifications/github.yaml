@@ -7,7 +7,7 @@ spec:
   type: github
   address: https://github.com/budimanjojo/home-cluster
   secretRef:
-    name: github-token
+    name: github-notification-token
 
 ---
 
