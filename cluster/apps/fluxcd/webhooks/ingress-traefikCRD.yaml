@@ -1,0 +1,34 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: flux-webhook
+  namespace: default
+  labels:
+    app.kubernetes.io/name: flux
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`flux-wh.${SECRET_DOMAIN_0}`)
+    middlewares:
+    - name: flux-webhook
+      namespace: default
+    services:
+    - name: webhook-receiver
+      port: 80
+      namespace: flux-system
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: flux-webhook
+  namespace: default
+spec:
+  rateLimit:
+    average: 100
+    burst: 50
