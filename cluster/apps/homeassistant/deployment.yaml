@@ -6,6 +6,8 @@ metadata:
     app.kubernetes.io/name: homeassistant
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: homeassistant
