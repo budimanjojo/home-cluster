@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - notifications
   - prometheus
+  - webhooks
