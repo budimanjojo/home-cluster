@@ -55,6 +55,9 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             failureThreshold: 30
+          envFrom:
+            - secretRef:
+                name: homeassistant-secrets
           env:
             - name: TZ
               value: ${CONFIG_TIMEZONE}

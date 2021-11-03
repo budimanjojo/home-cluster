@@ -5,4 +5,5 @@ resources:
   - deployment.yaml
   - ingress-traefikCRD.yaml
   - pvc.yaml
+  - secret.yaml
   - service.yaml
