@@ -55,7 +55,7 @@ spec:
                   name: nextcloud-secrets
                   key: redis_host_port
         - name: init-permission
-          image: nextcloud:22.2.1-apache
+          image: nextcloud:22.2.0-apache
           imagePullPolicy: IfNotPresent
           command:
             - sh
