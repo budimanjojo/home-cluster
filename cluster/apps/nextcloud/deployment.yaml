@@ -55,7 +55,7 @@ spec:
                   name: nextcloud-secrets
                   key: redis_host_port
         - name: init-permission
-          image: nextcloud:22.2.2-apache
+          image: nextcloud:22.2.3-apache
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -69,7 +69,7 @@ spec:
               mountPath: /data
       containers:
         - name: nextcloud
-          image: nextcloud:22.2.2-apache
+          image: nextcloud:22.2.3-apache
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -187,7 +187,7 @@ spec:
                   name: nextcloud-secrets
                   key: trusted_proxies
         - name: nextcloud-cron
-          image: nextcloud:22.2.2-apache
+          image: nextcloud:22.2.3-apache
           imagePullPolicy: IfNotPresent
           command:
             - /cron.sh
