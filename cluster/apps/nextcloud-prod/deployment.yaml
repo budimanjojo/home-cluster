@@ -137,6 +137,6 @@ spec:
         - name: nextcloud-prod-config
           persistentVolumeClaim:
             claimName: nextcloud-prod-config
-        - name: nextcloud-data
+        - name: nextcloud-prod-data
           persistentVolumeClaim:
             claimName: nextcloud-prod-data
