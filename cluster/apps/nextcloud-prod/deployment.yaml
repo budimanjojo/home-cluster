@@ -1,0 +1,142 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-prod
+  labels:
+    app.kubernetes.io/name: nextcloud-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud-prod
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud-prod
+    spec:
+      initContainers:
+        - name: wait-database
+          image: busybox:1.34.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+              do echo "Waiting for database";
+              done
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-secrets
+                  key: mysql_host
+        - name: wait-redis
+          image: busybox:1.34.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $REDIS_HOST:$REDIS_HOST_PORT;
+              do echo "Waiting for Redis";
+              done
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-prod-secrets
+                  key: redis_host
+            - name: REDIS_HOST_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-prod-secrets
+                  key: redis_host_port
+        - name: init-permission
+          image: nextcloud:22.2.3-apache
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              chown -R 33:33 /data &&
+              chmod -R 750 /data
+          volumeMounts:
+            - name: nextcloud-prod-data
+              mountPath: /data
+      containers:
+        - name: nextcloud-prod
+          image: nextcloud:22.2.3-apache
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 150Mi
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 80
+          volumeMounts:
+            - name: nextcloud-prod-config
+              mountPath: /var/www/html
+            - name: nextcloud-prod-data
+              mountPath: /var/www/data
+          startupProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: nextcloud.${SECRET_DOMAIN_2}
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 20
+            successThreshold: 1
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: nextcloud.${SECRET_DOMAIN_2}
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /status.php
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: nextcloud.${SECRET_DOMAIN_2}
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          envFrom:
+            - secretRef:
+                name: nextcloud-prod-secrets
+        - name: nextcloud-prod-cron
+          image: nextcloud:22.2.3-apache
+          imagePullPolicy: IfNotPresent
+          command:
+            - /cron.sh
+          volumeMounts:
+            - name: nextcloud-prod-config
+              mountPath: /var/www/html
+            - name: nextcloud-prod-data
+              mountPath: /var/www/data
+      volumes:
+        - name: nextcloud-prod-config
+          persistentVolumeClaim:
+            claimName: nextcloud-prod-config
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-prod-data
