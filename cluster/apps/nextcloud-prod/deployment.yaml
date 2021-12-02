@@ -59,7 +59,7 @@ spec:
             - name: nextcloud-prod-config
               mountPath: /var/www/html
             - name: nextcloud-prod-data
-              mountPath: /var/www/nextcloud-data
+              mountPath: /var/www/data
           startupProbe:
             httpGet:
               path: /status.php
@@ -108,7 +108,7 @@ spec:
             - name: nextcloud-prod-config
               mountPath: /var/www/html
             - name: nextcloud-prod-data
-              mountPath: /var/www/nextcloud-data
+              mountPath: /var/www/data
       volumes:
         - name: nextcloud-prod-config
           persistentVolumeClaim:
