@@ -33,3 +33,21 @@ spec:
   dnsNames:
     - "${SECRET_DOMAIN_1}"
     - "*.${SECRET_DOMAIN_1}"
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "${SECRET_CERT_NAME_2}"
+  namespace: default
+spec:
+  secretName: "${SECRET_CERT_NAME_2}-prod-tls"
+  subject:
+    organizations:
+      - budimanjojo
+  issuerRef:
+    name: ${SECRET_DOMAIN_2}-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.${SECRET_DOMAIN_2}"
