@@ -43,19 +43,6 @@ spec:
           envFrom:
             - secretRef:
                 name: nextcloud-prod-secrets
-        - name: init-permission
-          image: nextcloud:22.2.3-apache
-          imagePullPolicy: IfNotPresent
-          command:
-            - sh
-          args:
-            - -c
-            - >-
-              chown -R 33:33 /data &&
-              chmod -R 750 /data
-          volumeMounts:
-            - name: nextcloud-prod-data
-              mountPath: /data
       containers:
         - name: nextcloud-prod
           image: nextcloud:22.2.3-apache
