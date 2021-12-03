@@ -57,6 +57,7 @@ data:
       find_time: 2m
       ban_time: 5m
     storage:
+      encryption_key: ${SECRET_AUTHELIA_ENC_KEY}
       mysql:
         host: mariadb.default.svc.cluster.local
         port: 3306
