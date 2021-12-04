@@ -14,3 +14,4 @@ spec:
             - --prometheus-url=http://prometheus-operated.monitoring-system.svc.cluster.local:9090
             - --notify-url=telegram://${SECRET_TELEGRAM_TOKEN_0}@telegram?channels=${SECRET_TELEGRAM_CHANNEL_ID_0}
             - --time-zone=${CONFIG_TIMEZONE}
+            - --alert-filter-regexp=^Watchdog$
