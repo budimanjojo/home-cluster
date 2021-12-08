@@ -5,3 +5,5 @@ commonLabels:
 resources:
   - https://github.com/budimanjojo/longhorn-manifests/manifests//deploy?ref=v1.2.2
   - ingress-traefikCRD.yaml
+patches:
+  - path: default-settings-patch.yaml
