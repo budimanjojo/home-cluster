@@ -4,7 +4,7 @@ metadata:
   name: longhorn-default-setting
   namespace: longhorn-system
 data:
-  default-settings.yaml: |-
+  default-setting.yaml: |-
     backup-target: nfs://${CONFIG_NFS_SERVER_ADDRESS}:/Longhorn-Backups
     backup-target-credential-secret:
     allow-recurring-job-while-volume-detached: true
