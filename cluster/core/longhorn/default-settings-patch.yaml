@@ -1,5 +1,5 @@
 apiVersion: v1
-Kind: ConfigMap
+kind: ConfigMap
 metadata:
   name: longhorn-default-setting
   namespace: longhorn-system
