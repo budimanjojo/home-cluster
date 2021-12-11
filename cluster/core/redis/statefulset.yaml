@@ -82,7 +82,7 @@ spec:
           app.kubernetes.io/name: redis
       spec:
         accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
         resources:
           requests:
             storage: 1Gi

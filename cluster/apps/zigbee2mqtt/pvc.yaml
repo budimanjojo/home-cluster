@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: zigbee2mqtt
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
