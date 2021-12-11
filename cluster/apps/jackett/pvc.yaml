@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: jackett
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi

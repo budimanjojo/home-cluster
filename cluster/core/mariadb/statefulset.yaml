@@ -84,7 +84,7 @@ spec:
           app.kubernetes.io/name: mariadb
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         resources:
           requests:
             storage: 2Gi
