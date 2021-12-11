@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: jackett
-          image: ghcr.io/k8s-at-home/jackett:v0.20.141
+          image: ghcr.io/k8s-at-home/jackett:v0.20.147
           imagePullPolicy: IfNotPresent
           resources:
             requests:
