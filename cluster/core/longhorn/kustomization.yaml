@@ -3,6 +3,7 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/name: longhorn
 resources:
+  - https://github.com/budimanjojo/longhorn-manifests/manifests//setup?ref=v1.2.2
   - https://github.com/budimanjojo/longhorn-manifests/manifests//deploy?ref=v1.2.2
   - ingress-traefikCRD.yaml
 patches:
