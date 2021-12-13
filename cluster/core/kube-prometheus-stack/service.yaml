@@ -6,6 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kube-controller-manager
 spec:
+  clusterIP: None
   selector:
     app.kubernetes.io/name: kube-controller-manager
   ports:
@@ -13,4 +14,24 @@ spec:
     protocol: TCP
     port: 10257
     targetPort: 10257
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-scheduler
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: kube-scheduler
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: kube-scheduler
+  ports:
+  - name: https-metrics
+    protocol: TCP
+    port: 10259
+    targetPort: 10259
   type: ClusterIP

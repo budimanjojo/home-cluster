@@ -14,3 +14,22 @@ subsets:
       - name: https-metrics
         port: 10257
         protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: kube-scheduler
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: kube-scheduler
+subsets:
+  - addresses:
+      - ip: 192.168.200.11
+      - ip: 192.168.200.12
+      - ip: 192.168.200.13
+    ports:
+      - name: https-metrics
+        port: 10259
+        protocol: TCP
