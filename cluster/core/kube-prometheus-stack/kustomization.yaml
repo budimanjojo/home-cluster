@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - https://github.com/budimanjojo/kube-prometheus/manifests//deploy?ref=v1.1.5
   - ingress-traefikCRD.yaml
+  - endpoints.yaml
+  - service.yaml
