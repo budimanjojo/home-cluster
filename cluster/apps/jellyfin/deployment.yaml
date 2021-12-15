@@ -60,8 +60,8 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         supplementalGroups:
-          - 986
-          - 989
+          - 44
+          - 109
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
