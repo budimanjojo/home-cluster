@@ -75,4 +75,4 @@ spec:
             claimName: shared-media
         - name: jellyfin-transcode
           persistentVolumeClaim:
-            claimName: shared-transcode
+            claimName: jellyfin-transcode
