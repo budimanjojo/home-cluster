@@ -37,6 +37,8 @@ spec:
               mountPath: /config
             - name: jellyfin-media
               mountPath: /media
+            - name: jellyfin-transcode
+              mountPath: /config/transcodes
           livenessProbe:
             tcpSocket:
               port: http
@@ -71,3 +73,6 @@ spec:
         - name: jellyfin-media
           persistentVolumeClaim:
             claimName: shared-media
+        - name: jellyfin-transcode
+          persistentVolumeClaim:
+            claimName: shared-transcode
