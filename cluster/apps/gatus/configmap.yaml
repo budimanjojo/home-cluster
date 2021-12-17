@@ -67,10 +67,10 @@ data:
           - type: telegram
       - name: homeassistant
         group: frontend-services
-        url: "https://home.${SECRET_DOMAIN_0}"
+        url: "tcp://homeassistant.default:8123"
         interval: 30s
         conditions:
-          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
         alerts:
           - type: telegram
       - name: zigbee2mqtt
@@ -78,7 +78,7 @@ data:
         url: "tcp://zigbee2mqtt.default:8080"
         interval: 30s
         conditions:
-          - "[STATUS] == 200"
+          - "[CONNECTED] == true"
         alerts:
           - type: telegram
       - name: home-dns
