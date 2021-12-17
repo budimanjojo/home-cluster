@@ -67,7 +67,7 @@ spec:
           ports:
             - name: traefik
               protocol: TCP
-              containerPort: 9000
+              containerPort: 8080
             - name: http
               protocol: TCP
               containerPort: 80

@@ -35,5 +35,5 @@ spec:
   ports:
     - name: traefik
       protocol: TCP
-      port: 9000
+      port: 8080
       targetPort: traefik
