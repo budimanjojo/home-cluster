@@ -13,7 +13,7 @@ spec:
     matchNames:
       - monitoring-system
   endpoints:
-    - ports: http
+    - port: http
       path: /metrics
       scheme: http
       interval: 15s
