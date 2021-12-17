@@ -5,3 +5,4 @@ resources:
   - deployment.yaml
   - ingress-traefikCRD.yaml
   - service.yaml
+  - servicemonitor-prometheusCRD.yaml
