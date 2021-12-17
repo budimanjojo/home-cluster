@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - configmap.yaml
   - deployment.yaml
+  - grafana-dashboard.yaml
   - ingress-traefikCRD.yaml
   - service.yaml
   - servicemonitor-prometheusCRD.yaml
