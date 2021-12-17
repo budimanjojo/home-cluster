@@ -33,7 +33,7 @@
         {
             "fileMatch": ["cluster/app/kured/kustomization.yaml"],
             "matchStrings": [
-                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?\\/kured-(?<currentValue>[\\d.\\.]+)"
+                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?v?[\\d+\\.]+\\/kured-(?<currentValue>[\\d.\\.]+)"
             ],
             "datasourceTemplate": "github-tags"
         }
