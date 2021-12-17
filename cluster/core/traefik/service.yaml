@@ -19,3 +19,21 @@ spec:
       targetPort: https
   type: LoadBalancer
   externalTrafficPolicy: Local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-ping
+  namespace: ingress-system
+  labels:
+    app.kubernetes.io/name: traefik
+spec:
+  selector:
+    app.kubernetes.io/name: traefik
+  ports:
+    - name: traefik
+      protocol: TCP
+      port: 9000
+      targetPort: traefik
