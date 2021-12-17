@@ -12,21 +12,37 @@ data:
       - name: firewall
         group: servers
         url: "icmp://192.168.200.1"
+        interval: 30s
+        conditions:
+          - "[CONNECTED] == true"
+      - name: k3s-apiserver
+        group: servers
+        url: "tcp://192.168.200.10:8443"
+        interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: kmaster1
         group: servers
         url: "icmp://192.168.200.11"
+        interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: kmaster2
         group: servers
         url: "icmp://192.168.200.12"
+        interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: kmaster3
         group: servers
         url: "icmp://192.168.200.13"
+        interval: 30s
+        conditions:
+          - "[CONNECTED] == true"
+      - name: OMV
+        group: servers
+        url: "icmp://192.168.200.31"
+        interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: mariadb
@@ -42,13 +58,31 @@ data:
         conditions:
           - "[CONNECTED] == true"
       - name: website
-        url: https://${SECRET_DOMAIN_1}
+        group: frontend-services
+        url: "https://${SECRET_DOMAIN_1}"
+        interval: 30s
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: telegram
+      - name: homeassistant
+        group: frontend-services
+        url: "https://home.${SECRET_DOMAIN_0}"
+        interval: 30s
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: telegram
+      - name: zigbee2mqtt
+        group: frontend-services
+        url: "tcp://zigbee2mqtt.default:8080"
         interval: 30s
         conditions:
           - "[STATUS] == 200"
         alerts:
           - type: telegram
       - name: home-dns
+        group: frontend-services
         url: 192.168.200.1
         interval: 30s
         dns:
