@@ -1,16 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-<<<<<<< HEAD
-- configmap.yaml
-- deployment.yaml
-- ingress-traefikCRD.yaml
-- service.yaml
-=======
   - configmap.yaml
   - deployment.yaml
-  - grafana-dashboard.yaml
   - ingress-traefikCRD.yaml
   - service.yaml
-  - servicemonitor-prometheusCRD.yaml
->>>>>>> 0bd1d2c1372dec3409be2714ac996a2fcba0176d
