@@ -7,7 +7,7 @@ spec:
   concurrency: 1
   cordon: true
   nodeSelector:
-    matchExpression:
+    matchExpressions:
       - key: node-role.kubernetes.io/master
         operator: In
         values:
@@ -28,7 +28,7 @@ spec:
   concurrency: 1
   cordon: true
   nodeSelector:
-    matchExpression:
+    matchExpressions:
       - key: node-role.kubernetes.io/master
         operator: In
         values:
