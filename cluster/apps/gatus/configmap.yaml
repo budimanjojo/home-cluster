@@ -66,11 +66,6 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: telegram
-      - name: home-dns
-        url: 192.168.200.1
-        interval: 30s
-        dns:
-          query-name: "budimanjojo.com"
       - name: homeassistant
         group: frontend-services
         url: "tcp://homeassistant.default:8123"
