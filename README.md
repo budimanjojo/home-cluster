@@ -28,6 +28,7 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 - [K3s](https://k3s.io): Built using [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s)
 - [fluxcd](https://fluxcd.io/): Sync kubernetes cluster with this repository.
 - [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/): Encrypts secrets which is safe to store - even to a public repository.
+- [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller): automated K3s cluster upgrade
 
 ### Networking
 
