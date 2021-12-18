@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
+kind: ServiceMonitor
 metadata:
   name: traefik
   namespace: ingress-system
@@ -12,7 +12,8 @@ spec:
   namespaceSelector:
     matchNames:
       - ingress-system
-  podMetricsEndpoints:
-    - port: metrics-port
+  endpoints:
+    - port: traefik
       path: /metrics
+      scheme: http
       interval: 15s

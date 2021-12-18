@@ -29,6 +29,13 @@
             "matchStrings": [
                 "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\\n *tag: (?<currentValue>.*)\\b"
             ]
+        },
+        {
+            "fileMatch": ["cluster/apps/kured/kustomization.yaml"],
+            "matchStrings": [
+                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?v?[\\d+\\.]+\\/kured-(?<currentValue>[\\d.\\.]+)"
+            ],
+            "datasourceTemplate": "github-tags"
         }
     ],
     "packageRules": [

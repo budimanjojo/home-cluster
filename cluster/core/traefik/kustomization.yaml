@@ -6,7 +6,7 @@ resources:
   - deployment.yaml
   - grafana-dashboard.yaml
   - ingress-traefikCRD.yaml
-  - podmonitor-prometheusCRD.yaml
   - rbac.yaml
   - service.yaml
+  - servicemonitor-prometheusCRD.yaml
   - tlsoptions.yaml

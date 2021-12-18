@@ -18,6 +18,7 @@ spec:
         app.kubernetes.io/name: gatus
     spec:
       containers:
+<<<<<<< HEAD
       - name: gatus
         image: twinproduction/gatus
         imagePullPolicy: IfNotPresent
@@ -52,3 +53,39 @@ spec:
       - name: gatus-configs
         configMap:
           name: gatus-configs
+=======
+        - name: gatus
+          image: twinproduction/gatus
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 50m
+              memory: 30Mi
+            limits:
+              cpu: 250m
+              memory: 100Mi
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
+          volumeMounts:
+            - name: gatus-configs
+              mountPath: /config
+              readOnly: true
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+      volumes:
+        - name: gatus-configs
+          configMap:
+            name: gatus-configs
+>>>>>>> 0bd1d2c1372dec3409be2714ac996a2fcba0176d
