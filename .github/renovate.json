@@ -19,7 +19,7 @@
         {
             "fileMatch": ["cluster/.+/cephcluster-cephCRD.yaml"],
             "matchStrings": [
-                "image: (?<depName>[\\w\\-_]\\/[\\w\\-_])\\/[\\w\\-_]):(?<currentValue>v[\\d+\\.]+)\\b"
+                "image: (?<depName>[\\w\\.\\-_]+\\/[\\w\\.\\-_]+)\\/[\\w\\.\\-_]+):(?<currentValue>v[\\d+\\.]+)\\b"
             ],
             "datasourceTemplate": "docker"
         },
