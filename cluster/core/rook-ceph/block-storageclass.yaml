@@ -1,5 +1,5 @@
 apiVersion: ceph.rook.io/v1
-kind: cephBlockPool
+kind: CephBlockPool
 metadata:
   name: blockpool
   namespace: rook-ceph
