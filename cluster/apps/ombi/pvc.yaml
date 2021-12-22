@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: ombi
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi
-  storageClassName: longhorn
+  storageClassName: rook-ceph-block

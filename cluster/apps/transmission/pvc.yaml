@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: transmission
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: longhorn
+      storage: 500Mi
+  storageClassName: rook-ceph-block

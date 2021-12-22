@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: jackett
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: longhorn
+  storageClassName: rook-ceph-block

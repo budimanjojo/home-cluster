@@ -6,11 +6,11 @@ metadata:
     app.kubernetes.io/name: jellyfin
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 3Gi
-  storageClassName: longhorn
+      storage: 2Gi
+  storageClassName: rook-ceph-block
 
 ---
 

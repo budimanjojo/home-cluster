@@ -84,8 +84,8 @@ spec:
           app.kubernetes.io/name: mariadb
       spec:
         accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
         resources:
           requests:
-            storage: 2Gi
-        storageClassName: longhorn
+            storage: 3Gi
+        storageClassName: rook-ceph-block

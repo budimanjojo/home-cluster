@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: homeassistant
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 3Gi
-  storageClassName: longhorn
+  storageClassName: rook-ceph-block
