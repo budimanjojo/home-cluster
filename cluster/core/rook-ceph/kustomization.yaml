@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/rook/rook/v1.8.1/deploy/examples/common.yaml
   - https://raw.githubusercontent.com/rook/rook/v1.8.1/deploy/examples/operator.yaml
+  - https://raw.githubusercontent.com/rook/rook/v1.8.1/deploy/examples/monitoring/rbac.yaml
   - cephcluster-rookCRD.yaml
   - block-storageclass.yaml
   - shared-storageclass.yaml
