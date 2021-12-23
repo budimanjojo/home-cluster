@@ -22,9 +22,9 @@ spec:
   dashboard:
     enabled: true
     port: 8443
-    ssl: false
+    ssl: true
   monitoring:
-    enabled: false
+    enabled: true
     rulesNamespace: rook-ceph
   network:
   crashCollector:
