@@ -22,7 +22,7 @@ spec:
   dashboard:
     enabled: true
     port: 8443
-    ssl: true
+    ssl: false
   monitoring:
     enabled: true
     rulesNamespace: rook-ceph

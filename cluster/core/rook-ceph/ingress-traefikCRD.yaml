@@ -17,18 +17,5 @@ spec:
         - name: rook-ceph-mgr-dashboard
           port: 8443
           namespace: rook-ceph
-          serversTransport: rook-ceph
   tls:
     secretName: "${SECRET_CERT_NAME_0}-prod-tls"
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: ServersTransport
-metadata:
-  name: rook-ceph
-  namespace: rook-ceph
-  labels:
-    app.kubernetes.io/name: rook-ceph
-spec:
-  insecureSkipVerify: true
