@@ -27,7 +27,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: ServersTransport
 metadata:
   name: rook-ceph
-  namespace: default
+  namespace: rook-ceph
   labels:
     app.kubernetes.io/name: rook-ceph
 spec:
