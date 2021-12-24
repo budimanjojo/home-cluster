@@ -8,3 +8,4 @@ resources:
   - block-storageclass.yaml
   - shared-storageclass.yaml
   - ingress-traefikCRD.yaml
+  - grafana-dashboard.yaml
