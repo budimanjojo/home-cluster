@@ -5,6 +5,9 @@ metadata:
   namespace: rook-ceph
   labels:
     app.kubernetes.io/name: benji
+  annotations:
+    configmap.reloader.stakater.com/reload: "benji-configs,rook-ceph-mon-endpoints,benji-ceph-config"
+    secret.reloader.stakater.com/reload: "rook-ceph-mon"
 spec:
   replicas: 1
   selector:
