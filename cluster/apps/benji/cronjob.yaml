@@ -1,0 +1,330 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: benji-backup-all
+  namespace: rook-ceph
+  labels:
+    app.kubernetes.io/name: benji
+spec:
+  schedule: "30 07 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: benji
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: benji
+        spec:
+          serviceAccountName: benji
+          dnsPolicy: ClusterFirstWithHostNet
+          restartPolicy: Never
+          initContainers:
+            - name: generate-ceph-files
+              image: rook/ceph:v1.8.1
+              imagePullPolicy: IfNotPresent
+              command:
+                - /usr/bin/bash
+              args:
+                - -c
+                - bash /script/generate-ceph.sh
+              volumeMounts:
+                - name: mon-endpoint-volume
+                  mountPath: /etc/rook
+                - name: ceph-data
+                  mountPath: /etc/ceph
+                - name: benji-ceph-config
+                  mountPath: /script/generate-ceph.sh
+                  subPath: generate-ceph.sh
+              env:
+                - name: ROOK_CEPH_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rook-ceph-mon
+                      key: ceph-username
+                - name: ROOK_CEPH_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: rook-ceph-mon
+                      key: ceph-secret
+          containers:
+            - name: benji
+              image: "ghcr.io/elemental-lf/benji-k8s:0.15.0"
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                privileged: true
+              command:
+                - benji-backup-pvc
+                - -l
+                - benji.pvc.backup/include = true
+              env:
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              volumeMounts:
+                - name: benji-data
+                  mountPath: /data
+                - name: benji-configs
+                  mountPath: /benji/etc
+                - name: tz-config
+                  mountPath: /etc/localtime
+                - name: benji-nfs-backup
+                  mountPath: /benji-nfs-backup
+                - name: ceph-data
+                  mountPath: /etc/ceph
+          volumes:
+            - name: benji-data
+              persistentVolumeClaim:
+                claimName: benji-data
+            - name: benji-configs
+              configMap:
+                name: benji-configs
+            - name: tz-config
+              hostPath:
+                path: /usr/share/zoneinfo/Asia/Jakarta
+            - name: benji-nfs-backup
+              persistentVolumeClaim:
+                claimName: benji-nfs-backup
+            - name: mon-endpoint-volume
+              configMap:
+                name: rook-ceph-mon-endpoints
+                items:
+                  - key: data
+                    path: mon-endpoints
+            - name: ceph-data
+              emptyDir: {}
+            - name: benji-ceph-config
+              configMap:
+                name: benji-ceph-config
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: benji-enforce
+  namespace: rook-ceph
+  labels:
+    app.kubernetes.io/name: benji
+spec:
+  schedule: "00 06 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: benji
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: benji
+        spec:
+          serviceAccountName: benji
+          dnsPolicy: ClusterFirstWithHostNet
+          restartPolicy: Never
+          initContainers:
+            - name: generate-ceph-files
+              image: rook/ceph:v1.8.1
+              imagePullPolicy: IfNotPresent
+              command:
+                - /usr/bin/bash
+              args:
+                - -c
+                - bash /script/generate-ceph.sh
+              volumeMounts:
+                - name: mon-endpoint-volume
+                  mountPath: /etc/rook
+                - name: ceph-data
+                  mountPath: /etc/ceph
+                - name: benji-ceph-config
+                  mountPath: /script/generate-ceph.sh
+                  subPath: generate-ceph.sh
+              env:
+                - name: ROOK_CEPH_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rook-ceph-mon
+                      key: ceph-username
+                - name: ROOK_CEPH_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: rook-ceph-mon
+                      key: ceph-secret
+          containers:
+            - name: benji
+              image: "ghcr.io/elemental-lf/benji-k8s:0.15.0"
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                privileged: true
+              command:
+                - benji-command
+                - enforce
+                - latest7
+                - labels["benji-backup.me/instance"] == "benji-k8s"
+              env:
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              volumeMounts:
+                - name: benji-data
+                  mountPath: /data
+                - name: benji-configs
+                  mountPath: /benji/etc
+                - name: tz-config
+                  mountPath: /etc/localtime
+                - name: benji-nfs-backup
+                  mountPath: /benji-nfs-backup
+                - name: ceph-data
+                  mountPath: /etc/ceph
+          volumes:
+            - name: benji-data
+              persistentVolumeClaim:
+                claimName: benji-data
+            - name: benji-configs
+              configMap:
+                name: benji-configs
+            - name: tz-config
+              hostPath:
+                path: /usr/share/zoneinfo/Asia/Jakarta
+            - name: benji-nfs-backup
+              persistentVolumeClaim:
+                claimName: benji-nfs-backup
+            - name: mon-endpoint-volume
+              configMap:
+                name: rook-ceph-mon-endpoints
+                items:
+                  - key: data
+                    path: mon-endpoints
+            - name: ceph-data
+              emptyDir: {}
+            - name: benji-ceph-config
+              configMap:
+                name: benji-ceph-config
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: benji-cleanup
+  namespace: rook-ceph
+  labels:
+    app.kubernetes.io/name: benji
+spec:
+  schedule: "00 09 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: benji
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: benji
+        spec:
+          serviceAccountName: benji
+          dnsPolicy: ClusterFirstWithHostNet
+          restartPolicy: Never
+          initContainers:
+            - name: generate-ceph-files
+              image: rook/ceph:v1.8.1
+              imagePullPolicy: IfNotPresent
+              command:
+                - /usr/bin/bash
+              args:
+                - -c
+                - bash /script/generate-ceph.sh
+              volumeMounts:
+                - name: mon-endpoint-volume
+                  mountPath: /etc/rook
+                - name: ceph-data
+                  mountPath: /etc/ceph
+                - name: benji-ceph-config
+                  mountPath: /script/generate-ceph.sh
+                  subPath: generate-ceph.sh
+              env:
+                - name: ROOK_CEPH_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rook-ceph-mon
+                      key: ceph-username
+                - name: ROOK_CEPH_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: rook-ceph-mon
+                      key: ceph-secret
+          containers:
+            - name: benji
+              image: "ghcr.io/elemental-lf/benji-k8s:0.15.0"
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                privileged: true
+              command:
+                - benji-command
+                - cleanup
+              env:
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+              volumeMounts:
+                - name: benji-data
+                  mountPath: /data
+                - name: benji-configs
+                  mountPath: /benji/etc
+                - name: tz-config
+                  mountPath: /etc/localtime
+                - name: benji-nfs-backup
+                  mountPath: /benji-nfs-backup
+                - name: ceph-data
+                  mountPath: /etc/ceph
+          volumes:
+            - name: benji-data
+              persistentVolumeClaim:
+                claimName: benji-data
+            - name: benji-configs
+              configMap:
+                name: benji-configs
+            - name: tz-config
+              hostPath:
+                path: /usr/share/zoneinfo/Asia/Jakarta
+            - name: benji-nfs-backup
+              persistentVolumeClaim:
+                claimName: benji-nfs-backup
+            - name: mon-endpoint-volume
+              configMap:
+                name: rook-ceph-mon-endpoints
+                items:
+                  - key: data
+                    path: mon-endpoints
+            - name: ceph-data
+              emptyDir: {}
+            - name: benji-ceph-config
+              configMap:
+                name: benji-ceph-config
