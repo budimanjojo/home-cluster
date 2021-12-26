@@ -60,7 +60,6 @@ spec:
                 privileged: true
               command:
                 - benji-backup-pvc
-                - --all-namespaces
               env:
                 - name: POD_NAME
                   valueFrom:
