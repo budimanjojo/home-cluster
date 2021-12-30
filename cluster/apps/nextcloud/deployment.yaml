@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: wait-database
-          image: busybox:1.34.1
+          image: busybox:1.35.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -33,7 +33,7 @@ spec:
                   name: nextcloud-secrets
                   key: mysql_host
         - name: wait-redis
-          image: busybox:1.34.1
+          image: busybox:1.35.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
