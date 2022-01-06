@@ -17,7 +17,7 @@ data:
         configuration:
           path: /benji-nfs-backup
     ios:
-      - name: blockpool
+      - name: rbd
         module: rbdaio
         configuration:
           cephConfigFile: /etc/ceph/ceph.conf
@@ -29,8 +29,8 @@ data:
             - RBD_FEATURE_OBJECT_MAP
             - RBD_FEATURE_FAST_DIFF
             - RBD_FEATURE_DEEP_FLATTEN
-          simultaneousReads: 3
-          simultaneousWrites: 3
+          simultaneousReads: 1
+          simultaneousWrites: 1
 
 ---
 
