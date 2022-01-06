@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: bazarr
-          image: ghcr.io/k8s-at-home/bazarr:v1.0.1
+          image: ghcr.io/k8s-at-home/bazarr:v1.0.2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
