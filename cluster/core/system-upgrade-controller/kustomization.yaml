@@ -5,4 +5,3 @@ commonLabels:
   app.kubernetes.io/name: system-upgrade-controller
 resources:
   - https://github.com/rancher/system-upgrade-controller/releases/download/v0.8.1/system-upgrade-controller.yaml
-  - plan.yaml
