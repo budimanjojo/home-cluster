@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: wordpress
-          image: wordpress:5.8.2
+          image: wordpress:5.8.3
           imagePullPolicy: IfNotPresent
           resources:
             requests:
