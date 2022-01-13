@@ -1,76 +1,77 @@
 {
-    "enabled": true,
-    "semanticCommits": "enabled",
-    "labels": ["renovatebot"],
-    "commitBody": "Signed-Off-by: Budiman JOJO <budimanjojo@gmail.com>",
-    "semanticCommitScope": "images",
-    "dependencyDashboard": true,
-    "dependencyDashboardTitle": "Renovate Dashboard",
-    "suppressNotifications": ["prIgnoreNotification"],
-    "rebaseWhen": "conflicted",
-    "kubernetes": {
-        "fileMatch": [
-            "cluster/.+/deployment\\.yaml$",
-            "cluster/.+/daemonset\\.yaml$",
-            "cluster/.+/statefulset\\.yaml$"
-        ]
-    },
-    "regexManagers": [
-        {
-            "fileMatch": ["cluster/.+/cephcluster-cephCRD.yaml$"],
-            "matchStrings": [
-                "image: (?<depName>[\\w\\.\\-_]+\\/[\\w\\.\\-_]+\\/[\\w\\.\\-_]+):(?<currentValue>v[\\d+\\.]+)\\b"
-            ],
-            "datasourceTemplate": "docker"
-        },
-        {
-            "fileMatch": ["cluster/.+/kustomization\\.yaml$"],
-            "matchStrings": [
-                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?(?<currentValue>v?[\\d+\\.]+)\\/",
-                "- (\\w+://)?github\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
-            ],
-            "datasourceTemplate": "github-tags"
-        },
-        {
-            "fileMatch": ["cluster/.+/.+\\.yaml"],
-            "matchStrings": [
-                "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\\n *tag: (?<currentValue>.*)\\b"
-            ]
-        },
-        {
-            "fileMatch": ["cluster/apps/kured/kustomization.yaml"],
-            "matchStrings": [
-                "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?v?[\\d+\\.]+\\/kured-(?<currentValue>[\\d.\\.]+)"
-            ],
-            "datasourceTemplate": "github-tags"
-        }
-    ],
-    "packageRules": [
-        {
-            "matchDatasources": ["docker"],
-            "matchUpdateTypes": ["major"],
-            "enabled": true
-        },
-        {
-            "matchDatasources": ["docker"],
-            "addLabels": ["docker/image"]
-        },
-        {
-            "matchUpdateTypes": [
-                "minor",
-                "patch",
-                "pin",
-                "digest"
-            ],
-            "automerge": true
-        },
-        {
-            "matchUpdateTypes": ["major"],
-            "addLabels": [ "dep/major"]
-        },
-        {
-            "matchUpdateTypes": ["minor", "patch"],
-            "addLabels": [ "dep/minor"]
-        }
+  "enabled": true,
+  "semanticCommits": "enabled",
+  "labels": ["renovatebot"],
+  "commitBody": "Signed-Off-by: Budiman JOJO <budimanjojo@gmail.com>",
+  "semanticCommitScope": "images",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "rebaseWhen": "conflicted",
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/.+/deployment\\.yaml$",
+      "cluster/.+/daemonset\\.yaml$",
+      "cluster/.+/statefulset\\.yaml$",
+      "cluster/.+/cronjob\\.yaml$"
     ]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["cluster/.+/cephcluster-cephCRD.yaml$"],
+      "matchStrings": [
+        "image: (?<depName>[\\w\\.\\-_]+\\/[\\w\\.\\-_]+\\/[\\w\\.\\-_]+):(?<currentValue>v[\\d+\\.]+)\\b"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["cluster/.+/kustomization\\.yaml$"],
+      "matchStrings": [
+        "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?(?<currentValue>v?[\\d+\\.]+)\\/",
+        "- (\\w+://)?github\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/.+\\?ref=(?<currentValue>.+)\\b"
+      ],
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "fileMatch": ["cluster/.+/.+\\.yaml"],
+      "matchStrings": [
+        "# renovate: depName=(?<depName>.*) datasource=(?<datasource>.*)\\n *tag: (?<currentValue>.*)\\b"
+      ]
+    },
+    {
+      "fileMatch": ["cluster/apps/kured/kustomization.yaml"],
+      "matchStrings": [
+        "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?v?[\\d+\\.]+\\/kured-(?<currentValue>[\\d.\\.]+)"
+      ],
+      "datasourceTemplate": "github-tags"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "enabled": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "addLabels": ["docker/image"]
+    },
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "addLabels": [ "dep/major"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "addLabels": [ "dep/minor"]
+    }
+  ]
 }
