@@ -1,9 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://raw.githubusercontent.com/rook/rook/v1.8.3/deploy/examples/common.yaml
-  - https://raw.githubusercontent.com/rook/rook/v1.8.3/deploy/examples/operator.yaml
-  - https://raw.githubusercontent.com/rook/rook/v1.8.3/deploy/examples/monitoring/rbac.yaml
+  - https://raw.githubusercontent.com/rook/rook/v1.8.4/deploy/examples/common.yaml
+  - https://raw.githubusercontent.com/rook/rook/v1.8.4/deploy/examples/operator.yaml
+  - https://raw.githubusercontent.com/rook/rook/v1.8.4/deploy/examples/monitoring/rbac.yaml
   - cephcluster-rookCRD.yaml
   - block-storageclass.yaml
   - shared-storageclass.yaml
