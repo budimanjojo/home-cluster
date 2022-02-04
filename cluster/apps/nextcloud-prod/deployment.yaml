@@ -45,7 +45,7 @@ spec:
                 name: nextcloud-prod-secrets
       containers:
         - name: nextcloud-prod
-          image: nextcloud:23.0.0-apache
+          image: nextcloud:23.0.1-apache
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -100,7 +100,7 @@ spec:
             - secretRef:
                 name: nextcloud-prod-secrets
         - name: nextcloud-prod-cron
-          image: nextcloud:23.0.0-apache
+          image: nextcloud:23.0.1-apache
           imagePullPolicy: IfNotPresent
           command:
             - /cron.sh
