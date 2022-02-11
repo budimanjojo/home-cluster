@@ -9,7 +9,7 @@ on:
 jobs:
   manifest-validate:
     runs-on: ubuntu-latest
-    container: deck15/kubeval-tools:latest
+    container: ghcr.io/budimanjojo/kubernetes-toolbox:latest
     steps:
     - uses: actions/checkout@v2
     - name: Validate Kubernetes Manifests
