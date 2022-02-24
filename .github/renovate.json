@@ -48,6 +48,10 @@
   ],
   "packageRules": [
     {
+      "matchPackageNames": ["nextcloud", "wordpress"],
+      "stabilityDays": 3
+    },
+    {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
       "enabled": true
