@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: postgres-system
+resources:
+  - 01-namespace.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/charts/postgres-operator/crds/operatorconfigurations.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/charts/postgres-operator/crds/postgresqls.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/manifests/operator-service-account-rbac.yaml

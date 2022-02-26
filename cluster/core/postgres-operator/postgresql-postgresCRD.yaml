@@ -1,0 +1,17 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: default-cluster
+  namespace: default
+spec:
+  teamId: default
+  numberOfInstances: 2
+  users:
+    default.vaultwarden: []
+  databases:
+    vaultwarden: default.vaultwarden
+  volume:
+    size: 3Gi
+    storageClass: rook-ceph-block
+  postgresql:
+    version: "14"
