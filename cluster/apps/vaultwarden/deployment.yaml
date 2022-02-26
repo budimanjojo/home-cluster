@@ -52,6 +52,9 @@ spec:
           volumeMounts:
             - name: vaultwarden-config
               mountPath: /data
+            - name: vaultwarden-script
+              mountPath: /etc/vaultwarden.sh
+              subPath: vaultwarden.sh
           livenessProbe:
             tcpSocket:
               port: http
@@ -68,6 +71,12 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             failureThreshold: 10
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: default.vaultwarden.credentials.postgresql
+                  key: password
           envFrom:
             - secretRef:
                 name: vaultwarden-secrets
@@ -75,3 +84,7 @@ spec:
         - name: vaultwarden-config
           persistentVolumeClaim:
             claimName: vaultwarden-config
+        - name: vaultwarden-script
+          configMap:
+            name: vaultwarden-script
+            defaultMode: 0755

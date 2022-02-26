@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vaultwarden-script
+  labels:
+    app.kubernetes.io/name: vaultwarden
+data:
+  vaultwarden.sh: |
+    #!/bin/bash
+
+    echo "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}" > /tmp/db_url
