@@ -4,6 +4,7 @@ metadata:
   name: vaultwarden-script
   labels:
     app.kubernetes.io/name: vaultwarden
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 data:
   vaultwarden.sh: |
     #!/bin/bash
