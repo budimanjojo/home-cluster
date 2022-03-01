@@ -30,10 +30,7 @@ spec:
               done
           env:
             - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-vaultwarden
-                  key: host
+              value: pgo-cluster-primary
           envFrom:
             - secretRef:
                 name: vaultwarden-secrets
