@@ -23,7 +23,9 @@ spec:
     - name: vaultwarden
       databases:
         - vaultwarden
-      options: "CREATEDB SUPERUSER"
+    - name: nextcloud
+      databases:
+        - nextcloud
   backups:
     pgbackrest:
       repos:
