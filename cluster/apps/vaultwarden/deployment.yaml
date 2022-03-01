@@ -28,6 +28,12 @@ spec:
               until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
               do echo "Waiting for database";
               done
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-vaultwarden
+                  key: host
           envFrom:
             - secretRef:
                 name: vaultwarden-secrets
@@ -52,9 +58,6 @@ spec:
           volumeMounts:
             - name: vaultwarden-config
               mountPath: /data
-            - name: vaultwarden-script
-              mountPath: /etc/vaultwarden.sh
-              subPath: vaultwarden.sh
           livenessProbe:
             tcpSocket:
               port: http
@@ -72,11 +75,11 @@ spec:
             successThreshold: 1
             failureThreshold: 10
           env:
-            - name: POSTGRES_PASSWORD
+            - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: default.vaultwarden.credentials.postgresql
-                  key: password
+                  name: pgo-cluster-pguser-vaultwarden
+                  key: uri
           envFrom:
             - secretRef:
                 name: vaultwarden-secrets
@@ -84,7 +87,3 @@ spec:
         - name: vaultwarden-config
           persistentVolumeClaim:
             claimName: vaultwarden-config
-        - name: vaultwarden-script
-          configMap:
-            name: vaultwarden-script
-            defaultMode: 0755
