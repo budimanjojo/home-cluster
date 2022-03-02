@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: wait-database
-          image: busybox:1.35.0
+          image: alpine:3.15.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -27,13 +27,13 @@ spec:
               do echo "Waiting for database";
               done
           env:
-            - name: MYSQL_HOST
+            - name: POSTGRES_HOST
               valueFrom:
                 secretKeyRef:
-                  name: nextcloud-secrets
-                  key: mysql_host
+                  name: pgo-cluster-pguser-nextcloud
+                  key: host
         - name: wait-redis
-          image: busybox:1.35.0
+          image: alpine:3.15.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -43,17 +43,9 @@ spec:
               until nc -w 1 -v $REDIS_HOST:$REDIS_HOST_PORT;
               do echo "Waiting for Redis";
               done
-          env:
-            - name: REDIS_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: redis_host
-            - name: REDIS_HOST_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: redis_host_port
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
         - name: init-permission
           image: nextcloud:23.0.2-apache
           imagePullPolicy: IfNotPresent
@@ -120,72 +112,25 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
           env:
-            - name: MYSQL_DATABASE
+            - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: nextcloud-secrets
-                  key: mysql_database
-            - name: MYSQL_USER
+                  name: pgo-cluster-pguser-nextcloud
+                  key: dbname
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: nextcloud-secrets
-                  key: mysql_user
-            - name: MYSQL_HOST
+                  name: pgo-cluster-pguser-nextcloud
+                  key: user
+            - name: POSTGRES_HOST
               valueFrom:
                 secretKeyRef:
-                  name: nextcloud-secrets
-                  key: mysql_host
-            - name: REDIS_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: redis_host
-            - name: REDIS_HOST_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: redis_host_port
-            - name: REDIS_HOST_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: redis_host_password
-            - name: NEXTCLOUD_ADMIN_USER
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: admin_user
-            - name: NEXTCLOUD_TRUSTED_DOMAINS
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: trusted_domains
-            - name: NEXTCLOUD_DATA_DIR
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: data_dir
-            - name: NEXTCLOUD_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: admin_password
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: mysql_password
-            - name: APACHE_DISABLE_REWRITE_IP
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: disable_rewrite_ip
-            - name: TRUSTED_PROXIES
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud-secrets
-                  key: trusted_proxies
+                  name: pgo-cluster-pguser-nextcloud
+                  key: host
         - name: nextcloud-cron
           image: nextcloud:23.0.2-apache
           imagePullPolicy: IfNotPresent
