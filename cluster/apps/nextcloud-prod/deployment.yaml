@@ -18,7 +18,7 @@ spec:
     spec:
       initContainers:
         - name: wait-database
-          image: busybox:1.35.0
+          image: alpine:3.15.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -28,11 +28,17 @@ spec:
               until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
               do echo "Waiting for database";
               done
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: host
           envFrom:
             - secretRef:
                 name: nextcloud-prod-secrets
         - name: wait-redis
-          image: busybox:1.35.0
+          image: alpine:3.15.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -101,6 +107,22 @@ spec:
           envFrom:
             - secretRef:
                 name: nextcloud-prod-secrets
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: dbname
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: user
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: host
         - name: nextcloud-prod-cron
           image: nextcloud:23.0.2-apache
           imagePullPolicy: IfNotPresent
