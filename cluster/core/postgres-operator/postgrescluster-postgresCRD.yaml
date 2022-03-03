@@ -26,6 +26,9 @@ spec:
     - name: nextcloud
       databases:
         - nextcloud
+    - name: nextcloud-prod
+      databases:
+        - nextcloud-prod
   backups:
     pgbackrest:
       repos:
