@@ -14,6 +14,8 @@ spec:
       labels:
         app.kubernetes.io/name: nextcloud
     spec:
+      securityContext:
+        fsGroup: 82
       initContainers:
         - name: wait-database
           image: alpine:3.15.0
@@ -47,14 +49,14 @@ spec:
             - secretRef:
                 name: nextcloud-secrets
         - name: init-permission
-          image: nextcloud:23.0.2-fpm-alpine
+          image: nginx:1.21-alpine
           imagePullPolicy: IfNotPresent
           command:
             - sh
           args:
             - -c
             - >-
-              chown -R 33:33 /data &&
+              chown -R 82:82 /data &&
               chmod -R 750 /data
           volumeMounts:
             - name: nextcloud-data
