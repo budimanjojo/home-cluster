@@ -31,8 +31,13 @@ spec:
         - nextcloud-prod
   backups:
     pgbackrest:
+      global:
+        repo1-retention-inc: "7"
+        repo1-retention-inc-type: count
       repos:
         - name: repo1
+          schedules:
+            incremental: 0 1 * * *
           volume:
             volumeClaimSpec:
               accessModes:
