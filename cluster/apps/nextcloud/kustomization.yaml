@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: default
 resources:
   - deployment.yaml
+  - configmap.yaml
   - ingress-traefikCRD.yaml
   - pvc.yaml
   - secret.yaml

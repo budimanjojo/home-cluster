@@ -47,7 +47,7 @@ spec:
             - secretRef:
                 name: nextcloud-secrets
         - name: init-permission
-          image: nextcloud:23.0.2-apache
+          image: nextcloud:23.0.2-fpm-alpine
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -61,17 +61,57 @@ spec:
               mountPath: /data
       containers:
         - name: nextcloud
-          image: nextcloud:23.0.2-apache
+          image: nextcloud:23.0.2-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
               cpu: 100m
               memory: 150Mi
+          volumeMounts:
+            - name: nextcloud-config
+              mountPath: /var/www/html
+            - name: nextcloud-data
+              mountPath: /var/www/data
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud
+                  key: dbname
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud
+                  key: user
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud
+                  key: host
+        - name: nextcloud-cron
+          image: nextcloud:23.0.2-fpm-alpine
+          imagePullPolicy: IfNotPresent
+          command:
+            - /cron.sh
+          volumeMounts:
+            - name: nextcloud-config
+              mountPath: /var/www/html
+            - name: nextcloud-data
+              mountPath: /var/www/data
+        - name: nextcloud-proxy
+          image: nginx:1.21-alpine
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               protocol: TCP
               containerPort: 80
           volumeMounts:
+            - name: nextcloud-nginxconfig
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
             - name: nextcloud-config
               mountPath: /var/www/html
             - name: nextcloud-data
@@ -112,35 +152,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
-          envFrom:
-            - secretRef:
-                name: nextcloud-secrets
-          env:
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-nextcloud
-                  key: dbname
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-nextcloud
-                  key: user
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-nextcloud
-                  key: host
-        - name: nextcloud-cron
-          image: nextcloud:23.0.2-apache
-          imagePullPolicy: IfNotPresent
-          command:
-            - /cron.sh
-          volumeMounts:
-            - name: nextcloud-config
-              mountPath: /var/www/html
-            - name: nextcloud-data
-              mountPath: /var/www/data
       volumes:
         - name: nextcloud-config
           persistentVolumeClaim:
@@ -148,3 +159,6 @@ spec:
         - name: nextcloud-data
           persistentVolumeClaim:
             claimName: nextcloud-data
+        - name: nextcloud-nginxconfig
+          configMap:
+            name: nextcloud-nginxconfig
