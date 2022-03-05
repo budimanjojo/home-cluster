@@ -3,6 +3,10 @@ kind: PostgresCluster
 metadata:
   name: pgo-cluster
 spec:
+  dataSource:
+    postgresCluster:
+      clusterName: pgo-cluster
+      repoName: repo1
   postgresVersion: 14
   patroni:
     dynamicConfiguration:
