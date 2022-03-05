@@ -42,10 +42,11 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: nextcloud-rpr1
+  name: nextcloud-rr2
   labels:
     app.kubernetes.io/name: nextcloud
 spec:
-  replacePathRegex:
-    regex: ^(/.well-known/\w+$)
-    replacement: index.php$1
+  redirectRegex:
+    permanent: true
+    regex: ^https?://([^/]*)/.well-known/(webfinger|nodeinfo)$
+    replacement: https://$1/index.php/.well-known/$2
