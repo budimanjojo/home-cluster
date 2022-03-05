@@ -53,21 +53,63 @@ spec:
                 name: nextcloud-prod-secrets
       containers:
         - name: nextcloud-prod
-          image: nextcloud:23.0.2-apache
+          image: nextcloud:23.0.2-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
               cpu: 100m
               memory: 150Mi
-          ports:
-            - name: http
-              protocol: TCP
-              containerPort: 80
           volumeMounts:
             - name: nextcloud-prod-config
               mountPath: /var/www/html
             - name: nextcloud-prod-data
               mountPath: /var/www/data
+          envFrom:
+            - secretRef:
+                name: nextcloud-prod-secrets
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: dbname
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: user
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: pgo-cluster-pguser-nextcloud-prod
+                  key: host
+        - name: nextcloud-prod-cron
+          image: nextcloud:23.0.2-apache
+          imagePullPolicy: IfNotPresent
+          command:
+            - /cron.sh
+          volumeMounts:
+            - name: nextcloud-prod-config
+              mountPath: /var/www/html
+            - name: nextcloud-prod-data
+              mountPath: /var/www/data
+        - name: nextcloud-proxy
+          image: nginx:1.21-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 80
+          volumeMounts:
+            - name: nextcloud-prod-nginxconfig
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nextcloud-prod-config
+              mountPath: /var/www/html
+              readOnly: true
+            - name: nextcloud-prod-data
+              mountPath: /var/www/data
+              readOnly: true
           startupProbe:
             httpGet:
               path: /status.php
@@ -104,35 +146,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
-          envFrom:
-            - secretRef:
-                name: nextcloud-prod-secrets
-          env:
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-nextcloud-prod
-                  key: dbname
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-nextcloud-prod
-                  key: user
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: pgo-cluster-pguser-nextcloud-prod
-                  key: host
-        - name: nextcloud-prod-cron
-          image: nextcloud:23.0.2-apache
-          imagePullPolicy: IfNotPresent
-          command:
-            - /cron.sh
-          volumeMounts:
-            - name: nextcloud-prod-config
-              mountPath: /var/www/html
-            - name: nextcloud-prod-data
-              mountPath: /var/www/data
       volumes:
         - name: nextcloud-prod-config
           persistentVolumeClaim:
@@ -140,3 +153,6 @@ spec:
         - name: nextcloud-prod-data
           persistentVolumeClaim:
             claimName: nextcloud-prod-data
+        - name: nextcloud-prod-nginxconfig
+          configMap:
+            name: nextcloud-nginxconfig
