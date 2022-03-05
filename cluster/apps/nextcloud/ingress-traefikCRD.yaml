@@ -28,7 +28,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: nextcloud
+  name: nextcloud-rr1
   labels:
     app.kubernetes.io/name: nextcloud
 spec:
