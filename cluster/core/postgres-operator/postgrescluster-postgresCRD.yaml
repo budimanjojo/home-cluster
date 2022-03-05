@@ -1,7 +1,7 @@
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
-  name: pgo-cluster
+  name: pgo-cluster-2
 spec:
   dataSource:
     postgresCluster:
