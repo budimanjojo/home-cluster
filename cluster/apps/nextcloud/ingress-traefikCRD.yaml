@@ -12,7 +12,9 @@ spec:
       match: Host(`nextcloud.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: headers@file
-        - name: nextcloud
+        - name: nextcloud-rr1
+          namespace: default
+        - name: nextcloud-rpr1
           namespace: default
       services:
         - name: nextcloud
@@ -34,3 +36,16 @@ spec:
     permanent: true
     regex: "https://(.*)/.well-known/(card|cal)dav"
     replacement: "https://$1/remote.php/dav/"
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nextcloud-rr2
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  replacePathRegex:
+    regex: ^(/.well-known/\w+$)
+    replacement: index.php$1

@@ -39,14 +39,6 @@ data:
       server {
         listen 80;
 
-        # HSTS settings
-        # WARNING: Only add the preload option once you read about
-        # the consequences in https://hstspreload.org/. This option
-        # will add the domain to a hardcoded list that is shipped
-        # in all major browsers and getting removed from this list
-        # could take several months.
-        #add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;" always;
-
         # set max upload size
         client_max_body_size 10G;
         fastcgi_buffers 64 4K;
@@ -112,6 +104,7 @@ data:
 
           location = /.well-known/carddav     { return 301 /remote.php/dav/; }
           location = /.well-known/caldav      { return 301 /remote.php/dav/; }
+
           # Anything else is dynamically handled by Nextcloud
           location ^~ /.well-known            { return 301 /index.php$uri; }
 
@@ -119,8 +112,8 @@ data:
         }
 
         # Rules borrowed from `.htaccess` to hide certain paths from clients
-        location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)  { return 404; }
-        location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)              { return 404; }
+        location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/) { return 404; }
+        location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)               { return 404; }
 
         # Ensure this block, which passes PHP files to the PHP process, is above the blocks
         # which handle static assets (as seen below). If this block is not declared first,
@@ -145,16 +138,24 @@ data:
           fastcgi_request_buffering off;
         }
 
-        location ~ \.(?:css|js|svg|gif)$ {
+        location ~ \.(?:css|js|svg|gif|png|jpg|ico|wasm|tflite|map)$ {
           try_files $uri /index.php$request_uri;
           expires 6M;         # Cache-Control policy borrowed from `.htaccess`
           access_log off;     # Optional: Don't log access to assets
+
+          location ~ \.wasm$ {
+            default_type application/wasm;
+          }
         }
 
         location ~ \.woff2?$ {
           try_files $uri /index.php$request_uri;
           expires 7d;         # Cache-Control policy borrowed from `.htaccess`
           access_log off;     # Optional: Don't log access to assets
+        }
+
+        location /remote {
+          return 301 /remote.php$request_uri;
         }
 
         location / {
