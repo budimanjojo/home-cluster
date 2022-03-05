@@ -29,6 +29,9 @@ spec:
     - name: nextcloud-prod
       databases:
         - nextcloud-prod
+    - name: authelia
+      databases:
+        - authelia
   backups:
     pgbackrest:
       global:
