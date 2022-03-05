@@ -12,41 +12,11 @@ spec:
       match: Host(`nextcloud.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: headers@file
-        - name: nextcloud-rr1
-          namespace: default
-        - name: nextcloud-rpr1
-          namespace: default
+        - name: nextcloud-1@file
+        - name: nextcloud-2@file
       services:
         - name: nextcloud
           port: 80
           namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: nextcloud-rr1
-  labels:
-    app.kubernetes.io/name: nextcloud
-spec:
-  redirectRegex:
-    permanent: true
-    regex: "https://(.*)/.well-known/(card|cal)dav"
-    replacement: "https://$1/remote.php/dav/"
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: nextcloud-rr2
-  labels:
-    app.kubernetes.io/name: nextcloud
-spec:
-  redirectRegex:
-    permanent: true
-    regex: ^https?://([^/]*)/.well-known/(webfinger|nodeinfo)$
-    replacement: https://$1/index.php/.well-known/$2
