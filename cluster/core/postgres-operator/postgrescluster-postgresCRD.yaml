@@ -15,26 +15,26 @@ spec:
   instances:
     - name: instance1
       dataVolumeClaimSpec:
+        storageClassName: rook-ceph-block
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
             storage: 3Gi
-        volumeName: pgo-cluster-instance1
         selector:
           matchLabels:
-            postgres-operator.crunchydata.com/instance: pgo-cluster-instance1
+            pgo-postgres-cluster: default-pgo-cluster-instance1
     - name: instance2
       dataVolumeClaimSpec:
+        storageClassName: rook-ceph-block
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
             storage: 3Gi
-        volumeName: pgo-cluster-instance2
         selector:
           matchLabels:
-            postgres-operator.crunchydata.com/instance: pgo-cluster-instance2
+            pgo-postgres-cluster: defaul-pgo-cluster-instance2
   users:
     - name: vaultwarden
       databases:

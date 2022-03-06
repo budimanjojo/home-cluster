@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: default
 resources:
   - postgrescluster-postgresCRD.yaml
-  - pvc.yaml
