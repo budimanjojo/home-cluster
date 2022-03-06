@@ -1,28 +1,34 @@
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
-  name: pgo-cluster-2
+  name: pgo-cluster
 spec:
-  dataSource:
-    postgresCluster:
-      clusterName: pgo-cluster
-      repoName: repo1
   postgresVersion: 14
   patroni:
     dynamicConfiguration:
+      synchronous_mode: true
       postgresql:
+        synchronous_commit: on
         pg_hba:
           - hostnossl all all 10.244.0.0/16 md5
           - hostssl all all all md5
   instances:
-    - replicas: 2
+    - name: instance1
       dataVolumeClaimSpec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
             storage: 3Gi
-        storageClassName: rook-ceph-block
+        volumeName: pgo-cluster-instance1
+    - name: instance2
+      dataVolumeClaimSpec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 3Gi
+        volumeName: pgo-cluster-instance2
   users:
     - name: vaultwarden
       databases:
@@ -39,8 +45,8 @@ spec:
   backups:
     pgbackrest:
       global:
-        repo1-retention-inc: "7"
-        repo1-retention-inc-type: count
+        repo1-retention-incr: "7"
+        repo1-retention-incr-type: count
       repos:
         - name: repo1
           schedules:
