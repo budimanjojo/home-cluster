@@ -16,6 +16,9 @@ spec:
       labels:
         app.kubernetes.io/name: nextcloud-prod
     spec:
+      securityContext:
+        fsGroup: 82
+        fsGroupChangePolicy: OnRootMismatch
       initContainers:
         - name: wait-database
           image: alpine:3.15.0
@@ -84,7 +87,7 @@ spec:
                   name: pgo-cluster-pguser-nextcloud-prod
                   key: host
         - name: nextcloud-prod-cron
-          image: nextcloud:23.0.2-apache
+          image: nextcloud:23.0.2-fpm-alpine
           imagePullPolicy: IfNotPresent
           command:
             - /cron.sh
