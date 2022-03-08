@@ -21,9 +21,6 @@ spec:
         resources:
           requests:
             storage: 3Gi
-        selector:
-          matchLabels:
-            pgo-postgres-cluster: default-pgo-cluster-instance1
     - name: instance2
       dataVolumeClaimSpec:
         storageClassName: rook-ceph-block
@@ -32,9 +29,6 @@ spec:
         resources:
           requests:
             storage: 3Gi
-        selector:
-          matchLabels:
-            pgo-postgres-cluster: defaul-pgo-cluster-instance2
   users:
     - name: vaultwarden
       databases:
