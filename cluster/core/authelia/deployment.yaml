@@ -38,10 +38,10 @@ spec:
               mountPath: /config
               readOnly: true
             - name: authelia-secrets
-              mountPath: /secrets
+              mountPath: /app/secrets
               readOnly: true
             - name: pgo-cluster-pguser-authelia
-              mountPath: /secrets
+              mountPath: /db/secrets
               readOnly: true
           startupProbe:
             httpGet:
@@ -72,17 +72,17 @@ spec:
             failureThreshold: 5
           env:
             - name: AUTHELIA_JWT_SECRET_FILE
-              value: /secrets/jwt_secret
+              value: /app//secrets/jwt_secret
             - name: AUTHELIA_DUO_API_SECRET_KEY_FILE
-              value: /secrets/duo_api_secret_key
+              value: /app//secrets/duo_api_secret_key
             - name: AUTHELIA_SESSION_SECRET_FILE
-              value: /secrets/session_secret
+              value: /app/secrets/session_secret
             - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
-              value: /secrets/notifier_smtp_password
+              value: /app/secrets/notifier_smtp_password
             - name: AUTHELIA_SESSION_REDIS_PASSWORD_FILE
-              value: /secrets/session_redis_password
+              value: /app/secrets/session_redis_password
             - name: AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE
-              value: /secrets/storage_postgres_password
+              value: /db/secrets/storage_postgres_password
             - name: AUTHELIA_STORAGE_POSTGRES_HOST
               valueFrom:
                 secretKeyRef:
