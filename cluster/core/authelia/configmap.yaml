@@ -7,16 +7,16 @@ metadata:
     app.kubernetes.io/name: authelia
 data:
   configuration.yaml: |
+    theme: auto
+    default_redirection_url: https://auth.${SECRET_DOMAIN_0}
     server:
       host: 0.0.0.0
       port: 9091
       read_buffer_size: 4096
       write_buffer_size: 4096
       path: ""
-    theme: dark
     log:
       level: debug
-    default_redirection_url: https://auth.${SECRET_DOMAIN_0}
     totp:
       issuer: "${SECRET_DOMAIN_0}"
       period: 30
@@ -24,9 +24,15 @@ data:
     duo_api:
       hostname: ${SECRET_DUO_HOSTNAME_0}
       integration_key: ${SECRET_DUO_KEY_0}
+    ntp:
+      address: time.cloudflare.com:123
+      version: 4
+      max_desync: 3s
+      disable_startup_check: false
+      disable_failure: false
     authentication_backend:
       disable_reset_password: true
-      refresh_interval: disable
+      refresh_interval: 5m
       file:
         path: /config/users.yaml
         password:
@@ -39,8 +45,6 @@ data:
     access_control:
       default_policy: deny
       rules:
-        - domain: auth.${SECRET_DOMAIN_0}
-          policy: bypass
         - domain: "*.${SECRET_DOMAIN_0}"
           policy: two_factor
     session:
@@ -58,15 +62,13 @@ data:
       ban_time: 5m
     storage:
       encryption_key: ${SECRET_AUTHELIA_ENC_KEY}
-      mysql:
-        host: mariadb.default.svc.cluster.local
-        port: 3306
-        database: authelia
-        username: authelia
     notifier:
       disable_startup_check: false
-      filesystem:
-        filename: /notification.txt
+    smtp:
+      host: smtp.gmail.com
+      port: 587
+      username: budimanjojo@gmail.com
+      sender: Authelia Admin admin@budimanjojo.com
 
   users.yaml: |
     users:
