@@ -11,11 +11,6 @@ patchesJson6902:
         path: /metadata/annotations
         value:
           reflector.v1.k8s.emberstack.com/reflection-allowed: true
-
----
-
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
 resources:
   - 01-namespace.yaml
   - configmap.yaml
