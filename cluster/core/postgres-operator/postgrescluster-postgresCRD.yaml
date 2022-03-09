@@ -3,6 +3,9 @@ kind: PostgresCluster
 metadata:
   name: pgo-cluster
 spec:
+  metadata:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
   postgresVersion: 14
   patroni:
     dynamicConfiguration:
