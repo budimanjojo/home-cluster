@@ -128,5 +128,5 @@ spec:
           secret:
             secretName: pgo-cluster-pguser-authelia
             items:
-              - key: authelia_storage_postgres_password
+              - key: password
                 path: storage_postgres_password
