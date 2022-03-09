@@ -68,7 +68,7 @@ data:
         host: smtp.gmail.com
         port: 587
         username: budimanjojo@gmail.com
-        sender: Authelia Admin <admin@budimanjojo.com
+        sender: Authelia Admin <admin@budimanjojo.com>
 
   users.yaml: |
     users:
