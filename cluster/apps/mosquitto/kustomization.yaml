@@ -4,4 +4,5 @@ namespace: default
 resources:
   - configmap.yaml
   - deployment.yaml
+  - pvc.yaml
   - service.yaml

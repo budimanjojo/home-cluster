@@ -28,6 +28,8 @@ spec:
             - name: mosquitto-configs
               mountPath: /mosquitto/config/mosquitto.conf
               subPath: mosquitto.conf
+            - name: mosquitto-data
+              mountPath: /mosquitto/data
           startupProbe:
             tcpSocket:
               port: mqtt
@@ -56,3 +58,6 @@ spec:
         - name: mosquitto-configs
           configMap:
             name: mosquitto-configs
+        - name: mosquitto-data
+          persistentVolumeClaim:
+            claimName: mosquitto-data
