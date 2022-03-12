@@ -10,3 +10,4 @@ data:
     allow_anonymous true
     persistence true
     persistence_location /mosquitto/data
+    connection_messages false
