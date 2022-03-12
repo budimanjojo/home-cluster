@@ -4,10 +4,12 @@ metadata:
   name: mosquitto
   labels:
     app.kubernetes.io/name: mosquitto
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
-    type: RollingUpdate
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: mosquitto
