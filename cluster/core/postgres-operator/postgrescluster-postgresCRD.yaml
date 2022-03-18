@@ -33,6 +33,9 @@ spec:
           requests:
             storage: 3Gi
   users:
+    - name: homeassistant
+      databases:
+        - homeassistant
     - name: vaultwarden
       databases:
         - vaultwarden
