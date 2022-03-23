@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syncthing
+  labels:
+    app.kubernetes.io/name: syncthing
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: syncthing
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: syncthing
+    spec:
+      containers:
+      - name: syncthing
+        image: "syncthing/syncthing:1.19.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 150Mi
+          limits:
+            cpu: 200m
+            memory: 300Mi
+        ports:
+        - name: discovery
+          protocol: UDP
+          containerPort: 21207
+        - name: listen
+          protocol: TCP
+          containerPort: 22000
+        - name: http
+          protocol: TCP
+          containerPort: 8384
+        volumeMounts:
+        - name: syncthing-config
+          mountPath: /var/syncthing
+        startupProbe:
+          tcpSocket:
+            port: 8384
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        livenessProbe:
+          tcpSocket:
+            port: 8384
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 8384
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: ${CONFIG_TIMEZONE}
+      volumes:
+      - name: syncthing-config
+        persistentVolumeClaim:
+          claimName: syncthing-config

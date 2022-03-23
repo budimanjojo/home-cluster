@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syncthing
+  labels:
+    app.kubernetes.io/name: syncthing
+spec:
+  selector:
+    app.kubernetes.io/name: syncthing
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8384
+      targetPort: http
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: syncthing-listdisc
+  labels:
+    app.kubernetes.io/name: syncthing
+spec:
+  selector:
+    app.kubernetes.io/name: syncthing
+  ports:
+    - name: discovery
+      protocol: UDP
+      port: 21027
+      targetPort: 21027
+    - name: listen
+      protocol: UDP
+      port: 22000
+      targetPort: 22000
+  type: LoadBalancer
+  loadBalancerIP: ${CONFIG_SYNCTHING_IP}

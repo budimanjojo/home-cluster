@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: syncthing-config
+  labels:
+    app.kubernetes.io/name: syncthing
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 60Gi
+  storageClassName: nfs-provisioner
