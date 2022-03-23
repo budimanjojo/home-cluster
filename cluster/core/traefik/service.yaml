@@ -18,6 +18,7 @@ spec:
       port: 443
       targetPort: https
   type: LoadBalancer
+  loadBalancerIP: ${CONFIG_TRAEFIK_IP}
   externalTrafficPolicy: Local
 
 ---
