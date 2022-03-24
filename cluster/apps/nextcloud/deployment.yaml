@@ -61,7 +61,7 @@ spec:
               mountPath: /data
       containers:
         - name: nextcloud
-          image: nextcloud:23.0.2-fpm-alpine
+          image: nextcloud:23.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -92,7 +92,7 @@ spec:
                   name: pgo-cluster-pguser-nextcloud
                   key: host
         - name: nextcloud-cron
-          image: nextcloud:23.0.2-fpm-alpine
+          image: nextcloud:23.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           command:
             - /cron.sh
