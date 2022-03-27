@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: alertmanager-notifier
-          image: registry.gitlab.com/ix.ai/alertmanager-notifier:v0.4.1
+          image: registry.gitlab.com/ix.ai/alertmanager-notifier:v0.4.2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
