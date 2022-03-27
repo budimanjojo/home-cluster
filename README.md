@@ -125,9 +125,5 @@ A lot of inspiration for my cluster came from the people that have shared their 
 
 ## Todo List
 
-- [x] Move everything here
-- [x] Use Renovate to auto PR updates
-- [x] Document stuffs
-- [x] Replace kubed with fluxcd envsubs
-- [x] Replace non standard versioning containers
-- [x] Use security context for permissions instead
+- [ ] Use redis operator
+- [ ] Use mariadb operator
