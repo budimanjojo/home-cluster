@@ -39,9 +39,6 @@ spec:
     - name: vaultwarden
       databases:
         - vaultwarden
-    - name: nextcloud
-      databases:
-        - nextcloud
     - name: nextcloud-prod
       databases:
         - nextcloud-prod
