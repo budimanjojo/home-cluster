@@ -45,6 +45,8 @@ data:
     access_control:
       default_policy: deny
       rules:
+        - domain: "dav.${SECRET_DOMAIN_0}"
+          policy: one_factor
         - domain: "*.${SECRET_DOMAIN_0}"
           policy: two_factor
     session:
