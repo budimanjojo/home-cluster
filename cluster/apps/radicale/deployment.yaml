@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radicale
+  labels:
+    app.kubernetes.io/name: radicale
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: radicale
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: radicale
+    spec:
+      containers:
+      - name: radicale
+        image: tomsquest/docker-radicale:3.1.1.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 150Mi
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 5232
+        volumeMounts:
+        - name: radicale-data
+          mountPath: /data
+        - name: radicale-configs
+          mountPath: /config/config
+          subPath: config.cfg
+          readOnly: true
+        - name: radicale-secrets
+          mountPath: /config/secret
+        startupProbe:
+          tcpSocket:
+            port: 5232
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        livenessProbe:
+          tcpSocket:
+            port: 5232
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 5232
+          initialDelaySeconds: 0
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+        - name: RADICALE_CONFIG
+          value: /config/config
+        - name: TZ
+          value: Asia/Jakarta
+      volumes:
+      - name: radicale-data
+        persistentVolumeClaim:
+          claimName: radicale-data
+      - name: radicale-configs
+        configMap:
+          name: radicale-configs
+      - name: radicale-secrets
+        secret:
+          secretName: radicale-secrets

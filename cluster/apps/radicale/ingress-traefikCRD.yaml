@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radicale
+  labels:
+    app.kubernetes.io/name: radicale
+spec:
+  entryPoints:
+    - https
+  routes:
+    - kind: Rule
+      match: Host(`dav.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: headers@file
+      services:
+        - name: radicale
+          port: 5232
+          namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
