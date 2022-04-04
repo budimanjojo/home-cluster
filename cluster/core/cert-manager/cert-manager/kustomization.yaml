@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://github.com/jetstack/cert-manager/releases/download/v1.7.2/cert-manager.yaml
+  - certificate.yaml
+  - issuer.yaml
+  - secret.yaml
+patchesStrategicMerge:
+  - delete-crds-patch.yaml
