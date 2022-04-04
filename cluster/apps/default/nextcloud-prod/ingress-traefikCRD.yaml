@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: nextcloud-prod
+  name: nextcloud
   labels:
-    app.kubernetes.io/name: nextcloud-prod
+    app.kubernetes.io/name: nextcloud
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: nextcloud-1@file
         - name: nextcloud-2@file
       services:
-        - name: nextcloud-prod
+        - name: nextcloud
           port: 80
           namespace: default
   tls:

@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - 01-common
+  - adminer
+  - bazarr
+  - flaresolverr
+  - fullykioskbrowser
+  - homeassistant
+  - jellyfin
+  - lidarr
+  - mosquitto
+  - nextcloud-prod
+  - ombi
+  - omv
+  - opnsense
+  - prowlarr
+  - proxmox
+  - radarr
+  - radicale
+  - reloader
+  - remark42
+  - sonarr
+  - syncthing
+  - transmission
+  - unpackerr
+  - vaultwarden
+  - wordpress
+  - zigbee2mqtt

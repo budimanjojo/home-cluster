@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextcloud-prod
+  name: nextcloud
   labels:
-    app.kubernetes.io/name: nextcloud-prod
+    app.kubernetes.io/name: nextcloud
 spec:
   selector:
-    app.kubernetes.io/name: nextcloud-prod
+    app.kubernetes.io/name: nextcloud
   ports:
     - name: http
       protocol: TCP
