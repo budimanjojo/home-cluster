@@ -17,9 +17,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-data
+  name: nextcloud-prod-data
   labels:
-    app.kubernetes.io/name: nextcloud
+    app.kubernetes.io/name: nextcloud-prod
 spec:
   accessModes:
     - ReadWriteMany

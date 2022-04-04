@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nextcloud
+  name: nextcloud-prod
   labels:
-    app.kubernetes.io/name: nextcloud
+    app.kubernetes.io/name: nextcloud-prod
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: nextcloud
+      app.kubernetes.io/name: nextcloud-prod
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: nextcloud
+        app.kubernetes.io/name: nextcloud-prod
     spec:
       securityContext:
         fsGroup: 82
@@ -39,7 +39,7 @@ spec:
                   key: host
           envFrom:
             - secretRef:
-                name: nextcloud-secrets
+                name: nextcloud-prod-secrets
         - name: wait-redis
           image: alpine:3.15.3
           imagePullPolicy: IfNotPresent
@@ -53,9 +53,9 @@ spec:
               done
           envFrom:
             - secretRef:
-                name: nextcloud-secrets
+                name: nextcloud-prod-secrets
       containers:
-        - name: nextcloud
+        - name: nextcloud-prod
           image: nextcloud:23.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
@@ -63,13 +63,13 @@ spec:
               cpu: 100m
               memory: 150Mi
           volumeMounts:
-            - name: nextcloud-config
+            - name: nextcloud-prod-config
               mountPath: /var/www/html
             - name: nextcloud-prod-data
               mountPath: /var/www/data
           envFrom:
             - secretRef:
-                name: nextcloud-secrets
+                name: nextcloud-prod-secrets
           env:
             - name: POSTGRES_DB
               valueFrom:
@@ -86,13 +86,13 @@ spec:
                 secretKeyRef:
                   name: pgo-cluster-pguser-nextcloud-prod
                   key: host
-        - name: nextcloud-cron
+        - name: nextcloud-prod-cron
           image: nextcloud:23.0.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           command:
             - /cron.sh
           volumeMounts:
-            - name: nextcloud-config
+            - name: nextcloud-prod-config
               mountPath: /var/www/html
             - name: nextcloud-prod-data
               mountPath: /var/www/data
@@ -104,13 +104,13 @@ spec:
               protocol: TCP
               containerPort: 80
           volumeMounts:
-            - name: nextcloud-nginxconfig
+            - name: nextcloud-prod-nginxconfig
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
-            - name: nextcloud-config
+            - name: nextcloud-prod-config
               mountPath: /var/www/html
               readOnly: true
-            - name: nextcloud-data
+            - name: nextcloud-prod-data
               mountPath: /var/www/data
               readOnly: true
           startupProbe:
@@ -150,12 +150,12 @@ spec:
             successThreshold: 1
             failureThreshold: 3
       volumes:
-        - name: nextcloud-config
+        - name: nextcloud-prod-config
           persistentVolumeClaim:
-            claimName: nextcloud-config
+            claimName: nextcloud-prod-config
         - name: nextcloud-data
           persistentVolumeClaim:
-            claimName: nextcloud-data
+            claimName: nextcloud-prod-data
         - name: nextcloud-nginxconfig
           configMap:
             name: nextcloud-nginxconfig
