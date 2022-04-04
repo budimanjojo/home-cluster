@@ -104,7 +104,7 @@ spec:
               protocol: TCP
               containerPort: 80
           volumeMounts:
-            - name: nextcloud-prod-nginxconfig
+            - name: nextcloud-nginxconfig
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
             - name: nextcloud-prod-config
