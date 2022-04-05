@@ -36,7 +36,7 @@ spec:
                 name: vaultwarden-secrets
       containers:
         - name: vaultwarden
-          image: vaultwarden/server:1.24.0
+          image: vaultwarden/server:1.24.0-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
