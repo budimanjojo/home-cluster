@@ -16,9 +16,27 @@ spec:
       labels:
         app.kubernetes.io/name: wordpress
     spec:
+      initContainers:
+        - name: wait-database
+          image: alpine:3.15.4
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $MYSQL_HOST:3306;
+              do echo "Waiting for database";
+              done
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-secrets
+                  key: wordpress_db_host
       containers:
         - name: wordpress
-          image: wordpress:5.9.2
+          image: wordpress:5.9.2-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -31,26 +49,6 @@ spec:
           volumeMounts:
             - name: wordpress-config
               mountPath: /var/www/html
-          livenessProbe:
-            httpGet:
-              path: /wp-admin/install.php
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 120
-            timeoutSeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 6
-          readinessProbe:
-            httpGet:
-              path: /wp-admin/install.php
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 6
           env:
             - name: WORDPRESS_DB_HOST
               valueFrom:
@@ -72,7 +70,44 @@ spec:
                 secretKeyRef:
                   name: wordpress-secrets
                   key: wordpress_db_password
+        - name: wordpress-proxy
+          image: nginx:1.21-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 80
+          volumeMounts:
+            - name: wordpress-nginxconfig
+              mountPath: /etc/nginx/templates/default.conf.template
+              subPath: default.conf.template
+            - name: wordpress-config
+              mountPath: /var/www/html
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /wp-admin/install.php
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /wp-admin/install.php
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 6
       volumes:
         - name: wordpress-config
           persistentVolumeClaim:
             claimName: wordpress-config
+        - name: wordpress-nginxconfig
+          configMap:
+            name: wordpress-nginxconfig
