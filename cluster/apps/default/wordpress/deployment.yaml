@@ -36,7 +36,7 @@ spec:
                   key: wordpress_db_host
       containers:
         - name: wordpress
-          image: wordpress:5.9.2-fpm-alpine
+          image: wordpress:5.9.3-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
