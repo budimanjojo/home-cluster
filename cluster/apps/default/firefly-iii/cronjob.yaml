@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: firefly-iii-cron
+  labels:
+    app.kubernetes.io/name: firefly-iii
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+spec:
+  schedule: "*/15 * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: firefly-iii
+    spec:
+      activeDeadlineSeconds: 120
+      backoffLimit: 5
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: firefly-iii
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: firefly-iii-cron
+              image: busybox:1.34.1
+              imagePullPolicy: IfNotPresent
+              command:
+                - wget
+              args:
+                - "firefly-iii:8080/api/v1/cron/${STATIC_CRON_TOKEN}"
+              env:
+                - name: STATIC_CRON_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: firefly-iii-secrets
+                      key: STATIC_CRON_TOKEN

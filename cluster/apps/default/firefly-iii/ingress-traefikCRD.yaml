@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: firefly-iii
+  labels:
+    app.kubernetes.io/name: firefly-iii
+spec:
+  entryPoints:
+    - https
+  routes:
+    - kind: Rule
+      match: Host(`money.${SECRET_DOMAIN_2}`)
+      middlewares:
+        - name: headers@file
+      services:
+        - name: firefly-iii
+          port: 8080
+          namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_2}-prod-tls
