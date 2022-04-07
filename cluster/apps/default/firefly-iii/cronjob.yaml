@@ -26,7 +26,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: firefly-iii-cron
-              image: busybox:1.34.1
+              image: busybox:1.35.0
               imagePullPolicy: IfNotPresent
               command:
                 - wget
