@@ -31,7 +31,7 @@ spec:
               command:
                 - wget
               args:
-                - "firefly-iii:8080/api/v1/cron/${STATIC_CRON_TOKEN}"
+                - "firefly-iii:8080/api/v1/cron/$(STATIC_CRON_TOKEN)"
               env:
                 - name: STATIC_CRON_TOKEN
                   valueFrom:
