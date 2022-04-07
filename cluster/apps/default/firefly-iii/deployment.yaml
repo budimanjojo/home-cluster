@@ -25,7 +25,7 @@ spec:
           args:
             - -c
             - >-
-              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST;
+              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
               do echo "Waiting for database";
               done
           env:
