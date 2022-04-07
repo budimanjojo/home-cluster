@@ -78,7 +78,7 @@ spec:
                 name: firefly-iii-secrets
           env:
             - name: DB_CONNECTION
-              value: pqsql
+              value: pgsql
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
