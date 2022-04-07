@@ -4,6 +4,7 @@ resources:
   - 01-common
   - adminer
   - bazarr
+  - firefly-iii
   - flaresolverr
   - fullykioskbrowser
   - homeassistant
