@@ -50,7 +50,7 @@ spec:
                   key: ceph-secret
       containers:
         - name: benji
-          image: "ghcr.io/elemental-lf/benji-k8s:0.15.0"
+          image: "ghcr.io/elemental-lf/benji-k8s:0.16.0"
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
