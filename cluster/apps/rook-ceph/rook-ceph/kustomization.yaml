@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/rook/rook/v1.9.0/deploy/examples/monitoring/rbac.yaml
   - https://raw.githubusercontent.com/rook/rook/v1.9.0/deploy/examples/monitoring/localrules.yaml
-  - https://raw.githubusercontent.com/rook/rook/v1.9.0/deploy/examples/monitoring/externalrules.yaml
