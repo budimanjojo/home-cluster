@@ -25,7 +25,6 @@ spec:
     ssl: false
   monitoring:
     enabled: true
-    rulesNamespace: rook-ceph
   network:
   crashCollector:
     disable: false
