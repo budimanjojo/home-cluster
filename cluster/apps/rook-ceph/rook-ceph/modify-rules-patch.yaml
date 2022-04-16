@@ -4,3 +4,22 @@
 # remove PrometheusServer
 - op: remove
   path: /spec/groups/10/rules/0
+# modify CephNodeNetworkPacketDrops
+- op: replace
+  path: /spec/groups/6/rules/1/expr
+  value: |
+    (
+      increase(node_network_receive_drop_total{device!="lo"}[1m]) +
+      increase(node_network_transmit_drop_total{device!="lo"}[1m])
+    ) / (
+      increase(node_network_receive_packets_total{device!="lo"}[1m]) +
+      increase(node_network_transmit_packets_total{device!="lo"}[1m])
+    ) >= 0.01 or (
+      increase(node_network_receive_drop_total{device!="lo"}[1m]) +
+      increase(node_network_transmit_drop_total{device!="lo"}[1m])
+    ) >= 100
+- op: replace
+  path: /spec/groups/6/rules/1/annotations/description
+  value: |
+    Node {{ $labels.instance }} experiences packet drop > 1% or >
+    100 packets/s on interface {{ $labels.device }}.
