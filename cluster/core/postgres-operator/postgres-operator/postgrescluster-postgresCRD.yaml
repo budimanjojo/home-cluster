@@ -42,9 +42,9 @@ spec:
     - name: vaultwarden
       databases:
         - vaultwarden
-    - name: nextcloud-prod
+    - name: nextcloud
       databases:
-        - nextcloud-prod
+        - nextcloud
     - name: authelia
       databases:
         - authelia
