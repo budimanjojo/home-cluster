@@ -11,7 +11,7 @@ resources:
   - jellyfin
   - lidarr
   - mosquitto
-  - nextcloud-prod
+  - nextcloud
   - ombi
   - omv
   - opnsense

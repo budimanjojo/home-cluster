@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-prod-config
+  name: nextcloud-config
   labels:
-    app.kubernetes.io/name: nextcloud-prod
+    app.kubernetes.io/name: nextcloud
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
-  storageClassName: rook-ceph-block
+  storageClassName: nfs-provisioner
 
 ---
 
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-prod-data
+  name: nextcloud-data
   labels:
-    app.kubernetes.io/name: nextcloud-prod
+    app.kubernetes.io/name: nextcloud
 spec:
   accessModes:
     - ReadWriteMany
