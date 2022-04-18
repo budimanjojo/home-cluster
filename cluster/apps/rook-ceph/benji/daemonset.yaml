@@ -19,7 +19,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: fsfreeze
-          image: ghcr.io/elemental-lf/benji-k8s:0.16.0
+          image: ghcr.io/elemental-lf/benji-k8s:0.16.1
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
