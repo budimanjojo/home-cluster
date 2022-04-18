@@ -57,7 +57,7 @@ spec:
                       key: ceph-secret
           containers:
             - name: benji
-              image: "ghcr.io/elemental-lf/benji-k8s:0.16.0"
+              image: "ghcr.io/elemental-lf/benji-k8s:issue-140"
               imagePullPolicy: IfNotPresent
               securityContext:
                 privileged: true
@@ -169,7 +169,7 @@ spec:
                       key: ceph-secret
           containers:
             - name: benji
-              image: "ghcr.io/elemental-lf/benji-k8s:0.16.0"
+              image: "ghcr.io/elemental-lf/benji-k8s:issue-140"
               imagePullPolicy: IfNotPresent
               securityContext:
                 privileged: true
@@ -284,7 +284,7 @@ spec:
                       key: ceph-secret
           containers:
             - name: benji
-              image: "ghcr.io/elemental-lf/benji-k8s:0.16.0"
+              image: "ghcr.io/elemental-lf/benji-k8s:issue-140"
               imagePullPolicy: IfNotPresent
               securityContext:
                 privileged: true
