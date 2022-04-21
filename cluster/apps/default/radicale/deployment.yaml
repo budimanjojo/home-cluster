@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: radicale
-          image: tomsquest/docker-radicale:3.1.5.1
+          image: tomsquest/docker-radicale:3.1.7.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
