@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: sonarr
-          image: ghcr.io/k8s-at-home/sonarr:v3.0.7.1477
+          image: ghcr.io/k8s-at-home/sonarr:v3.0.8.1507
           imagePullPolicy: IfNotPresent
           resources:
             requests:
