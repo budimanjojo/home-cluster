@@ -26,6 +26,10 @@ spec:
   monitoring:
     enabled: true
   network:
+    encryption:
+      enabled: false
+    compression:
+      enabled: false
   crashCollector:
     disable: false
   cleanupPolicy:
@@ -35,10 +39,11 @@ spec:
       dataSource: zero
       iteration: 1
     allowUninstallWithVolumes: false
-  annotations:
-  labels:
-  resources:
   removeOSDsIfOutAndSafeToRemove: false
+  priorityClassNames:
+    mon: system-node-critical
+    osd: system-node-critical
+    mgr: system-cluster-critical
   storage:
     useAllNodes: true
     useAllDevices: true
@@ -63,6 +68,13 @@ spec:
         disabled: false
         interval: 60s
     livenessProbe:
+      mon:
+        disabled: false
+      mgr:
+        disabled: false
+      osd:
+        disabled: false
+    startupProbe:
       mon:
         disabled: false
       mgr:
