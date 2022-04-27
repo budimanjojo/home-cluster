@@ -26,7 +26,7 @@ spec:
               cpu: 50m
               memory: 50Mi
             limits:
-              cpu: 300m
+              cpu: 100m
               memory: 150Mi
           args:
             - --global.checknewversion=true
@@ -40,6 +40,8 @@ spec:
             - --entrypoints.https.address=:443/tcp
             - --entrypoints.https.proxyprotocol.trustedips=127.0.0.1
             - --entrypoints.https.forwardedheaders.trustedips=127.0.0.1/32
+            - --entrypoints.metrics.address=:9100/tcp
+            - --entrypoints.traefik.address=:9000/tcp
             - --providers.providersthrottleduration=2
             - --providers.kubernetescrd=true
             - --providers.kubernetesingress=true
@@ -57,17 +59,32 @@ spec:
             - --accesslog.format=json
             - --accesslog.filters.statuscodes=200,300-302
             - --accesslog.filters.retryattempts=true
-            - --accesslog.fields.defaultmode=keep
-            - --accesslog.fields.names.ClientUsername=drop
+            - --accesslog.filters.minduration=450000ns
+            - --accesslog.fields.defaultmode=drop
+            - --accesslog.fields.ClientAddr=keep
+            - --accesslog.fields.RequestAddr=keep
+            - --accesslog.fields.RequestMethod=keep
+            - --accesslog.fields.RequestPath=keep
+            - --accesslog.fields.RequestCount=keep
+            - --accesslog.fields.RequestProtocol=keep
+            - --accesslog.fields.RequestScheme=keep
+            - --accesslog.fields.RetryAttempts=keep
+            - --accesslog.fields.RouterName=keep
+            - --accesslog.fields.Duration=keep
             - --accesslog.fields.headers.defaultmode=keep
             - --accesslog.fields.headers.names.User-Agent=redact
             - --accesslog.fields.headers.names.Authorization=drop
             - --accesslog.fields.headers.names.Content-Type=keep
             - --metrics.prometheus=true
+            - --metrics.prometheus.entrypoint=metrics
+            - --experimental.http3=true
           ports:
             - name: traefik
               protocol: TCP
-              containerPort: 8080
+              containerPort: 9000
+            - name: metrics
+              protocol: TCP
+              containerPort: 9100
             - name: http
               protocol: TCP
               containerPort: 80

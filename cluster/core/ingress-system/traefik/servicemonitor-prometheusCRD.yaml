@@ -13,7 +13,7 @@ spec:
     matchNames:
       - ingress-system
   endpoints:
-    - port: traefik
+    - port: metrics
       path: /metrics
       scheme: http
       interval: 15s
