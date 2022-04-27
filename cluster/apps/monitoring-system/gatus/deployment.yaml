@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: gatus
-          image: twinproduction/gatus:v3.7.0
+          image: twinproduction/gatus:v3.8.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
