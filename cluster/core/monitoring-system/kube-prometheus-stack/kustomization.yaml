@@ -5,3 +5,52 @@ resources:
   - ingress-traefikCRD.yaml
   - endpoints.yaml
   - service.yaml
+patchesJson6902:
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: ".+"
+    patch: |-
+      - op: replace
+        path: /spec/endpoints/0/interval
+        value: 60s
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: prometheus-k8s
+    patch: |-
+      - op: replace
+        path: /spec/endpoints/1/interval
+        value: 60s
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: alertmanager-main
+    patch: |-
+      - op: replace
+        path: /spec/endpoints/1/interval
+        value: 60s
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: kubelet
+    patch: |-
+      - op: replace
+        path: /spec/endpoints/1/interval
+        value: 60s
+      - op: replace
+        path: /spec/endpoints/2/interval
+        value: 60s
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: kube-state-metrics
+    patch: |-
+      - op: replace
+        path: /spec/endpoints/1/interval
+        value: 60s
