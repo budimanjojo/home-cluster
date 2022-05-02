@@ -14,7 +14,7 @@ patchesJson6902:
     patch: |-
       - op: replace
         path: /spec/endpoints/0/interval
-        value: 90s
+        value: 60s
   - target:
       group: monitoring.coreos.com
       version: v1
@@ -23,7 +23,7 @@ patchesJson6902:
     patch: |-
       - op: replace
         path: /spec/endpoints/1/interval
-        value: 90s
+        value: 60s
   - target:
       group: monitoring.coreos.com
       version: v1
@@ -32,7 +32,7 @@ patchesJson6902:
     patch: |-
       - op: replace
         path: /spec/endpoints/1/interval
-        value: 90s
+        value: 60s
   - target:
       group: monitoring.coreos.com
       version: v1
@@ -41,10 +41,10 @@ patchesJson6902:
     patch: |-
       - op: replace
         path: /spec/endpoints/1/interval
-        value: 90s
+        value: 60s
       - op: replace
         path: /spec/endpoints/2/interval
-        value: 90s
+        value: 60s
   - target:
       group: monitoring.coreos.com
       version: v1
@@ -53,4 +53,24 @@ patchesJson6902:
     patch: |-
       - op: replace
         path: /spec/endpoints/1/interval
-        value: 90s
+        value: 60s
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: kube-apiserver
+    patch: |-
+      - op: add
+        path: /spec/endpoints/0/metricRelabelings/0
+        value:
+          action: drop
+          regex: apiserver_request_duration_seconds_bucket
+          sourceLabels:
+            - __name__
+      - op: add
+        path: /spec/endpoints/0/metricRelabelings/1
+        value:
+          action: drop
+          regex: apiserver_request_slo_duration_seconds_bucket
+          sourceLabels:
+            - __name__
