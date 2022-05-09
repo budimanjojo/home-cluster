@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: unpackerr
-          image: golift/unpackerr:0.9.9
+          image: golift/unpackerr:0.10.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
