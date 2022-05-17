@@ -54,9 +54,7 @@ spec:
         - secret:
             name: pgo-cluster-s3-secrets
       global:
-        repo1-path: /pgbackrest/postgres-operator/pgo-cluster/repo1
         repo1-retention-diff: "7"
-        repo2-path: /pgbackrest/postgres-operator/pgo-cluster/repo2
         repo2-retention-diff: "7"
       repos:
         - name: repo1
