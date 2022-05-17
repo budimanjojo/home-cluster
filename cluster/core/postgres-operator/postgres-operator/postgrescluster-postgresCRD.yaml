@@ -23,7 +23,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 3Gi
+            storage: 5Gi
     - name: instance2
       dataVolumeClaimSpec:
         storageClassName: rook-ceph-block
@@ -31,7 +31,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 3Gi
+            storage: 5Gi
   users:
     - name: fireflyiii
       databases:
