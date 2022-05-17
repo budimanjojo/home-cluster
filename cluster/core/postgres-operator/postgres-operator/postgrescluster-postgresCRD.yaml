@@ -50,9 +50,14 @@ spec:
         - authelia
   backups:
     pgbackrest:
+      configuration:
+        - secret:
+            name: pgo-cluster-s3-secrets
       global:
+        repo1-path: /pgbackrest/postgres-operator/pgo-cluster/repo1
         repo1-retention-incr: "7"
-        repo1-retention-incr-type: count
+        repo2-path: /pgbackrest/postgres-operator/pgo-cluster/repo2
+        repo2-retention-diff: "7"
       repos:
         - name: repo1
           schedules:
@@ -65,3 +70,10 @@ spec:
                 requests:
                   storage: 3Gi
               storageClassName: nfs-provisioner
+        - name: repo2
+          schedules:
+            differential: 0 5 * * *
+          s3:
+            bucket: ${SECRET_PGO_BACKUP_S3_BUCKET}
+            endpoint: ${SECRET_PGO_BACKUP_S3_ENDPOINT}
+            region: ${SECRET_PGO_BACKUP_S3_REGION}
