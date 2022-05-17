@@ -70,7 +70,7 @@ spec:
               storageClassName: nfs-provisioner
         - name: repo2
           schedules:
-            differential: 0 5 * * *
+            incremental: 0 5 * * *
           s3:
             bucket: ${SECRET_PGO_BACKUP_S3_BUCKET}
             endpoint: ${SECRET_PGO_BACKUP_S3_ENDPOINT}
