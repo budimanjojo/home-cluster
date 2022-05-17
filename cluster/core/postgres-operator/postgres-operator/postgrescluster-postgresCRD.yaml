@@ -50,9 +50,9 @@ spec:
         - authelia
   backups:
     pgbackrest:
-      configuration:
-        - secret:
-            name: pgo-cluster-s3-secrets
+      # configuration:
+      #   - secret:
+      #       name: pgo-cluster-s3-secrets
       global:
         repo1-retention-full: "14"
         repo1-retention-full-type: time
