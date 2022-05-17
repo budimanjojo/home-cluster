@@ -54,8 +54,10 @@ spec:
         - secret:
             name: pgo-cluster-s3-secrets
       global:
-        repo1-retention-diff: "7"
-        repo2-retention-diff: "7"
+        repo1-retention-full: "14"
+        repo1-retention-type: time
+        repo2-retention-full: "14"
+        repo2-retention-type: time
       repos:
         - name: repo1
           schedules:
@@ -66,7 +68,7 @@ spec:
                 - ReadWriteMany
               resources:
                 requests:
-                  storage: 3Gi
+                  storage: 5Gi
               storageClassName: nfs-provisioner
         - name: repo2
           schedules:
