@@ -50,14 +50,14 @@ spec:
         - authelia
   backups:
     pgbackrest:
-      # configuration:
-      #   - secret:
-      #       name: pgo-cluster-s3-secrets
+      configuration:
+        - secret:
+            name: pgo-cluster-s3-secrets
       global:
         repo1-retention-full: "14"
         repo1-retention-full-type: time
-        # repo2-retention-full: "14"
-        # repo2-retention-full-type: time
+        repo2-retention-full: "7"
+        repo2-retention-full-type: time
       repos:
         - name: repo1
           schedules:
@@ -71,10 +71,11 @@ spec:
                 requests:
                   storage: 5Gi
               storageClassName: nfs-provisioner
-        # - name: repo2
-        #   schedules:
-        #     incremental: 0 5 * * *
-        #   s3:
-        #     bucket: ${SECRET_PGO_BACKUP_S3_BUCKET}
-        #     endpoint: ${SECRET_PGO_BACKUP_S3_ENDPOINT}
-        #     region: ${SECRET_PGO_BACKUP_S3_REGION}
+        - name: repo2
+          schedules:
+            full: 0 5 * * 0
+            incremental: 0 5 * * *
+          s3:
+            bucket: ${SECRET_PGO_BACKUP_S3_BUCKET}
+            endpoint: ${SECRET_PGO_BACKUP_S3_ENDPOINT}
+            region: ${SECRET_PGO_BACKUP_S3_REGION}
