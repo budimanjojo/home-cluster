@@ -74,7 +74,7 @@ spec:
         - name: repo2
           schedules:
             full: 0 5 * * 0
-            incremental: 0 5 * * *
+            incremental: 0 5 * * 1-6
           s3:
             bucket: ${SECRET_PGO_BACKUP_S3_BUCKET}
             endpoint: ${SECRET_PGO_BACKUP_S3_ENDPOINT}
