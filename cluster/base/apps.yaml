@@ -10,7 +10,7 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-    - name: crds
+    - name: core
   interval: 1m0s
   path: ./cluster/apps
   prune: true
