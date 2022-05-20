@@ -35,7 +35,7 @@ spec:
               mountPath: /var/lib/grafana
       containers:
         - name: dashboard-watcher
-          image: quay.io/kiwigrid/k8s-sidecar:1.17.0
+          image: quay.io/kiwigrid/k8s-sidecar:1.18.0
           imagePullPolicy: IfNotPresent
           env:
             - name: LABEL
@@ -50,7 +50,7 @@ spec:
             - name: watcher-dashboard-volume
               mountPath: /tmp/dashboards
         - name: grafana
-          image: grafana/grafana:8.5.2
+          image: grafana/grafana:8.5.3
           imagePullPolicy: IfNotPresent
           resources:
             requests:
