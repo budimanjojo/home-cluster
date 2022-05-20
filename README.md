@@ -62,17 +62,13 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 
 The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
 
-- **base** directory is the entrypoint to Flux
-- **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
-- **core** directory (depends on **crds**) are important infrastructure applications that need to be created before apps
-- **apps** directory (depends on **core**) is where your common applications could be placed, Flux will prune resources here if they are not tracked by Git anymore
-
 ```
 ./cluster
-├── ./apps
-├── ./base
-├── ./core
-└── ./crds
+├── ./base    # entrypoint to Flux
+├── ./config  # cluster config, loaded before `core`
+├── ./crds    # custom resource definitions (CRDs), loaded before `core`
+├── ./core    # important infrastructure applications, loaded before `apps`
+└── ./apps    # common applications, loaded last
 ```
 
 ---
