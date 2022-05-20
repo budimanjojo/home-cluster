@@ -56,7 +56,7 @@ spec:
                 name: nextcloud-secrets
       containers:
         - name: nextcloud
-          image: nextcloud:24.0.0-fpm-alpine
+          image: nextcloud:24.0.1-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -92,7 +92,7 @@ spec:
                   name: pgo-cluster-pguser-nextcloud
                   key: password
         - name: nextcloud-cron
-          image: nextcloud:24.0.0-fpm-alpine
+          image: nextcloud:24.0.1-fpm-alpine
           imagePullPolicy: IfNotPresent
           command:
             - /cron.sh
