@@ -1,10 +1,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: grafana
+  name: &name grafana
   namespace: default
   labels:
-    app.kubernetes.io/name: grafana
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: headers@file
         - name: local-only@file
       services:
-        - name: grafana
+        - name: *name
           port: 3000
           namespace: monitoring-system
   tls:

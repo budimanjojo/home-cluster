@@ -1,24 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: alertmanager-notifier
+  name: &name alertmanager-notifier
   namespace: monitoring-system
-  labels:
-    app.kubernetes.io/name: alertmanager-notifier
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: alertmanager-notifier
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: alertmanager-notifier
+      labels: *labels
     spec:
       containers:
-        - name: alertmanager-notifier
+        - name: *name
           image: registry.gitlab.com/ix.ai/alertmanager-notifier:v0.4.2
           imagePullPolicy: IfNotPresent
           resources:
@@ -26,15 +24,15 @@ spec:
               cpu: 20m
               memory: 100Mi
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 8899
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *port
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *port
           envFrom:
             - secretRef:
                 name: alertmanager-notifier-secrets

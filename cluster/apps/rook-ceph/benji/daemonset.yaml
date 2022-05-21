@@ -1,24 +1,23 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: benji-fsfreeze
+  name: &name benji-fsfreeze
   namespace: rook-ceph
-  labels:
+  labels: &labels
     app.kubernetes.io/name: benji
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/name: benji
+    matchLabels: *labels
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: benji
+        <<: *labels
         benji-backup.me/component: "fsfreeze"
     spec:
       serviceAccountName: benji
       dnsPolicy: ClusterFirstWithHostNet
       containers:
-        - name: fsfreeze
+        - name: *name
           image: ghcr.io/elemental-lf/benji-k8s:0.16.1
           imagePullPolicy: IfNotPresent
           securityContext:
