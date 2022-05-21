@@ -1,14 +1,13 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: traefik
+  name: &name traefik
   namespace: ingress-system
-  labels:
-    app.kubernetes.io/name: traefik
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/name: traefik
+    matchLabels: *labels
   namespaceSelector:
     matchNames:
       - ingress-system

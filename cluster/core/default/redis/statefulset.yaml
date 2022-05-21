@@ -1,24 +1,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis
-  labels:
-    app.kubernetes.io/name: redis
+  name: &name redis
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   updateStrategy:
     type: RollingUpdate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: redis
-  serviceName: redis
+    matchLabels: *labels
+  serviceName: *name
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: redis
+      labels: *labels
     spec:
       containers:
-        - name: redis
+        - name: *name
           image: redis:7.0.0-alpine
           imagePullPolicy: IfNotPresent
           resources:
@@ -32,7 +30,7 @@ spec:
             - >-
               redis-server --requirepass $REDIS_PASSWORD
           ports:
-            - name: redis
+            - name: tcp
               protocol: TCP
               containerPort: 6379
           volumeMounts:

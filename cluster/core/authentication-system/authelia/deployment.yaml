@@ -1,24 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authelia
+  name: &name authelia
   namespace: authentication-system
-  labels:
-    app.kubernetes.io/name: authelia
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 3
   strategy:
     type: RollingUpdate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: authelia
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: authelia
+      labels: *labels
     spec:
       containers:
-        - name: authelia
+        - name: *name
           image: ghcr.io/authelia/authelia:4.35.5
           imagePullPolicy: IfNotPresent
           resources:
@@ -30,7 +28,7 @@ spec:
             - -c
             - authelia --config /config/configuration.yaml
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 9091
           volumeMounts:
@@ -46,7 +44,7 @@ spec:
           startupProbe:
             httpGet:
               path: /api/health
-              port: http
+              port: *port
             initialDelaySeconds: 15
             timeoutSeconds: 5
             periodSeconds: 5
@@ -55,7 +53,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /api/health
-              port: http
+              port: *port
             initialDelaySeconds: 60
             timeoutSeconds: 5
             periodSeconds: 30
@@ -64,7 +62,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /api/health
-              port: http
+              port: *port
             initialDelaySeconds: 15
             timeoutSeconds: 5
             periodSeconds: 5

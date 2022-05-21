@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: smarter-device-manager
+  name: &name smarter-device-manager
   namespace: kube-system
-  labels:
-    app.kubernetes.io/name: smarter-device-manager
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   updateStrategy:
     type: RollingUpdate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: smarter-device-manager
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: smarter-device-manager
+      labels: *labels
       annotations:
         node.kubernetes.io/bootstrap-checkpoint: "true"
     spec:
       containers:
-        - name: smarter-device-manager
+        - name: *name
           image: registry.gitlab.com/arm-research/smarter/smarter-device-manager:v1.20.7
           imagePullPolicy: IfNotPresent
           securityContext:
@@ -45,7 +43,7 @@ spec:
               mountPath: /root/config
       priorityClassName: system-node-critical
       hostNetwork: true
-      hostname: smarter-device-manager
+      hostname: *name
       terminationGracePeriodSeconds: 30
       volumes:
         - name: device-plugin

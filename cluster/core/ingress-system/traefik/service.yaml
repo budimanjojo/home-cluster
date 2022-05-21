@@ -1,22 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: traefik
+  name: &name traefik
   namespace: ingress-system
-  labels:
-    app.kubernetes.io/name: traefik
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: traefik
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 80
-      targetPort: http
-    - name: https
+      targetPort: *port
+    - name: &hport https
       protocol: TCP
       port: 443
-      targetPort: https
+      targetPort: *hport
   type: LoadBalancer
   loadBalancerIP: ${CONFIG_TRAEFIK_IP}
   externalTrafficPolicy: Local
@@ -28,16 +27,15 @@ kind: Service
 metadata:
   name: traefik-ping
   namespace: ingress-system
-  labels:
+  labels: &labels
     app.kubernetes.io/name: traefik
 spec:
-  selector:
-    app.kubernetes.io/name: traefik
+  selector: *labels
   ports:
-    - name: traefik
+    - name: &port traefik
       protocol: TCP
       port: 9000
-      targetPort: traefik
+      targetPort: *port
 
 ---
 
@@ -46,13 +44,12 @@ kind: Service
 metadata:
   name: traefik-metrics
   namespace: ingress-system
-  labels:
+  labels: &labels
     app.kubernetes.io/name: traefik
 spec:
-  selector:
-    app.kubernetes.io/name: traefik
+  selector: *labels
   ports:
-    - name: traefik
+    - name: &port metrics
       protocol: TCP
       port: 9100
-      targetPort: metrics
+      targetPort: *port

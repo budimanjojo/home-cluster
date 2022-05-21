@@ -1,24 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nfs-provisioner
+  name: &name nfs-provisioner
   namespace: nfs-system
-  labels:
-    app.kubernetes.io/name: nfs-provisioner
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: nfs-provisioner
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: nfs-provisioner
+      labels: *labels
     spec:
       containers:
-        - name: nfs-provisioner
+        - name: *name
           image: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
           imagePullPolicy: IfNotPresent
           volumeMounts:
