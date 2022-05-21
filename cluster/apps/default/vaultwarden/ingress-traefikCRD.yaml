@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: vaultwarden
+  name: &name vaultwarden
   labels:
-    app.kubernetes.io/name: vaultwarden
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: dashboard-headers@file
       services:
-        - name: vaultwarden
+        - name: *name
           port: 80
           namespace: default
     - kind: Rule
@@ -21,7 +21,7 @@ spec:
       middlewares:
         - name: dashboard-headers@file
       services:
-        - name: vaultwarden
+        - name: *name
           port: 3012
           namespace: default
   tls:

@@ -1,20 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vaultwarden
-  labels:
-    app.kubernetes.io/name: vaultwarden
+  name: &name vaultwarden
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: RollingUpdate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: vaultwarden
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: vaultwarden
+      labels: *labels
     spec:
       initContainers:
         - name: wait-database
@@ -35,7 +33,7 @@ spec:
             - secretRef:
                 name: vaultwarden-secrets
       containers:
-        - name: vaultwarden
+        - name: *name
           image: vaultwarden/server:1.24.0-alpine
           imagePullPolicy: IfNotPresent
           resources:
@@ -46,7 +44,7 @@ spec:
               cpu: 100m
               memory: 200Mi
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 80
             - name: websocket
@@ -57,7 +55,7 @@ spec:
               mountPath: /data
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -65,7 +63,7 @@ spec:
             failureThreshold: 10
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5

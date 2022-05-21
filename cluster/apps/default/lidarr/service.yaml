@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: lidarr
-  labels:
-    app.kubernetes.io/name: lidarr
+  name: &name lidarr
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: lidarr
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 8686
-      targetPort: http
+      targetPort: *port
   type: ClusterIP

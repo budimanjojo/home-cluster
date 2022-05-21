@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mosquitto
-  labels:
-    app.kubernetes.io/name: mosquitto
+  name: &name mosquitto
+  labels: &labels
+    app.kubernetes.io/name: *name
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -11,19 +11,17 @@ spec:
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: mosquitto
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: mosquitto
+      labels: *labels
     spec:
       containers:
-        - name: mosquitto
+        - name: *name
           image: eclipse-mosquitto:2.0.14
           imagePullPolicy: IfNotPresent
           ports:
-            - name: mqtt
+            - name: &port mqtt
               protocol: TCP
               containerPort: 1883
           volumeMounts:
@@ -34,7 +32,7 @@ spec:
               mountPath: /mosquitto/data
           startupProbe:
             tcpSocket:
-              port: mqtt
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -42,7 +40,7 @@ spec:
             failureThreshold: 3
           livenessProbe:
             tcpSocket:
-              port: mqtt
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -50,7 +48,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: mqtt
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10

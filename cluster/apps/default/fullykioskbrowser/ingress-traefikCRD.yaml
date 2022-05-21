@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: fullykioskbrowser
+  name: &name fullykioskbrowser
   labels:
-    app.kubernetes.io/name: fullykioskbrowser
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -14,7 +14,7 @@ spec:
         - name: headers@file
         - name: local-only@file
       services:
-        - name: fullykioskbrowser
+        - name: *name
           port: 2323
           namespace: default
   tls:

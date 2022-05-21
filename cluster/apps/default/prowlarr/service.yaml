@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: prowlarr
-  labels:
-    app.kubernetes.io/name: prowlarr
+  name: &name prowlarr
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: prowlarr
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 9696
-      targetPort: http
+      targetPort: *port
   type: ClusterIP

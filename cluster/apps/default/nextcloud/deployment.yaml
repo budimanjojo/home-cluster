@@ -1,20 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nextcloud
-  labels:
-    app.kubernetes.io/name: nextcloud
+  name: &name nextcloud
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: nextcloud
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: nextcloud
+      labels: *labels
     spec:
       securityContext:
         fsGroup: 82
@@ -55,7 +53,7 @@ spec:
             - secretRef:
                 name: nextcloud-secrets
       containers:
-        - name: nextcloud
+        - name: *name
           image: nextcloud:24.0.1-fpm-alpine
           imagePullPolicy: IfNotPresent
           resources:
@@ -105,7 +103,7 @@ spec:
           image: nginx:1.21-alpine
           imagePullPolicy: IfNotPresent
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 80
           volumeMounts:
@@ -121,7 +119,7 @@ spec:
           startupProbe:
             httpGet:
               path: /status.php
-              port: http
+              port: *port
               httpHeaders:
                 - name: Host
                   value: nextcloud.${SECRET_DOMAIN_2}
@@ -133,7 +131,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /status.php
-              port: http
+              port: *port
               httpHeaders:
                 - name: Host
                   value: nextcloud.${SECRET_DOMAIN_2}
@@ -145,7 +143,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /status.php
-              port: http
+              port: *port
               httpHeaders:
                 - name: Host
                   value: nextcloud.${SECRET_DOMAIN_2}

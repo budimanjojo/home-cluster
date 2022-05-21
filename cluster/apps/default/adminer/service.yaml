@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: adminer
-  labels:
-    app.kubernetes.io/name: adminer
+  name: &name adminer
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: adminer
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 80
-      targetPort: http
+      targetPort: *port
   type: ClusterIP

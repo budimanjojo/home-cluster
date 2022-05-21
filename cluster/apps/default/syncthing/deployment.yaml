@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: syncthing
-  labels:
-    app.kubernetes.io/name: syncthing
+  name: &name syncthing
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: syncthing
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: syncthing
+      labels: *labels
     spec:
       containers:
-        - name: syncthing
+        - name: *name
           image: "syncthing/syncthing:1.20.1"
           imagePullPolicy: IfNotPresent
           resources:
@@ -30,11 +28,11 @@ spec:
           ports:
             - name: discovery
               protocol: UDP
-              containerPort: 21207
+              containerPort: 21027
             - name: listen
               protocol: TCP
               containerPort: 22000
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 8384
           volumeMounts:
@@ -42,7 +40,7 @@ spec:
               mountPath: /var/syncthing
           startupProbe:
             tcpSocket:
-              port: 8384
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 5
@@ -50,7 +48,7 @@ spec:
             failureThreshold: 30
           livenessProbe:
             tcpSocket:
-              port: 8384
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -58,7 +56,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: 8384
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10

@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: wordpress
+  name: &name wordpress
   labels:
-    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: wordpress
           namespace: default
       services:
-        - name: wordpress
+        - name: *name
           port: 80
           namespace: default
   tls:
@@ -26,9 +26,9 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: wordpress
+  name: &name wordpress
   labels:
-    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/name: *name
 spec:
   redirectRegex:
     permanent: true

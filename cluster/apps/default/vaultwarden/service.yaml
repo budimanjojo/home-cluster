@@ -1,19 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vaultwarden
-  labels:
-    app.kubernetes.io/name: vaultwarden
+  name: &name vaultwarden
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: vaultwarden
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 80
-      targetPort: http
-    - name: websocket
+      targetPort: *port
+    - name: &wsport websocket
       protocol: TCP
       port: 3012
-      targetPort: websocket
+      targetPort: *wsport
   type: ClusterIP

@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: radicale
+  name: &name radicale
   labels:
-    app.kubernetes.io/name: radicale
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: headers@file
       services:
-        - name: radicale
+        - name: *name
           port: 5232
           namespace: default
   tls:

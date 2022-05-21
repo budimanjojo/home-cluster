@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ombi
-  labels:
-    app.kubernetes.io/name: ombi
+  name: &name ombi
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: ombi
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: ombi
+      labels: *labels
     spec:
       containers:
-        - name: ombi
+        - name: *name
           image: lscr.io/linuxserver/ombi:4.16.12
           imagePullPolicy: IfNotPresent
           resources:
@@ -28,7 +26,7 @@ spec:
               cpu: 200m
               memory: 500Mi
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 3579
           volumeMounts:
@@ -36,7 +34,7 @@ spec:
               mountPath: /config
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -44,7 +42,7 @@ spec:
             failureThreshold: 5
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5

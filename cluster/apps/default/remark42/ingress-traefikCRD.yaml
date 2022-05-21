@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: remark42
+  name: &name remark42
   labels:
-    app.kubernetes.io/name: remark42
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: site-headers@file
       services:
-        - name: remark42
+        - name: *name
           port: 8080
           namespace: default
   tls:

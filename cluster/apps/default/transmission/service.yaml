@@ -1,23 +1,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: transmission
-  labels:
-    app.kubernetes.io/name: transmission
+  name: &name transmission
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: transmission
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 9091
-      targetPort: http
-    - name: tcp
+      targetPort: *port
+    - name: &tport tcp
       protocol: TCP
       port: 51413
-      targetPort: tcp
-    - name: udp
+      targetPort: *tport
+    - name: &uport udp
       protocol: UDP
       port: 51413
-      targetPort: udp
+      targetPort: *uport
   type: ClusterIP

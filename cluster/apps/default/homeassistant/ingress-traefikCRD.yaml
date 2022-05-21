@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: homeassistant
+  name: &name homeassistant
   labels:
-    app.kubernetes.io/name: homeassistant
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: headers@file
       services:
-        - name: homeassistant
+        - name: *name
           port: 8123
           namespace: default
   tls:

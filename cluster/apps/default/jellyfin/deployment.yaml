@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jellyfin
-  labels:
-    app.kubernetes.io/name: jellyfin
+  name: &name jellyfin
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: jellyfin
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: jellyfin
+      labels: *labels
     spec:
       containers:
-        - name: jellyfin
+        - name: *name
           image: jellyfin/jellyfin:10.7.7
           imagePullPolicy: IfNotPresent
           resources:
@@ -29,7 +27,7 @@ spec:
               memory: 1Gi
               gpu.intel.com/i915: 1
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 8096
           volumeMounts:
@@ -41,7 +39,7 @@ spec:
               mountPath: /config/transcodes
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 10
             timeoutSeconds: 10
             periodSeconds: 15
@@ -49,7 +47,7 @@ spec:
             failureThreshold: 150
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 10
             timeoutSeconds: 10
             periodSeconds: 15

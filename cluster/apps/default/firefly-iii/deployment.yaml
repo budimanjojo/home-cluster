@@ -1,20 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: firefly-iii
-  labels:
-    app.kubernetes.io/name: firefly-iii
+  name: &name firefly-iii
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: firefly-iii
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: firefly-iii
+      labels: *labels
     spec:
       initContainers:
         - name: wait-database
@@ -35,7 +33,7 @@ spec:
                   name: pgo-cluster-pguser-fireflyiii
                   key: host
       containers:
-        - name: firefly-iii
+        - name: *name
           image: fireflyiii/core:version-5.7.1
           imagePullPolicy: IfNotPresent
           resources:
@@ -43,7 +41,7 @@ spec:
               cpu: 100m
               memory: 150Mi
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 8080
           volumeMounts:
@@ -51,7 +49,7 @@ spec:
               mountPath: /var/www/html/firefly-iii/storage/upload
           startupProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 5
@@ -59,7 +57,7 @@ spec:
             failureThreshold: 30
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -67,7 +65,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10

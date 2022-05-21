@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zigbee2mqtt
-  labels:
-    app.kubernetes.io/name: zigbee2mqtt
+  name: &name zigbee2mqtt
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: zigbee2mqtt
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: zigbee2mqtt
+      labels: *labels
     spec:
       containers:
-        - name: zigbee2mqtt
+        - name: *name
           image: ghcr.io/koenkk/zigbee2mqtt:1.25.1
           imagePullPolicy: IfNotPresent
           resources:
@@ -27,7 +25,7 @@ spec:
             limits:
               smarter-devices/ttyUSB0: 1
           ports:
-            - name: http
+            - name: &portname http
               protocol: TCP
               containerPort: 8080
           volumeMounts:
@@ -35,7 +33,7 @@ spec:
               mountPath: /config
           startupProbe:
             tcpSocket:
-              port: http
+              port: *portname
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 5
@@ -43,7 +41,7 @@ spec:
             failureThreshold: 30
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *portname
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -51,7 +49,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *portname
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10

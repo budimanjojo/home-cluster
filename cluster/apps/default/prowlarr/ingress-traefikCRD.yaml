@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: prowlarr
+  name: &name prowlarr
   labels:
-    app.kubernetes.io/name: prowlarr
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: default
       services:
-        - name: prowlarr
+        - name: *name
           port: 9696
           namespace: default
   tls:

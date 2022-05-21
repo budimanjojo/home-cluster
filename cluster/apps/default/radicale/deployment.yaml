@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: radicale
-  labels:
-    app.kubernetes.io/name: radicale
+  name: &name radicale
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: radicale
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: radicale
+      labels: *labels
     spec:
       containers:
-        - name: radicale
+        - name: *name
           image: tomsquest/docker-radicale:3.1.7.0
           imagePullPolicy: IfNotPresent
           resources:
@@ -25,7 +23,7 @@ spec:
               cpu: 100m
               memory: 150Mi
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 5232
           volumeMounts:
@@ -39,7 +37,7 @@ spec:
               mountPath: /config/secret
           startupProbe:
             tcpSocket:
-              port: 5232
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 5
@@ -47,7 +45,7 @@ spec:
             failureThreshold: 30
           livenessProbe:
             tcpSocket:
-              port: 5232
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10
@@ -55,7 +53,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             tcpSocket:
-              port: 5232
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 10

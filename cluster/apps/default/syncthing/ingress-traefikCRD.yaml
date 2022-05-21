@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: syncthing
+  name: &name syncthing
   labels:
-    app.kubernetes.io/name: syncthing
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: default
       services:
-        - name: syncthing
+        - name: *name
           port: 8384
           namespace: default
   tls:

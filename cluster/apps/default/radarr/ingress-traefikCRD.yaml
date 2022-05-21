@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: radarr
+  name: &name radarr
   labels:
-    app.kubernetes.io/name: radarr
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: default
       services:
-        - name: radarr
+        - name: *name
           port: 7878
           namespace: default
   tls:

@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zigbee2mqtt
-  labels:
-    app.kubernetes.io/name: zigbee2mqtt
+  name: &name zigbee2mqtt
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: zigbee2mqtt
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 8080
-      targetPort: http
+      targetPort: *port
   type: ClusterIP

@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: bazarr
-  labels:
-    app.kubernetes.io/name: bazarr
+  name: &name bazarr
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
-  selector:
-    app.kubernetes.io/name: bazarr
+  selector: *labels
   ports:
-    - name: http
+    - name: &port http
       protocol: TCP
       port: 6767
-      targetPort: http
+      targetPort: *port
   type: ClusterIP

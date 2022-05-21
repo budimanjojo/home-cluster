@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ombi
+  name: &name ombi
   labels:
-    app.kubernetes.io/name: ombi
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: dashboard-headers@file
       services:
-        - name: ombi
+        - name: *name
           port: 3579
           namespace: default
   tls:

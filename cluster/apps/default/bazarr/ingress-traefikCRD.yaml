@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: bazarr
+  name: &name bazarr
   labels:
-    app.kubernetes.io/name: bazarr
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: default
       services:
-        - name: bazarr
+        - name: *name
           port: 6767
           namespace: default
   tls:

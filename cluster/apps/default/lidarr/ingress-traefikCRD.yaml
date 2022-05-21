@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: lidarr
+  name: &name lidarr
   labels:
-    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/name: *name
 spec:
   entryPoints:
     - https
@@ -15,7 +15,7 @@ spec:
         - name: authelia
           namespace: default
       services:
-        - name: lidarr
+        - name: *name
           port: 8686
           namespace: default
   tls:

@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: unpackerr
-  labels:
-    app.kubernetes.io/name: unpackerr
+  name: &name unpackerr
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: unpackerr
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: unpackerr
+      labels: *labels
     spec:
       containers:
-        - name: unpackerr
+        - name: *name
           image: golift/unpackerr:0.10.0
           imagePullPolicy: IfNotPresent
           resources:

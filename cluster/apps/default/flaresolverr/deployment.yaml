@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flaresolverr
-  labels:
-    app.kubernetes.io/name: flaresolverr
+  name: &name flaresolverr
+  labels: &labels
+    app.kubernetes.io/name: *name
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app.kubernetes.io/name: flaresolverr
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: flaresolverr
+      labels: *labels
     spec:
       containers:
-        - name: flaresolverr
+        - name: *name
           image: ghcr.io/flaresolverr/flaresolverr:v2.2.4
           imagePullPolicy: IfNotPresent
           resources:
@@ -25,12 +23,12 @@ spec:
               cpu: 50m
               memory: 250Mi
           ports:
-            - name: http
+            - name: &port http
               protocol: TCP
               containerPort: 8191
           livenessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
@@ -38,7 +36,7 @@ spec:
             failureThreshold: 5
           readinessProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
