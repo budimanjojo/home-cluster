@@ -19,7 +19,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       initContainers:
         - name: wait-database
-          image: alpine:3.15.4
+          image: alpine:3.16.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -39,7 +39,7 @@ spec:
             - secretRef:
                 name: nextcloud-secrets
         - name: wait-redis
-          image: alpine:3.15.4
+          image: alpine:3.16.0
           imagePullPolicy: IfNotPresent
           command:
             - sh
