@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: lscr.io/linuxserver/mariadb:10.5.15
+          image: lscr.io/linuxserver/mariadb:10.5.16
           imagePullPolicy: IfNotPresent
           resources:
             requests:
