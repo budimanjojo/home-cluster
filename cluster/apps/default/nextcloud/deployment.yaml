@@ -100,7 +100,7 @@ spec:
             - name: nextcloud-data
               mountPath: /var/www/data
         - name: nextcloud-proxy
-          image: nginx:1.21-alpine
+          image: nginx:1.22-alpine
           imagePullPolicy: IfNotPresent
           ports:
             - name: &port http
