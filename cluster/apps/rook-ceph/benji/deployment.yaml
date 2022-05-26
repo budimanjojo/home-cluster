@@ -20,7 +20,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       initContainers:
         - name: generate-ceph-files
-          image: rook/ceph:v1.9.3
+          image: rook/ceph:v1.9.4
           imagePullPolicy: IfNotPresent
           command:
             - /usr/bin/bash
