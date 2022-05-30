@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/umputun/remark42:v1.9.0
+          image: ghcr.io/umputun/remark42:v1.10.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
