@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/k8s-at-home/lidarr:v1.0.2.2587
+          image: ghcr.io/k8s-at-home/lidarr:v1.0.2.2590
           imagePullPolicy: IfNotPresent
           resources:
             requests:
