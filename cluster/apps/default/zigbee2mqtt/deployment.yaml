@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/koenkk/zigbee2mqtt:1.25.1
+          image: ghcr.io/koenkk/zigbee2mqtt:1.25.2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
