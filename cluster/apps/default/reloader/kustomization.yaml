@@ -4,4 +4,4 @@ namespace: default
 commonLabels:
   app.kubernetes.io/name: reloader
 resources:
-  - https://github.com/stakater/Reloader/deployments//kubernetes?ref=v0.0.113
+  - https://github.com/stakater/Reloader/deployments//kubernetes?ref=v0.0.114
