@@ -39,7 +39,7 @@
       ]
     },
     {
-      "fileMatch": ["cluster/apps/kured/.+/kustomization.yaml"],
+      "fileMatch": ["cluster/apps/.+/kured/kustomization.yaml"],
       "matchStrings": [
         "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?v?[\\d+\\.]+\\/kured-(?<currentValue>[\\d.\\.]+)"
       ],
