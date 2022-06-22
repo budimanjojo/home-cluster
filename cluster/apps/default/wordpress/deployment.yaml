@@ -69,7 +69,7 @@ spec:
                   name: wordpress-secrets
                   key: wordpress_db_password
         - name: wordpress-proxy
-          image: nginx:1.22-alpine
+          image: nginx:1.23-alpine
           imagePullPolicy: IfNotPresent
           ports:
             - name: *port
