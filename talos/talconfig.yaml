@@ -1,16 +1,16 @@
 clusterName: home-cluster
-talosVersion: v1.0.6
-kubernetesVersion: v1.23.6
-endpoint: https://192.168.200.10:6443
+talosVersion: v1.1.0
+kubernetesVersion: v1.24.2
+endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
   name: custom
   urls:
-    - https://docs.projectcalico.org/manifests/tigera-operator.yaml
-    - https://raw.githubusercontent.com/budimanjojo/home-cluster/main/talos/calico.yaml
+    - https://raw.githubusercontent.com/budimanjojo/home-cluster/main/talos/cilium.yaml
+    - https://raw.githubusercontent.com/budimanjojo/home-cluster/main/talos/configmap.yaml
 nodes:
   - hostname: kmaster1
-    ipAddress: 192.168.200.11
+    ipAddress: 192.168.200.21
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
@@ -19,12 +19,14 @@ nodes:
     networkInterfaces:
       - interface: eth0
         addresses:
-          - 192.168.200.11/24
+          - 192.168.200.21/24
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.200.1
+        vip:
+          ip: 192.168.200.20
   - hostname: kmaster2
-    ipAddress: 192.168.200.12
+    ipAddress: 192.168.200.22
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
@@ -33,12 +35,14 @@ nodes:
     networkInterfaces:
       - interface: eth0
         addresses:
-          - 192.168.200.12/24
+          - 192.168.200.22/24
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.200.1
+        vip:
+          ip: 192.168.200.20
   - hostname: kmaster3
-    ipAddress: 192.168.200.13
+    ipAddress: 192.168.200.23
     controlPlane: true
     installDisk: /dev/sda
     nameservers:
@@ -47,10 +51,12 @@ nodes:
     networkInterfaces:
       - interface: eth0
         addresses:
-          - 192.168.200.13/24
+          - 192.168.200.23/24
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.200.1
+        vip:
+          ip: 192.168.200.20
 controlPlane:
   configPatches:
     - op: add
@@ -59,6 +65,9 @@ controlPlane:
         rotate-server-certificates: "true"
   inlinePatch:
     cluster:
+      extraManifests:
+        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
+        - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
       aescbcEncryptionSecret: ${aescbcEncryptionKey}
       aggregatorCA:
         crt: ${k8sAggregatorCert}
@@ -87,6 +96,9 @@ worker:
         rotate-server-certificates: "true"
   inlinePatch:
     cluster:
+      extraManifests:
+        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
+        - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
       aescbcEncryptionSecret: ${aescbcEncryptionKey}
       ca:
         crt: ${clusterCert}
