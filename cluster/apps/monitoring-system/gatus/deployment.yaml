@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: twinproduction/gatus:v3.8.0
+          image: twinproduction/gatus:v4.0.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
