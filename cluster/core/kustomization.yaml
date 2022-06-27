@@ -6,7 +6,6 @@ resources:
   - default
   - ingress-system
   - kube-system
-  - metallb-system
   - monitoring-system
   - nfd-system
   - nfs-system
