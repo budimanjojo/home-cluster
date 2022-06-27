@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: traefik:v2.7.1
+          image: traefik:v2.7.2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
