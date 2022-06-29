@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - default
   - flux-system
+  - k8tz-system
   - kube-system
   - monitoring-system
   - rook-ceph

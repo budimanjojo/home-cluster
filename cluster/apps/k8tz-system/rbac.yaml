@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: k8tz
+  namespace: k8tz-system
+  labels:
+    app.kubernetes.io/name: k8tz
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8tz
+  labels:
+    app.kubernetes.io/name: k8tz
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8tz
+  labels:
+    app.kubernetes.io/name: k8tz
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8tz
+subjects:
+  - kind: ServiceAccount
+    name: k8tz
+    namespace: k8tz-system
