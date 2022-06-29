@@ -22,5 +22,5 @@ jobs:
         find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' file;
           do
             echo "INFO - Validating kustomization ${file/%$kustomize_config}"
-            kustomize build "$(dirname $file)" | kubeconform -strict -summary -skip Secret -ignore-missing-schemas
+            kustomize build "$(dirname $file)" | kubeconform -strict -summary -skip Secret -skip MutatingWebhookConfiguration -ignore-missing-schemas
         done
