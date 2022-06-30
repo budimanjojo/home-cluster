@@ -30,6 +30,7 @@ spec:
             - "--inject=true"
             - "--bootstrap-image"
             - "quay.io/k8tz/k8tz:0.5.1"
+            - "--cronJobTimeZone"
           ports:
             - name: &port https
               protocol: TCP
