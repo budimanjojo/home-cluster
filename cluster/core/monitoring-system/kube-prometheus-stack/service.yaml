@@ -8,7 +8,8 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app.kubernetes.io/name: kube-controller-manager
+    k8s-app: kube-controller-manager
+    tier: control-plane
   ports:
   - name: https-metrics
     protocol: TCP
@@ -28,7 +29,8 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app.kubernetes.io/name: kube-scheduler
+    k8s-app: kube-scheduler
+    tier: control-plane
   ports:
   - name: https-metrics
     protocol: TCP

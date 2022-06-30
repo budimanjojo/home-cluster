@@ -57,8 +57,6 @@ spec:
             - secretRef:
                 name: homeassistant-secrets
           env:
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
             - name: postgresql_uri
               valueFrom:
                 secretKeyRef:

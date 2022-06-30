@@ -28,9 +28,6 @@ spec:
           volumeMounts:
             - name: unpackerr-downloads
               mountPath: /downloads
-          env:
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
           envFrom:
             - secretRef:
                 name: unpackerr-secrets

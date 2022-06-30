@@ -58,8 +58,6 @@ spec:
           env:
             - name: ZIGBEE2MQTT_DATA
               value: "/config"
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
       volumes:
         - name: zigbee2mqtt-config
           persistentVolumeClaim:

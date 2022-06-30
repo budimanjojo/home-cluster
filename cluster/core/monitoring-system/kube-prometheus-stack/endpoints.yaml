@@ -7,9 +7,9 @@ metadata:
     app.kubernetes.io/name: kube-controller-manager
 subsets:
   - addresses:
-      - ip: 192.168.200.11
-      - ip: 192.168.200.12
-      - ip: 192.168.200.13
+      - ip: 192.168.200.21
+      - ip: 192.168.200.22
+      - ip: 192.168.200.23
     ports:
       - name: https-metrics
         port: 10257
@@ -26,9 +26,9 @@ metadata:
     app.kubernetes.io/name: kube-scheduler
 subsets:
   - addresses:
-      - ip: 192.168.200.11
-      - ip: 192.168.200.12
-      - ip: 192.168.200.13
+      - ip: 192.168.200.21
+      - ip: 192.168.200.22
+      - ip: 192.168.200.23
     ports:
       - name: https-metrics
         port: 10259

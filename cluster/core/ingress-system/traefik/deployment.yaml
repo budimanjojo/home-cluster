@@ -110,9 +110,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 1
-          env:
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
       serviceAccountName: traefik
       volumes:
         - name: traefik-config

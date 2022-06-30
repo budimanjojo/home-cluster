@@ -62,8 +62,6 @@ spec:
           env:
             - name: RADICALE_CONFIG
               value: /config/config
-            - name: TZ
-              value: Asia/Jakarta
       volumes:
         - name: radicale-data
           persistentVolumeClaim:

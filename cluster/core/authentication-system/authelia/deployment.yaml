@@ -101,8 +101,6 @@ spec:
                 secretKeyRef:
                   name: pgo-cluster-pguser-authelia
                   key: user
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
       enableServiceLinks: false
       volumes:
         - name: authelia-config

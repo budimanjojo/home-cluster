@@ -53,9 +53,6 @@ spec:
             periodSeconds: 15
             successThreshold: 1
             failureThreshold: 150
-          env:
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

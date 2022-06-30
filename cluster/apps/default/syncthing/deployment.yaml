@@ -67,8 +67,6 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
-            - name: TZ
-              value: ${CONFIG_TIMEZONE}
       volumes:
         - name: syncthing-config
           persistentVolumeClaim:
