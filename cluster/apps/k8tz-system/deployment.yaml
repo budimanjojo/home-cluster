@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name k8tz
+  namespace: k8tz-system
+  labels: &labels
+    app.kubernetes.io/name: *name
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+      annotations:
+        checksum/config: f34ab74688f89be7d6879c0e86fa7c7b2c15ef5c565f95ce21e760574a70bf8f
+    spec:
+      containers:
+        - name: *name
+          image: "quay.io/k8tz/k8tz:0.5.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "webhook"
+            - "--timezone"
+            - "Asia/Jakarta"
+            - "--injection-strategy"
+            - "initContainer"
+            - "--inject=true"
+            - "--bootstrap-image"
+            - "quay.io/k8tz/k8tz:0.5.1"
+            - "--cronJobTimeZone"
+          ports:
+            - name: &port https
+              protocol: TCP
+              containerPort: 8443
+          volumeMounts:
+            - name: tls
+              mountPath: /run/secrets/tls
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: *port
+              scheme: HTTPS
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: *port
+              scheme: HTTPS
+      serviceAccountName: k8tz
+      volumes:
+        - name: tls
+          secret:
+            secretName: k8tz-tls
