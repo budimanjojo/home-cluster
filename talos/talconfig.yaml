@@ -63,6 +63,7 @@ controlPlane:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: "true"
+        feature-gates: CronJobTimeZone=true
   inlinePatch:
     cluster:
       extraManifests:
@@ -94,6 +95,7 @@ worker:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: "true"
+        feature-gates: CronJobTimeZone=true
   inlinePatch:
     cluster:
       extraManifests:
