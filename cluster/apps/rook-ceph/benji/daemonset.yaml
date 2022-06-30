@@ -37,8 +37,6 @@ spec:
           volumeMounts:
             - name: rbd-mounts
               mountPath: /var/lib/kubelet/plugins/kubernetes.io/rbd/mounts/
-            - name: tz-config
-              mountPath: /etc/localtime
           resources:
             requests:
               cpu: 100m
@@ -51,6 +49,3 @@ spec:
           hostPath:
             path: /var/lib/kubelet/plugins/kubernetes.io/rbd/mounts/
             type: DirectoryOrCreate
-        - name: tz-config
-          hostPath:
-            path: /usr/share/zoneinfo/Asia/Jakarta

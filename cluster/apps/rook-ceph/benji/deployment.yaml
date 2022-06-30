@@ -66,8 +66,6 @@ spec:
               mountPath: /data
             - name: benji-configs
               mountPath: /benji/etc
-            - name: tz-config
-              mountPath: /etc/localtime
             - name: benji-nfs-backup
               mountPath: /benji-nfs-backup
             - name: ceph-data
@@ -86,9 +84,6 @@ spec:
         - name: benji-configs
           configMap:
             name: benji-configs
-        - name: tz-config
-          hostPath:
-            path: /usr/share/zoneinfo/Asia/Jakarta
         - name: benji-nfs-backup
           persistentVolumeClaim:
             claimName: benji-nfs-backup
