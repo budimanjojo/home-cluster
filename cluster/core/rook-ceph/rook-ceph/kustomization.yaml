@@ -8,3 +8,10 @@ resources:
   - shared-storageclass.yaml
   - ingress-traefikCRD.yaml
   - grafana-dashboard.yaml
+labels:
+  - pairs:
+      pod-security.kubernetes.io/enforce: privileged
+    fields:
+      - kind: Namespace
+        path: metadata/labels
+        create: true
