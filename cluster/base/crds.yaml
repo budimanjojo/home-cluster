@@ -9,7 +9,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  interval: 1m0s
+  interval: 5m0s
   path: ./cluster/crds
   prune: true
   sourceRef:

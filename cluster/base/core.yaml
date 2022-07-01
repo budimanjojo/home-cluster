@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: config
     - name: crds
-  interval: 1m0s
+  interval: 5m0s
   path: ./cluster/core
   prune: true
   sourceRef:
