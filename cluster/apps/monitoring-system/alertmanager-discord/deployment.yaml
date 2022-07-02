@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name alertmanager-discord
+  namespace: monitoring-system
+  labels: &labels
+    app.kubernetes.io/name: *name
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: *name
+          image: rogerrum/alertmanager-discord:1.0.3
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 20m
+              memory: 100Mi
+          ports:
+            - name: &port http
+              protocol: TCP
+              containerPort: 9094
+          livenessProbe:
+            tcpSocket:
+              port: *port
+          readinessProbe:
+            tcpSocket:
+              port: *port
+          envFrom:
+            - secretRef:
+                name: alertmanager-discord-secrets
