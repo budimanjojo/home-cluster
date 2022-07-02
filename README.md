@@ -2,7 +2,7 @@
 
 <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
-### My home Kubernetes K3s cluster :sailboat:
+### My home Kubernetes Talos cluster :sailboat:
 
 ... managed with Flux :robot:
 
@@ -12,8 +12,6 @@
 
 This repository _is_ my home Kubernetes cluster in a declarative state.
 [Flux](https://github.com/fluxcd/flux2) watches my [cluster](./cluster/) directory and makes the changes to my cluster based on the YAML manifests.
-
-The variables and inventory file used to provision my kubespray cluster can be found in my [ansible-playbooks repository](https://github.com/budimanjojo/ansible-playbooks).
 
 Feel free to open a [Github issue](https://github.com/budimanjojo/home-cluster/issues/new/choose) if you have any questions.
 
@@ -25,24 +23,20 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 
 ### Cluster management
 
-- [K3s](https://k3s.io): Built using [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s)
+- [Talos](https://.www.talos.dev): Built using [talhelper](https://github.com/budimanjojo/talhelper)
 - [fluxcd](https://fluxcd.io/): Sync kubernetes cluster with this repository.
 - [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/): Encrypts secrets which is safe to store - even to a public repository.
-- [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller): automated K3s cluster upgrade
 
 ### Networking
 
-- [Calico](https://github.com/projectcalico/calico): For internal cluster networking.
-- [MetalLB](https://metallb.universe.tf/): Load balancer for bare metal Kubernetes cluster.
-- [keepalived](https://github.com/acassen/keepalived): Loadbalancing & high-availability for master nodes.
-- [haproxy](http://www.haproxy.org/): Load balancer for keepalived master nodes.
+- [Cilium](https://cilium.io): For internal cluster networking, also as load balancer to expose services.
 - [cert-manager](https://cert-manager.io/docs/): Configured to create TLS certs for all ingress services automatically using LetsEncrypt.
 - [traefik](https://github.com/traefik/traefik): Ingress controller for services.
 - [authelia](https://www.authelia.com/): Full featured authentication server.
 
 ### Storage
 
-- [longhorn](https://longhorn.io): Cloud native distributed block storage for Kubernetes
+- [rook-ceph](https://rook.io): Cloud native distributed block storage for Kubernetes
 - [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner): Provides persistent volumes from NFS server.
 
 ### Host devices access
