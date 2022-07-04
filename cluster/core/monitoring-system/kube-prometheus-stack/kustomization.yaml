@@ -4,6 +4,7 @@ resources:
   - https://github.com/budimanjojo/kube-prometheus/manifests//deploy?ref=v2.2.3
   - ingress-traefikCRD.yaml
   - endpoints.yaml
+  - secret.yaml
   - service.yaml
 patchesJson6902:
   - target:
