@@ -10,6 +10,15 @@ patchesJson6902:
   - target:
       group: monitoring.coreos.com
       version: v1
+      kind: Alertmanager
+      name: main
+    patch: |-
+      - op: add
+        path: /spec/configSecret
+        value: alertmanager-config
+  - target:
+      group: monitoring.coreos.com
+      version: v1
       kind: ServiceMonitor
       name: ".+"
     patch: |-
