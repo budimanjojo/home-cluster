@@ -63,24 +63,18 @@ data:
         interval: 30s
         conditions:
           - "[STATUS] == 200"
-        alerts:
-          - type: telegram
       - name: homeassistant
         group: frontend-services
         url: "tcp://homeassistant.default:8123"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
-        alerts:
-          - type: telegram
       - name: zigbee2mqtt
         group: frontend-services
         url: "tcp://zigbee2mqtt.default:8080"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
-        alerts:
-          - type: telegram
       - name: home-dns
         group: frontend-services
         url: 192.168.200.1
@@ -91,12 +85,9 @@ data:
         conditions:
           - "[DNS_RCODE] == NOERROR"
           - "[BODY] == 192.168.15.1"
-        alerts:
-          - type: telegram
     alerting:
-      telegram:
-        token: ${SECRET_TELEGRAM_TOKEN_0}
-        id: ${SECRET_TELEGRAM_CHAT_ID_0}
+      discord:
+        webhook-url: ${SECRET_DISCORD_GATUS_WH_URL}
         default-alert:
           enabled: true
           description: "healthcheck failed"
