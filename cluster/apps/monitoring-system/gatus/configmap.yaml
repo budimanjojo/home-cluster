@@ -15,27 +15,27 @@ data:
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
-      - name: k3s-apiserver
+      - name: talos-apiserver
         group: servers
-        url: "tcp://192.168.200.10:8443"
+        url: "tcp://192.168.200.20:8443"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: kmaster1
         group: servers
-        url: "icmp://192.168.200.11"
+        url: "icmp://192.168.200.21"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: kmaster2
         group: servers
-        url: "icmp://192.168.200.12"
+        url: "icmp://192.168.200.22"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
       - name: kmaster3
         group: servers
-        url: "icmp://192.168.200.13"
+        url: "icmp://192.168.200.23"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
@@ -58,7 +58,6 @@ data:
         conditions:
           - "[CONNECTED] == true"
       - name: website
-        url: https://budimanjojo.com
         group: frontend-services
         url: "https://${SECRET_DOMAIN_1}"
         interval: 30s
@@ -91,7 +90,7 @@ data:
           query-type: "A"
         conditions:
           - "[DNS_RCODE] == NOERROR"
-          - "[BODY] == 192.168.200.200"
+          - "[BODY] == 192.168.15.1"
         alerts:
           - type: telegram
     alerting:
