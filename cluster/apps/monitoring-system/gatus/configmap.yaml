@@ -17,7 +17,7 @@ data:
           - "[CONNECTED] == true"
       - name: talos-apiserver
         group: servers
-        url: "tcp://192.168.200.20:8443"
+        url: "tcp://192.168.200.20:6443"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
