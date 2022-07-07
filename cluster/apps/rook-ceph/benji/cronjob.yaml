@@ -27,7 +27,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: generate-ceph-files
-              image: rook/ceph:v1.9.6
+              image: rook/ceph:v1.9.7
               imagePullPolicy: IfNotPresent
               command:
                 - /usr/bin/bash
@@ -132,7 +132,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: generate-ceph-files
-              image: rook/ceph:v1.9.6
+              image: rook/ceph:v1.9.7
               imagePullPolicy: IfNotPresent
               command:
                 - /usr/bin/bash
@@ -240,7 +240,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: generate-ceph-files
-              image: rook/ceph:v1.9.6
+              image: rook/ceph:v1.9.7
               imagePullPolicy: IfNotPresent
               command:
                 - /usr/bin/bash
