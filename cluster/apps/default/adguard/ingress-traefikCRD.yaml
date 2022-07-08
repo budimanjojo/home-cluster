@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: &name adguard
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  entryPoints:
+    - https
+  routes:
+    - kind: Rule
+      match: Host(`adguard.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: headers@file
+        - name: local-only@file
+      services:
+        - name: *name
+          port: 81
+          namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
