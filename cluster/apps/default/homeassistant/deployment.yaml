@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/home-assistant/home-assistant:2022.7.1
+          image: ghcr.io/home-assistant/home-assistant:2022.7.2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
