@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/home-assistant/home-assistant:2022.7.2
+          image: ghcr.io/onedr0p/home-assistant:2022.7.2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -64,9 +64,9 @@ spec:
                   key: uri
       dnsPolicy: ClusterFirst
       securityContext:
-        runAsUser: 0
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
         - name: homeassistant-configs
