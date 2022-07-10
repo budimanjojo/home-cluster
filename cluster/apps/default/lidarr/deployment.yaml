@@ -14,6 +14,22 @@ spec:
     metadata:
       labels: *labels
     spec:
+      initContainers:
+        - name: init-permission
+          image: busybox:1.35.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - chown -R 568:568 /music
+            - chown -R 568:568 /downloads
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: lidarr-media
+              mountPath: /music
+            - name: lidarr-downloads
+              mountPath: /downloads
       containers:
         - name: *name
           image: ghcr.io/k8s-at-home/lidarr:v1.0.2.2592

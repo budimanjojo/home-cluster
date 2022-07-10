@@ -14,6 +14,22 @@ spec:
     metadata:
       labels: *labels
     spec:
+      initContainers:
+        - name: init-permission
+          image: busybox:1.35.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - chown -R 568:568 /media
+            - chown -R 568:568 /config/transcodes
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: jellyfin-media
+              mountPath: /media
+            - name: jellyfin-transcode
+              mountPath: /config/transcodes
       containers:
         - name: *name
           image: jellyfin/jellyfin:10.8.1
@@ -54,12 +70,12 @@ spec:
             successThreshold: 1
             failureThreshold: 150
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 568
         supplementalGroups:
           - 44
           - 109
-        fsGroup: 1000
+        fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
       volumes:
         - name: jellyfin-config
