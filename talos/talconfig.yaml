@@ -63,7 +63,7 @@ controlPlane:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: "true"
-        feature-gates: CronJobTimeZone=true
+        feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
     - op: add
       path: /cluster/controllerManager/extraArgs
       value:
@@ -103,7 +103,7 @@ worker:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: "true"
-        feature-gates: CronJobTimeZone=true
+        feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
   inlinePatch:
     cluster:
       extraManifests:
