@@ -23,7 +23,7 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 
 ### Cluster management
 
-- [Talos](https://.www.talos.dev): Built using [talhelper](https://github.com/budimanjojo/talhelper)
+- [Talos](https://www.talos.dev): Built using [talhelper](https://github.com/budimanjojo/talhelper)
 - [fluxcd](https://fluxcd.io/): Sync kubernetes cluster with this repository.
 - [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/): Encrypts secrets which is safe to store - even to a public repository.
 
