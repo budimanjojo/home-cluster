@@ -31,7 +31,7 @@ spec:
               mountPath: /config
           startupProbe:
             tcpSocket:
-              port: http
+              port: *port
             initialDelaySeconds: 0
             timeoutSeconds: 1
             periodSeconds: 5
