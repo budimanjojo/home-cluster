@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://github.com/kyverno/kyverno/config//k8s-resource?ref=v1.7.1
+  - https://github.com/kyverno/kyverno/config//manifest?ref=v1.7.1
+images:
+  - name: ghcr.io/kyverno/kyverno
+    newTag: v1.7.1
