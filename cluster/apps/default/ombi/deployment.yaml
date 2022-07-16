@@ -32,6 +32,14 @@ spec:
           volumeMounts:
             - name: ombi-config
               mountPath: /config
+          startupProbe:
+            tcpSocket:
+              port: *port
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 30
           livenessProbe:
             tcpSocket:
               port: *port
