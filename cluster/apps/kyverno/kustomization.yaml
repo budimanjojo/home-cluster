@@ -4,6 +4,8 @@ namespace: kyverno
 resources:
   - https://github.com/kyverno/kyverno/config//k8s-resource?ref=v1.7.1
   - https://github.com/kyverno/kyverno/config//manifest?ref=v1.7.1
+transformers:
+  - add-labels-patch.yaml
 images:
   - name: ghcr.io/kyverno/kyverno
     newTag: v1.7.1
