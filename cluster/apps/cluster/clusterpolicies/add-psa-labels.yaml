@@ -13,9 +13,8 @@ metadata:
       at the Namespace level which define the Pod Security Standard (PSS) profile
       in use and the action to take. If not using a cluster-wide configuration
       via an AdmissionConfiguration file, Namespaces must be explicitly labeled.
-      This policy assigns the labels `pod-security.kubernetes.io/enforce=baseline`
-      and `pod-security.kubernetes.io/warn=restricted` to all new Namespaces if
-      those labels are not included.
+      This policy assigns the labels `pod-security.kubernetes.io/enforce=privileged`
+      to matching Namespaces if those labels are not included.
 spec:
   mutateExistingOnPolicyUpdate: true
   rules:
