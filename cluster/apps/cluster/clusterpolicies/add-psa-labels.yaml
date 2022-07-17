@@ -1,0 +1,36 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-psa-labels
+  annotations:
+    policies.kyverno.io/title: Add PSA Labels
+    policies.kyverno.io/category: Pod Security Admission
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/minversion: 1.6.0
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: >-
+      Pod Security Admission (PSA) can be controlled via the assignment of labels
+      at the Namespace level which define the Pod Security Standard (PSS) profile
+      in use and the action to take. If not using a cluster-wide configuration
+      via an AdmissionConfiguration file, Namespaces must be explicitly labeled.
+      This policy assigns the labels `pod-security.kubernetes.io/enforce=baseline`
+      and `pod-security.kubernetes.io/warn=restricted` to all new Namespaces if
+      those labels are not included.
+spec:
+  mutateExistingOnPolicyUpdate: true
+  rules:
+    - name: add-privileged-enforce
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - default
+                - rook-ceph
+                - monitoring-system
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            labels:
+              +(pod-security.kubernetes.io/enforce): privileged
