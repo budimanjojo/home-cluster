@@ -4,7 +4,6 @@ resources:
   - cluster
   - default
   - flux-system
-  - k8tz-system
   - kube-system
   - kyverno
   - monitoring-system
