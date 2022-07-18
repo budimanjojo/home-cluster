@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: registry.gitlab.com/arm-research/smarter/smarter-device-manager:v1.20.8
+          image: registry.gitlab.com/arm-research/smarter/smarter-device-manager:v1.20.10
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
