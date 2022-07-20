@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-kmaster1
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: kmaster1
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-kmaster2
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: kmaster2
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-clean-kmaster3
+  namespace: kube-system
+spec:
+  restartPolicy: Never
+  nodeName: kmaster3
+  volumes:
+    - name: rook-data-dir
+      hostPath:
+        path: /var/lib/rook
+  containers:
+    - name: disk-clean
+      image: busybox
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: rook-data-dir
+          mountPath: /node/rook-data
+      command:
+        - /bin/sh
+        - -c
+        - rm -rf /node/rook-data/*
