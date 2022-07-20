@@ -17,6 +17,7 @@ metadata:
       to matching Namespaces if those labels are not included.
 spec:
   mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
   rules:
     - name: add-privileged-enforce
       match:
@@ -29,6 +30,10 @@ spec:
                 - rook-ceph
                 - monitoring-system
       mutate:
+        targets:
+          - apiVersion: v1
+            kind: Namespace
+            name: "{{request.object.metadata.name}}"
         patchStrategicMerge:
           metadata:
             labels:
