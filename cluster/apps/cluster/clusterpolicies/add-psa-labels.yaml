@@ -27,6 +27,7 @@ spec:
                 - Namespace
               names:
                 - default
+                - nfd-system
                 - rook-ceph
                 - monitoring-system
       mutate:
