@@ -4,6 +4,7 @@ metadata:
   name: vaultwarden-config
   labels:
     app.kubernetes.io/name: vaultwarden
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteMany

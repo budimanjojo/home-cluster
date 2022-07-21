@@ -4,6 +4,7 @@ metadata:
   name: syncthing-config
   labels:
     app.kubernetes.io/name: syncthing
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteMany

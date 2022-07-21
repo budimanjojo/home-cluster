@@ -4,6 +4,7 @@ metadata:
   name: sonarr-config
   labels:
     app.kubernetes.io/name: sonarr
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

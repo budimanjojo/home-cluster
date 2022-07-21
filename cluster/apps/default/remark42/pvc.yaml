@@ -4,6 +4,7 @@ metadata:
   name: remark42-data
   labels:
     app.kubernetes.io/name: remark42
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
   - ReadWriteOnce

@@ -4,6 +4,7 @@ metadata:
   name: radicale-data
   labels:
     app.kubernetes.io/name: radicale
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

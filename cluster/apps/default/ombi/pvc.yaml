@@ -4,6 +4,7 @@ metadata:
   name: ombi-config
   labels:
     app.kubernetes.io/name: ombi
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

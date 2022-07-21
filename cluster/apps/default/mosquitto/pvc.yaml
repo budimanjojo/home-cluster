@@ -4,6 +4,7 @@ metadata:
   name: mosquitto-data
   labels:
     app.kubernetes.io/name: mosquitto
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

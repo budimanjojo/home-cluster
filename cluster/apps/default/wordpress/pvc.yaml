@@ -4,6 +4,7 @@ metadata:
   name: wordpress-config
   labels:
     app.kubernetes.io/name: wordpress
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

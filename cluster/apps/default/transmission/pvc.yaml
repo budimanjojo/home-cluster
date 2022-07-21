@@ -4,6 +4,7 @@ metadata:
   name: transmission-config
   labels:
     app.kubernetes.io/name: transmission
+    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce
