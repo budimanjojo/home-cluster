@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - add-psa-labels.yaml
   - inject-timezone.yaml
+  - snapshot-cronjob.yaml

@@ -1,0 +1,122 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: snapshot-cronjob
+  annotations:
+    policies.kyverno.io/title: Snapshot CronJob
+    policies.kyverno.io/category: Other
+    policies.kyverno.io/subject: PersistentVolumeClaim
+    policies.kyverno.io/description: >-
+      This policy creates CronJob for PersistentVolumeClaim
+      that is labeled with `snapshot.home.cluster/enabled: \"true\"`.
+      The PVC also needs to be labeled with `app.kubernetes.io/name`.
+spec:
+  mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: create-snapshot-cronjob
+      match:
+        any:
+          - resources:
+              kinds:
+                - PersistentVolumeClaim
+              selector:
+                matchLabels:
+                  snapshot.home.cluster/enabled: "true"
+                  app.kubernetes.io/name: "*"
+      context:
+        - name: claimName
+          variable:
+            jmesPath: "request.object.metadata.name"
+        - name: namespace
+          variable:
+            jmesPath: "request.object.metadata.namespace || 'default'"
+        - name: nodeAffinity
+          variable:
+            value:
+              enabled: "{{ (request.object.metadata.labels.\"snapshot.home.cluster/nodeAffinity\" || 'true') == 'true' }}"
+              labels:
+                - key: "app.kubernetes.io/name"
+                  operator: "In"
+                  values:
+                    - "{{ request.object.metadata.labels.\"app.kubernetes.io/name\" }}"
+      generate:
+        synchronize: true
+        apiVersion: batch/v1
+        kind: CronJob
+        name: "{{ claimName }}-snapshot"
+        namespace: "{{ namespace }}"
+        data:
+          metadata:
+            labels:
+              app.kubernetes.io/name: "{{ request.object.metadata.labels.\"app.kubernetes.io/name\" }}"
+            ownerReferences:
+              - apiVersion: "{{ request.object.apiVersion }}"
+                kind: "{{ request.object.kind }}"
+                name: "{{ request.object.metadata.name }}"
+                uid: "{{ request.object.metadata.uid }}"
+          spec:
+            schedule: "@daily"
+            suspend: false
+            concurrencyPolicy: Forbid
+            successfulJobsHistoryLimit: 1
+            failedJobsHistoryLimit: 1
+            jobTemplate:
+              spec:
+                ttlSecondsAfterFinished: 3600
+                template:
+                  spec:
+                    automountServiceAccountToken: false
+                    restartPolicy: OnFailure
+                    initContainers:
+                      # Stagger jobs to run randomly within X seconds to avoid bringing down all apps at once
+                      - name: wait-for
+                        image: ghcr.io/onedr0p/alpine:3.16.1@sha256:ed7edf90c1e7df516ff37267841a17d0bedf7ef873f8f81bb3ddf06b3a464d06
+                        command: ["/scripts/sleep.sh"]
+                        args: ["1", "900"]
+                    containers:
+                      - name: snapshot
+                        image: ghcr.io/onedr0p/kopia:0.11.3@sha256:37e10143585ff2e668a10d878d854831e92bfb7f482f823d1f58af3910fcff41
+                        env:
+                          - name: KOPIA_CACHE_DIRECTORY
+                            value: /data/backups/{{ namespace }}/{{ claimName }}/cache
+                          - name: KOPIA_LOG_DIR
+                            value: /data/backups/{{ namespace }}/{{ claimName }}/logs
+                          - name: KOPIA_PASSWORD
+                            value: "none"
+                        command:
+                          - /bin/bash
+                          - -c
+                          - |-
+                            printf "\e[1;32m%-6s\e[m\n" "[01/10] Create repo ..."              && [[ ! -f /data/backups/kopia.repository.f ]] && kopia repository create filesystem --path=/data/backups
+                            printf "\e[1;32m%-6s\e[m\n" "[02/10] Connect to repo ..."          && kopia repo connect filesystem --path=/data/backups --override-hostname=cluster --override-username=root
+                            printf "\e[1;32m%-6s\e[m\n" "[03/10] Set policies ..."             && kopia policy set /data/{{ namespace }}/{{ claimName }} --compression=zstd --keep-latest 14 --keep-hourly 0 --keep-daily 7 --keep-weekly 2 --keep-monthly 0 --keep-annual 0
+                            printf "\e[1;32m%-6s\e[m\n" "[04/10] Freeze {{ claimName }} ..."   && fsfreeze -f /data/{{ namespace }}/{{ claimName }}
+                            printf "\e[1;32m%-6s\e[m\n" "[05/10] Snapshot {{ claimName }} ..." && kopia snap create /data/{{ namespace }}/{{ claimName }}
+                            printf "\e[1;32m%-6s\e[m\n" "[06/10] Unfreeze {{ claimName }} ..." && fsfreeze -u /data/{{ namespace }}/{{ claimName }}
+                            printf "\e[1;32m%-6s\e[m\n" "[07/10] List snapshots ..."           && kopia snap list /data/{{ namespace }}/{{ claimName }}
+                            printf "\e[1;32m%-6s\e[m\n" "[08/10] Show stats ..."               && kopia content stats
+                            printf "\e[1;32m%-6s\e[m\n" "[09/10] Show maintenance info ..."    && kopia maintenance info
+                            printf "\e[1;32m%-6s\e[m\n" "[10/10] Disconnect from repo ..."     && kopia repo disconnect
+                        securityContext:
+                          privileged: true
+                        volumeMounts:
+                          - name: appdata
+                            mountPath: "/data/{{ namespace }}/{{ claimName }}"
+                          - name: backup
+                            mountPath: /data/backups
+                    volumes:
+                      - name: appdata
+                        persistentVolumeClaim:
+                          claimName: "{{ claimName }}"
+                      - name: backup
+                        nfs:
+                          server: 192.168.200.31
+                          path: /Kopia-Backups
+
+                    affinity:
+                      podAffinity:
+                        requiredDuringSchedulingIgnoredDuringExecution:
+                          - topologyKey: kubernetes.io/hostname
+                            labelSelector:
+                              matchExpressions: "{{ nodeAffinity.enabled && nodeAffinity.labels || [] }}"
