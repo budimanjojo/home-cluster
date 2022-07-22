@@ -36,3 +36,13 @@ spec:
                     secretKeyRef:
                       name: firefly-iii-secrets
                       key: STATIC_CRON_TOKEN
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - firefly-iii
+                  topologyKey: kubernetes.io/hostname
