@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name kopia
+  labels: &labels
+    app.kubernetes.io/name: *name
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: *name
+          image: "ghcr.io/onedr0p/kopia:0.11.3@sha256:37e10143585ff2e668a10d878d854831e92bfb7f482f823d1f58af3910fcff41"
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 250Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          command:
+            - kopia
+          args:
+            - server
+            - --insecure
+            - --address
+            - 0.0.0.0:80
+            - --metrics-listen-addr
+            - 0.0.0.0:8080
+            - --without-password
+          ports:
+            - name: &port http
+              protocol: TCP
+              containerPort: 80
+            - name: metrics
+              protocol: TCP
+              containerPort: 8080
+          volumeMounts:
+            - name: kopia-configs
+              mountPath: /config/repository.config
+              subPath: repository.config
+              readOnly: true
+            - name: snapshots
+              mountPath: /snapshots
+          startupProbe:
+            tcpSocket:
+              port: *port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 30
+          livenessProbe:
+            tcpSocket:
+              port: *port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: *port
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: "KOPIA_PASSWORD"
+              value: none
+      volumes:
+        - name: kopia-configs
+          configMap:
+            name: kopia-configs
+        - name: snapshots
+          nfs:
+            server: 192.168.200.31
+            path: /Kopia-Backups
