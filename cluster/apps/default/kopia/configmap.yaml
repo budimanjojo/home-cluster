@@ -20,7 +20,7 @@ data:
         "maxMetadataCacheSize": 5242880000,
         "maxListCacheDuration": 30
       },
-      "hostname": "home-cluster",
+      "hostname": "cluster",
       "username": "root",
       "description": "My Home Cluster Repository",
       "enableActions": false,
