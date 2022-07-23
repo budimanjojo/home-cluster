@@ -10,6 +10,7 @@ resources:
   - fullykioskbrowser
   - homeassistant
   - jellyfin
+  - kopia
   - lidarr
   - mosquitto
   - nextcloud
