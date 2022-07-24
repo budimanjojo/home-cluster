@@ -64,6 +64,7 @@ spec:
         name: mariadb-data
         labels:
           app.kubernetes.io/name: mariadb
+          snapshot.home.cluster/enabled: "true"
       spec:
         accessModes:
           - ReadWriteOnce

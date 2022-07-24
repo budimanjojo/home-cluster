@@ -78,6 +78,7 @@ spec:
         name: redis-data
         labels:
           app.kubernetes.io/name: redis
+          snapshot.home.cluster/enabled: "true"
       spec:
         accessModes:
           - ReadWriteOnce
