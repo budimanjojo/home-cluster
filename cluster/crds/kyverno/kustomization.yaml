@@ -1,5 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://raw.githubusercontent.com/kyverno/kyverno/v1.7.1/config/bundle/namespace.yaml
-  - https://github.com/kyverno/kyverno/config//crds?ref=v1.7.1
+  - https://raw.githubusercontent.com/kyverno/kyverno/v1.7.2/config/bundle/namespace.yaml
+  - https://github.com/kyverno/kyverno/config//crds?ref=v1.7.2
