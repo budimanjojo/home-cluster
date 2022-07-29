@@ -102,6 +102,10 @@ controlPlane:
         crt: ${machineCert}
         key: ${machineCertKey}
       token: ${machineToken}
+      time:
+        disabled: false
+        servers:
+          - 192.168.200.1
 worker:
   configPatches:
     - op: add
@@ -125,3 +129,7 @@ worker:
         crt: ${machineCert}
         key: ${machineCertKey}
       token: ${machineToken}
+      time:
+        disabled: false
+        servers:
+          - 192.168.200.1
