@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app zigbee2mqtt
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+    install:
+      createNamespace: true
+      remediation:
+        retries: 5
+      values:
+        global:
+          nameOverride: *app
+        image:
+          repository: ghcr.io/koenkk/zigbee2mqtt
+          tag: 1.27.0
+        env:
+          ZIGBEE2MQTT_DATA: /config
+        service:
+          main:
+            ports:
+              http:
+                port: 8080
+        persistence:
+          config:
+            enabled: true
+            existingClaim: zigbee2mqtt-config
+            mountPath: /config
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                smarter-devices/ttyUSB0: 1
