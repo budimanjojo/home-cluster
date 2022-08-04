@@ -8,12 +8,17 @@
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
+  "helm-values": {
+    "fileMatch": [
+      "cluster/.+/helmrelease\\.ya?ml$"
+    ]
+  },
   "kubernetes": {
     "fileMatch": [
-      "cluster/.+/deployment\\.yaml$",
-      "cluster/.+/daemonset\\.yaml$",
-      "cluster/.+/statefulset\\.yaml$",
-      "cluster/.+/cronjob\\.yaml$"
+      "cluster/.+/deployment\\.ya?ml$",
+      "cluster/.+/daemonset\\.ya?ml$",
+      "cluster/.+/statefulset\\.ya?ml$",
+      "cluster/.+/cronjob\\.ya?ml$"
     ]
   },
   "regexManagers": [
