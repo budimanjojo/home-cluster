@@ -44,10 +44,10 @@ spec:
         securityContext:
           runAsUser: 0
         volumeMounts:
-          - name: radarr-media
+          - name: media
             mountPath: /movies
             subPath: Movies
-          - name: radarr-downloads
+          - name: downloads
             mountPath: /downloads
     podSecurityContext:
       runAsUser: 568
