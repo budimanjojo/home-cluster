@@ -34,7 +34,7 @@ spec:
             port: 7878
     initContainers:
       init-permission:
-        image: busybox
+        image: busybox:1.35.0
         imagePullPolicy: IfNotPresent
         command:
           - sh
