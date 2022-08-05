@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: lscr.io/linuxserver/ombi:4.16.12
+          image: lscr.io/linuxserver/ombi:4.22.5
           imagePullPolicy: IfNotPresent
           resources:
             requests:
