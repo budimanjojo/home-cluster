@@ -10,7 +10,12 @@
   "rebaseWhen": "conflicted",
   "helm-values": {
     "fileMatch": [
-      "cluster/.+/helmrelease\\.ya?ml$"
+      "cluster/.+/helm-?release\\.ya?ml$"
+    ]
+  },
+  "flux": {
+    "fileMatch": [
+      "cluster/.+/helm-?release\\.ya?ml$"
     ]
   },
   "kubernetes": {
