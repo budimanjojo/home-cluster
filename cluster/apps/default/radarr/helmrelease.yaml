@@ -39,8 +39,9 @@ spec:
         command:
           - sh
           - -c
-          - chown -R 568:568 /movies
-          - chown -R 568:568 /downloads
+        args:
+          - chown -R 568:568 /movies;
+            chown -R 568:568 /downloads
         securityContext:
           runAsUser: 0
         volumeMounts:
