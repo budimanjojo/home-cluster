@@ -11,7 +11,7 @@ spec:
       version: 1.2.2
       sourceRef:
         kind: HelmRepository
-        name: kah-at-home-charts
+        name: k8s-at-home-charts
         namespace: flux-system
       interval: 15m
   install:
