@@ -68,6 +68,9 @@ spec:
         enabled: true
         existingClaim: shared-downloads
         mountPath: /downloads
+    probes:
+      startup:
+        enabled: false
     resources:
       requests:
         cpu: 50m
