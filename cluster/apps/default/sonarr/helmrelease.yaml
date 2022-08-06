@@ -31,7 +31,7 @@ spec:
       main:
         ports:
           http:
-            port: 7878
+            port: 8989
     initContainers:
       init-permission:
         image: busybox:1.35.0
@@ -68,9 +68,6 @@ spec:
         enabled: true
         existingClaim: shared-downloads
         mountPath: /downloads
-    probes:
-      startup:
-        enabled: false
     resources:
       requests:
         cpu: 50m
