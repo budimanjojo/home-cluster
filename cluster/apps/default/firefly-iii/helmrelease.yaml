@@ -60,8 +60,8 @@ spec:
         cpu: 100m
         memory: 150Mi
     envFrom:
-      secretRef:
-        name: firefly-iii-secret
+      - secretRef:
+          name: firefly-iii-secret
     env:
       DB_CONNECTION: pgsql
       DB_HOST:
