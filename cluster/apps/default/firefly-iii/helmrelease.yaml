@@ -1,0 +1,91 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app firefly-iii
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: fireflyiii/core
+      tag: version-5.7.1
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    initContainers:
+      wait-database:
+        image: alpine:3.16.1
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+        args:
+          - -c
+          - >-
+            until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+            do echo "Waiting for database";
+            done
+        env:
+          - name: POSTGRES_HOST
+            valueFrom:
+              secretKeyRef:
+                name: pgo-cluster-pguser-fireflyiii
+                key: host
+    persistence:
+      data:
+        enabled: true
+        existingClaim: firefly-iii-data
+        mountPath: /var/www/html/firefly-iii/storage/upload
+    resources:
+      requests:
+        cpu: 100m
+        memory: 150Mi
+    envFrom:
+      secretRef:
+        name: firefly-iii-secret
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-fireflyiii
+            key: host
+      DB_PORT:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-fireflyiii
+            key: port
+      DB_DATABASE:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-fireflyiii
+            key: dbname
+      DB_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-fireflyiii
+            key: user
+      DB_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-fireflyiii
+            key: password

@@ -3,8 +3,7 @@ kind: Kustomization
 namespace: default
 resources:
   - cronjob.yaml
-  - deployment.yaml
+  - helmrelease.yaml
   - ingress-traefikCRD.yaml
   - pvc.yaml
   - secret.yaml
-  - service.yaml
