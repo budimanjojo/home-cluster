@@ -32,11 +32,6 @@ spec:
         ports:
           http:
             port: 8191
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
     resources:
       requests:
         cpu: 50m
