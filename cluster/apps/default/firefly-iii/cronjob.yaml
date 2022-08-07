@@ -34,7 +34,7 @@ spec:
                 - name: STATIC_CRON_TOKEN
                   valueFrom:
                     secretKeyRef:
-                      name: firefly-iii-secrets
+                      name: firefly-iii-secret
                       key: STATIC_CRON_TOKEN
           affinity:
             podAffinity:
