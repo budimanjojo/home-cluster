@@ -1,0 +1,50 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app prowlarr
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: ghcr.io/k8s-at-home/prowlarr-develop
+      tag: v0.4.3.1921
+    service:
+      main:
+        ports:
+          http:
+            port: 9696
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      config:
+        enabled: true
+        existingClaim: prowlarr-config
+        mountPath: /config
+    resources:
+      requests:
+        cpu: 50m
+        memory: 250Mi
+      limits:
+        memory: 500Mi
