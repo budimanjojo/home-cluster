@@ -33,10 +33,12 @@ spec:
           http:
             port: 9091
           tcp:
+            enabled: true
             primary: true
             protocol: TCP
             port: 51413
           udp:
+            enabled: true
             protocol: UDP
             port: 51413
     configmap:
