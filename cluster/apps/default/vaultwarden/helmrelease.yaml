@@ -1,0 +1,78 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app vaultwarden
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: vaultwarden/server
+      tag: 1.25.2-alpine
+    controller:
+      strategy: RollingUpdate
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+          websocket:
+            enabled: true
+            port: 3012
+            protocol: TCP
+    initContainers:
+      wait-database:
+        image: busybox:1.35.0
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+        args:
+          - -c
+          - >-
+            until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+            do echo "Waiting for database";
+            done
+        env:
+          - name: POSTGRES_HOST
+            value: pgo-cluster-primary
+        envFrom:
+          - secretRef:
+              name: vaultwarden-secret
+    persistence:
+      config:
+        enabled: true
+        existingClaim: vaultwarden-config
+        mountPath: /data
+    resources:
+      requests:
+        cpu: 50m
+        memory: 100Mi
+      limits:
+        memory: 200Mi
+    envFrom:
+      - secretRef:
+          name: vaultwarden-secret
+    env:
+      DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-vaultwarden
+            key: uri
