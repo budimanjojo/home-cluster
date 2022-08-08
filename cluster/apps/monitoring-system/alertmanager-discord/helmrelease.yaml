@@ -26,6 +26,7 @@ spec:
       nameOverride: *app
     image:
       repository: benjojo/alertmanager-discord
+      tag: latest
     service:
       main:
         ports:
