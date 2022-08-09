@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: default
 resources:
   - configmap.yaml
+  - helmrelease.yaml
+  - pvc.yaml
   - secret.yaml
-  - service.yaml
-  - statefulset.yaml

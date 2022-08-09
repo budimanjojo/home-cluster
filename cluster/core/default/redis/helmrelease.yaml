@@ -1,0 +1,96 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app redis
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: redis
+      tag: 7.0.4-alpine
+    controller:
+      type: statefulset
+    service:
+      main:
+        ports:
+          http:
+            port: 6379
+    command:
+      - sh
+    args:
+      - -c
+      - >-
+        redis-server --requirepass $REDIS_PASSWORD
+    persistence:
+      data:
+        enabled: true
+        existingClaim: redis-data-redis-0
+        mountPath: /data
+      healthcheck:
+        enabled: true
+        type: custom
+        mountPath: /health
+        volumeSpec:
+          configMap:
+            name: redis-healthcheck
+            defaultMode: 0755
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          exec:
+            command:
+              - sh
+              - -c
+              - /health/ping_liveness.sh 5
+          initialDelaySeconds: 5
+          timeoutSeconds: 6
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          exec:
+            command:
+              - sh
+              - -c
+              - /health/ping_readiness.sh 1
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+    resources:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+    env:
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: redis-secret
+            key: redis-password
