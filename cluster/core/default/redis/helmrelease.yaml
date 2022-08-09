@@ -83,10 +83,9 @@ spec:
           successThreshold: 1
           failureThreshold: 5
     resources:
-      resources:
-        requests:
-          cpu: 50m
-          memory: 50Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
     env:
       REDIS_PORT: "6379"
       REDIS_PASSWORD:
