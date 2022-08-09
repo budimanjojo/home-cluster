@@ -1,0 +1,118 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app authelia
+  namespace: authentication-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: ghcr.io/authelia/authelia
+      tag: 4.36.4
+    controller:
+      replicas: 3
+      strategy: RollingUpdate
+    command:
+      - sh
+      - -c
+      - authelia --config /config/configuration.yaml
+    service:
+      main:
+        ports:
+          http:
+            port: 9091
+    persistence:
+      config:
+        enabled: true
+        type: custom
+        mountPath: /config
+        readOnly: true
+        volumeSpec:
+          configMap:
+            name: authelia-config
+      secret:
+        enabled: true
+        type: custom
+        mountPath: /app/secrets
+        readOnly: true
+        volumeSpec:
+          secret:
+            secretName: authelia-secret
+            items:
+              - key: authelia_jwt_secret
+                path: jwt_secret
+              - key: authelia_duo_api_secret_key
+                path: duo_api_secret_key
+              - key: authelia_session_secret
+                path: session_secret
+              - key: authelia_notifier_smtp_password
+                path: notifier_smtp_password
+              - key: authelia_session_redis_password
+                path: session_redis_password
+      db-password:
+        enabled: true
+        type: custom
+        mountPath: /db/secrets
+        readOnly: true
+        volumeSpec:
+          secret:
+            secretName: pgo-cluster-pguser-authelia
+            items:
+              - key: password
+                path: storage_postgres_password
+    resources:
+      requests:
+        cpu: 1m
+        memory: 50Mi
+    enableServiceLinks: false
+    env:
+      AUTHELIA_JWT_SECRET_FILE:
+        value: /app/secrets/jwt_secret
+      AUTHELIA_DUO_API_SECRET_KEY_FILE:
+        value: /app/secrets/duo_api_secret_key
+      AUTHELIA_SESSION_SECRET_FILE:
+        value: /app/secrets/session_secret
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE:
+        value: /app/secrets/notifier_smtp_password
+      AUTHELIA_SESSION_REDIS_PASSWORD_FILE:
+        value: /app/secrets/session_redis_password
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE:
+        value: /db/secrets/storage_postgres_password
+      AUTHELIA_STORAGE_POSTGRES_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-authelia
+            key: host
+      AUTHELIA_STORAGE_POSTGRES_PORT:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-authelia
+            key: port
+      AUTHELIA_STORAGE_POSTGRES_DATABASE:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-authelia
+            key: dbname
+      AUTHELIA_STORAGE_POSTGRES_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-authelia
+            key: user
