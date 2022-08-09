@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: wait-database
-          image: alpine:3.16.1
+          image: alpine:3.16.2
           imagePullPolicy: IfNotPresent
           command:
             - sh
