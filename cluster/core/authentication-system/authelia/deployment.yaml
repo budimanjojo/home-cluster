@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/authelia/authelia:4.36.3
+          image: ghcr.io/authelia/authelia:4.36.4
           imagePullPolicy: IfNotPresent
           resources:
             requests:
