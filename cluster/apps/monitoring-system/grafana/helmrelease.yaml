@@ -1,0 +1,49 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app grafana
+  namespace: monitoring-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: grafana
+      version: 6.32.12
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    nameOverride: *app
+    image:
+      repository: grafana/grafana
+      tag: 9.0.6
+    service:
+      portName: http
+      port: 3000
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        memory: 200Mi
+    admin:
+      existingSecret: grafana-secret
+      userKey: gf_security_admin_user
+      passwordKey: gf_admin_password
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+    plugins:
+      - grafana-piechart-panel
+    serviceMonitor:
+      enabled: true
