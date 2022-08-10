@@ -54,18 +54,18 @@ spec:
         spec:
           httpGet:
             path: /health
-            port: *port
+            port: http
       liveness:
         enabled: true
         custom: true
         spec:
           httpGet:
             path: /health
-            port: *port
+            port: http
       readiness:
         enabled: true
         custom: true
         spec:
           httpGet:
             path: /health
-            port: *port
+            port: http
