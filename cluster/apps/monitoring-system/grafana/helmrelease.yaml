@@ -38,7 +38,7 @@ spec:
     admin:
       existingSecret: grafana-secret
       userKey: gf_security_admin_user
-      passwordKey: gf_admin_password
+      passwordKey: gf_security_admin_password
     sidecar:
       dashboards:
         enabled: true
