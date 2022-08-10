@@ -56,7 +56,7 @@ spec:
         type: hostPath
         hostPath: /sys
         readOnly: true
-      kubeletSockets:
+      kubeletsockets:
         enabled: true
         type: hostPath
         hostPath: /var/lib/kubelet/device-plugins
