@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sdm-configs
+  name: smarter-device-manager-config
   namespace: kube-system
   labels:
     app.kubernetes.io/name: smarter-device-manager
