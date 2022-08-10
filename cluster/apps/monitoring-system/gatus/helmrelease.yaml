@@ -1,0 +1,71 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app gatus
+  namespace: monitoring-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: twinproduction/gatus
+      tag: v4.0.0
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    persistence:
+      config:
+        enabled: true
+        type: custom
+        mountPath: /config
+        readOnly: true
+        volumeSpec:
+          configMap:
+            name: gatus-config
+    resources:
+      requests:
+        cpu: 50m
+        memory: 30Mi
+      limits:
+        memory: 100Mi
+    probes:
+      startup:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
