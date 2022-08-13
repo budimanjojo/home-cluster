@@ -1,0 +1,97 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: ingress-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: traefik
+      version: 10.24.0
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    deployment:
+      replicas: 3
+    ingressRoute:
+      dashboard:
+        enabled: false
+    providers:
+      kubernetesCRD:
+        enabled: true
+        allowCrossNamespace: true
+        allowExternalNameServices: true
+      kubernetesIngress:
+        enabled: true
+    volumes:
+      - name: traefik-config
+        mountPath: /etc/traefik
+        type: configMap
+    logs:
+      general:
+        format: json
+        level: ERROR
+      access:
+        enabled: true
+        format: json
+        filters:
+          statuscodes: 200,300-302
+          retryattempts: true
+          minduration: 450000ns
+        fields:
+          general:
+            names:
+              defaultmode: drop
+              ClientAddr: keep
+              RequestAddr: keep
+              RequestMethod: keep
+              RequestPath: keep
+              RequestCount: keep
+              RequestProtocol: keep
+              RequestScheme: keep
+              RetryAttempts: keep
+              RouterName: keep
+              Duration: keep
+          headers:
+            defaultmode: keep
+            names:
+              Authorization: drop
+    metrics:
+      prometheus:
+        entryPoint: metrics
+    experimental:
+      http3:
+        enabled: true
+    globalArguments:
+      - "--global.checknewversion=true"
+      - "--global.sendanonymoususage=false"
+    additionalArguments:
+      - "--providers.file.directory=/etc/traefik"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--entrypoints.web.proxyprotocol.trustedips=127.0.0.1"
+      - "--entrypoints.web.forwardedheaders.trustedips=127.0.0.1/32"
+      - "--entrypoints.websecure.proxyprotocol.trustedips=127.0.0.1"
+      - "--entrypoints.websecure.forwardedheaders.trustedips=127.0.0.1/32"
+      - "--log.filepath=/tmp/traefik.log"
+      - "--ping.entrypoint=traefik"
+      - "--api.debug=true"
+      - "--providers.providersthrottleduration=2"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        memory: 150Mi
