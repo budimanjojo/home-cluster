@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: *name
 spec:
   entryPoints:
-    - https
+    - websecure
   routes:
     - kind: Rule
       match: Host(`comments.${SECRET_DOMAIN_1}`)

@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: firefly-iii
 spec:
   entryPoints:
-    - https
+    - websecure
   routes:
     - kind: Rule
       match: Host(`money.${SECRET_DOMAIN_1}`)

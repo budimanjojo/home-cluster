@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: *name
 spec:
   entryPoints:
-    - https
+    - websecure
   routes:
     - kind: Rule
       match: Host(`ombi.${SECRET_DOMAIN_0}`)
