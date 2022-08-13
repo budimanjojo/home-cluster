@@ -2,6 +2,7 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: sync-authelia-db-secret
+  namespace: default
   annotations:
     policies.kyverno.io/title: Sync Authelia Database Secret
     policies.kyverno.io/category: Other
