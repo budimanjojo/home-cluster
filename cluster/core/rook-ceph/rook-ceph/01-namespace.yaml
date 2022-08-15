@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: rook-ceph
   labels:
-    app.kubernetes.io/name: nfs-provisioner
+    app.kubernetes.io/name: rook-ceph
