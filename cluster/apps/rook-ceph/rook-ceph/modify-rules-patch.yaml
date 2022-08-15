@@ -1,9 +1,0 @@
-# remove CephNodeInconsistentMTU
-- op: remove
-  path: /spec/groups/6/rules/4
-# remove PrometheusServer
-- op: remove
-  path: /spec/groups/10/rules/0
-# remove CephNodeNetworkPacketDrops
-- op: remove
-  path: /spec/groups/6/rules/1
