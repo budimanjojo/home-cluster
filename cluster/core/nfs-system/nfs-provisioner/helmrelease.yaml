@@ -30,4 +30,5 @@ spec:
       server: ${CONFIG_NFS_SERVER_ADDRESS}
       path: ${CONFIG_NFS_SERVER_PATH}
     storageClass:
+      provisionerName: nfs-provisioner
       create: false
