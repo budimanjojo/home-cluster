@@ -6,4 +6,3 @@ resources:
   - ingress-traefikCRD.yaml
   - pvc.yaml
   - secret.yaml
-  - service.yaml
