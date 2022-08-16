@@ -92,6 +92,7 @@ spec:
             disabled: false
           osd:
             disabled: false
+      resources: null
     cephBlockPools:
       - name: blockpool
         spec:
