@@ -15,7 +15,7 @@ spec:
         - name: local-only@file
       services:
         - name: *name
-          port: 80
+          port: 8080
           namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
