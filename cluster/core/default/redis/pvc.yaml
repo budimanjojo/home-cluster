@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: redis-data-mariadb-0
+  name: redis-data-redis-0
   labels:
     app.kubernetes.io/name: redis
     snapshot.home.cluster/enabled: "true"
