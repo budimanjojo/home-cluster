@@ -95,3 +95,6 @@ spec:
         memory: 50Mi
       limits:
         memory: 150Mi
+    service:
+      spec:
+        externalTrafficPolicy: Local
