@@ -94,7 +94,7 @@ data:
         url: 192.168.200.1
         interval: 30s
         dns:
-          query-name: "${SECRET_DOMAIN_1}"
+          query-name: "${SECRET_DOMAIN_0}"
           query-type: "A"
         conditions:
           - "[DNS_RCODE] == NOERROR"
