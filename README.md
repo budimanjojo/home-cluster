@@ -116,4 +116,3 @@ A lot of inspiration for my cluster came from the people that have shared their 
 ## Todo List
 
 - [ ] Use redis operator
-- [ ] Use mariadb operator

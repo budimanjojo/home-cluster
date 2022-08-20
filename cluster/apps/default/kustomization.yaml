@@ -28,5 +28,4 @@ resources:
   - transmission
   - unpackerr
   - vaultwarden
-  - wordpress
   - zigbee2mqtt
