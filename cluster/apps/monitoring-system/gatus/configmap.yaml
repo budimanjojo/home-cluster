@@ -98,7 +98,7 @@ data:
           query-type: "A"
         conditions:
           - "[DNS_RCODE] == NOERROR"
-          - "[BODY] == 192.168.15.1"
+          - "[BODY] == ${CONFIG_TRAEFIK_IP}"
         alerts:
           - type: discord
     alerting:
