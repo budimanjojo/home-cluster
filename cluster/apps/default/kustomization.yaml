@@ -22,7 +22,6 @@ resources:
   - radarr
   - radicale
   - reloader
-  - remark42
   - sonarr
   - syncthing
   - transmission
