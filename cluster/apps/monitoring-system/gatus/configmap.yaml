@@ -57,14 +57,6 @@ data:
           - "[CONNECTED] == true"
         alerts:
           - type: discord
-      - name: mariadb
-        group: backend-services
-        url: "tcp://mariadb.default:3306"
-        interval: 30s
-        conditions:
-          - "[CONNECTED] == true"
-        alerts:
-          - type: discord
       - name: redis
         group: backend-services
         url: "tcp://redis.default:6379"
