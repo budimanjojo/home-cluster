@@ -15,7 +15,9 @@
   },
   "flux": {
     "fileMatch": [
-      "cluster/.+/helm-?release\\.ya?ml$"
+      "cluster/.+/helm-?release\\.ya?ml$",
+      "flux-system/.+\\.ya?ml$",
+      "charts/.+\\.ya?ml$"
     ]
   },
   "kubernetes": {
