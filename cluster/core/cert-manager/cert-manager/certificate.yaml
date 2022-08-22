@@ -31,7 +31,6 @@ spec:
     name: ${SECRET_DOMAIN_1}-prod
     kind: ClusterIssuer
   dnsNames:
-    - "${SECRET_DOMAIN_1}"
     - "*.${SECRET_DOMAIN_1}"
 
 ---
