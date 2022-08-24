@@ -1,5 +1,9 @@
 {
   "enabled": true,
+  "platform": "github",
+  "username": "budimanjojo-bot[bot]",
+  "repositories": ["budimanjojo/home-cluster"],
+  "gitAuthor": "budimanjojo-bot <111944664+budimanjojo-bot[bot]@users.noreply.github.com",
   "semanticCommits": "enabled",
   "labels": ["renovatebot"],
   "commitBody": "Signed-Off-by: Budiman JOJO <budimanjojo@gmail.com>",
