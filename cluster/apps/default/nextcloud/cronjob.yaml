@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: &name nextcloud-cron
+  labels: &labels
+    app.kubernetes.io/name: nextcloud
+    app.kubernetes.io/instance: nextcloud
+spec:
+  schedule: "*/5 * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels: *labels
+    spec:
+      template:
+        metadata:
+          labels: *labels
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: *name
+              image: nextcloud:24.0.4-fpm-alpine
+              imagePullPolicy: IfNotPresent
+              command:
+                - curl
+              args:
+                - https://nextcloud.${SECRET_DOMAIN_2}/cron.php

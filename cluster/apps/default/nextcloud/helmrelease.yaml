@@ -93,8 +93,6 @@ spec:
         secretName: pgo-cluster-pguser-nextcloud
         usernameKey: user
         passwordKey: password
-    cronjob:
-      enabled: true
     persistence:
       enabled: true
       existingClaim: nextcloud-config
