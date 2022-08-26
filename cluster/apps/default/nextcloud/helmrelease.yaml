@@ -1,0 +1,105 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app nextcloud
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    fullnameOverride: *app
+    image:
+      flavor: fpm-alpine
+    ingress:
+      enabled: false
+    nextcloud:
+      host: nextcloud.${SECRET_DOMAIN_2}
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secret
+      datadir: /var/www/data
+      extraEnv:
+        - name: REDIS_HOST
+          value: redis
+        - name: REDIS_HOST_PORT
+          value: "6379"
+        - name: REDIS_HOST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secret
+              key: redis-password
+      extraInitContainers:
+        - name: wait-database
+          image: alpine:3.16.2
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+              do echo "Waiting for database";
+              done
+          env:
+            - name: POSTGRES_HOST
+              value: pgo-cluster-primary.default.svc
+        - name: wait-redis
+          image: alpine:3.16.2
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $REDIS_HOST:$REDIS_HOST_PORT;
+              do echo "Waiting for Redis";
+              done
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_HOST_PORT
+              value: "6379"
+    nginx:
+      enabled: true
+      image:
+        repository: nginx
+        tag: 1.23-alpine
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: pgo-cluster-primary.default.svc:5432
+      database: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: pgo-cluster-pguser-nextcloud
+        usernameKey: user
+        passwordKey: password
+    cronjob:
+      enabled: true
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-config
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
+    resources:
+      requests:
+        cpu: 100m
+        memory: 150Mi

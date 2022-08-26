@@ -16,7 +16,7 @@ spec:
         - name: nextcloud-2@file
       services:
         - name: *name
-          port: 80
+          port: 8080
           namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_2}-prod-tls
