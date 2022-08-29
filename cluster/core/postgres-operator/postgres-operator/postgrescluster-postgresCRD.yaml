@@ -53,7 +53,7 @@ spec:
       global:
         repo1-retention-full: "14"
         repo1-retention-full-type: time
-        repo2-retention-full: "7"
+        repo2-retention-full: "6"
         repo2-retention-full-type: time
       repos:
         - name: repo1
