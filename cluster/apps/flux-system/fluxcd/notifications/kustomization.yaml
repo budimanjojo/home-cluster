@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - discord.yaml
   - github.yaml
-  - secret.yaml
+  - secret.sops.yaml

@@ -4,4 +4,4 @@ resources:
   - dashboards
   - helmrelease.yaml
   - ingress-traefikCRD.yaml
-  - secret.yaml
+  - secret.sops.yaml

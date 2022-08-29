@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: default
 resources:
   - helmrelease.yaml
-  - secret.yaml
+  - secret.sops.yaml
