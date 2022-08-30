@@ -91,6 +91,11 @@
     {
       "matchUpdateTypes": ["minor", "patch"],
       "addLabels": [ "dep/minor"]
+    },
+    {
+      "matchPackageNames": ["renovatebot/github-action"],
+      "automerge": true,
+      "ignoreTests": true
     }
   ]
 }
