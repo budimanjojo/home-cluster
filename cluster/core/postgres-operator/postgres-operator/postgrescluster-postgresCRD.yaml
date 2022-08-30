@@ -13,16 +13,15 @@ spec:
           - hostnossl all all 10.244.0.0/16 md5
           - hostssl all all all md5
   instances:
-    - name: instance1
+    - name: instance
       dataVolumeClaimSpec:
         storageClassName: rook-ceph-block
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 5Gi
-    - name: instance2
-      dataVolumeClaimSpec:
+            storage: 1Gi
+      walVolumeClaimSpec:
         storageClassName: rook-ceph-block
         accessModes:
           - ReadWriteOnce
