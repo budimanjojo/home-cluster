@@ -14,7 +14,6 @@ spec:
           - hostssl all all all md5
   instances:
     - name: instance
-      replicas: 2
       dataVolumeClaimSpec:
         storageClassName: rook-ceph-block
         accessModes:
@@ -68,11 +67,3 @@ spec:
                 requests:
                   storage: 5Gi
               storageClassName: nfs-provisioner
-        - name: repo2
-          schedules:
-            full: 0 5 * * 0
-            incremental: 0 5 * * 1-6
-          s3:
-            bucket: ${SECRET_PGO_BACKUP_S3_BUCKET}
-            endpoint: ${SECRET_PGO_BACKUP_S3_ENDPOINT}
-            region: ${SECRET_PGO_BACKUP_S3_REGION}
