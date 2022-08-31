@@ -14,6 +14,7 @@ spec:
           - hostssl all all all md5
   instances:
     - name: instance
+      replicas: 2
       dataVolumeClaimSpec:
         storageClassName: rook-ceph-block
         accessModes:
