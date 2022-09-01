@@ -66,3 +66,21 @@ spec:
       enabled: false
     serviceMonitor:
       scrapeTimeout: 60s
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 192.168.200.21
+        - 192.168.200.22
+        - 192.168.200.23
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 192.168.200.21
+        - 192.168.200.22
+        - 192.168.200.23
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 192.168.200.21
+        - 192.168.200.22
+        - 192.168.200.23
