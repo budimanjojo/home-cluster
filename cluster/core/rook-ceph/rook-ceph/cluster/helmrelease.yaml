@@ -23,6 +23,8 @@ spec:
       retries: 5
   values:
     operatorNamespace: rook-ceph
+    toolbox:
+      enabled: true
     monitoring:
       enabled: true
       createPrometheusRules: true
