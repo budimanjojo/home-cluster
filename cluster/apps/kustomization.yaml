@@ -6,4 +6,3 @@ resources:
   - flux-system
   - kube-system
   - monitoring-system
-  - rook-ceph
