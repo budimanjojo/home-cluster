@@ -4,3 +4,4 @@ resources:
   - alertmanager-discord
   - gatus
   - grafana
+  - kube-prometheus-stack

@@ -7,7 +7,6 @@ resources:
   - ingress-system
   - kube-system
   - kyverno
-  - monitoring-system
   - nfd-system
   - nfs-system
   - postgres-operator

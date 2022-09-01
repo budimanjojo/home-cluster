@@ -1,0 +1,68 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 39.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+          - equal:
+              - namespace
+              - alertname
+            source_match:
+              severity: critical
+            target_match_re:
+              severity: warning|info
+          - equal:
+              - namespace
+              - alertname
+            source_match:
+              severity: warning
+            target_match_re:
+              severity: info
+        receivers:
+          - name: "null"
+          - name: discord
+            webhook_configs:
+              - url: http://alertmanager-discord:9094
+        route:
+          group_by:
+            - namespace
+          group_interval: 5m
+          group_wait: 30s
+          receiver: discord
+          repeat_interval: 12h
+          routes:
+            - match:
+                alertname: Watchdog
+              receiver: "null"
+            - match:
+                severity: critical
+              receiver: discord
+    alertmanagerSpec:
+      replicas: 1
+    grafana:
+      enabled: false
+    serviceMonitor:
+      scrapeTimeout: 60s
