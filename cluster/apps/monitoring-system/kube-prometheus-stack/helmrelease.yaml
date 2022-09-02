@@ -79,8 +79,4 @@ spec:
         - 192.168.200.22
         - 192.168.200.23
     kubeProxy:
-      enabled: true
-      endpoints:
-        - 192.168.200.21
-        - 192.168.200.22
-        - 192.168.200.23
+      enabled: false
