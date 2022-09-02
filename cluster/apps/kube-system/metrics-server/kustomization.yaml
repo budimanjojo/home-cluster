@@ -3,3 +3,10 @@ kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.5.1/deploy/standalone-install.yaml
   - https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.1/components.yaml
+patchesStrategicMerge:
+  - |-
+    $patch: delete
+    apiVersion: policy/v1beta1
+    kind: PodSecurityPolicy
+    metadata:
+      name: kubelet-serving-cert-approver
