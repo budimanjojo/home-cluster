@@ -47,3 +47,5 @@ spec:
       - grafana-piechart-panel
     serviceMonitor:
       enabled: true
+    rbac:
+      pspEnabled: false
