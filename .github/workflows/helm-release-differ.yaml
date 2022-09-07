@@ -40,7 +40,7 @@ jobs:
         with:
           app_id: ${{ secrets.BOT_APP_ID }}
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-      - name: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           ref: ${{ env.DEFAULT_BRANCH }}
           path: default
