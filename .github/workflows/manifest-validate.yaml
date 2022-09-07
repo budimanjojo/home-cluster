@@ -3,7 +3,7 @@ name: Manifest validate
 on:
   workflow_dispatch:
   push:
-    branches: [ '*' ]
+    branches: ['*']
   pull_request:
 
 jobs:
