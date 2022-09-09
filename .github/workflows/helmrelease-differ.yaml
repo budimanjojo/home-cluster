@@ -31,7 +31,7 @@ jobs:
     needs: detect-file-changes
     strategy:
       matrix:
-        file: ${{ fromJSON(needs.detect-file-changes.output.yaml_files) }}
+        file: ${{ fromJSON(needs.detect-file-changes.outputs.yaml_files) }}
     steps:
       - uses: actions/checkout@v3
       - name: Generate token
