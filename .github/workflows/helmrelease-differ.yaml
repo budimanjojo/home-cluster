@@ -23,7 +23,7 @@ jobs:
             yaml:
               - added|modified: "**/helmrelease.yaml"
     outputs:
-      yaml-files: ${{ steps.filter.outputs.yaml_files }}
+      yaml_files: ${{ steps.filter.outputs.yaml_files }}
 
   helmrelease-differ:
     name: Helmrelease differ
