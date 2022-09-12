@@ -1,0 +1,59 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: &name omada-controller
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`omada.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: omada-controller-headers
+        - name: omada-controller-redirect
+      services:
+        - name: omada-controller
+          port: 8043
+          namespace: default
+          scheme: https
+          serversTransport: omada-controller
+  tls:
+    secretName: ${SECRET_DOMAIN_0}-prod-tls
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: omada-controller-headers
+spec:
+  headers:
+    customRequestHeaders:
+      Host: "omada.${SECRET_DOMAIN_0}:8043"
+      X-Forwarded-Proto: ""
+    customResponseHeaders:
+      Host: "omada.${SECRET_DOMAIN_0}"
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: omada-controller-redirect
+spec:
+  redirectRegex:
+    regex: "^https:\\/\\/([^\\/]+)\\/?$"
+    replacement: "https://omada.${SECRET_DOMAIN_0}/#{SECRET_OMADA_CONTROLLER_ID}/login"
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: ServersTransport
+metadata:
+  name: omada-controller
+  labels:
+    app.kubernetes.io/name: omada
+spec:
+  insecureSkipVerify: true

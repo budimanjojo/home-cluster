@@ -14,6 +14,7 @@ resources:
   - lidarr
   - mosquitto
   - nextcloud
+  - omada
   - ombi
   - omv
   - opnsense
