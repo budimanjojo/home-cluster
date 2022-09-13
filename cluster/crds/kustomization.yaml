@@ -4,6 +4,7 @@ resources:
   - cert-manager
   - kube-prometheus-stack
   - kyverno
+  - metallb
   - postgres-operator
   - rook-ceph
   - traefik
