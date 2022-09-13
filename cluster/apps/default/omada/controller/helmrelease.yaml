@@ -32,6 +32,8 @@ spec:
         enabled: true
         type: LoadBalancer
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/address-pool: same-subnet
         ports:
           http:
             enabled: false
