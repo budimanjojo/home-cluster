@@ -30,13 +30,13 @@ spec:
     service:
       main:
         enabled: true
+      controller:
+        enabled: true
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/address-pool: same-subnet
         ports:
-          http:
-            enabled: false
           mgmt-8088-tcp:
             enabled: true
             port: 8088
@@ -57,6 +57,21 @@ spec:
             port: 29810
             targetPort: 29810
             protocol: UDP
+          old-eap-mgmt:
+            enabled: true
+            port: 29811
+            protocol: TCP
+            targetPort: 29811
+          old-eap-adopt:
+            enabled: true
+            port: 29812
+            protocol: TCP
+            targetPort: 29812
+          old-eap-upgrade:
+            enabled: true
+            port: 29813
+            protocol: TCP
+            targetPort: 29813
           eap-adopt:
             enabled: true
             port: 29814
@@ -67,6 +82,16 @@ spec:
             port: 27001
             targetPort: 27001
             protocol: UDP
+          old-init-info:
+            enabled: true
+            port: 27002
+            protocol: TCP
+            targetPort: 27002
+          old-db-access:
+            enabled: true
+            port: 27017
+            protocol: TCP
+            targetPort: 27017
           db-access:
             enabled: true
             port: 27217

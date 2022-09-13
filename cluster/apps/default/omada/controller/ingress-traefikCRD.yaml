@@ -14,7 +14,7 @@ spec:
         - name: omada-controller-headers
         - name: omada-controller-redirect
       services:
-        - name: omada-controller
+        - name: omada-controller-controller
           port: 8043
           namespace: default
           scheme: https
