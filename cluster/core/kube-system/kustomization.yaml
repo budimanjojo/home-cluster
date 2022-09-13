@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - cilium
   - intel-gpu-plugin
+  - metallb
   - smarter-device-manager

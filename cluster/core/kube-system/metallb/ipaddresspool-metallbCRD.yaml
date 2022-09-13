@@ -1,0 +1,19 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: diff-subnet
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.15.0/24
+
+---
+
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: same-subnet
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.200.200-192.168.200.210
