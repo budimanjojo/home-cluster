@@ -4,10 +4,7 @@ kubernetesVersion: v1.25.0
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
-  name: custom
-  urls:
-    - https://raw.githubusercontent.com/budimanjojo/home-cluster/main/talos/cilium.yaml
-    - https://raw.githubusercontent.com/budimanjojo/home-cluster/main/talos/configmap.yaml
+  name: none
 nodes:
   - hostname: kmaster1
     ipAddress: 192.168.200.21
