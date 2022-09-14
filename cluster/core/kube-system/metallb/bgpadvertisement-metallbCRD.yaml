@@ -6,4 +6,4 @@ metadata:
 spec:
   ipAddressPools:
     - diff-subnet
-    - mgnt-subnet
+    - mgmt-subnet
