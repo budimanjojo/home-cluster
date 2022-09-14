@@ -17,3 +17,14 @@ metadata:
 spec:
   addresses:
     - 192.168.200.200-192.168.200.210
+
+---
+
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: mgmt-subnet
+  namespace: kube-system
+spec:
+  addresses:
+    - 192.168.10.200-192.168.10.210
