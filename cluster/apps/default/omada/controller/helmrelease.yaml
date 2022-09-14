@@ -41,7 +41,8 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/address-pool: same-subnet
+          metallb.universe.tf/address-pool: mgmt-subnet
+          metallb.universe.tf/loadBalancerIPs: 192.168.10.200
         ports:
           mgmt-8088-tcp:
             enabled: true
