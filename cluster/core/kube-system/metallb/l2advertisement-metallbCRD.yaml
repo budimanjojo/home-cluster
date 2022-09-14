@@ -1,8 +1,8 @@
 apiVersion: metallb.io/v1beta1
-kind: BGPAdvertisement
+kind: L2Advertisement
 metadata:
   name: main
   namespace: kube-system
 spec:
   ipAddressPools:
-    - diff-subnet
+    - same-subnet

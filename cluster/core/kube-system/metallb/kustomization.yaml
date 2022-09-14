@@ -5,3 +5,4 @@ resources:
   - bgppeer-metallbCRD.yaml
   - helmrelease.yaml
   - ipaddresspool-metallbCRD.yaml
+  - l2advertisement-metallbCRD.yaml
