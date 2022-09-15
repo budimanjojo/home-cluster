@@ -4,4 +4,6 @@ namespace: default
 resources:
   - endpoints.yaml
   - ingress-traefikCRD.yaml
+  - middleware-traefikCRD.yaml
+  - servertransport-traefikCRD.yaml
   - service.yaml

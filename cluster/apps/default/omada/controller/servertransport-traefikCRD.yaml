@@ -1,0 +1,8 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: ServersTransport
+metadata:
+  name: &name omada-controller
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  insecureSkipVerify: true

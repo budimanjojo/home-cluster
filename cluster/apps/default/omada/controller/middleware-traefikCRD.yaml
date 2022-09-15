@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: omada-controller-headers
+  labels:
+    app.kubernetes.io/name: omada-controller
+spec:
+  headers:
+    customRequestHeaders:
+      Host: "omada.${SECRET_DOMAIN_0}:8043"
+      X-Forwarded-Proto: ""
+    customResponseHeaders:
+      Host: "omada.${SECRET_DOMAIN_0}"
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: omada-controller-redirect
+  labels:
+    app.kubernetes.io/name: omada-controller
+spec:
+  redirectRegex:
+    regex: "^https:\\/\\/([^\\/]+)\\/?$"
+    replacement: "https://omada.${SECRET_DOMAIN_0}/${SECRET_OMADA_CONTROLLER_ID}/login"
