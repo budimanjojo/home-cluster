@@ -99,7 +99,7 @@ spec:
         type: nfs
         mountPath: /snapshots
         server: ${CONFIG_NFS_SERVER_ADDRESS}
-        path: /Kopia-backups
+        path: /Kopia-Backups
     resources:
       requests:
         cpu: 10m
