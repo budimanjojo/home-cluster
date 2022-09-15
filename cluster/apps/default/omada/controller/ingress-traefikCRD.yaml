@@ -13,8 +13,9 @@ spec:
       middlewares:
         - name: omada-controller-headers
         - name: omada-controller-redirect
+        - name: local-only@file
       services:
-        - name: omada-controller-controller
+        - name: omada-controller
           port: 8043
           namespace: default
           scheme: https
