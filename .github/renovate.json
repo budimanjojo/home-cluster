@@ -29,7 +29,8 @@
       "cluster/.+/deployment\\.ya?ml$",
       "cluster/.+/daemonset\\.ya?ml$",
       "cluster/.+/statefulset\\.ya?ml$",
-      "cluster/.+/cronjob\\.ya?ml$"
+      "cluster/.+/cronjob\\.ya?ml$",
+      "cluster/.+/helm-?release\\.ya?ml$"
     ]
   },
   "regexManagers": [
