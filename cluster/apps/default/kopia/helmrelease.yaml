@@ -1,0 +1,110 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app kopia
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: ghcr.io/onedr0p/kopia
+      tag: 0.11.3@sha256:72406602c99357951cb7284abbf88699081d60f6cffd22baddd8a6a2afe919f5
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+          metrics:
+            enabled: true
+            port: 8080
+    command: kopia
+    args:
+      - server
+      - --insecure
+      - --address
+      - 0.0.0.0:80
+      - --metrics-listen-addr
+      - 0.0.0.0:8080
+      - --without-password
+    initContainers:
+      wait-for-repo:
+        image: ghcr.io/onedr0p/kopia:0.11.3@sha256:72406602c99357951cb7284abbf88699081d60f6cffd22baddd8a6a2afe919f5
+        imagePullPolicy: IfNotPresent
+        command:
+          - /bin/bash
+          - -c
+          - |-
+            until [ -f /snapshots/kopia.repository.f ]; do
+              printf "\e[1;32m%-6s\e[m\n" "Awaiting for the Kopia repo to become ready ..."
+              sleep 1
+            done
+        volumeMounts:
+          - name: snapshots
+            mountPath: /snapshots
+    configmap:
+      config:
+        enabled: true
+        data:
+          repository.config: |-
+            {
+              "storage": {
+                "type": "filesystem",
+                "config": {
+                  "path": "/snapshots",
+                  "dirShards": null
+                }
+              },
+              "caching": {
+                "cacheDirectory": "cache",
+                "maxCacheSize": 5242880000,
+                "maxMetadataCacheSize": 5242880000,
+                "maxListCacheDuration": 30
+              },
+              "hostname": "cluster",
+              "username": "root",
+              "description": "My Home Cluster Repository",
+              "enableActions": false,
+              "formatBlobCacheDuration": 900000000000
+            }
+    persistence:
+      config:
+        enabled: true
+        type: custom
+        mountPath: /config/repository.config
+        subPath: repository.config
+        readOnly: true
+        volumeSpec:
+          configMap:
+            name: kopia-config
+      snapshots:
+        enabled: true
+        type: nfs
+        mountPath: /snapshots
+        server: ${CONFIG_NFS_SERVER_ADDRESS}
+        path: /Kopia-backups
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 250Mi
+    env:
+      KOPIA_PASSWORD: none
