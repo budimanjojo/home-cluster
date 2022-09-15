@@ -5,5 +5,5 @@ resources:
   - endpoints.yaml
   - ingress-traefikCRD.yaml
   - middleware-traefikCRD.yaml
-  - servertransport-traefikCRD.yaml
+  - serverstransport-traefikCRD.yaml
   - service.yaml
