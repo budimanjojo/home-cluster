@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`zigbee.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: headers@file
+        - name: secure-headers
         - name: local-only
       services:
         - name: *name

@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`music.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: headers@file
+        - name: secure-headers
         - name: authelia
           namespace: default
       services:

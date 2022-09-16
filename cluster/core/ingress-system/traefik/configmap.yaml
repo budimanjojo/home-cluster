@@ -22,17 +22,6 @@ data:
         #     scheme: https
         #     permanent: true
         headers:
-          headers:
-            sslRedirect: true
-            sslHost: "${SECRET_DOMAIN_0}"
-            stsSeconds: 315360000
-            stsIncludeSubdomains: true
-            stsPreload: true
-            forceSTSHeader: true
-            frameDeny: true
-            customFrameOptionsValue: SAMEORIGIN
-            contentTypeNosniff: true
-            browserXSSFilter: true
         dashboard-headers:
           headers:
             sslRedirect: true

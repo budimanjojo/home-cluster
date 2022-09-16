@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`money.${SECRET_DOMAIN_1}`)
       middlewares:
-        - name: headers@file
+        - name: secure-headers
       services:
         - name: firefly-iii
           port: 8080

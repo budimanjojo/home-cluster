@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`dav.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: headers@file
+        - name: secure-headers
       services:
         - name: *name
           port: 5232

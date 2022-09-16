@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`nextcloud.${SECRET_DOMAIN_2}`)
       middlewares:
-        - name: headers@file
+        - name: secure-headers
         - name: nextcloud-redirect-1
         - name: nextcloud-redirect-2
       services:

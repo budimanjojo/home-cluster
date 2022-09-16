@@ -3,8 +3,6 @@ kind: Middleware
 metadata:
   name: local-only
   namespace: default
-  labels:
-    app.kubernetes.io/name: authelia
 spec:
   ipWhiteList:
     sourceRange:
@@ -13,3 +11,22 @@ spec:
       - 10.0.8.0/24
       - 192.168.10.0/24
       - 192.168.200.0/24
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: secure-headers
+  namespace: default
+spec:
+  headers:
+    sslRedirect: true
+    sslHost: "${SECRET_DOMAIN_0}"
+    stsSeconds: 315360000
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+    frameDeny: true
+    customFrameOptionsValue: SAMEORIGIN
+    contentTypeNosniff: true
+    browserXSSFilter: true
