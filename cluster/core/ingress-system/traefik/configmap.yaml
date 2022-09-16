@@ -33,16 +33,6 @@ data:
             customFrameOptionsValue: SAMEORIGIN
             contentTypeNosniff: true
             browserXSSFilter: true
-        nextcloud-1:
-          redirectRegex:
-            permanent: true
-            regex: "https://(.*)/.well-known/(card|cal)dav"
-            replacement: "https://$1/remote.php/dav/"
-        nextcloud-2:
-          redirectRegex:
-            permanent: true
-            regex: "^https?://([^/]*)/.well-known/(webfinger|nodeinfo)$"
-            replacement: "https://$1/index.php/.well-known/$2"
         dashboard-headers:
           headers:
             sslRedirect: true

@@ -12,8 +12,8 @@ spec:
       match: Host(`nextcloud.${SECRET_DOMAIN_2}`)
       middlewares:
         - name: headers@file
-        - name: nextcloud-1@file
-        - name: nextcloud-2@file
+        - name: nextcloud-redirect-1
+        - name: nextcloud-redirect-2
       services:
         - name: *name
           port: 8080
