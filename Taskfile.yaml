@@ -22,4 +22,3 @@ tasks:
     desc: Fix data directory permission bug
     cmds:
       - kubectl exec -it $(kubectl get pod -l "postgres-operator.crunchydata.com/role=master" -o jsonpath='{.items[0].metadata.name}') -c database -- chmod 700 /pgdata/pg14
-      - kubectl exec -it $(kubectl get pod -l "postgres-operator.crunchydata.com/role=replica" -o jsonpath='{.items[0].metadata.name}') -c database -- chmod 700 /pgdata/pg14
