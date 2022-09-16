@@ -29,7 +29,7 @@ spec:
     frameDeny: true
     customFrameOptionsValue: SAMEORIGIN
     contentTypeNosniff: true
-    browserXSSFilter: true
+    browserXssFilter: true
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -48,4 +48,4 @@ spec:
     frameDeny: false
     customFrameOptionsValue: SAMEORIGIN
     contentTypeNosniff: true
-    browserXSSFilter: true
+    browserXssFilter: true
