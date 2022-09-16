@@ -16,32 +16,3 @@ data:
       #     service: noop@internal
       #     middlewares:
       #     - redirect
-      middlewares:
-        # redirect:
-        #   redirectScheme:
-        #     scheme: https
-        #     permanent: true
-        headers:
-        dashboard-headers:
-          headers:
-            sslRedirect: true
-            sslHost: "${SECRET_DOMAIN_0}"
-            stsSeconds: 315360000
-            stsIncludeSubdomains: true
-            stsPreload: true
-            forceSTSHeader: true
-            frameDeny: false
-            customFrameOptionsValue: SAMEORIGIN
-            contentTypeNosniff: true
-            browserXSSFilter: true
-        site-headers:
-          headers:
-            sslRedirect: true
-            sslHost: "${SECRET_DOMAIN_1}"
-            stsSeconds: 315360000
-            stsIncludeSubdomains: true
-            stsPreload: true
-            forceSTSHeader: true
-            frameDeny: false
-            contentTypeNosniff: true
-            browserXSSFilter: true

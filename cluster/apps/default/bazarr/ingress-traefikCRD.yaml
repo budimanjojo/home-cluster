@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`bazarr.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: dashboard-headers@file
+        - name: dashboard-headers
         - name: authelia
           namespace: default
       services:

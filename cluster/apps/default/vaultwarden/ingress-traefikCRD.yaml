@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`vault.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: dashboard-headers@file
+        - name: dashboard-headers
       services:
         - name: *name
           port: 80
@@ -19,7 +19,7 @@ spec:
     - kind: Rule
       match: Host(`vault.${SECRET_DOMAIN_0}`) && Path(`/notifications/hub`)
       middlewares:
-        - name: dashboard-headers@file
+        - name: dashboard-headers
       services:
         - name: *name
           port: 3012

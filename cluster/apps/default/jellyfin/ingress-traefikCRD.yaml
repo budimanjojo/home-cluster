@@ -11,7 +11,7 @@ spec:
     - kind: Rule
       match: Host(`jellyfin.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: dashboard-headers@file
+        - name: dashboard-headers
       services:
         - name: *name
           port: 8096
