@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: omada-controller-headers
         - name: omada-controller-redirect
-        - name: local-only@file
+        - name: local-only
       services:
         - name: omada-controller
           port: 8043

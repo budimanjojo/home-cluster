@@ -6,5 +6,6 @@ resources:
   - grafana-dashboard.yaml
   - helmrelease.yaml
   - ingress-traefikCRD.yaml
+  - middleware-traefikCRD.yaml
   - servicemonitor-prometheusCRD.yaml
   - tlsoptions.yaml

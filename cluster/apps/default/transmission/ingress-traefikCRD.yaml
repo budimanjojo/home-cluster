@@ -12,7 +12,7 @@ spec:
       match: Host(`trans.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: headers@file
-        - name: local-only@file
+        - name: local-only
       services:
         - name: *name
           port: 9091

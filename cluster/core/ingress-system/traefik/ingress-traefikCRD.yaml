@@ -13,8 +13,7 @@ spec:
       match: Host(`traefik.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: authelia
-          namespace: default
-        - name: local-only@file
+        - name: local-only
       services:
         - name: api@internal
           kind: TraefikService

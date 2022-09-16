@@ -13,7 +13,7 @@ spec:
       match: Host(`status.${SECRET_DOMAIN_1}`)
       middlewares:
         - name: headers@file
-        - name: local-only@file
+        - name: local-only
       services:
         - name: *name
           port: 8080

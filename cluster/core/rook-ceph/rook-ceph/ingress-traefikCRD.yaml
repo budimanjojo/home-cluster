@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`rook.${SECRET_DOMAIN_0}`)
       middlewares:
-        - name: local-only@file
+        - name: local-only
       services:
         - name: rook-ceph-mgr-dashboard
           port: 8443

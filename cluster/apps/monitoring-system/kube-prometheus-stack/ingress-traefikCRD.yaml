@@ -13,7 +13,7 @@ spec:
       match: Host(`prom.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: headers@file
-        - name: local-only@file
+        - name: local-only
       services:
         - name: kube-prometheus-stack-prometheus
           port: 9090

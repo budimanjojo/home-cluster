@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: local-only
+  namespace: default
+  labels:
+    app.kubernetes.io/name: authelia
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 10.244.0.0/16
+      - 10.10.0.0/24
+      - 10.0.8.0/24
+      - 192.168.10.0/24
+      - 192.168.200.0/24
