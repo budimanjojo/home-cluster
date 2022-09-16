@@ -6,4 +6,5 @@ resources:
   - configmap.yaml
   - helmrelease.yaml
   - ingress-traefikCRD.yaml
+  - middleware-traefikCRD.yaml
   - secret.sops.yaml

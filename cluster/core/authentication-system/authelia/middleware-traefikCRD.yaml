@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authelia
+  namespace: default
+  labels:
+    app.kubernetes.io/name: authelia
+spec:
+  forwardAuth:
+    address: http://authelia.authentication-system.svc.cluster.local:9091/api/verify?rd=https://auth.${SECRET_DOMAIN_0}
+    trustForwardHeader: true
+    authResponseHeaders:
+      - Remote-User
+      - Remote-Groups
