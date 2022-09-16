@@ -94,13 +94,13 @@ The non secret variables are in [cluster-vars.yaml](.cluster/base/cluster-vars.y
 ## :bar_chart:&nbsp; Metrics and chart management
 
 Metrics scraping for the cluster are done using Prometheus.
-The manifests are generated from my own maintained [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) can be accessed [here](https://github.com/budimanjojo/kube-prometheus).
 
 Dashboards included in my cluster are:
 
-- The provided dashboard from [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
+- The provided dashboard from [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 - Traefik dashboard from [grafanalabs](https://grafana.com/grafana/dashboards/12250)
 - Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/grafana/dashboards)
+- Rook-ceph dashboards from [here](https://www.rook.io/docs/rook/v1.10/Storage-Configuration/Monitoring/ceph-monitoring/?h=grafana#grafana-dashboards)
 
 To add your own dashboard, create a configmap with the data include the json file of the dashboard and add label `grafana_dashboard: "1"` to the manifest.
 The sidecar container from this [image](https://github.com/kiwigrid/k8s-sidecar) will mount the dashboard into your grafana pod.
