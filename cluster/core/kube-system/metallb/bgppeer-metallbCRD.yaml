@@ -6,4 +6,4 @@ metadata:
 spec:
   myASN: 65401
   peerASN: 65400
-  peerAddress: 192.168.200.1
+  peerAddress: ${CONFIG_OPNSENSE_IP_ADDRESS}

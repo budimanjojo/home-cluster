@@ -4,7 +4,7 @@ metadata:
   name: omv
 subsets:
   - addresses:
-      - ip: 192.168.200.31
+      - ip: ${CONFIG_NFS_SERVER_IP_ADDRESS}
     ports:
       - name: http
         port: 80

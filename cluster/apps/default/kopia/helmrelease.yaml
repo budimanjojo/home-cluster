@@ -98,7 +98,7 @@ spec:
         enabled: true
         type: nfs
         mountPath: /snapshots
-        server: ${CONFIG_NFS_SERVER_ADDRESS}
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
         path: /Kopia-Backups
     resources:
       requests:

@@ -4,7 +4,7 @@ metadata:
   name: fullykioskbrowser
 subsets:
   - addresses:
-      - ip: 192.168.10.10
+      - ip: ${CONFIG_DASHBOARD_TABLET_IP_ADDRESS}
     ports:
       - name: http
         port: 2323

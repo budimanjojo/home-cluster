@@ -4,7 +4,7 @@ metadata:
   name: proxmox
 subsets:
   - addresses:
-      - ip: 192.168.200.30
+      - ip: ${CONFIG_PROXMOX_IP_ADDRESS}
     ports:
       - name: https
         port: 8006

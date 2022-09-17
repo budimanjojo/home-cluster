@@ -111,7 +111,7 @@ spec:
                           claimName: "{{ claimName }}"
                       - name: backup
                         nfs:
-                          server: 192.168.200.31
+                          server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
                           path: /Kopia-Backups
 
                     affinity:

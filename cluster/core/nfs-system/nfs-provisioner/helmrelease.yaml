@@ -27,7 +27,7 @@ spec:
       repository: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
       tag: v4.0.2
     nfs:
-      server: ${CONFIG_NFS_SERVER_ADDRESS}
+      server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
       path: ${CONFIG_NFS_SERVER_PATH}
     storageClass:
       provisionerName: nfs-provisioner

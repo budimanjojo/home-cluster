@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: *name
 subsets:
   - addresses:
-      - ip: 192.168.20.50
+      - ip: ${CONFIG_RASPBERRY_PI_IP_ADDRESS}
     ports:
       - name: http
         port: 8043
