@@ -2,24 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - 01-common
-  - adguard
   - adminer
   - bazarr
+  - external/adguard
+  - external/fullykioskbrowser
+  - external/omada
+  - external/omv
+  - external/opnsense
+  - external/proxmox
   - firefly-iii
   - flaresolverr
-  - fullykioskbrowser
   - homeassistant
   - jellyfin
   - kopia
   - lidarr
   - mosquitto
   - nextcloud
-  - omada
   - ombi
-  - omv
-  - opnsense
   - prowlarr
-  - proxmox
   - radarr
   - radicale
   - reloader
