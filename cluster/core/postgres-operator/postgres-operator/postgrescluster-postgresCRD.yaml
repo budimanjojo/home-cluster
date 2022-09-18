@@ -2,6 +2,7 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: pgo-cluster
+  namespace: default
 spec:
   postgresVersion: 14
   patroni:

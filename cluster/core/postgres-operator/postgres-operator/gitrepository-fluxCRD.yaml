@@ -1,0 +1,15 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: pgo-operator
+  namespace: flux-system
+spec:
+  interval: 30m0s
+  ref:
+    # renovate: depName=budimanjojo/pgo-manifests datasource=github-tags
+    tag: v1.2.0
+  url: https://github.com/budimanjojo/pgo-manifests.git
+  ignore: |
+    /*
+    !/helm/
