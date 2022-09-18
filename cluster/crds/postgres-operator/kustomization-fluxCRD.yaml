@@ -5,7 +5,7 @@ metadata:
   name: pgo-operator-crds
   namespace: flux-system
 spec:
-  interval: 30m0s
+  interval: 1m0s
   path: ./
   prune: true
   sourceRef:
