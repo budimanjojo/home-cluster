@@ -26,7 +26,6 @@ spec:
               kinds:
                 - Namespace
               names:
-                - default
                 - nfd-system
                 - rook-ceph
                 - monitoring-system
