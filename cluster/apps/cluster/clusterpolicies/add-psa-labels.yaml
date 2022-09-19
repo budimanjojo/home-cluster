@@ -30,6 +30,7 @@ spec:
                 - nfd-system
                 - rook-ceph
                 - monitoring-system
+                - kubelet-serving-cert-approver
       mutate:
         targets:
           - apiVersion: v1
