@@ -1,5 +1,5 @@
 clusterName: home-cluster
-talosVersion: v1.2.0
+talosVersion: v1.2.2
 kubernetesVersion: v1.25.0
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
@@ -83,26 +83,7 @@ controlPlane:
       extraManifests:
         - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
         - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-      aescbcEncryptionSecret: ${aescbcEncryptionKey}
-      aggregatorCA:
-        crt: ${k8sAggregatorCert}
-        key: ${k8sAggregatorCertKey}
-      ca:
-        crt: ${clusterCert}
-        key: ${clusterCertKey}
-      etcd:
-        ca:
-          crt: ${etcdCert}
-          key: ${etcdCertKey}
-      secret: ${clusterSecret}
-      serviceAccount:
-        key: ${k8sServiceAccountKey}
-      token: ${clusterToken}
     machine:
-      ca:
-        crt: ${machineCert}
-        key: ${machineCertKey}
-      token: ${machineToken}
       time:
         disabled: false
         servers:
@@ -119,17 +100,7 @@ worker:
       extraManifests:
         - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
         - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-      aescbcEncryptionSecret: ${aescbcEncryptionKey}
-      ca:
-        crt: ${clusterCert}
-        key: ${clusterCertKey}
-      secret: ${clusterSecret}
-      token: ${clusterToken}
     machine:
-      ca:
-        crt: ${machineCert}
-        key: ${machineCertKey}
-      token: ${machineToken}
       time:
         disabled: false
         servers:
