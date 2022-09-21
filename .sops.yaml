@@ -1,5 +1,8 @@
 creation_rules:
-- encrypted_regex: '^(data|stringData|caBundle)$'
-  path_regex: '.*\/?cluster\/.*\.yaml$'
-  age: >-
-    age1zeqkpfz7e3s207ynea0z0auc0mrct0pc7w4sh6j3d0c4qac3dahqj9ufdg
+  - encrypted_regex: '^(data|stringData|caBundle)$'
+    path_regex: 'cluster/.*\.sops\.ya?ml$'
+    age: >-
+      age1zeqkpfz7e3s207ynea0z0auc0mrct0pc7w4sh6j3d0c4qac3dahqj9ufdg
+  - path_regex: 'talos/.*\.sops\.ya?ml$'
+    age: >-
+      age1zeqkpfz7e3s207ynea0z0auc0mrct0pc7w4sh6j3d0c4qac3dahqj9ufdg
