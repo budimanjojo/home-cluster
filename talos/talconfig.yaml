@@ -1,6 +1,6 @@
 clusterName: home-cluster
-talosVersion: v1.2.2
-kubernetesVersion: v1.25.0
+talosVersion: v1.2.3
+kubernetesVersion: v1.25.1
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
