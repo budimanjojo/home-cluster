@@ -26,7 +26,7 @@ spec:
       nameOverride: *app
     image:
       repository: redis
-      tag: 7.0.4-alpine
+      tag: 7.0.5-alpine
     controller:
       type: statefulset
     service:
