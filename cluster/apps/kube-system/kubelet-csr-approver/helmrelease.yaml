@@ -7,7 +7,7 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: *name
+      chart: *app
       version: 0.2.4
       sourceRef:
         kind: HelmRepository
