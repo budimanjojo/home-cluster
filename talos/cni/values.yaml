@@ -1,0 +1,9 @@
+bgp:
+  enabled: false
+hubble:
+  enabled: false
+ipam:
+  mode: kubernetes
+ipv4NativeRoutingCIDR: 10.244.0.0/16
+securityContext:
+  privileged: true
