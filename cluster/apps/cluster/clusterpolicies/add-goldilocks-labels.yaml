@@ -1,0 +1,36 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-goldilocks-labels
+  annotations:
+    policies.kyverno.io/title: Add Goldilocks Labels
+    policies.kyverno.io/category: Pod Security Admission
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/minversion: 1.6.0
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: >-
+      This policy assigns the labels `goldilocks.fairwinds.com/enabled="true"`
+      to matching Namespaces if those labels are not included.
+spec:
+  mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: add-goldilocks-labels
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - default
+                - rook-ceph
+                - monitoring-system
+      mutate:
+        targets:
+          - apiVersion: v1
+            kind: Namespace
+            name: "{{request.object.metadata.name}}"
+        patchStrategicMerge:
+          metadata:
+            labels:
+              +(goldilocks.fairwinds.com/enabled): "true"
