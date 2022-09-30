@@ -13,6 +13,7 @@ spec:
       match: Host(`goldilocks.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: secure-headers
+        - name: local-only
       services:
         - name: goldilocks-dashboard
           port: 80
