@@ -38,11 +38,12 @@ nodes:
             gateway: 192.168.200.1
         vip:
           ip: 192.168.200.20
-    configPatches:
-      - op: add
-        path: /machine/install/extraKernelArgs
-        value:
-          - nvme_core.default_ps_max_latency_us=0
+    patches:
+      - |-
+        - op: add
+          path: /machine/install/extraKernelArgs
+          value:
+            - nvme_core.default_ps_max_latency_us=0
   - hostname: kmaster3
     ipAddress: 192.168.200.23
     controlPlane: true
@@ -60,44 +61,42 @@ nodes:
         vip:
           ip: 192.168.200.20
 controlPlane:
-  configPatches:
-    - op: add
-      path: /machine/kubelet/extraArgs
-      value:
-        rotate-server-certificates: "true"
-        feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
-    - op: add
-      path: /cluster/controllerManager/extraArgs
-      value:
-        bind-address: 0.0.0.0
-    - op: add
-      path: /cluster/scheduler/extraArgs
-      value:
-        bind-address: 0.0.0.0
-    - op: add
-      path: /cluster/proxy/extraArgs
-      value:
-        bind-address: 0.0.0.0
-  inlinePatch:
-    machine:
-      time:
-        disabled: false
-        servers:
-          - 192.168.200.1
+  patches:
+    - |-
+      - op: add
+        path: /machine/kubelet/extraArgs
+        value:
+          rotate-server-certificates: "true"
+          feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
+      - op: add
+        path: /cluster/controllerManager/extraArgs
+        value:
+          bind-address: 0.0.0.0
+      - op: add
+        path: /cluster/scheduler/extraArgs
+        value:
+          bind-address: 0.0.0.0
+      - op: add
+        path: /cluster/proxy/extraArgs
+        value:
+          bind-address: 0.0.0.0
+    - |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - 192.168.200.1
 worker:
-  configPatches:
-    - op: add
-      path: /machine/kubelet/extraArgs
-      value:
-        rotate-server-certificates: "true"
-        feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
-  inlinePatch:
-    cluster:
-      extraManifests:
-        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
-        - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-    machine:
-      time:
-        disabled: false
-        servers:
-          - 192.168.200.1
+  patches:
+    - |-
+      - op: add
+        path: /machine/kubelet/extraArgs
+        value:
+          rotate-server-certificates: "true"
+          feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
+    - |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - 192.168.200.1
