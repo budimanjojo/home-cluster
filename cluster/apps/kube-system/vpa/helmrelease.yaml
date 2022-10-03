@@ -24,10 +24,13 @@ spec:
   values:
     recommender:
       enabled: true
-      # extraArgs:
-      #   prometheus-address: |
-      #     http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
-      #   storage: prometheus
+      image:
+        repository: k8s.gcr.io/autoscaling/vpa-recommender
+        tag: 0.12.0
+      extraArgs:
+        prometheus-address: |
+          http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
+        storage: prometheus
     updater:
       enabled: false
     admissionController:
