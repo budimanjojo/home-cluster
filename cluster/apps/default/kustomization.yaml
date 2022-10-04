@@ -12,6 +12,7 @@ resources:
   - external/proxmox
   - firefly-iii
   - flaresolverr
+  - goldilocks
   - homeassistant
   - jellyfin
   - kopia

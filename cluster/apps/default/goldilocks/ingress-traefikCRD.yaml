@@ -17,6 +17,6 @@ spec:
       services:
         - name: goldilocks-dashboard
           port: 80
-          namespace: kube-system
+          namespace: default
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
