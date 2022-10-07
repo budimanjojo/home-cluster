@@ -25,7 +25,7 @@ spec:
     fullnameOverride: *app
     image:
       repository: nextcloud
-      tag: 24.0.5-fpm-alpine
+      tag: 24.0.6-fpm-alpine
       flavor: fpm-alpine
     ingress:
       enabled: false
