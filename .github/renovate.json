@@ -65,6 +65,11 @@
   ],
   "packageRules": [
     {
+      "matchManagers": ["kubernetes"],
+      "matchDatasources": ["kubernetes-api"],
+      "enabled": false
+    },
+    {
       "matchPackageNames": ["nextcloud", "wordpress"],
       "stabilityDays": 3
     },
