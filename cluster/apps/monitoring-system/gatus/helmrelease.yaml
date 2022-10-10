@@ -26,7 +26,7 @@ spec:
       nameOverride: *app
     image:
       repository: twinproduction/gatus
-      tag: v4.2.0
+      tag: v4.3.0
     service:
       main:
         ports:
