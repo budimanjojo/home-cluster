@@ -34,6 +34,8 @@ spec:
         allowExternalNameServices: true
         namespaces:
           - default
+          - flux-system
+          - monitoring-system
       kubernetesIngress:
         enabled: true
     logs:
@@ -75,7 +77,6 @@ spec:
       - "--global.checknewversion=true"
       - "--global.sendanonymoususage=false"
     additionalArguments:
-      - "--providers.file.directory=/etc/traefik"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
       - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
