@@ -32,6 +32,8 @@ spec:
         enabled: true
         allowCrossNamespace: true
         allowExternalNameServices: true
+        namespaces:
+          - default
       kubernetesIngress:
         enabled: true
     logs:
