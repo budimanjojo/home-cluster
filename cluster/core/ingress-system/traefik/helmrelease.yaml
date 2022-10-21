@@ -34,6 +34,7 @@ spec:
         allowExternalNameServices: true
         namespaces:
           - default
+          - authentication-system
           - flux-system
           - monitoring-system
       kubernetesIngress:
