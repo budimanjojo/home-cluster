@@ -37,6 +37,7 @@ spec:
           - authentication-system
           - flux-system
           - monitoring-system
+          - rook-ceph
       kubernetesIngress:
         enabled: true
     logs:
