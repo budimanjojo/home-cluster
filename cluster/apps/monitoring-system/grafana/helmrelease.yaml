@@ -25,7 +25,7 @@ spec:
     nameOverride: *app
     image:
       repository: grafana/grafana
-      tag: 9.2.2
+      tag: 9.2.3
     service:
       portName: http
       port: 3000
