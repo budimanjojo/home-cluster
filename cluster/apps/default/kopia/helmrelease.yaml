@@ -26,7 +26,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/kopia
-      tag: 0.12.1@sha256:cdc2f6d7dbb6e7342607ed5ffc8391638e62c1d498b2f3e58c16ff1bffede3c9
+      tag: 0.12.1@sha256:d81298982a7f03cf328769c3b6eaf784ee7ea0d1c426b8b57a97eba6fca5c4b4
     service:
       main:
         ports:
@@ -46,7 +46,7 @@ spec:
       - --without-password
     initContainers:
       wait-for-repo:
-        image: ghcr.io/onedr0p/kopia:0.12.1@sha256:cdc2f6d7dbb6e7342607ed5ffc8391638e62c1d498b2f3e58c16ff1bffede3c9
+        image: ghcr.io/onedr0p/kopia:0.12.1@sha256:d81298982a7f03cf328769c3b6eaf784ee7ea0d1c426b8b57a97eba6fca5c4b4
         imagePullPolicy: IfNotPresent
         command:
           - /bin/bash
