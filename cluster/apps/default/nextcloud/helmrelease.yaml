@@ -99,6 +99,8 @@ spec:
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
+    startupProbe:
+      enabled: true
     resources:
       requests:
         cpu: 100m
