@@ -22,3 +22,8 @@ tasks:
     desc: Fix data directory permission bug
     cmds:
       - kubectl exec -it $(kubectl get pod -l "postgres-operator.crunchydata.com/role=master" -o jsonpath='{.items[0].metadata.name}') -c database -- chmod 700 /pgdata/pg14
+
+  exec-nextcloud:
+    desc: Exec into Nextcloud pod as www-data user
+    cmds:
+      - kubectl exec -it $(kubectl -n default get pod -l "app.kubernetes.io/name=nextcloud" -l "app.kubernetes.io/component=app" -o jsonpath='{.items[0].metadata.name}') -- su -s /bin/sh www-data
