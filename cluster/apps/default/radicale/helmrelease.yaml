@@ -32,7 +32,7 @@ spec:
         ports:
           http:
             port: 5232
-    configmap:
+    configMaps:
       config:
         enabled: true
         data:
