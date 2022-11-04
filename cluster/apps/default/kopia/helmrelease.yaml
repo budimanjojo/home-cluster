@@ -59,7 +59,7 @@ spec:
         volumeMounts:
           - name: snapshots
             mountPath: /snapshots
-    configmap:
+    configMaps:
       config:
         enabled: true
         data:
@@ -87,13 +87,11 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
+        type: configMap
+        name: kopia-config
         mountPath: /config/repository.config
         subPath: repository.config
         readOnly: true
-        volumeSpec:
-          configMap:
-            name: kopia-config
       snapshots:
         enabled: true
         type: nfs
