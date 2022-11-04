@@ -37,7 +37,7 @@ spec:
           mqtt:
             enabled: true
             port: 1883
-    configmap:
+    configMaps:
       config:
         enabled: true
         data:
@@ -50,12 +50,10 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
+        type: configMap
+        name: mosquitto-config
         mountPath: /mosquitto/config/mosquitto.conf
         subPath: mosquitto.conf
-        volumeSpec:
-          configMap:
-            name: mosquitto-config
       data:
         enabled: true
         existingClaim: mosquitto-data

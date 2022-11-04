@@ -41,7 +41,7 @@ spec:
             enabled: true
             protocol: UDP
             port: 51413
-    configmap:
+    configMaps:
       config:
         enabled: true
         data:
@@ -134,12 +134,10 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
+        type: configMap
+        name: transmission-config
         mountPath: /config/settings.json
         subPath: settings.json
-        volumeSpec:
-          configMap:
-            name: transmission-config
       data:
         enabled: true
         existingClaim: transmission-config
