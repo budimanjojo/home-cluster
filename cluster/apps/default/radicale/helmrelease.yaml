@@ -54,13 +54,11 @@ spec:
         mountPath: /data
       config:
         enabled: true
-        type: custom
+        type: configMap
+        name: radicale-config
         mountPath: /config/config
         subPath: config.cfg
         readOnly: true
-        volumeSpec:
-          configMap:
-            name: radicale-config
       secret:
         enabled: true
         type: custom
