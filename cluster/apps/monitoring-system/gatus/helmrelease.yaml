@@ -43,10 +43,10 @@ spec:
             name: gatus-config
     resources:
       requests:
-        cpu: 50m
-        memory: 30Mi
+        cpu: 15m
+        memory: 105Mi
       limits:
-        memory: 100Mi
+        memory: 105Mi
     probes:
       startup:
         enabled: true

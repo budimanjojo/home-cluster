@@ -51,10 +51,10 @@ spec:
         mountPath: /var/syncthing
     resources:
       requests:
-        cpu: 100m
-        memory: 150Mi
+        cpu: 15m
+        memory: 249Mi
       limits:
-        memory: 300Mi
+        memory: 265Mi
     env:
       PUID: "1000"
       PGID: "1000"

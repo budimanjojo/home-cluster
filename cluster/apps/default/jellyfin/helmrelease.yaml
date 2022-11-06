@@ -71,8 +71,8 @@ spec:
         mountPath: /config/transcodes
     resources:
       requests:
-        cpu: 500m
-        memory: 200Mi
+        cpu: 15m
+        memory: 866Mi
       limits:
-        memory: 2Gi
+        memory: 1035Mi
         gpu.intel.com/i915: 1

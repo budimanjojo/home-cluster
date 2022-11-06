@@ -44,8 +44,10 @@ spec:
         mountPath: /config
     resources:
       requests:
-        cpu: 50m
-        memory: 250Mi
+        cpu: 15m
+        memory: 324Mi
+      limits:
+        memory: 347Mi
     envFrom:
       - secretRef:
           name: homeassistant-secret

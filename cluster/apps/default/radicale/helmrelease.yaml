@@ -68,7 +68,9 @@ spec:
             secretName: radicale-secret
     resources:
       requests:
-        cpu: 100m
-        memory: 150Mi
+        cpu: 15m
+        memory: 105Mi
+      limits:
+        memory: 105Mi
     env:
       RADICALE_CONFIG: /config/config

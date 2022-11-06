@@ -41,7 +41,8 @@ spec:
         mountPath: /config
     resources:
       requests:
-        cpu: 50m
-        memory: 100Mi
+        cpu: 15m
+        memory: 110Mi
       limits:
+        memory: 136Mi
         smarter-devices/ttyUSB0: 1

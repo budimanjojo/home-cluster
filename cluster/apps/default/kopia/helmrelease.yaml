@@ -100,9 +100,9 @@ spec:
         path: /Kopia-Backups
     resources:
       requests:
-        cpu: 10m
-        memory: 100Mi
+        cpu: 15m
+        memory: 105Mi
       limits:
-        memory: 250Mi
+        memory: 136Mi
     env:
       KOPIA_PASSWORD: none

@@ -71,7 +71,9 @@ spec:
       probes:
         startup:
           enabled: false
-      resources:
-        requests:
-          cpu: 50m
-          memory: 250Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 352Mi
+      limits:
+        memory: 408Mi

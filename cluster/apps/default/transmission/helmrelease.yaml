@@ -148,5 +148,7 @@ spec:
         mountPath: /downloads
       resources:
         requests:
-          cpu: 50m
-          memory: 50Mi
+          cpu: 15m
+          memory: 105Mi
+        limits:
+          memory: 105Mi

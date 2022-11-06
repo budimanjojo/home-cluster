@@ -28,6 +28,12 @@ spec:
         labels:
           app.kubernetes.io/name: *app
           app.kubernetes.io/instance: *app
+        resources:
+          requests:
+            cpu: 15m
+            memory: 105Mi
+          limits:
+            memory: 105Mi
       rbac:
         labels:
           app.kubernetes.io/name: *app

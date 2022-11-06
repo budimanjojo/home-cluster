@@ -25,7 +25,14 @@ spec:
     controller:
       resources:
         requests:
-          cpu: 10m
-          memory: 64Mi
+          cpu: 48m
+          memory: 105Mi
         limits:
-          memory: 250Mi
+          memory: 105Mi
+    dashboard:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 105Mi
+        limits:
+          memory: 105Mi
