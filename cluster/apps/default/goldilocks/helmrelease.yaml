@@ -28,6 +28,7 @@ spec:
           cpu: 48m
           memory: 105Mi
         limits:
+          cpu: 48m
           memory: 105Mi
     dashboard:
       resources:
