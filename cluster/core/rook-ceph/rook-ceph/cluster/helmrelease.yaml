@@ -25,6 +25,12 @@ spec:
     operatorNamespace: rook-ceph
     toolbox:
       enabled: true
+      resources:
+        requests:
+          cpu: 15m
+          memory: 105Mi
+        limits:
+          memory: 105Mi
     monitoring:
       enabled: true
       createPrometheusRules: true

@@ -30,3 +30,9 @@ spec:
     csi:
       enableCephfsDriver: false
       enableCephfsSnapshotter: false
+    resources:
+      requests:
+        cpu: 92m
+        memory: 164Mi
+      limits:
+        memory: 217Mi
