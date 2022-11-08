@@ -50,6 +50,7 @@ spec:
       global:
         repo1-retention-full: "14"
         repo1-retention-full-type: time
+        archive-push-queue-max: 4GiB
       repos:
         - name: repo1
           schedules:
