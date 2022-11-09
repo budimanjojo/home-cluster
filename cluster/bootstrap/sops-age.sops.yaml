@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: sops-age
+    namespace: flux-system
+data:
+    sops.agekey: ENC[AES256_GCM,data:B7IXa21Wce1jQBiLLw+nulb9tA4TnoscMLsHfUxJXvOwgNBoVk1I9Fy/aSlT8BnIATlf622ztMzopjAOtVRYVJXoi2ZMHmQ/jjxPz1WBja4pMn+Z4r1doRzRmJ57RQyw+yPHsLfrG94d0verIxu1+ckupWwxnk10iLvEOpMFFldkeFyngLvTlNUUIgqTgfccojZOJmLhD331gO4Trh6agOV5PDShxYdxxUXmbSsuDIsRyyGwEy5GugOMtIH3ASpxbOYSl2euAv0byOQ4UeFobjcYq5vuE5L4Ge5PZ2NsubAI1JdNF4mZS/jcqvKgYzw8pEC69HmLtK0jUPwhWTLHFPRPKkfBO3xciiXavxc//0OXPhp0LcswoCYeIrEmyX49Agmpl8jtjD5RREJFnPdxgdCYwJbewaWoNzbNZWi6vZJpdljPs4myeytATfb7rbmlMlEtbJgvrjaTVJWyGu8XMQ==,iv:VNlDrymK3wHHO+WvKpQxIqIg5PjGlWPxRNkeskdFFQE=,tag:ZEeUeUDORw8i6B+/qB9Viw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1zeqkpfz7e3s207ynea0z0auc0mrct0pc7w4sh6j3d0c4qac3dahqj9ufdg
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSNnRJdXMyY3IyeGNGWFNp
+            U0IyMVNEeU85ZUhJZDZ3RGN2M1hacE9oWHg4CkY4MUxobC9VRXozNDJTcjN3bGdh
+            Y2pTMzNDUzFSTEZwaFJCNzFtS0owVUkKLS0tIERTaUZUYUU5aXJJeFQ0eWgya2Ro
+            bFRQNzNkdGNpRHJFRi91NDMyUURBa3cK6jE+OsYZlePH3/C1BtuW7j5hqC3D/kIs
+            xeCkyyueOXRc8tgho0uxaSBu5i2+/InCuE1MwODUngqDAkcCEWLX1A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-11-09T09:17:21Z"
+    mac: ENC[AES256_GCM,data:3r2qw3PAIAJNeu79AwMnupyQlDg2E6MzkPPpJatEvrBELwM9AOyBsTMdCqEwDe2CenKWKFdEXFE9G9ostG+lT3x0qnPCmqvsnvLYv+FbCfVWIN71jkBZH7OFrViIaFkKYwuVHGQZ6haW2CNkugJSLqJfkhNHynsx59DyW98bzEM=,iv:z+kD15WlJvNwIZEXyhFnzKUTdbK9kI5wgJM0XYZf2Y4=,tag:Tz83kF6p3f4rv01Yz9gfdg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|caBundle)$
+    version: 3.7.3
