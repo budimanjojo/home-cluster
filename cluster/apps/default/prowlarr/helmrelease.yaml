@@ -26,7 +26,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/k8s-at-home/prowlarr-develop
-      tag: v0.4.8.2072
+      tag: v0.4.9.2083
     service:
       main:
         ports:
