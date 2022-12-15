@@ -25,7 +25,7 @@ spec:
     global:
       nameOverride: *app
     image:
-      repository: twinproduction/gatus
+      repository: ghcr.io/twin/gatus
       tag: v5.0.0
     service:
       main:
