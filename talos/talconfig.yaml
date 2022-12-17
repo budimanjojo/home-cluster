@@ -1,5 +1,5 @@
 clusterName: home-cluster
-talosVersion: v1.2.5
+talosVersion: v1.3.0
 kubernetesVersion: v1.25.2
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
