@@ -2,4 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: nfd-system
 resources:
-  - https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.11.3
+  - https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.12.0
