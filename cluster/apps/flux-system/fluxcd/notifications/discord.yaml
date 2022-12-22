@@ -6,6 +6,7 @@ metadata:
 spec:
   type: discord
   channel: fluxcd
+  interval: 10m
   secretRef:
     name: discord-notification
 
