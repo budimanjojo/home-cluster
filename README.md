@@ -59,7 +59,6 @@ The Git repository contains the following directories under `cluster` and are or
 ```
 ./cluster
 ├── ./base    # entrypoint to Flux
-├── ./config  # cluster config, loaded before `core`
 ├── ./crds    # custom resource definitions (CRDs), loaded before `core`
 ├── ./core    # important infrastructure applications, loaded before `apps`
 └── ./apps    # common applications, loaded last
