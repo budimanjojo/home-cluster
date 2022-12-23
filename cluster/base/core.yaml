@@ -10,7 +10,6 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-    - name: config
     - name: crds
   interval: 5m0s
   path: ./cluster/core
