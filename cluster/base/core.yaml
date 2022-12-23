@@ -14,7 +14,7 @@ spec:
     - name: crds
   interval: 5m0s
   path: ./cluster/core
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
