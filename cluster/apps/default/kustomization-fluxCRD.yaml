@@ -36,7 +36,7 @@ metadata:
   name: default-postgrescluster
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/postgescluster
+  path: ./cluster/apps/default/postgrescluster
   sourceRef:
     kind: GitRepository
     name: flux-system
