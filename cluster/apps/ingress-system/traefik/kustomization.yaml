@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - grafana-dashboard.yaml
   - helmrelease.yaml
-  - servicemonitor-prometheusCRD.yaml
