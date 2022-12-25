@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph-operator
+  namespace: rook-ceph
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: rook-ceph
+      version: v1.10.8
+      sourceRef:
+        kind: HelmRepository
+        name: rook-ceph-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    crds:
+      enabled: true
+    monitoring:
+      enabled: true
+    pspEnable: false
+    csi:
+      enableCephfsDriver: false
+      enableCephfsSnapshotter: false
+    resources:
+      requests:
+        cpu: 92m
+        memory: 164Mi
+      limits:
+        memory: 217Mi

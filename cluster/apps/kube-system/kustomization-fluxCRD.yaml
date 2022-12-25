@@ -1,0 +1,100 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-cilium
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/cilium
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-intel-gpu-plugin
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/intel-gpu-plugin
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metallb
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/metallb
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: monitoring-system-kube-prometheus-stack
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-smarter-device-manager
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/smarter-device-manager
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-kubelet-csr-approver
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/kubelet-csr-approver
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metrics-server
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/metrics-server
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: monitoring-system-kube-prometheus-stack
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-vpa
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/vpa
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true

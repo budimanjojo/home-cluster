@@ -1,0 +1,30 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: ingress-system-traefik
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/ingress-system/traefik
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: cert-manager-cert-manager
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: ingress-system-servicemonitors
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/ingress-system/servicemonitors
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: monitoring-system-kube-prometheus-stack

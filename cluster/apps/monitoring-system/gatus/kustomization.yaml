@@ -4,5 +4,3 @@ resources:
   - configmap.yaml
   - grafana-dashboard.yaml
   - helmrelease.yaml
-  - ingress-traefikCRD.yaml
-  - servicemonitor-prometheusCRD.yaml

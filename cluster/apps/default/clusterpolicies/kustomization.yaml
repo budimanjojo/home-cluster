@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: default
+resources:
+  - add-goldilocks-labels.yaml
+  - add-psa-labels.yaml
+  - delete-cpu-limits.yaml
+  - inject-timezone.yaml
+  - snapshot-cronjob.yaml
+  - sync-authelia-db-secret.yaml

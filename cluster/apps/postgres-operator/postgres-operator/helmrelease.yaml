@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app pgo-operator
+  namespace: postgres-operator
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: ./helm
+      version: 0.6.0
+      sourceRef:
+        kind: GitRepository
+        name: pgo-operator
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 5
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 5
+  values:
+    controllerImages:
+      # temporary fix for https://github.com/CrunchyData/postgres-operator/issues/3365
+      cluster: ghcr.io/jelmer/postgres-operator@sha256:c49ceaaf854d915f093369dff0223f2abb5361ab0d7483a5c42884e67f1b1b67

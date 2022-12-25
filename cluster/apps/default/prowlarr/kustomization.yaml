@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: default
 resources:
   - helmrelease.yaml
-  - ingress-traefikCRD.yaml
   - pvc.yaml

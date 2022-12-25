@@ -4,6 +4,5 @@ namespace: default
 resources:
   - cronjob.yaml
   - helmrelease.yaml
-  - ingress-traefikCRD.yaml
   - pvc.yaml
   - secret.sops.yaml

@@ -1,0 +1,451 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-redis
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/redis
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-ingresses
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/ingresses
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-postgrescluster
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/postgescluster
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: postgres-operator-postgres-operator
+    - name: rook-ceph-rook-ceph
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-clusterpolies
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/clusterpolicies
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: kyverno-kyverno
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-common
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/common
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-adminer
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/adminer
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-bazarr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/bazarr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: nfs-system-nfs-provisioner
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-firefly-iii
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/firefly-iii
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: default-postgrescluster
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-flaresolverr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/flaresolverr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-goldilocks
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/goldilocks
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-homeassistant
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/homeassistant
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-jellyfin
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/jellyfin
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-kopia
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/kopia
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-lidarr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/lidarr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-mosquitto
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/mosquitto
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-nextcloud
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/nextcloud
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: default-postgrescluster
+    - name: default-redis
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-ombi
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/ombi
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-prowlarr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/prowlarr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-radarr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/radarr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-radicale
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/radicale
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: default-postgrescluster
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-reloader
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/reloader
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-sonarr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/sonarr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-syncthing
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/syncthing
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-transmission
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/transmission
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: nfs-system-nfs-provisioner
+    - name: rook-ceph-rook-ceph
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-unpackerr
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/unpackerr
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-vaultwarden
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/vaultwarden
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: default-postgrescluster
+    - name: nfs-system-nfs-provisioner
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-zigbee2mqtt
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/zigbee2mqtt
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph

@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - dashboards
   - helmrelease.yaml
-  - ingress-traefikCRD.yaml
   - secret.sops.yaml
