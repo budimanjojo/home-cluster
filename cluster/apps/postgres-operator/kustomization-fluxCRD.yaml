@@ -15,5 +15,5 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
-      name: postgres-operator
+      name: pgo-operator
       namespace: postgres-operator
