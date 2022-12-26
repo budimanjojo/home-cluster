@@ -10,6 +10,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: cilium
+      namespace: kube-system
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -38,6 +43,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: metallb
+      namespace: kube-system
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
 
@@ -68,6 +78,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: kubelet-csr-approver
+      namespace: kube-system
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -82,6 +97,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: metrics-server
+      namespace: kube-system
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
 
@@ -98,3 +118,8 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: vpa
+      namespace: kube-system

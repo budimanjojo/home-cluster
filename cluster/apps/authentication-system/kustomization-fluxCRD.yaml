@@ -10,6 +10,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: authelia
+      namespace: authentication-system
   dependsOn:
     - name: ingress-system-traefik
     - name: default-postgrescluster
