@@ -11,7 +11,8 @@ spec:
   interval: 30m
   prune: true
   healthChecks:
-    - kind: HelmRelease
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
       name: redis
       namespace: default
   dependsOn:
@@ -47,7 +48,8 @@ spec:
   interval: 30m
   prune: true
   healthChecks:
-    - kind: PostgresCluster
+    - apiVersion: postgres-operator.crunchydata.com/v1beta1
+      kind: PostgresCluster
       name: pgo-cluster
       namespace: default
   dependsOn:
