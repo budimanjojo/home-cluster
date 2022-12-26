@@ -47,6 +47,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: postgres-operator.crunchydata.com/v1beta1
+      kind: PostgresCluster
+      name: pgo-cluster
+      namespace: default
   dependsOn:
     - name: postgres-operator-postgres-operator
     - name: rook-ceph-rook-ceph
@@ -97,6 +102,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: adminer
+      namespace: default
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -111,6 +121,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: bazarr
+      namespace: default
   dependsOn:
     - name: nfs-system-nfs-provisioner
     - name: rook-ceph-rook-ceph
@@ -144,6 +159,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: firefly-iii
+      namespace: default
   dependsOn:
     - name: default-postgrescluster
     - name: rook-ceph-rook-ceph
@@ -161,6 +181,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: flaresolverr
+      namespace: default
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -175,6 +200,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: goldilocks
+      namespace: default
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -189,6 +219,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: homeassistant
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -205,6 +240,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: jellyfin
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -222,6 +262,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: kopia
+      namespace: default
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -238,6 +283,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: lidarr
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -255,6 +305,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: mosquitto
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -271,6 +326,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: nextcloud
+      namespace: default
   dependsOn:
     - name: default-postgrescluster
     - name: default-redis
@@ -289,6 +349,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: ombi
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -305,6 +370,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: prowlarr
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -321,6 +391,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: radarr
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -338,6 +413,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: radicale
+      namespace: default
   dependsOn:
     - name: default-postgrescluster
     - name: rook-ceph-rook-ceph
@@ -355,6 +435,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: reloader
+      namespace: default
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -369,6 +454,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: sonarr
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -386,6 +476,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: syncthing
+      namespace: default
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -402,6 +497,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: transmission
+      namespace: default
   dependsOn:
     - name: nfs-system-nfs-provisioner
     - name: rook-ceph-rook-ceph
@@ -419,6 +519,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: unpackerr
+      namespace: default
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -435,6 +540,11 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: vaultwarden
+      namespace: default
   dependsOn:
     - name: default-postgrescluster
     - name: nfs-system-nfs-provisioner
@@ -452,5 +562,10 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: zigbee2mqtt
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
