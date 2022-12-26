@@ -10,6 +10,10 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - kind: HelmRelease
+      name: redis
+      namespace: default
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -42,6 +46,10 @@ spec:
     name: flux-system
   interval: 30m
   prune: true
+  healthChecks:
+    - kind: PostgresCluster
+      name: pgo-cluster
+      namespace: default
   dependsOn:
     - name: postgres-operator-postgres-operator
     - name: rook-ceph-rook-ceph
