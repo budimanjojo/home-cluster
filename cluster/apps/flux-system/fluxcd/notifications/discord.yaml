@@ -30,9 +30,3 @@ spec:
       name: "*"
     - kind: HelmRepository
       name: "*"
-  exclusionList:
-    - "error.*lookup github\\.com"
-    - "waiting.*socket"
-    - "dial.*tcp.*timeout"
-    - "dial tcp: lookup.+ on [\\d\\.:]+"
-    - "network is unreachable"
