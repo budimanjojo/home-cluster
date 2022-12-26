@@ -12,3 +12,4 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
+  wait: true

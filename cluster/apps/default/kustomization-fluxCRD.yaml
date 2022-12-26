@@ -9,14 +9,8 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: redis
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -32,9 +26,8 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
+  wait: true
   dependsOn:
     - name: ingress-system-traefik
 
@@ -53,11 +46,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: postgres-operator.crunchydata.com/v1beta1
-      kind: PostgresCluster
-      name: pgo-cluster
-      namespace: default
+  wait: true
   dependsOn:
     - name: postgres-operator-postgres-operator
     - name: rook-ceph-rook-ceph
@@ -78,6 +67,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
+  wait: true
   dependsOn:
     - name: kyverno-kyverno
 
@@ -96,6 +86,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
+  wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -114,11 +105,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: adminer
-      namespace: default
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -135,11 +122,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: bazarr
-      namespace: default
+  wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
     - name: rook-ceph-rook-ceph
@@ -159,6 +142,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
+  wait: true
   dependsOn:
     - name: ingress-system-traefik
 
@@ -177,11 +161,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: firefly-iii
-      namespace: default
+  wait: true
   dependsOn:
     - name: default-postgrescluster
     - name: rook-ceph-rook-ceph
@@ -201,11 +181,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: flaresolverr
-      namespace: default
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -222,11 +198,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: goldilocks
-      namespace: default
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -243,11 +215,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: homeassistant
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -266,11 +234,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: jellyfin
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -290,11 +254,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: kopia
-      namespace: default
+  wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -313,11 +273,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: lidarr
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -337,11 +293,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: mosquitto
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -360,11 +312,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: nextcloud
-      namespace: default
+  wait: true
   dependsOn:
     - name: default-postgrescluster
     - name: default-redis
@@ -385,11 +333,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: ombi
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -408,11 +352,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: prowlarr
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
 
@@ -431,11 +371,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: radarr
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -455,11 +391,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: radicale
-      namespace: default
+  wait: true
   dependsOn:
     - name: default-postgrescluster
     - name: rook-ceph-rook-ceph
@@ -479,11 +411,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: reloader
-      namespace: default
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -500,11 +428,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: sonarr
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph
     - name: nfs-system-nfs-provisioner
@@ -524,11 +448,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: syncthing
-      namespace: default
+  wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -547,11 +467,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: transmission
-      namespace: default
+  wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
     - name: rook-ceph-rook-ceph
@@ -571,11 +487,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: unpackerr
-      namespace: default
+  wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
 
@@ -594,11 +506,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: vaultwarden
-      namespace: default
+  wait: true
   dependsOn:
     - name: default-postgrescluster
     - name: nfs-system-nfs-provisioner
@@ -618,10 +526,6 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: zigbee2mqtt
-      namespace: default
+  wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph

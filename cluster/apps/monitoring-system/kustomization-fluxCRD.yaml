@@ -12,11 +12,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: kube-prometheus-stack
-      namespace: monitoring-system
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -33,11 +29,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: grafana
-      namespace: monitoring-system
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -54,11 +46,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: gatus
-      namespace: monitoring-system
+  wait: true
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -75,6 +63,7 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
+  wait: true
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
 
@@ -93,10 +82,6 @@ spec:
   retryInterval: 1m
   timeout: 3m
   prune: true
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: alertmanager-discord
-      namespace: monitoring-system
+  wait: true
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
