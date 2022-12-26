@@ -51,7 +51,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-clusterpolies
+  name: default-clusterpolicies
   namespace: flux-system
 spec:
   path: ./cluster/apps/default/clusterpolicies
