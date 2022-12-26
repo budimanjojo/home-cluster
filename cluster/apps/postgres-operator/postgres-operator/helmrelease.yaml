@@ -23,7 +23,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
-  values:
-    controllerImages:
-      # temporary fix for https://github.com/CrunchyData/postgres-operator/issues/3365
-      cluster: ghcr.io/jelmer/postgres-operator@sha256:c49ceaaf854d915f093369dff0223f2abb5361ab0d7483a5c42884e67f1b1b67
