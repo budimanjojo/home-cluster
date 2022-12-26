@@ -9,8 +9,6 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
 
@@ -26,8 +24,6 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
 
@@ -43,8 +39,6 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
   dependsOn:
@@ -62,8 +56,6 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
 
@@ -79,8 +71,6 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
 
@@ -96,8 +86,6 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
   dependsOn:
@@ -115,7 +103,5 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 3m
   prune: true
   wait: true
