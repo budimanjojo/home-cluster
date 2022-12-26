@@ -59,10 +59,11 @@ The Git repository contains the following directories under `cluster` and are or
 ```
 ./cluster
 ├── ./base    # entrypoint to Flux
-├── ./crds    # custom resource definitions (CRDs), loaded before `core`
-├── ./core    # important infrastructure applications, loaded before `apps`
-└── ./apps    # common applications, loaded last
+└── ./apps    # everything is here
 ```
+
+Inside the [apps](./cluster/apps/) directory, I divided all the apps using their namespaces.
+Every app will have its own "Fluxtomization" file that describe their manifests and dependencies.
 
 ---
 
