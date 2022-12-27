@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app intel-device-plugins-gpu
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: *app
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: intel-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    name: intel-gpu-plugin
+    nodeSelector:
+      feature.node.kubernetes.io/pci-0300_8086.present: "true"

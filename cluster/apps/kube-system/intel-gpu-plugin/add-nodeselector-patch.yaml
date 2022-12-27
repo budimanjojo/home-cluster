@@ -1,9 +1,0 @@
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: intel-gpu-plugin
-spec:
-  template:
-    spec:
-      nodeSelector:
-        feature.node.kubernetes.io/pci-0300_8086.present: "true"

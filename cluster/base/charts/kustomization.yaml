@@ -5,6 +5,7 @@ resources:
   - cilium-charts.yaml
   - fairwinds-charts.yaml
   - grafana-charts.yaml
+  - intel-charts.yaml
   - jetstack-charts.yaml
   - kyverno-charts.yaml
   - metallb-charts.yaml
