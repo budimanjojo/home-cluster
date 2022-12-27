@@ -37,7 +37,7 @@ metadata:
   name: kube-system-intel-device-plugins-gpu
   namespace: flux-system
 spec:
-  path: ./cluster/apps/kube-system/intel-device-plugins-operator
+  path: ./cluster/apps/kube-system/intel-device-plugins-gpu
   sourceRef:
     kind: GitRepository
     name: flux-system
