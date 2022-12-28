@@ -4,7 +4,7 @@ metadata:
   name: nfs-system-nfs-provisioner
   namespace: flux-system
 spec:
-  path: ./cluster/apps/nfs-system/nfs-provisioner
+  path: ./cluster/apps/nfs-system/nfs-provisioner/base
   sourceRef:
     kind: GitRepository
     name: flux-system
