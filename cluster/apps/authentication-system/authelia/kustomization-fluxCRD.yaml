@@ -1,15 +1,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: authentication-system-authelia
+  name: authentication-system-authelia-app
   namespace: flux-system
 spec:
-  path: ./cluster/apps/authentication-system/authelia
+  path: ./cluster/apps/authentication-system/authelia/app
   sourceRef:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: false
+  prune: true
   wait: true
   dependsOn:
     - name: ingress-system-traefik
