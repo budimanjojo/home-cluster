@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
   dependsOn:
     - name: ingress-system-traefik

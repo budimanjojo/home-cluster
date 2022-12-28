@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
 
 ---
@@ -24,7 +24,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
   dependsOn:
     - name: cert-manager-cert-manager
@@ -42,7 +42,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
   dependsOn:
     - name: kube-system-intel-device-plugins-operator
@@ -59,7 +59,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
@@ -76,7 +76,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
 
 ---
@@ -91,7 +91,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
 
 ---
@@ -106,7 +106,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
@@ -123,7 +123,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
 
 ---
@@ -138,5 +138,5 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: true
+  prune: false
   wait: true
