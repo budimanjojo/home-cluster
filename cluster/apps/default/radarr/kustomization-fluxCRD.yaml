@@ -12,5 +12,5 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: rook-ceph-rook-ceph
+    - name: rook-ceph-rook-ceph-operator
     - name: nfs-system-nfs-provisioner

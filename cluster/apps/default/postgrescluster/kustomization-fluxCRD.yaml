@@ -13,5 +13,5 @@ spec:
   wait: true
   dependsOn:
     - name: postgres-operator-postgres-operator
-    - name: rook-ceph-rook-ceph
+    - name: rook-ceph-rook-ceph-operator
     - name: nfs-system-nfs-provisioner

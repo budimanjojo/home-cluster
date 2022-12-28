@@ -13,4 +13,4 @@ spec:
   wait: true
   dependsOn:
     - name: nfs-system-nfs-provisioner
-    - name: rook-ceph-rook-ceph
+    - name: rook-ceph-rook-ceph-operator

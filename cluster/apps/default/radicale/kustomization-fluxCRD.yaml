@@ -13,4 +13,4 @@ spec:
   wait: true
   dependsOn:
     - name: default-postgrescluster
-    - name: rook-ceph-rook-ceph
+    - name: rook-ceph-rook-ceph-operator
