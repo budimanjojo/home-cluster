@@ -1,0 +1,100 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external-adguard
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external/adguard
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external-fullykioskbrowser
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external/fullykioskbrowser
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external-omada
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external/omada
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external-omv
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external/omv
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external-opnsense
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external/opnsense
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-external-proxmox
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/external/proxmox
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik

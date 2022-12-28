@@ -1,0 +1,30 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-node-feature-discovery
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/node-feature-discovery/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-node-feature-discovery-configs
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/node-feature-discovery/configs
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: kube-system-node-feature-discovery

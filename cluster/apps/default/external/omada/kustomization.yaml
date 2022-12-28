@@ -1,4 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: default
 resources:
-  - controller
+  - ./endpoints.yaml
+  - ./ingress-traefikCRD.yaml
+  - ./middleware-traefikCRD.yaml
+  - ./serverstransport-traefikCRD.yaml
+  - ./service.yaml

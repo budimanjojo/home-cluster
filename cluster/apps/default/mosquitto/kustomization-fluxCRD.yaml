@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: default-mosquitto
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/default/mosquitto/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph

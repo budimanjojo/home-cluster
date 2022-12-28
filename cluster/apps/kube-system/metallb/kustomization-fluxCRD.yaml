@@ -1,0 +1,32 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metallb
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/metallb/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: monitoring-system-kube-prometheus-stack
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metallb-configs
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/kube-system/metallb/configs
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: false
+  wait: true
+  dependsOn:
+    - name: kube-system-metallb

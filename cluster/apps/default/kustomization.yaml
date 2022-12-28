@@ -2,4 +2,31 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
-  - kustomization-fluxCRD.yaml
+  - ./adminer/kustomization-fluxCRD.yaml
+  - ./bazarr/kustomization-fluxCRD.yaml
+  - ./clusterpolicies/kustomization-fluxCRD.yaml
+  - ./common/kustomization-fluxCRD.yaml
+  - ./external/kustomization-fluxCRD.yaml
+  - ./firefly-iii/kustomization-fluxCRD.yaml
+  - ./flaresolverr/kustomization-fluxCRD.yaml
+  - ./goldilocks/kustomization-fluxCRD.yaml
+  - ./homeassistant/kustomization-fluxCRD.yaml
+  - ./ingresses/kustomization-fluxCRD.yaml
+  - ./jellyfin/kustomization-fluxCRD.yaml
+  - ./kopia/kustomization-fluxCRD.yaml
+  - ./lidarr/kustomization-fluxCRD.yaml
+  - ./mosquitto/kustomization-fluxCRD.yaml
+  - ./nextcloud/kustomization-fluxCRD.yaml
+  - ./ombi/kustomization-fluxCRD.yaml
+  - ./postgrescluster/kustomization-fluxCRD.yaml
+  - ./prowlarr/kustomization-fluxCRD.yaml
+  - ./radarr/kustomization-fluxCRD.yaml
+  - ./radicale/kustomization-fluxCRD.yaml
+  - ./redis/kustomization-fluxCRD.yaml
+  - ./reloader/kustomization-fluxCRD.yaml
+  - ./sonarr/kustomization-fluxCRD.yaml
+  - ./syncthing/kustomization-fluxCRD.yaml
+  - ./transmission/kustomization-fluxCRD.yaml
+  - ./unpackerr/kustomization-fluxCRD.yaml
+  - ./vaultwarden/kustomization-fluxCRD.yaml
+  - ./zigbee2mqtt/kustomization-fluxCRD.yaml

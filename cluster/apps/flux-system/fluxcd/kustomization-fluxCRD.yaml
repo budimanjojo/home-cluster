@@ -1,0 +1,47 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: flux-system-fluxcd-notifications
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/flux-system/fluxcd/notifications
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: flux-system-fluxcd-prometheus
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/flux-system/fluxcd/prometheus
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+  dependsOn:
+    - name: monitoring-system-kube-prometheus-stack-app
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: flux-system-fluxcd-webhooks
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/flux-system/fluxcd/webhooks
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+  dependsOn:
+    - name: ingress-system-traefik-app

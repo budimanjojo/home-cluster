@@ -1,10 +1,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: authentication-system-authelia-app
+  name: authentication-system-authelia
   namespace: flux-system
 spec:
-  path: ./cluster/apps/authentication-system/authelia/app
+  path: ./cluster/apps/authentication-system/authelia/base
   sourceRef:
     kind: GitRepository
     name: flux-system
