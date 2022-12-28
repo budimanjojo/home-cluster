@@ -4,7 +4,7 @@ metadata:
   name: default-common
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/common
+  path: ./cluster/apps/default/common/base
   sourceRef:
     kind: GitRepository
     name: flux-system
