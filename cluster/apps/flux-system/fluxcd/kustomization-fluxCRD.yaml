@@ -27,7 +27,7 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: monitoring-system-kube-prometheus-stack-app
+    - name: monitoring-system-kube-prometheus-stack
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -44,4 +44,4 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: ingress-system-traefik-app
+    - name: ingress-system-traefik
