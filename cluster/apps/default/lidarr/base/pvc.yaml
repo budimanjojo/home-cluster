@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: lidarr-config
+  namespace: default
   labels:
     app.kubernetes.io/name: lidarr
     snapshot.home.cluster/enabled: "true"
