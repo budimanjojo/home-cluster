@@ -2,7 +2,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: &name zigbee2mqtt
-  namespace: default
   labels:
     app.kubernetes.io/name: *name
 spec:

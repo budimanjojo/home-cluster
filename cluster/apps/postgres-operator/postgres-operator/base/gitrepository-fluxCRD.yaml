@@ -3,7 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: pgo-operator
-  namespace: flux-system
 spec:
   interval: 30m0s
   ref:

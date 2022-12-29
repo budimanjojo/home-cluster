@@ -2,7 +2,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "${SECRET_CERT_NAME_0}"
-  namespace: default
 spec:
   secretName: "${SECRET_CERT_NAME_0}-prod-tls"
   subject:
@@ -21,7 +20,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "${SECRET_CERT_NAME_1}"
-  namespace: default
 spec:
   secretName: "${SECRET_CERT_NAME_1}-prod-tls"
   subject:
@@ -39,7 +37,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: "${SECRET_CERT_NAME_2}"
-  namespace: default
 spec:
   secretName: "${SECRET_CERT_NAME_2}-prod-tls"
   subject:

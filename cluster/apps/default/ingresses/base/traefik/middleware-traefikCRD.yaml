@@ -2,7 +2,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: local-only
-  namespace: default
 spec:
   ipWhiteList:
     sourceRange:
@@ -17,7 +16,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: secure-headers
-  namespace: default
 spec:
   headers:
     sslRedirect: true
@@ -36,7 +34,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: dashboard-headers
-  namespace: default
 spec:
   headers:
     sslRedirect: true

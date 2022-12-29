@@ -2,7 +2,6 @@ apiVersion: metallb.io/v1beta2
 kind: BGPPeer
 metadata:
   name: main
-  namespace: kube-system
 spec:
   myASN: 65401
   peerASN: 65400

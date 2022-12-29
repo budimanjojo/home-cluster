@@ -2,7 +2,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: flux-webhook
-  namespace: default
   labels:
     app.kubernetes.io/name: flux
 spec:
@@ -27,7 +26,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: flux-webhook
-  namespace: default
 spec:
   rateLimit:
     average: 100
