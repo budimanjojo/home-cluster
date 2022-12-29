@@ -19,14 +19,3 @@ spec:
           namespace: flux-system
   tls:
     secretName: ${SECRET_CERT_NAME_0}-prod-tls
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: flux-webhook
-spec:
-  rateLimit:
-    average: 100
-    burst: 50

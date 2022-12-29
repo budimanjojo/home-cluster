@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - ./github.yaml
-  - ./ingress-traefikCRD.yaml
   - ./secret.sops.yaml
