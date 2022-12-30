@@ -1,10 +1,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kube-system-metallb
+  name: networking-system-metallb
   namespace: flux-system
 spec:
-  path: ./cluster/apps/kube-system/metallb/base
+  path: ./cluster/apps/networking-system/metallb/base
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -18,10 +18,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kube-system-metallb-configs
+  name: networking-system-metallb-configs
   namespace: flux-system
 spec:
-  path: ./cluster/apps/kube-system/metallb/configs
+  path: ./cluster/apps/networking-system/metallb/configs
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -29,4 +29,4 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: kube-system-metallb
+    - name: networking-system-metallb

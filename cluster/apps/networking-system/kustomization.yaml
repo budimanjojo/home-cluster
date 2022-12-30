@@ -6,4 +6,5 @@ resources:
   - ./certificates/kustomization-fluxCRD.yaml
   - ./external/kustomization-fluxCRD.yaml
   - ./ingresses/kustomization-fluxCRD.yaml
+  - ./metallb/kustomization-fluxCRD.yaml
   - ./traefik/kustomization-fluxCRD.yaml

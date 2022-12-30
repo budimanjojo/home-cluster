@@ -5,7 +5,6 @@ resources:
   - ./cilium/kustomization-fluxCRD.yaml
   - ./intel-device-plugins/kustomization-fluxCRD.yaml
   - ./kubelet-csr-approver/kustomization-fluxCRD.yaml
-  - ./metallb/kustomization-fluxCRD.yaml
   - ./metrics-server/kustomization-fluxCRD.yaml
   - ./node-feature-discovery/kustomization-fluxCRD.yaml
   - ./smarter-device-manager/kustomization-fluxCRD.yaml
