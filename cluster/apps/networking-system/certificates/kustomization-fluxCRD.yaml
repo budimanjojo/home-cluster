@@ -12,4 +12,4 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: cert-manager-cert-manager-issuers
+    - name: networking-system-cert-manager-issuers

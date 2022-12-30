@@ -12,7 +12,7 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: cert-manager-cert-manager
+    - name: networking-system-cert-manager
     - name: kube-system-node-feature-discovery
 
 ---
