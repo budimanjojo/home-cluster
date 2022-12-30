@@ -4,4 +4,5 @@ resources:
   - ./namespace.yaml
   - ./cert-manager/kustomization-fluxCRD.yaml
   - ./certificates/kustomization-fluxCRD.yaml
+  - ./ingresses/kustomization-fluxCRD.yaml
   - ./traefik/kustomization-fluxCRD.yaml

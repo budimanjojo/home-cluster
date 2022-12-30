@@ -11,7 +11,6 @@ resources:
   - ./flaresolverr/kustomization-fluxCRD.yaml
   - ./goldilocks/kustomization-fluxCRD.yaml
   - ./homeassistant/kustomization-fluxCRD.yaml
-  - ./ingresses/kustomization-fluxCRD.yaml
   - ./jellyfin/kustomization-fluxCRD.yaml
   - ./kopia/kustomization-fluxCRD.yaml
   - ./lidarr/kustomization-fluxCRD.yaml

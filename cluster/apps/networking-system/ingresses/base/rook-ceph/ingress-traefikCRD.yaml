@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rook-ceph-dashboard
+  labels:
+    app.kubernetes.io/name: rook-ceph
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`rook.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: local-only
+      services:
+        - name: rook-ceph-mgr-dashboard
+          port: 8443
+          namespace: rook-ceph
+  tls:
+    secretName: "${SECRET_CERT_NAME_0}-prod-tls"

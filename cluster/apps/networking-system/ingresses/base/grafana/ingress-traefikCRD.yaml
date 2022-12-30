@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: &name grafana
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`dashboard.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: secure-headers
+        - name: local-only
+      services:
+        - name: *name
+          port: 3000
+          namespace: monitoring-system
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls

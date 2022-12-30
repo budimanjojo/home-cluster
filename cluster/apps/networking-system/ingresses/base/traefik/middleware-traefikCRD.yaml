@@ -1,0 +1,48 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: local-only
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 10.244.0.0/16
+      - 10.10.0.0/24
+      - 10.0.8.0/24
+      - 192.168.10.0/24
+      - 192.168.200.0/24
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: secure-headers
+spec:
+  headers:
+    sslRedirect: true
+    sslHost: "${SECRET_DOMAIN_0}"
+    stsSeconds: 315360000
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+    frameDeny: true
+    customFrameOptionsValue: SAMEORIGIN
+    contentTypeNosniff: true
+    browserXssFilter: true
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-headers
+spec:
+  headers:
+    sslRedirect: true
+    sslHost: "${SECRET_DOMAIN_0}"
+    stsSeconds: 315360000
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+    frameDeny: false
+    customFrameOptionsValue: SAMEORIGIN
+    contentTypeNosniff: true
+    browserXssFilter: true

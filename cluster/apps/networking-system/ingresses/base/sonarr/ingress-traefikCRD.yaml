@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: &name sonarr
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`tv.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: secure-headers
+        - name: authelia
+          namespace: default
+      services:
+        - name: *name
+          port: 8989
+          namespace: default
+  tls:
+    secretName: ${SECRET_CERT_NAME_0}-prod-tls
