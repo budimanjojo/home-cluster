@@ -12,7 +12,6 @@ spec:
       match: Host(`flux-wh.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: flux-webhook
-          namespace: default
       services:
         - name: webhook-receiver
           port: 80
