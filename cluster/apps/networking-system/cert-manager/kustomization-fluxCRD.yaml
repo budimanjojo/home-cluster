@@ -19,7 +19,7 @@ metadata:
   name: networking-system-cert-manager-issuers
   namespace: flux-system
 spec:
-  path: ./cluster/apps/network-system/cert-manager/issuers
+  path: ./cluster/apps/networking-system/cert-manager/issuers
   sourceRef:
     kind: GitRepository
     name: flux-system
