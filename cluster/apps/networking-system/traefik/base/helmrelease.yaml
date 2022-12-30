@@ -31,12 +31,6 @@ spec:
         enabled: true
         allowCrossNamespace: true
         allowExternalNameServices: true
-        namespaces:
-          - default
-          - authentication-system
-          - flux-system
-          - monitoring-system
-          - rook-ceph
       kubernetesIngress:
         enabled: true
     logs:
