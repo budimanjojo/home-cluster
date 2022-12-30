@@ -95,6 +95,10 @@ spec:
         memory: 50Mi
       limits:
         memory: 150Mi
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: ${SECRET_CERT_NAME_0}-prod-tls
     service:
       spec:
         externalTrafficPolicy: Local
