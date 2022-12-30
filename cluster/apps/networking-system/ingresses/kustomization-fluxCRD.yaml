@@ -4,7 +4,7 @@ metadata:
   name: networking-system-ingresses
   namespace: flux-system
 spec:
-  path: ./cluster/networking-system/default/ingresses/base
+  path: ./cluster/networking-system/ingresses/base
   sourceRef:
     kind: GitRepository
     name: flux-system
