@@ -1,10 +1,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-ingresses
+  name: networking-system-certificates
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/ingresses/base
+  path: ./cluster/apps/networking-system/certificates/base
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -12,4 +12,4 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: networking-system-traefik
+    - name: cert-manager-cert-manager-issuers

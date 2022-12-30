@@ -28,21 +28,3 @@ spec:
   wait: true
   dependsOn:
     - name: cert-manager-cert-manager
-
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: cert-manager-cert-manager-certificates
-  namespace: flux-system
-spec:
-  path: ./cluster/apps/cert-manager/cert-manager/certificates
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  interval: 30m
-  prune: true
-  wait: true
-  dependsOn:
-    - name: cert-manager-cert-manager
-    - name: cert-manager-cert-manager-issuers

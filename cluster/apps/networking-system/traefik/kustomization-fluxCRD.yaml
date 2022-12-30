@@ -1,10 +1,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: ingress-system-traefik
+  name: networking-system-traefik
   namespace: flux-system
 spec:
-  path: ./cluster/apps/ingress-system/traefik/base
+  path: ./cluster/apps/networking-system/traefik/base
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -12,16 +12,16 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: cert-manager-cert-manager
+    - name: networking-system-certificates
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: ingress-system-traefik-servicemonitors
+  name: networking-system-traefik-servicemonitors
   namespace: flux-system
 spec:
-  path: ./cluster/apps/ingress-system/traefik/servicemonitors
+  path: ./cluster/apps/networking-system/traefik/servicemonitors
   sourceRef:
     kind: GitRepository
     name: flux-system

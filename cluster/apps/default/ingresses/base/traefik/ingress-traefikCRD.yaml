@@ -16,6 +16,6 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-          namespace: ingress-system
+          namespace: networking-system
   tls:
     secretName: "${SECRET_CERT_NAME_0}-prod-tls"

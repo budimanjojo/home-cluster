@@ -12,6 +12,6 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik
     - name: default-postgrescluster
     - name: default-redis

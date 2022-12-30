@@ -12,7 +12,7 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -29,7 +29,7 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -46,7 +46,7 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -63,7 +63,7 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -80,7 +80,7 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -97,4 +97,4 @@ spec:
   prune: false
   wait: true
   dependsOn:
-    - name: ingress-system-traefik
+    - name: networking-system-traefik

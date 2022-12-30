@@ -43,5 +43,3 @@ spec:
   interval: 30m
   prune: true
   wait: true
-  dependsOn:
-    - name: ingress-system-traefik

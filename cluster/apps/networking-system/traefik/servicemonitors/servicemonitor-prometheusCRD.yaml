@@ -9,7 +9,7 @@ spec:
     matchLabels: *labels
   namespaceSelector:
     matchNames:
-      - ingress-system
+      - networking-system
   endpoints:
     - port: metrics
       path: /metrics
