@@ -17,5 +17,4 @@ spec:
         - name: webhook-receiver
           port: 80
           namespace: flux-system
-  tls:
-    secretName: ${SECRET_CERT_NAME_0}-prod-tls
+  tls: {}

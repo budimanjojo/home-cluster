@@ -6,7 +6,6 @@ resources:
   - ./authelia
   - ./bazarr
   - ./firefly-iii
-  - ./flux-webhook
   - ./gatus
   - ./goldilocks
   - ./grafana
