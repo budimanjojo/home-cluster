@@ -13,7 +13,6 @@ spec:
       middlewares:
         - name: dashboard-headers
         - name: authelia
-          namespace: default
       services:
         - name: *name
           port: 6767

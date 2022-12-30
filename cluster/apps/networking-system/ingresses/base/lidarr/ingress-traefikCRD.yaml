@@ -13,7 +13,6 @@ spec:
       middlewares:
         - name: secure-headers
         - name: authelia
-          namespace: default
       services:
         - name: *name
           port: 8686
