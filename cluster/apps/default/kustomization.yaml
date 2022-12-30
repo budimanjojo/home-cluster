@@ -6,7 +6,6 @@ resources:
   - ./bazarr/kustomization-fluxCRD.yaml
   - ./clusterpolicies/kustomization-fluxCRD.yaml
   - ./common/kustomization-fluxCRD.yaml
-  - ./external/kustomization-fluxCRD.yaml
   - ./firefly-iii/kustomization-fluxCRD.yaml
   - ./flaresolverr/kustomization-fluxCRD.yaml
   - ./goldilocks/kustomization-fluxCRD.yaml

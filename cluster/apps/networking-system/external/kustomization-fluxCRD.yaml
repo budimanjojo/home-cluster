@@ -1,10 +1,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-external-adguard
+  name: networking-system-external-adguard
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/external/adguard
+  path: ./cluster/apps/networking-system/external/adguard
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -18,10 +18,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-external-fullykioskbrowser
+  name: networking-system-external-fullykioskbrowser
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/external/fullykioskbrowser
+  path: ./cluster/apps/networking-system/external/fullykioskbrowser
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -35,10 +35,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-external-omada
+  name: networking-system-external-omada
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/external/omada
+  path: ./cluster/apps/networking-system/external/omada
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -52,10 +52,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-external-omv
+  name: networking-system-external-omv
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/external/omv
+  path: ./cluster/apps/networking-system/external/omv
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -69,10 +69,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-external-opnsense
+  name: networking-system-external-opnsense
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/external/opnsense
+  path: ./cluster/apps/networking-system/external/opnsense
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -86,10 +86,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: default-external-proxmox
+  name: networking-system-external-proxmox
   namespace: flux-system
 spec:
-  path: ./cluster/apps/default/external/proxmox
+  path: ./cluster/apps/networking-system/external/proxmox
   sourceRef:
     kind: GitRepository
     name: flux-system
