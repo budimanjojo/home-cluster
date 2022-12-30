@@ -1,10 +1,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: cert-manager-cert-manager
+  name: networking-system-cert-manager
   namespace: flux-system
 spec:
-  path: ./cluster/apps/cert-manager/cert-manager/base
+  path: ./cluster/apps/networking-system/cert-manager/base
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -16,10 +16,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: cert-manager-cert-manager-issuers
+  name: networking-system-cert-manager-issuers
   namespace: flux-system
 spec:
-  path: ./cluster/apps/cert-manager/cert-manager/issuers
+  path: ./cluster/apps/network-system/cert-manager/issuers
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -27,4 +27,4 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: cert-manager-cert-manager
+    - name: networking-system-cert-manager
