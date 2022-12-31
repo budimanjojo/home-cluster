@@ -30,6 +30,7 @@ spec:
                 - nfd-system
                 - rook-ceph
                 - monitoring-system
+                - networking-system
       mutate:
         targets:
           - apiVersion: v1
