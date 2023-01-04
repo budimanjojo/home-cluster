@@ -60,8 +60,6 @@ data:
       max_retries: 3
       find_time: 2m
       ban_time: 5m
-    storage:
-      encryption_key: ${SECRET_AUTHELIA_ENC_KEY}
     notifier:
       disable_startup_check: false
       smtp:
