@@ -52,49 +52,20 @@ spec:
         type: custom
         mountPath: /app/secrets
         readOnly: true
-        volumeSpec:
-          secret:
-            secretName: authelia-secret
-            items:
-              - key: authelia_jwt_secret
-                path: jwt_secret
-              - key: authelia_duo_api_secret_key
-                path: duo_api_secret_key
-              - key: authelia_session_secret
-                path: session_secret
-              - key: authelia_notifier_smtp_password
-                path: notifier_smtp_password
-              - key: authelia_session_redis_password
-                path: session_redis_password
-      db-password:
-        enabled: true
-        type: custom
-        mountPath: /db/secrets
-        readOnly: true
-        volumeSpec:
-          secret:
-            secretName: pgo-cluster-pguser-authelia
-            items:
-              - key: password
-                path: storage_postgres_password
     resources:
       requests:
         cpu: 1m
         memory: 50Mi
     enableServiceLinks: false
+    envFrom:
+      - secretRef:
+          name: authelia-secret
     env:
-      AUTHELIA_JWT_SECRET_FILE:
-        value: /app/secrets/jwt_secret
-      AUTHELIA_DUO_API_SECRET_KEY_FILE:
-        value: /app/secrets/duo_api_secret_key
-      AUTHELIA_SESSION_SECRET_FILE:
-        value: /app/secrets/session_secret
-      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE:
-        value: /app/secrets/notifier_smtp_password
-      AUTHELIA_SESSION_REDIS_PASSWORD_FILE:
-        value: /app/secrets/session_redis_password
-      AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE:
-        value: /db/secrets/storage_postgres_password
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: pgo-cluster-pguser-authelia
+            key: password
       AUTHELIA_STORAGE_POSTGRES_HOST:
         valueFrom:
           secretKeyRef:
