@@ -92,4 +92,4 @@ identity_providers:
           - openid
           - profile
           - email
-        userinfo_signing_algorith: none
+        userinfo_signing_algorithm: none
