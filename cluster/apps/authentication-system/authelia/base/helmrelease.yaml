@@ -47,11 +47,6 @@ spec:
         volumeSpec:
           configMap:
             name: authelia-config
-      secret:
-        enabled: true
-        type: custom
-        mountPath: /app/secrets
-        readOnly: true
     resources:
       requests:
         cpu: 1m
