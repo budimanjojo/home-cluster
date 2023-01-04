@@ -1,0 +1,8 @@
+users:
+  budiman:
+    displayname: Budiman JOJO
+    password: "${SECRET_AUTHELIA_PASSWORD_0}"
+    email: ${SECRET_EMAIL_0}
+    groups:
+      - admins
+      - dev
