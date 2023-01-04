@@ -46,11 +46,11 @@ access_control:
         - 192.168.200.0/24
   rules:
     - domain: "*.${SECRET_DOMAIN_0}"
-      policy: two_factor
-    - domain: "*.${SECRET_DOMAIN_0}"
       policy: bypass
       networks:
         - internal
+    - domain: "*.${SECRET_DOMAIN_0}"
+      policy: two_factor
 session:
   name: authelia_session
   expiration: 1h
