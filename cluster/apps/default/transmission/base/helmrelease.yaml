@@ -113,7 +113,7 @@ spec:
             }
     initContainers:
       init-permission:
-        image: busybox:1.35.0
+        image: busybox:1.36.0
         imagePullPolicy: IfNotPresent
         command:
           - sh
