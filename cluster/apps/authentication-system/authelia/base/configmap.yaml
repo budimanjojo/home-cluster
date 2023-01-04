@@ -31,7 +31,8 @@ data:
       disable_startup_check: false
       disable_failure: false
     authentication_backend:
-      disable_reset_password: true
+      password_reset:
+        disable: true
       refresh_interval: 5m
       file:
         path: /config/users.yaml
