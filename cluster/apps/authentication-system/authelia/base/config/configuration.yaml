@@ -10,12 +10,9 @@ server:
 log:
   level: debug
 totp:
-  issuer: "${SECRET_DOMAIN_0}"
-  period: 30
-  skew: 1
-duo_api:
-  hostname: ${SECRET_DUO_HOSTNAME_0}
-  integration_key: ${SECRET_DUO_KEY_0}
+  disable: true
+webauthn:
+  disable: true
 ntp:
   address: time.cloudflare.com:123
   version: 4
@@ -29,17 +26,31 @@ authentication_backend:
   file:
     path: /config/users.yaml
     password:
-      algorithm: argon2id
-      iterations: 1
-      key_length: 32
-      salt_length: 16
-      memory: 1024
-      parallelism: 8
+      algorithm: argon2
+      argon2:
+        variant: argon2id
+        iterations: 1
+        key_length: 32
+        salt_length: 16
+        memory: 1024
+        parallelism: 8
 access_control:
   default_policy: deny
+  networks:
+    - name: internal
+      networks:
+        - 10.244.0.0/16
+        - 10.10.0.0/24
+        - 10.0.8.0/24
+        - 192.168.10.0/24
+        - 192.168.200.0/24
   rules:
     - domain: "*.${SECRET_DOMAIN_0}"
       policy: two_factor
+    - domain: "*.${SECRET_DOMAIN_0}"
+      policy: bypass
+      networks:
+        - internal
 session:
   name: authelia_session
   expiration: 1h
@@ -60,3 +71,12 @@ notifier:
     port: 587
     username: budimanjojo@gmail.com
     sender: Authelia Admin <admin@budimanjojo.com>
+identity_providers:
+  oidc:
+    cors:
+      endpoints:
+        - authorization
+        - token
+        - revocation
+        - introspection
+    allowed_origins_from_client_redirect_uris: true
