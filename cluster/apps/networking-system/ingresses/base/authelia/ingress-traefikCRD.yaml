@@ -15,4 +15,4 @@ spec:
           port: 9091
           namespace: authentication-system
   tls:
-    secretName: ${SECRET_CERT_NAME_0}-prod-tls
+    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls

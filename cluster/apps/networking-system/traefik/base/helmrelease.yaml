@@ -92,7 +92,7 @@ spec:
     tlsStore:
       default:
         defaultCertificate:
-          secretName: ${SECRET_CERT_NAME_0}-prod-tls
+          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     service:
       spec:
         externalTrafficPolicy: Local

@@ -17,4 +17,4 @@ spec:
           port: 8096
           namespace: default
   tls:
-    secretName: ${SECRET_CERT_NAME_0}-prod-tls
+    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls

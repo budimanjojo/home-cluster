@@ -17,4 +17,4 @@ spec:
           port: 8080
           namespace: default
   tls:
-    secretName: ${SECRET_CERT_NAME_1}-prod-tls
+    secretName: ${SECRET_DOMAIN_1//./-}-prod-tls

@@ -1,9 +1,9 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_CERT_NAME_0}"
+  name: "${SECRET_DOMAIN_0//./-}"
 spec:
-  secretName: "${SECRET_CERT_NAME_0}-prod-tls"
+  secretName: "${SECRET_DOMAIN_0//./-}-prod-tls"
   subject:
     organizations:
       - budimanjojo
@@ -19,9 +19,9 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_CERT_NAME_1}"
+  name: "${SECRET_DOMAIN_1//./-}"
 spec:
-  secretName: "${SECRET_CERT_NAME_1}-prod-tls"
+  secretName: "${SECRET_DOMAIN_1//./-}-prod-tls"
   subject:
     organizations:
       - budimanjojo
@@ -36,9 +36,9 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_CERT_NAME_2}"
+  name: "${SECRET_DOMAIN_2//./-}"
 spec:
-  secretName: "${SECRET_CERT_NAME_2}-prod-tls"
+  secretName: "${SECRET_DOMAIN_2//./-}-prod-tls"
   subject:
     organizations:
       - budimanjojo
