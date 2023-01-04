@@ -60,4 +60,3 @@ notifier:
     port: 587
     username: budimanjojo@gmail.com
     sender: Authelia Admin <admin@budimanjojo.com>
-
