@@ -80,3 +80,16 @@ identity_providers:
         - revocation
         - introspection
     allowed_origins_from_client_redirect_uris: true
+    clients:
+      - id: proxmox
+        description: Proxmox
+        secret: ${SECRET_OIDC_PROXMOX_CLIENT_SECRET}
+        public: false
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://proxmox.${SECRET_DOMAIN_0}
+        scopes:
+          - openid
+          - profile
+          - email
+        userinfo_signing_algorith: none
