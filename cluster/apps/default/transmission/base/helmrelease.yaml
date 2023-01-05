@@ -145,9 +145,9 @@ spec:
         enabled: true
         existingClaim: shared-downloads
         mountPath: /downloads
-      resources:
-        requests:
-          cpu: 15m
-          memory: 105Mi
-        limits:
-          memory: 105Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105Mi
+      limits:
+        memory: 105Mi
