@@ -1,0 +1,42 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: &name minio
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`minio.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: secure-headers
+      services:
+        - name: *name
+          port: 9001
+          namespace: default
+  tls:
+    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: minio-s3
+  labels:
+    app.kubernetes.io/name: minio
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`s3.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: secure-headers
+      services:
+        - name: *name
+          port: 9000
+          namespace: default
+  tls:
+    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls

@@ -13,6 +13,7 @@ resources:
   - ./jellyfin/kustomization-fluxCRD.yaml
   - ./kopia/kustomization-fluxCRD.yaml
   - ./lidarr/kustomization-fluxCRD.yaml
+  - ./minio/kustomization-fluxCRD.yaml
   - ./mosquitto/kustomization-fluxCRD.yaml
   - ./nextcloud/kustomization-fluxCRD.yaml
   - ./ombi/kustomization-fluxCRD.yaml

@@ -14,6 +14,7 @@ resources:
   - ./kopia
   - ./kube-prometheus-stack
   - ./lidarr
+  - ./minio
   - ./nextcloud
   - ./ombi
   - ./prowlarr
