@@ -16,7 +16,7 @@ spec:
       services:
         - name: *name
           port: 8006
-          namespace: default
+          namespace: networking-system
           serversTransport: proxmox
   tls:
     secretName: ${SECRET_DOMAIN_0//./-}-prod-tls

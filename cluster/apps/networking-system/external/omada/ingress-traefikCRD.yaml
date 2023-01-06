@@ -17,7 +17,7 @@ spec:
       services:
         - name: omada-controller
           port: 8043
-          namespace: default
+          namespace: networking-system
           scheme: https
           serversTransport: omada-controller
   tls:
