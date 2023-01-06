@@ -24,11 +24,18 @@ authentication_backend:
     disable: false
   refresh_interval: 1m
   ldap:
-    implementation: lldap
+    implementation: custom
     url: ldap://lldap.authentication-system.svc.cluster.local:3890
     timeout: 5s
     start_tls: false
     base_dn: dc=home,dc=cluster
+    username_attribute: uid
+    additional_user_dn: ou=people
+    users_filter: "(&({username_attribute}={input})(objectClass=person))"
+    additional_groups_dn: ou=groups
+    groups_filter: "(member={dn})"
+    group_name_attribute: cn
+    mail_attribute: mail
     display_name_attribute: displayName
     user: uid=admin,ou=people,dc=home,dc=cluster
 access_control:
