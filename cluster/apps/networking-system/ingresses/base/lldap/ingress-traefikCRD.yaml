@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: &name lldap
+  labels:
+    app.kubernetes.io/name: *name
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`ldap.${SECRET_DOMAIN_0}`)
+      services:
+        - name: *name
+          port: 17170
+          namespace: authentication-system
+  tls:
+    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
