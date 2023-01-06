@@ -99,7 +99,7 @@ identity_providers:
         public: false
         authorization_policy: two_factor
         redirect_uris:
-          - https://minio.${SECRET_DOMAIN_0}
+          - https://minio.${SECRET_DOMAIN_0}/oauth_callback
         scopes:
           - openid
           - profile
