@@ -103,4 +103,6 @@ identity_providers:
         scopes:
           - openid
           - profile
+          - email
+          - groups
         userinfo_signing_algorithm: none
