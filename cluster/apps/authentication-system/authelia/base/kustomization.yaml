@@ -8,6 +8,5 @@ configMapGenerator:
   - name: authelia-config
     files:
       - ./config/configuration.yaml
-      - ./config/users.yaml
 generatorOptions:
   disableNameSuffixHash: true
