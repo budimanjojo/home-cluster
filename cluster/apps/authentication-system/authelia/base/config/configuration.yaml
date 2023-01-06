@@ -93,3 +93,15 @@ identity_providers:
           - profile
           - email
         userinfo_signing_algorithm: none
+      - id: minio
+        description: Minio
+        secret: ${SECRET_OIDC_MINIO_CLIENT_SECRET}
+        public: false
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://minio.${SECRET_DOMAIN_0}
+        scopes:
+          - openid
+          - profile
+          - email
+        userinfo_signing_algorithm: none
