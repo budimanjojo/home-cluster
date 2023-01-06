@@ -6,3 +6,4 @@ users:
     groups:
       - admins
       - dev
+      - consoleAdmin
