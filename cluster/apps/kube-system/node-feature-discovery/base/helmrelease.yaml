@@ -22,3 +22,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
+  values:
+    master:
+      extraLabelsNs:
+        - gpu.intel.com
