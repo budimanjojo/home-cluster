@@ -22,5 +22,3 @@ spec:
       retries: 5
   values:
     name: intel-gpu-plugin
-    nodeSelector:
-      feature.node.kubernetes.io/pci-0300_8086.present: "true"
