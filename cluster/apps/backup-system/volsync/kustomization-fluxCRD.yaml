@@ -15,3 +15,4 @@ spec:
     - name: default-minio
     - name: rook-ceph-rook-ceph-cluster
     - name: kube-system-snapshot-controller
+    - name: monitoring-system-kube-prometheus-stack
