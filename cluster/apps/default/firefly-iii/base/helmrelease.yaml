@@ -33,7 +33,7 @@ spec:
             port: 8080
     initContainers:
       wait-database:
-        image: alpine:3.17.0
+        image: alpine:3.17.1
         imagePullPolicy: IfNotPresent
         command:
           - sh
