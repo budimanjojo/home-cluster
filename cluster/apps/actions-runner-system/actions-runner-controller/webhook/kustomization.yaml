@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: actions-system
+namespace: actions-runner-system
 resources:
   - ./ingress-traefikCRD.yaml
   - ./middleware-traefikCRD.yaml
