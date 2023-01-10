@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: actions-runner-controller-webhook
+  labels:
+    app.kubernetes.io/name: actions-runner-controller
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`arc-wh.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: arc-webhook
+      services:
+        - name: actions-runner-controller
+          port: 80
+          namespace: actions-system
+  tls: {}

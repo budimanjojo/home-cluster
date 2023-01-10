@@ -1,0 +1,8 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: arc-webhook
+spec:
+  rateLimit:
+    average: 100
+    burst: 50

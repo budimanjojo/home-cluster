@@ -1,0 +1,20 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: &name home-cluster
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: *name
+  scaleUpTrigger:
+    - githubEvent:
+        checkRun:
+          types: ["created"]
+          status: queued
+      duration: 1m
+  metrics:
+    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+      repositoryNames:
+        - budimanjojo/home-cluster

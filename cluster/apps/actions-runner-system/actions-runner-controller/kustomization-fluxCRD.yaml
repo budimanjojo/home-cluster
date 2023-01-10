@@ -1,0 +1,50 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: actions-runner-system-actions-runner-controller
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/actions-runner-system/actions-runner-controller/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+  dependsOn:
+    - name: rook-ceph-rook-ceph-cluster
+    - name: networking-system-cert-manager
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: actions-runner-system-actions-runner-controller-webhook
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/actions-runner-system/actions-runner-controller/webhook
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+  dependsOn:
+    - name: actions-runner-system-actions-runner-controller
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: actions-runner-system-actions-runner-controller-runners
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/actions-runner-system/actions-runner-controller/runners
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+  dependsOn:
+    - name: actions-runner-system-actions-runner-controller

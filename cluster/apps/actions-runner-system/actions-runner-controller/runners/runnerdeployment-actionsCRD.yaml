@@ -1,0 +1,20 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: home-cluster
+spec:
+  template:
+    spec:
+      image: ghcr.io/actions/actions-runner-controller/actions-runner-dind:ubuntu-22.04
+      imagePullPolicy: Always
+      dockerdWithinRunnerContainer: true
+      ephemeral: true
+      repository: budimanjojo/home-cluster
+      labels: ["self-hosted"]
+      volumeMounts:
+        - name: cache-volume
+          mountPath: /cache
+      volumes:
+        - name: cache-volume
+          persistentVolumeClaim:
+            claimName: actions-runner-controller-cache
