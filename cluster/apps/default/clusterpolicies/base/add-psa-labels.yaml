@@ -26,6 +26,7 @@ spec:
               kinds:
                 - Namespace
               names:
+                - actions-runner-system
                 - default
                 - nfd-system
                 - rook-ceph
