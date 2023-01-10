@@ -13,7 +13,7 @@ spec:
       middlewares:
         - name: arc-webhook
       services:
-        - name: actions-runner-controller
+        - name: actions-runner-controller-webhook
           port: 80
           namespace: actions-runner-system
   tls: {}
