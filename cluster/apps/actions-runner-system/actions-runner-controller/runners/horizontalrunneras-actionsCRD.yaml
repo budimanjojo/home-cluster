@@ -8,7 +8,7 @@ spec:
   scaleTargetRef:
     kind: RunnerDeployment
     name: *name
-  scaleUpTrigger:
+  scaleUpTriggers:
     - githubEvent:
         checkRun:
           types: ["created"]
