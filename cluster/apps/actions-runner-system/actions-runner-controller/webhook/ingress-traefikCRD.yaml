@@ -15,5 +15,5 @@ spec:
       services:
         - name: actions-runner-controller
           port: 80
-          namespace: actions-system
+          namespace: actions-runner-system
   tls: {}
