@@ -42,18 +42,50 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v4
+      - name: Setup crd-extractor
+        uses: robinraju/release-downloader@768b85c8d69164800db5fc00337ab917daf3ce68
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          repository: datreeio/CRDs-catalog
+          latest: true
+          fileName: crd-extractor.zip
+      - name: Extract crd-extractor
+        run: |
+          unzip -j $GITHUB_WORKSPACE/crd-extractor.zip -d $GITHUB_WORKSPACE
+      - name: Write kubeconfig
+        id: kubeconfig
+        uses: timheuer/base64-to-file@48657ba25c726c2e3dcf02efa3639fff9b3d587e
+        with:
+          encodedString: ${{ secrets.KUBECONFIG }}
+          fileName: kubeconfig
+      - name: Run crd-extractor
+        env:
+          KUBECONFIG: ${{ steps.kubeconfig.outputs.filePath }}
+        run: |
+          bash $GITHUB_WORKSPACE/crd-extractor.sh
+      - name: Publish schema as OCI
+        run: |
+          flux push artifact oci://ghcr.io/onedr0p/kubernetes-schemas-oci:latest \
+            --path="/home/runner/.datree/crdSchemas" \
+            --source="${{ github.repositoryUrl }}" \
+            --revision="main"
+      - name: Write nginx-unprivileged Dockerfile
+        run: |
+          cat <<EOF > /home/runner/.datree/crdSchemas/Dockerfile
+          FROM docker.io/nginxinc/nginx-unprivileged:latest
+          COPY --chown=nginx:nginx --chhmod=755 . /usr/share/nginx/html
+          USER nginx
+          EOF
+      - name: Publish schemas as web container
+        uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5
+        with:
+          context: /home/runner/.datree/crdSchemas
+          platform: linux/amd64,linux/arm64
+          file: /home/runner/.datree/crdSchemas/Dockerfile
+          push: true
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
-            type=semver,pattern={{raw}}
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+            ${{ env.IMAGE_REGISTRY }}/${{ github.repository_owner }}/kubernetes-schemas-web:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels:
+            org.opencontainers.image.source="https://github.com/budimanjojo/home-cluster"
+            org.opencontainers.image.authors="Budiman JOJO <budimanjojo@gmail.com>"
