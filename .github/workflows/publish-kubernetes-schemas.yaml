@@ -43,7 +43,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup crd-extractor
-        uses: robinraju/release-downloader@768b85c8d69164800db5fc00337ab917daf3ce68
+        uses: robinraju/release-downloader@1c22217529f5c649f36ce1b61b5f2775b34408a8
         with:
           repository: datreeio/CRDs-catalog
           latest: true
