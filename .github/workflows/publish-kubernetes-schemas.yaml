@@ -53,7 +53,7 @@ jobs:
           unzip -j $GITHUB_WORKSPACE/crd-extractor.zip -d $GITHUB_WORKSPACE
       - name: Write kubeconfig
         id: kubeconfig
-        uses: timheuer/base64-to-file@48657ba25c726c2e3dcf02efa3639fff9b3d587e
+        uses: timheuer/base64-to-file@64eeb40ad3514f57de3a7dee92aee10fd42452c1
         with:
           encodedString: ${{ secrets.KUBECONFIG }}
           fileName: kubeconfig
