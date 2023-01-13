@@ -78,7 +78,7 @@ jobs:
         run: |
           cat <<EOF > /home/runner/.datree/crdSchemas/Dockerfile
           FROM docker.io/nginxinc/nginx-unprivileged:latest
-          COPY --chown=nginx:nginx --chhmod=755 . /usr/share/nginx/html
+          COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
           USER nginx
           EOF
       - name: Publish schemas as web container
