@@ -30,7 +30,9 @@ jobs:
         with:
           python-version: "3.11"
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@e81a89b1732b9c48d79cd809d8d81d79c4647a18
+        run: |
+          sudo apt update
+          sudo apt-get install -y qemu qemu-user-static
       - name: Set up Docker context for Buildx
         id: buildx-context
         run: |
