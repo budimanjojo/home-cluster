@@ -7,8 +7,12 @@ spec:
     spec:
       image: ghcr.io/actions/actions-runner-controller/actions-runner-dind:ubuntu-22.04
       imagePullPolicy: Always
-      dockerdWithinRunnerContainer: true
+      dockerdWithinRunnerContainer: false
       ephemeral: true
+      # TODO: Wait until this is in the image https://github.com/moby/moby/pull/42911
+      containers:
+        - name: docker
+          image: docker:23.0.0-beta.1-dind
       repository: budimanjojo/home-cluster
       labels: ["self-hosted"]
       volumeMounts:
