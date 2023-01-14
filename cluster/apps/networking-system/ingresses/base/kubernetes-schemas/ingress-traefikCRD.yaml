@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`schemas.${SECRET_DOMAIN_2}`)
+      match: Host(`schemas.${SECRET_DOMAIN_1}`)
       middlewares:
         - name: secure-headers
       services:
@@ -17,4 +17,4 @@ spec:
           port: 8080
           namespace: default
   tls:
-    secretName: ${SECRET_DOMAIN_2//./-}-prod-tls
+    secretName: ${SECRET_DOMAIN_1//./-}-prod-tls
