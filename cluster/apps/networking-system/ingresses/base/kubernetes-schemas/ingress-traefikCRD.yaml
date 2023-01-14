@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name lidarr
+  name: &name kubernetes-schemas
   labels:
     app.kubernetes.io/name: *name
 spec:
@@ -9,13 +9,12 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`music.${SECRET_DOMAIN_0}`)
+      match: Host(`schemas.${SECRET_DOMAIN_2}`)
       middlewares:
         - name: secure-headers
-        - name: authelia
       services:
         - name: *name
-          port: 8686
+          port: 8080
           namespace: default
   tls:
-    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+    secretName: ${SECRET_DOMAIN_2//./-}-prod-tls
