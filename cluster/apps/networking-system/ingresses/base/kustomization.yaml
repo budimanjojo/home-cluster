@@ -13,6 +13,7 @@ resources:
   - ./jellyfin
   - ./kopia
   - ./kube-prometheus-stack
+  - ./kubernetes-schemas
   - ./lidarr
   - ./lldap
   - ./minio
