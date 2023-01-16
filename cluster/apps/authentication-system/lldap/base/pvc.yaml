@@ -4,7 +4,6 @@ metadata:
   name: lldap-config
   labels:
     app.kubernetes.io/name: lldap
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

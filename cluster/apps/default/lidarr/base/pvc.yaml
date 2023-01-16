@@ -4,7 +4,6 @@ metadata:
   name: lidarr-config
   labels:
     app.kubernetes.io/name: lidarr
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

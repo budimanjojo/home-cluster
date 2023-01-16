@@ -4,7 +4,6 @@ metadata:
   name: redis-data-redis-0
   labels:
     app.kubernetes.io/name: redis
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

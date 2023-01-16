@@ -4,7 +4,6 @@ metadata:
   name: firefly-iii-data
   labels:
     app.kubernetes.io/name: firefly-iii
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

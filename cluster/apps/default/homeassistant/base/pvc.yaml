@@ -4,7 +4,6 @@ metadata:
   name: homeassistant-config
   labels:
     app.kubernetes.io/name: homeassistant
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

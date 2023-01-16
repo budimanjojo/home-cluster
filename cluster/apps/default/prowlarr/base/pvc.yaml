@@ -4,7 +4,6 @@ metadata:
   name: prowlarr-config
   labels:
     app.kubernetes.io/name: prowlarr
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

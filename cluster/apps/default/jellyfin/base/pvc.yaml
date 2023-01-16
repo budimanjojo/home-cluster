@@ -4,7 +4,6 @@ metadata:
   name: jellyfin-config
   labels:
     app.kubernetes.io/name: jellyfin
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

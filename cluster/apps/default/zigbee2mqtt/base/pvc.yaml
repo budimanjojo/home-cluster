@@ -4,7 +4,6 @@ metadata:
   name: zigbee2mqtt-config
   labels:
     app.kubernetes.io/name: zigbee2mqtt
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce

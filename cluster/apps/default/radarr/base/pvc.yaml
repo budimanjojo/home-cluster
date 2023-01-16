@@ -4,7 +4,6 @@ metadata:
   name: radarr-config
   labels:
     app.kubernetes.io/name: radarr
-    snapshot.home.cluster/enabled: "true"
 spec:
   accessModes:
     - ReadWriteOnce
