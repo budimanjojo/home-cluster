@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: ghcr.io/actions-runner-controller/actions-runner-controller
-      tag: v0.26.0
+      tag: v0.27.0
     authSecret:
       create: false
       name: &secret actions-runner-controller-secret
