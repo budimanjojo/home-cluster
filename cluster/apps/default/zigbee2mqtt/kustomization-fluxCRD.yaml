@@ -13,3 +13,4 @@ spec:
   wait: true
   dependsOn:
     - name: rook-ceph-rook-ceph-operator
+    - name: backup-system-volsync

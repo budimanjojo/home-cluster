@@ -1,0 +1,17 @@
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: transmission
+spec:
+  sourcePVC: transmission-config
+  trigger:
+    schedule: 0 0 * * *
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: transmission-restic-secret
+    volumeSnapshotClassName: rook-ceph-block
+    storageClassName: rook-ceph-block
+    retain:
+      daily: 10
+      within: 3d

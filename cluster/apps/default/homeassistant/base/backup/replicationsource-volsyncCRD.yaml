@@ -1,0 +1,17 @@
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: homeassistant
+spec:
+  sourcePVC: homeassistant-config
+  trigger:
+    schedule: 0 0 * * *
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: homeassistant-restic-secret
+    volumeSnapshotClassName: rook-ceph-block
+    storageClassName: rook-ceph-block
+    retain:
+      daily: 10
+      within: 3d
