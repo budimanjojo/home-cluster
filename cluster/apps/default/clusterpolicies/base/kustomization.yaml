@@ -6,5 +6,4 @@ resources:
   - ./add-psa-labels.yaml
   - ./delete-cpu-limits.yaml
   - ./inject-timezone.yaml
-  - ./snapshot-cronjob.yaml
   - ./sync-authelia-db-secret.yaml
