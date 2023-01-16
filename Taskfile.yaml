@@ -5,7 +5,7 @@ vars:
     sh: git rev-parse --show-toplevel
 
 includes:
-  snapshot: .taskfiles/SnapshotTasks.yaml
+  vs: .taskfiles/VolSync/Tasks.yaml
 
 tasks:
   rook-ceph-toolbox:
