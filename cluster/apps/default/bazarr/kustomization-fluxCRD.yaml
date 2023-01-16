@@ -14,3 +14,4 @@ spec:
   dependsOn:
     - name: nfs-system-nfs-provisioner
     - name: rook-ceph-rook-ceph-operator
+    - name: backup-system-volsync
