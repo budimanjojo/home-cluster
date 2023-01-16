@@ -11,7 +11,6 @@ resources:
   - ./grafana
   - ./homeassistant
   - ./jellyfin
-  - ./kopia
   - ./kube-prometheus-stack
   - ./kubernetes-schemas
   - ./lidarr
