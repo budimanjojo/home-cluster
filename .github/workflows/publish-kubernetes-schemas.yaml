@@ -24,7 +24,7 @@ jobs:
           setup-tools: |
             kubectl
       - name: Setup Flux
-        uses: fluxcd/flux2/action@c479eb80c6707a77b8e34665028a6e0e8264d616
+        uses: fluxcd/flux2/action@9c3750613014b4b499675b231f7b08103ac5e8d1
       - name: Setup Python
         uses: actions/setup-python@f60fe39c45f23b4a7683b4ae8e08239d4a2089bd
         with:
