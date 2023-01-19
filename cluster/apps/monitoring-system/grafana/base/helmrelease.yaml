@@ -36,6 +36,7 @@ spec:
             type: Prometheus
             isDefault: true
             url: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
+            access: proxy
     resources:
       requests:
         cpu: 10m
