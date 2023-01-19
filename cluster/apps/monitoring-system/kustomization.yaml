@@ -6,3 +6,4 @@ resources:
   - ./gatus/kustomization-fluxCRD.yaml
   - ./grafana/kustomization-fluxCRD.yaml
   - ./kube-prometheus-stack/kustomization-fluxCRD.yaml
+  - ./miscellaneous/kustomization-fluxCRD.yaml
