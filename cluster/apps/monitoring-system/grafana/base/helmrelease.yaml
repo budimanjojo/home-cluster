@@ -28,6 +28,14 @@ spec:
     service:
       portName: http
       port: 3000
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: Prometheus
+            isDefault: true
+            url: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
     resources:
       requests:
         cpu: 10m
