@@ -50,6 +50,11 @@ spec:
     sidecar:
       dashboards:
         enabled: true
+        labelValue: ""
+        searchNamespace: ALL
+      datasources:
+        enabled: true
+        labelValue: ""
         searchNamespace: ALL
     plugins:
       - grafana-piechart-panel
