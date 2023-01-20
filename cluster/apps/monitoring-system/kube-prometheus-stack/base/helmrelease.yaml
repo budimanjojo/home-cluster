@@ -23,6 +23,12 @@ spec:
     remediation:
       retries: 5
   values:
+    prometheus:
+      prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
     alertmanager:
       config:
         global:
