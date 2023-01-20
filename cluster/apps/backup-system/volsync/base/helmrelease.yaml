@@ -22,3 +22,5 @@ spec:
       retries: 5
   values:
     manageCRDs: true
+    metrics:
+      disableAuth: true
