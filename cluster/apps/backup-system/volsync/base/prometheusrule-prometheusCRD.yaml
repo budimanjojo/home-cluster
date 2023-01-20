@@ -10,7 +10,7 @@ spec:
           annotations:
             summary: Volsync component has dissapeared from Prometheus target discovery.
           expr: |
-            absent(up{job=".*volsync.*"} == 1)
+            absent(up{job=~".*volsync.*"} == 1)
           for: 15m
           labels:
             severity: critical
