@@ -37,6 +37,18 @@ spec:
           api:
             enabled: true
             port: 9000
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: api
+            scheme: http
+            path: /minio/v2/metrics/cluster
+            interval: 1m
+            scrapeTimeout: 10s
+            bearerTokenSecret:
+              name: minio-secret
+              key: MINIO_PROMETHEUS_TOKEN
     args:
       - server
       - /data
@@ -51,6 +63,8 @@ spec:
       MINIO_UPDATE: "off"
       MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_0}
       MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN_0}
+      MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
+      MINIO_PROMETHEUS_JOB_ID: minio
     envFrom:
       - secretRef:
           name: minio-secret
