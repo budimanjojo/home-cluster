@@ -67,6 +67,9 @@ spec:
             - match:
                 severity: critical
               receiver: discord
+            - match:
+                alertname: CephNodeNetworkPacketDrops
+              receiver: "null"
     alertmanagerSpec:
       replicas: 1
     grafana:
