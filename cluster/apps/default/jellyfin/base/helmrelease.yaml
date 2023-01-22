@@ -25,7 +25,7 @@ spec:
       nameOverride: *app
     image:
       repository: jellyfin/jellyfin
-      tag: 10.8.8
+      tag: 10.8.9
     service:
       main:
         ports:
