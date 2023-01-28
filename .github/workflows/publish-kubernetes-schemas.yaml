@@ -39,7 +39,7 @@ jobs:
           docker context create builder
       - name: Setup Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@5e716dcfd653738c2d1db099bfba194a84158be4
+        uses: docker/setup-buildx-action@0648fd6fd6801dcae14b6299cc1b23187d3cb797
         with:
           endpoint: builder
       - name: Login to GitHub Container Registry
