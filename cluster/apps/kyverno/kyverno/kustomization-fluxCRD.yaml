@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
   interval: 30m
-  prune: false
+  prune: true
   wait: true
   dependsOn:
     - name: monitoring-system-kube-prometheus-stack
