@@ -82,7 +82,7 @@ jobs:
           USER nginx
           EOF
       - name: Publish schemas as web container
-        uses: docker/build-push-action@37abcedcc1da61a57767b7588cb9d03eb57e28b3
+        uses: docker/build-push-action@55a34859132125dc0090064b58371f30aa53395a
         with:
           context: /home/runner/.datree/crdSchemas
           platforms: linux/amd64,linux/arm64
