@@ -13,20 +13,3 @@ spec:
   wait: true
   dependsOn:
     - name: networking-system-certificates
-
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: networking-system-traefik-servicemonitors
-  namespace: flux-system
-spec:
-  path: ./cluster/apps/networking-system/traefik/servicemonitors
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  interval: 30m
-  prune: true
-  wait: true
-  dependsOn:
-    - name: monitoring-system-kube-prometheus-stack

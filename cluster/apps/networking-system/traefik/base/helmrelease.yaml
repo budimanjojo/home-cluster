@@ -65,6 +65,10 @@ spec:
     metrics:
       prometheus:
         entryPoint: metrics
+        service:
+          enabled: true
+        serviceMonitor:
+          namespace: networking-system
     experimental:
       http3:
         enabled: true
