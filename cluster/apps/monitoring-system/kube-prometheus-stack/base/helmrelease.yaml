@@ -53,6 +53,21 @@ spec:
           - name: discord
             discord_configs:
               - webhook_url: ${SECRET_DISCORD_PROMETHEUS_WH_URL}
+                title: |-
+                  [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
+                message: |-
+                  {{- range .Alerts }}
+                    **[{{ .Status }}] {{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | toUpper }}){{ end }} **
+                    {{- if ne .Annotations.description "" }}
+                      **Description:** {{ .Annotations.description }}
+                    {{- else if ne .Annotations.summary "" }}
+                      **Summary:** {{ .Annotations.summary }}
+                    {{- else if ne .Annotations.message "" }}
+                      **Message:** {{ .Annotations.message }}
+                    {{- else }}
+                      **Description:** N/A
+                    {{- end }}
+                  {{- end }}
         route:
           group_by:
             - namespace
