@@ -51,8 +51,8 @@ spec:
         receivers:
           - name: "null"
           - name: discord
-            webhook_configs:
-              - url: http://alertmanager-discord:9094
+            discord_configs:
+              webhook_url: ${SECRET_DISCORD_PROMETHEUS_WH_URL}
         route:
           group_by:
             - namespace
