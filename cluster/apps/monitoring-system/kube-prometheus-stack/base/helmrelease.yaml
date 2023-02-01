@@ -52,7 +52,7 @@ spec:
           - name: "null"
           - name: discord
             discord_configs:
-              webhook_url: ${SECRET_DISCORD_PROMETHEUS_WH_URL}
+              - webhook_url: ${SECRET_DISCORD_PROMETHEUS_WH_URL}
         route:
           group_by:
             - namespace
