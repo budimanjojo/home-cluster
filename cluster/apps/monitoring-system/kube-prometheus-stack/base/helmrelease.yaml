@@ -57,7 +57,7 @@ spec:
                   [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
                 message: |-
                   {{- range .Alerts }}
-                    **[{{ .Status }}] {{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | toUpper }}){{ end }} **
+                    **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
                     {{- if ne .Annotations.description "" }}
                       **Description:** {{ .Annotations.description }}
                     {{- else if ne .Annotations.summary "" }}
