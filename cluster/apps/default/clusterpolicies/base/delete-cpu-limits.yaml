@@ -41,5 +41,5 @@ spec:
                 op: remove
           - list: "request.object.spec.initContainers"
             patchesJson6902: |-
-              - path: /spec/containers/{{elementIndex}}/resources/limits/cpu
+              - path: /spec/initContainers/{{elementIndex}}/resources/limits/cpu
                 op: remove
