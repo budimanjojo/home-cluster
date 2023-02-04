@@ -34,15 +34,12 @@ spec:
                 matchLabels:
                   statefulset.kubernetes.io/pod-name: "*"
       mutate:
-        patchStrategicMerge:
-          spec:
-            initContainers:
-              - (name): "*"
-                resources:
-                  limits:
-                    cpu: null
-            containers:
-              - (name): "*"
-                resources:
-                  limits:
-                    cpu: null
+        foreach:
+          - list: "request.object.spec.containers"
+            patchesJson6902: |-
+              - path: /spec/containers/{{elementIndex}}/resources/limits/cpu
+                op: remove
+          - list: "request.object.spec.initContainers"
+            patchesJson6902: |-
+              - path: /spec/containers/{{elementIndex}}/resources/limits/cpu
+                op: remove
