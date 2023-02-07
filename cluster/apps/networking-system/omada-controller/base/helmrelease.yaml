@@ -57,6 +57,21 @@ spec:
             port: 29810
             targetPort: 29810
             protocol: UDP
+          old-eap-mgmt:
+            enabled: true
+            port: 29811
+            targetPort: 29811
+            protocol: UDP
+          old-eap-adopt:
+            enabled: true
+            port: 29812
+            targetPort: 29812
+            protocol: UDP
+          old-eap-upgrade:
+            enabled: true
+            port: 29813
+            targetPort: 29813
+            protocol: UDP
           eap-adopt:
             enabled: true
             port: 29814
