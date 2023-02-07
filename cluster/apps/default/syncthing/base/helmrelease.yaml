@@ -25,7 +25,7 @@ spec:
       nameOverride: *app
     image:
       repository: syncthing/syncthing
-      tag: 1.23.0
+      tag: 1.23.1
     service:
       main:
         ports:
