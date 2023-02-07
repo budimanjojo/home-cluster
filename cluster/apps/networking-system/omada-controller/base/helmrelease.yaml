@@ -32,6 +32,9 @@ spec:
         enabled: true
         type: LoadBalancer
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: |-
+            "${CONFIG_OMADA_CONTROLLER_IP}"
         ports:
           http:
             enabled: false
