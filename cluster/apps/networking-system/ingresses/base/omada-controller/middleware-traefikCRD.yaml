@@ -23,4 +23,4 @@ spec:
   redirectRegex:
     permanent: true
     regex: "^https:\\/\\/([^\\/]+)\\/?$"
-    replacement: "https://omada.${SECRET_DOMAIN_0}/#{SECRET_OMADA_CONTROLLER_ID}/login"
+    replacement: "https://omada.${SECRET_DOMAIN_0}/${SECRET_OMADA_CONTROLLER_ID}/login"
