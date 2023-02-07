@@ -1,9 +1,8 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: networking-system
 resources:
-  - ./endpoints.yaml
   - ./ingress-traefikCRD.yaml
   - ./middleware-traefikCRD.yaml
   - ./serverstransport-traefikCRD.yaml
-  - ./service.yaml

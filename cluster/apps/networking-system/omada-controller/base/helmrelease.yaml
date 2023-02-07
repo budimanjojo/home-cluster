@@ -1,0 +1,81 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app omada-controller
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: mbentley/omada-controller
+      tag: "5.8"
+    service:
+      main:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            enabled: false
+          mgmt-8088-tcp:
+            enabled: true
+            port: 8088
+            targetPort: 8088
+            protocol: TCP
+          mgmt-8043-tcp:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
+          portal-8843-tcp:
+            enabled: true
+            port: 8843
+            targetPort: 8843
+            protocol: TCP
+          eap-discovery:
+            enabled: true
+            port: 29810
+            targetPort: 29810
+            protocol: UDP
+          eap-adopt:
+            enabled: true
+            port: 29814
+            targetPort: 29814
+            protocol: UDP
+          init-check:
+            enabled: true
+            port: 27001
+            targetPort: 27001
+            protocol: UDP
+          db-access:
+            enabled: true
+            port: 27217
+            targetPort: 27217
+            protocol: TCP
+    persistence:
+      data:
+        enabled: true
+        existingClaim: omada-controller-data
+        mountPath: /opt/tplink/EAPController/data
+      logs:
+        enabled: true
+        type: emptyDir
+        mountPath: /opt/tplink/EAPController/logs

@@ -35,23 +35,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-system-external-omada
-  namespace: flux-system
-spec:
-  path: ./cluster/apps/networking-system/external/omada
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  interval: 30m
-  prune: true
-  wait: true
-  dependsOn:
-    - name: networking-system-traefik
-
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
   name: networking-system-external-omv
   namespace: flux-system
 spec:

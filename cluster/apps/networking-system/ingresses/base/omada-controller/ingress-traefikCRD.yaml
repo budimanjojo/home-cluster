@@ -1,3 +1,4 @@
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -6,18 +7,17 @@ metadata:
     app.kubernetes.io/name: *name
 spec:
   entryPoints:
-    - websecure
+    - https
   routes:
     - kind: Rule
       match: Host(`omada.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: omada-controller-headers
         - name: omada-controller-redirect
-        - name: local-only
       services:
-        - name: omada-controller
+        - name: *name
           port: 8043
-          namespace: networking-system
+          namespace: default
           scheme: https
           serversTransport: omada-controller
   tls:
