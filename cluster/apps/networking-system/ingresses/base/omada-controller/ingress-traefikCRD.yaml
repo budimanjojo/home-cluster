@@ -14,10 +14,11 @@ spec:
       middlewares:
         - name: omada-controller-headers
         - name: omada-controller-redirect
+        - name: local-only
       services:
         - name: *name
           port: 8043
-          namespace: default
+          namespace: networking-system
           scheme: https
           serversTransport: omada-controller
   tls:
