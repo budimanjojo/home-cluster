@@ -13,7 +13,7 @@ spec:
   mutateExistingOnPolicyUpdate: true
   generateExistingOnPolicyUpdate: true
   rules:
-    - name: delete-cpu-limits
+    - name: delete-containers-cpu-limits
       match:
         any:
           - resources:
@@ -39,6 +39,33 @@ spec:
             patchesJson6902: |-
               - path: /spec/containers/{{elementIndex}}/resources/limits/cpu
                 op: remove
+    - name: delete-initcontainers-cpu-limits
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              selector:
+                matchLabels:
+                  job-name: "*"
+          - resources:
+              kinds:
+                - Pod
+              selector:
+                matchLabels:
+                  statefulset.kubernetes.io/pod-name: "*"
+      preconditions:
+        all:
+          - key: "{{ request.object.spec.initContainers[] || `[]` | length(@) }}"
+            operator: GreaterThanOrEquals
+            value: 1
+      mutate:
+        foreach:
           - list: "request.object.spec.initContainers"
             patchesJson6902: |-
               - path: /spec/initContainers/{{elementIndex}}/resources/limits/cpu
