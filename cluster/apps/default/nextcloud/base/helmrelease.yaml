@@ -46,7 +46,7 @@ spec:
               key: redis-password
       extraInitContainers:
         - name: wait-database
-          image: alpine:3.17.1
+          image: alpine:3.17.2
           imagePullPolicy: IfNotPresent
           command:
             - sh
@@ -60,7 +60,7 @@ spec:
             - name: POSTGRES_HOST
               value: pgo-cluster-primary.default.svc
         - name: wait-redis
-          image: alpine:3.17.1
+          image: alpine:3.17.2
           imagePullPolicy: IfNotPresent
           command:
             - sh
