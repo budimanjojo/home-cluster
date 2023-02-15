@@ -25,7 +25,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/home-assistant
-      tag: 2023.2.4
+      tag: 2023.2.5
     service:
       main:
         ports:
