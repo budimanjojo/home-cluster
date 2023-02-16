@@ -1,13 +1,15 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/horizontalrunnerautoscaler_v1alpha1.json
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
 metadata:
-  name: &name home-cluster
+  name: home-cluster
 spec:
-  minReplicas: 1
-  maxReplicas: 3
   scaleTargetRef:
     kind: RunnerDeployment
-    name: *name
+    name: home-cluster
+  minReplicas: 1
+  maxReplicas: 3
   scaleUpTriggers:
     - githubEvent:
         checkRun:
