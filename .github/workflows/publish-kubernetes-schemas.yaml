@@ -19,7 +19,7 @@ jobs:
     runs-on: ["self-hosted"]
     steps:
       - name: Setup Kube tools
-        uses: yokawasa/action-setup-kube-tools@b91bb02bc122bd84ac7bbea5f25ed6b0f2ec6275
+        uses: yokawasa/action-setup-kube-tools@7aa068412801314407ad0f7162b7dae34740e26d
         with:
           setup-tools: |
             kubectl
