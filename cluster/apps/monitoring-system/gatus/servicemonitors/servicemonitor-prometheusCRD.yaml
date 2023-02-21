@@ -1,12 +1,15 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/servicemonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: &name gatus
-  labels: &labels
-    app.kubernetes.io/name: *name
+  name: gatus
+  labels:
+    app.kubernetes.io/name: gatus
 spec:
   selector:
-    matchLabels: *labels
+    matchLabels:
+      app.kubernetes.io/name: gatus
   namespaceSelector:
     matchNames:
       - monitoring-system
