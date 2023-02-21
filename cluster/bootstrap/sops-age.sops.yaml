@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/secret-v1.json
 apiVersion: v1
 kind: Secret
 metadata:
@@ -20,8 +21,8 @@ sops:
             bFRQNzNkdGNpRHJFRi91NDMyUURBa3cK6jE+OsYZlePH3/C1BtuW7j5hqC3D/kIs
             xeCkyyueOXRc8tgho0uxaSBu5i2+/InCuE1MwODUngqDAkcCEWLX1A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-11-09T09:17:21Z"
-    mac: ENC[AES256_GCM,data:3r2qw3PAIAJNeu79AwMnupyQlDg2E6MzkPPpJatEvrBELwM9AOyBsTMdCqEwDe2CenKWKFdEXFE9G9ostG+lT3x0qnPCmqvsnvLYv+FbCfVWIN71jkBZH7OFrViIaFkKYwuVHGQZ6haW2CNkugJSLqJfkhNHynsx59DyW98bzEM=,iv:z+kD15WlJvNwIZEXyhFnzKUTdbK9kI5wgJM0XYZf2Y4=,tag:Tz83kF6p3f4rv01Yz9gfdg==,type:str]
+    lastmodified: "2023-02-21T06:52:14Z"
+    mac: ENC[AES256_GCM,data:gBZZI10NrtOj4Tf5iaseePoqbkCbyO0PIuNK3GkeTJgANQaPvhZB0JfCl3flkr3hBH0zXSQpRu5UEUdY0cV5oW4abtnUb66+0yZmMQGxm9mxsE7B9T9M7kvxGiFMYtHQQFDypeuguilY3bPdfW5vjpZJ3j4JSiyp0Khdex/xeIc=,iv:nydasQGrFZ2xIl+itWT4Vrt7Mkctxg4j4fzNO90pZ/s=,tag:Gm2PRvf9yG1IVLOubd+4Qw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|caBundle)$
     version: 3.7.3
