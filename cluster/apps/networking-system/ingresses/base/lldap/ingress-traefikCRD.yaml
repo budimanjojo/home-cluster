@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name lldap
+  name: lldap
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: lldap
 spec:
   entryPoints:
     - websecure
@@ -11,7 +13,7 @@ spec:
     - kind: Rule
       match: Host(`ldap.${SECRET_DOMAIN_0}`)
       services:
-        - name: *name
+        - name: lldap
           port: 17170
           namespace: authentication-system
   tls:

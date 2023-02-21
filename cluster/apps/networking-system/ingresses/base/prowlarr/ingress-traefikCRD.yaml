@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name prowlarr
+  name: prowlarr
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: prowlarr
 spec:
   entryPoints:
     - websecure
@@ -14,7 +16,7 @@ spec:
         - name: secure-headers
         - name: authelia
       services:
-        - name: *name
+        - name: prowlarr
           port: 9696
           namespace: default
   tls:

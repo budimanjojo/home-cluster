@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name authelia
+  name: authelia
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: authelia
 spec:
   entryPoints:
     - websecure
@@ -11,7 +13,7 @@ spec:
     - kind: Rule
       match: Host(`auth.${SECRET_DOMAIN_0}`)
       services:
-        - name: *name
+        - name: authelia
           port: 9091
           namespace: authentication-system
   tls:

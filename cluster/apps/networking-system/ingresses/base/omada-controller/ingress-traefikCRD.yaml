@@ -1,10 +1,11 @@
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name omada-controller
+  name: omada-controller
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: omada-controller
 spec:
   entryPoints:
     - websecure
@@ -16,7 +17,7 @@ spec:
         - name: omada-controller-redirect
         - name: local-only
       services:
-        - name: *name
+        - name: omada-controller
           port: 8043
           namespace: networking-system
           scheme: https

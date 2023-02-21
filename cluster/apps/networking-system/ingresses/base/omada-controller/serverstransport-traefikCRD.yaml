@@ -1,8 +1,10 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/serverstransport_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: ServersTransport
 metadata:
-  name: &name omada-controller
+  name: omada-controller
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: omada-controller
 spec:
   insecureSkipVerify: true

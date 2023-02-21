@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/middleware_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
@@ -12,6 +14,7 @@ spec:
       - 192.168.200.0/24
 
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/middleware_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
@@ -30,6 +33,7 @@ spec:
     browserXssFilter: true
 
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/middleware_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:

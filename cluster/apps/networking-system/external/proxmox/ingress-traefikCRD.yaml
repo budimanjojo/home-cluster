@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name proxmox
+  name: proxmox
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: proxmox
 spec:
   entryPoints:
     - websecure
@@ -14,7 +16,7 @@ spec:
         - name: secure-headers
         - name: local-only
       services:
-        - name: *name
+        - name: proxmox
           port: 8006
           namespace: networking-system
           serversTransport: proxmox
@@ -22,7 +24,7 @@ spec:
     secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
 
 ---
-
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/serverstransport_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: ServersTransport
 metadata:

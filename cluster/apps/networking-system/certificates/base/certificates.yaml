@@ -1,3 +1,5 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -15,7 +17,7 @@ spec:
     - "*.${SECRET_DOMAIN_0}"
 
 ---
-
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -32,7 +34,7 @@ spec:
     - "*.${SECRET_DOMAIN_1}"
 
 ---
-
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:

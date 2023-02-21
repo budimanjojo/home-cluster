@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name nextcloud
+  name: nextcloud
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: nextcloud
 spec:
   entryPoints:
     - websecure
@@ -15,7 +17,7 @@ spec:
         - name: nextcloud-redirect-1
         - name: nextcloud-redirect-2
       services:
-        - name: *name
+        - name: nextcloud
           port: 8080
           namespace: default
   tls:

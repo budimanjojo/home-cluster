@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name kubernetes-schemas
+  name: kubernetes-schemas
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: kubernetes-schemas
 spec:
   entryPoints:
     - websecure
@@ -13,7 +15,7 @@ spec:
       middlewares:
         - name: secure-headers
       services:
-        - name: *name
+        - name: kubernetes-schemas
           port: 8080
           namespace: default
   tls:

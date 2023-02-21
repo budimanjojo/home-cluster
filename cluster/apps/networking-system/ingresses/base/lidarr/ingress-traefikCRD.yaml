@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name lidarr
+  name: lidarr
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: lidarr
 spec:
   entryPoints:
     - websecure
@@ -14,7 +16,7 @@ spec:
         - name: secure-headers
         - name: authelia
       services:
-        - name: *name
+        - name: lidarr
           port: 8686
           namespace: default
   tls:

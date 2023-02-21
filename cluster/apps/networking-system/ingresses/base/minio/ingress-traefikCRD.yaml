@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name minio
+  name: minio
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: minio
 spec:
   entryPoints:
     - websecure
@@ -13,13 +15,14 @@ spec:
       middlewares:
         - name: secure-headers
       services:
-        - name: *name
+        - name: minio
           port: 9001
           namespace: default
   tls:
     secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
 
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:

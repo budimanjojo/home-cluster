@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name opnsense
+  name: opnsense
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: opnsense
 spec:
   entryPoints:
     - websecure
@@ -14,7 +16,7 @@ spec:
         - name: secure-headers
         - name: local-only
       services:
-        - name: *name
+        - name: opnsense
           port: 80
           namespace: networking-system
   tls:

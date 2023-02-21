@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name radicale
+  name: radicale
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: radicale
 spec:
   entryPoints:
     - websecure
@@ -13,7 +15,7 @@ spec:
       middlewares:
         - name: secure-headers
       services:
-        - name: *name
+        - name: radicale
           port: 5232
           namespace: default
   tls:

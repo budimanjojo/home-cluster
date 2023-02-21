@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name syncthing
+  name: syncthing
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: syncthing
 spec:
   entryPoints:
     - websecure
@@ -14,7 +16,7 @@ spec:
         - name: secure-headers
         - name: authelia
       services:
-        - name: *name
+        - name: syncthing
           port: 8384
           namespace: default
   tls:

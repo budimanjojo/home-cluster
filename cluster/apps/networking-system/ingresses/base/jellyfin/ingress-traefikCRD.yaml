@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name jellyfin
+  name: jellyfin
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: jellyfin
 spec:
   entryPoints:
     - websecure
@@ -13,7 +15,7 @@ spec:
       middlewares:
         - name: dashboard-headers
       services:
-        - name: *name
+        - name: jellyfin
           port: 8096
           namespace: default
   tls:

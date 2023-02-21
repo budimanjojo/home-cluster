@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name fullykioskbrowser
+  name: fullykioskbrowser
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: fullykioskbrowser
 spec:
   entryPoints:
     - websecure
@@ -14,7 +16,7 @@ spec:
         - name: secure-headers
         - name: local-only
       services:
-        - name: *name
+        - name: fullykioskbrowser
           port: 2323
           namespace: networking-system
   tls:

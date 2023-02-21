@@ -1,9 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: &name ombi
+  name: ombi
   labels:
-    app.kubernetes.io/name: *name
+    app.kubernetes.io/name: ombi
 spec:
   entryPoints:
     - websecure
@@ -13,7 +15,7 @@ spec:
       middlewares:
         - name: dashboard-headers
       services:
-        - name: *name
+        - name: ombi
           port: 3579
           namespace: default
   tls:
