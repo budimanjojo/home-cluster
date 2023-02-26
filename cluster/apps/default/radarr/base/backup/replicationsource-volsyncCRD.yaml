@@ -14,6 +14,10 @@ spec:
     repository: radarr-restic-secret
     volumeSnapshotClassName: rook-ceph-block
     storageClassName: rook-ceph-block
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
     retain:
       daily: 10
       within: 3d
