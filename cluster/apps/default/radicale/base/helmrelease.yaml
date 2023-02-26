@@ -48,6 +48,11 @@ spec:
 
             [storage]
             filesystem_folder = /data/collections
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       data:
         enabled: true
