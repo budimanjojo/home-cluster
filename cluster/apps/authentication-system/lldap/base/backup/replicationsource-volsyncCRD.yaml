@@ -13,6 +13,10 @@ spec:
     pruneIntervalDays: 10
     repository: lldap-restic-secret
     volumeSnapshotClassName: rook-ceph-block
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
     storageClassName: rook-ceph-block
     retain:
       daily: 10

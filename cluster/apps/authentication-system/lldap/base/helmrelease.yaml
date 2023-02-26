@@ -45,3 +45,6 @@ spec:
     envFrom:
       - secretRef:
           name: lldap-secret
+    env:
+      UID: "568"
+      GID: "568"
