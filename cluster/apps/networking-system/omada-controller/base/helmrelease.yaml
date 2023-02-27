@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: mbentley/omada-controller
-      tag: "5.8"
+      tag: "5.9"
     service:
       main:
         enabled: true
