@@ -15,7 +15,7 @@ spec:
     volumeSnapshotClassName: rook-ceph-block
     storageClassName: rook-ceph-block
     moverSecurityContext:
-      runAsUser: 0
+      runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
     retain:
