@@ -35,7 +35,7 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    pspEnable: true
+    pspEnable: false
     cephClusterSpec:
       dataDirHostPath: /var/lib/rook
       skipUpgradeChecks: false
