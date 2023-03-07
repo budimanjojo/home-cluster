@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/flaresolverr/flaresolverr
-      tag: v3.0.3
+      tag: v3.0.4
     service:
       main:
         ports:
