@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/ingressroute_v1alpha1.json
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: immich
+  labels:
+    app.kubernetes.io/name: immich
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`photos.${SECRET_DOMAIN_0}`)
+      middlewares:
+        - name: secure-headers
+        - name: immich-path-prefix
+      services:
+        - name: immich-server
+          port: 3000
+          namespace: default
+  tls:
+    secretName: ${SECRET_DOMAIN_0//./-}-prod-tls

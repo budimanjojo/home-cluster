@@ -19,6 +19,7 @@ resources:
   - ./lldap
   - ./minio
   - ./nextcloud
+  - ./immich
   - ./omada-controller
   - ./ombi
   - ./prowlarr

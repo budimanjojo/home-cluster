@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/configmap-v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-config
+  labels:
+    app.kubernetes.io/name: immich
+data:
+  DISABLE_REVERSE_GEOCODING: "true"
+  ENABLE_MAPBOX: "false"
+  LOG_LEVEL: verbose
+  MODE_ENV: production
+  REDIS_HOSTNAME: redis.default.svc.cluster.local
+  REDIS_PORT: "6379"
+  IMMICH_WEB_URL: http://immich-web.default.svc.cluster.local:3000
+  IMMICH_SERVER_URL: http://immich-server.default.svc.cluster.local:3001
+  IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.default.svc.cluster.local:3003
