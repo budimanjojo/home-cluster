@@ -10,6 +10,7 @@ spec:
   stripPrefix:
     prefixes:
       - /api
+    forceSlash: false
 
 ---
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/middleware_v1alpha1.json
