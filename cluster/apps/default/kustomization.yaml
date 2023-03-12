@@ -18,6 +18,7 @@ resources:
   - ./minio/kustomization-fluxCRD.yaml
   - ./mosquitto/kustomization-fluxCRD.yaml
   - ./nextcloud/kustomization-fluxCRD.yaml
+  - ./immich/kustomization-fluxCRD.yaml
   - ./ombi/kustomization-fluxCRD.yaml
   - ./postgrescluster/kustomization-fluxCRD.yaml
   - ./prowlarr/kustomization-fluxCRD.yaml
