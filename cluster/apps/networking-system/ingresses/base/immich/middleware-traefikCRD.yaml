@@ -3,9 +3,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: immich-path-prefix
+  name: immich-strip-prefix
   labels:
     app.kubernetes.io/name: immich
 spec:
-  addPrefix:
-    prefix: /api
+  stripPrefix:
+    prefixes:
+      - /api

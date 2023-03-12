@@ -11,7 +11,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`photos.${SECRET_DOMAIN_0}`)
+      match: Host(`photos.${SECRET_DOMAIN_0}`) && PathPrefix(`/`)
       middlewares:
         - name: secure-headers
       services:
@@ -19,9 +19,10 @@ spec:
           port: 3000
           namespace: default
     - kind: Rule
-      match: Host(`photos.${SECRET_DOMAIN_0}/api`)
+      match: Host(`photos.${SECRET_DOMAIN_0}/api`) && PathPrefix(`/api`)
       middlewares:
         - name: secure-headers
+        - name: immich-strip-prefix
       services:
         - name: immich-server
           port: 3001
