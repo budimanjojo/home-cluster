@@ -17,7 +17,7 @@ spec:
         - name: immich-path-prefix
       services:
         - name: immich-server
-          port: 3000
+          port: 3001
           namespace: default
   tls:
     secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
