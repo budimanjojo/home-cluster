@@ -10,7 +10,7 @@ data:
   DISABLE_REVERSE_GEOCODING: "true"
   ENABLE_MAPBOX: "false"
   LOG_LEVEL: verbose
-  MODE_ENV: production
+  NODE_ENV: production
   REDIS_HOSTNAME: redis.default.svc.cluster.local
   REDIS_PORT: "6379"
   IMMICH_WEB_URL: http://immich-web.default.svc.cluster.local:3000
