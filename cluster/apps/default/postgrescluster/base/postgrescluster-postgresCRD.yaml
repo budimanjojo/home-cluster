@@ -44,6 +44,9 @@ spec:
     - name: authelia
       databases:
         - authelia
+    - name: immich
+      databases:
+        - immich
   backups:
     pgbackrest:
       global:
