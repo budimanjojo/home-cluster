@@ -14,7 +14,14 @@ spec:
       match: Host(`photos.${SECRET_DOMAIN_0}`)
       middlewares:
         - name: secure-headers
-        - name: immich-path-prefix
+      services:
+        - name: immich-web
+          port: 3000
+          namespace: default
+    - kind: Rule
+      match: Host(`photos.${SECRET_DOMAIN_0}/api`)
+      middlewares:
+        - name: secure-headers
       services:
         - name: immich-server
           port: 3001
