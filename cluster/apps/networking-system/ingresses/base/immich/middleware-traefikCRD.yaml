@@ -11,16 +11,3 @@ spec:
     prefixes:
       - /api
     forceSlash: false
-
----
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/middleware_v1alpha1.json
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: immich-redirect
-  labels:
-    app.kubernetes.io/name: immich
-spec:
-  replacePathRegex:
-    regex: /api/(.*)
-    replacement: /$1

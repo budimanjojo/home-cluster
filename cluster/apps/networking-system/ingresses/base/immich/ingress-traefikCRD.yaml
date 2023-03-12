@@ -14,13 +14,12 @@ spec:
       match: Host(`photos.${SECRET_DOMAIN_0}`) && PathPrefix(`/`)
       middlewares:
         - name: secure-headers
-        - name: immich-redirect
       services:
         - name: immich-web
           port: 3000
           namespace: default
     - kind: Rule
-      match: Host(`photos.${SECRET_DOMAIN_0}/api`) && PathPrefix(`/api`)
+      match: Host(`photos.${SECRET_DOMAIN_0}`) && PathPrefix(`/api`)
       middlewares:
         - name: secure-headers
         - name: immich-strip-prefix
