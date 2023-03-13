@@ -123,3 +123,17 @@ identity_providers:
           - email
           - groups
         userinfo_signing_algorithm: none
+      - id: immich
+        description: Immich
+        secret: ${SECRET_OIDC_IMMICH_CLIENT_SECRET}
+        public: false
+        authorization_policy: two_factor
+        redirect_uris:
+          - https://photos.${SECRET_DOMAIN_0}/auth/login
+          - https://photos.${SECRET_DOMAIN_0}/user-settings
+          - app.immich://
+        scopes:
+          - openid
+          - profile
+          - email
+        userinfo_signing_algorithm: none
