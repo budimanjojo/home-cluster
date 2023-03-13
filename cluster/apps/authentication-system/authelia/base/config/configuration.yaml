@@ -10,7 +10,7 @@ server:
 log:
   level: debug
 totp:
-  disable: true
+  disable: false
 webauthn:
   disable: true
 ntp:
