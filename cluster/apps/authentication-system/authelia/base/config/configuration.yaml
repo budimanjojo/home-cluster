@@ -131,7 +131,7 @@ identity_providers:
         redirect_uris:
           - https://photos.${SECRET_DOMAIN_0}/auth/login
           - https://photos.${SECRET_DOMAIN_0}/user-settings
-          - app.immich://
+          - https://photos.${SECRET_DOMAIN_0}/api/oauth/mobile-redirect
         scopes:
           - openid
           - profile
