@@ -40,7 +40,7 @@ spec:
       data:
         enabled: true
         existingClaim: immich-data
-        mountPath: /usr/share/app/upload
+        mountPath: /usr/src/app/upload
     resources:
       requests:
         cpu: 100m
