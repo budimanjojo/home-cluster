@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: nitnelave/lldap
-      tag: v0.4.1
+      tag: v0.4.2
     service:
       main:
         ports:
