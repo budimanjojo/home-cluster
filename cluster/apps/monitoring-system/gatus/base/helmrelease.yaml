@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/twin/gatus
-      tag: v5.3.1
+      tag: v5.3.2
     service:
       main:
         ports:
