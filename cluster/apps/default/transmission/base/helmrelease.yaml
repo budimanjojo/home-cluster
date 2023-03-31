@@ -26,8 +26,8 @@ spec:
     global:
       nameOverride: *app
     image:
-      repository: ghcr.io/k8s-at-home/transmission
-      tag: v3.00
+      repository: ghcr.io/onedr0p/transmission
+      tag: "3.00"
     service:
       main:
         ports:
