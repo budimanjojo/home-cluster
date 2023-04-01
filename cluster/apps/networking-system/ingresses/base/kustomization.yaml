@@ -23,6 +23,7 @@ resources:
   - ./omada-controller
   - ./ombi
   - ./prowlarr
+  - ./qbittorrent
   - ./radarr
   - ./radicale
   - ./rook-ceph

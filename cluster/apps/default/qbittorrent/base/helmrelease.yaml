@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app qbittorrent
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    global:
+      nameOverride: *app
+    controller:
+      strategy: RollingUpdate
+    image:
+      repository: ghcr.io/onedr0p/qbittorrent
+      tag: 4.5.2
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+          bittorrent:
+            enabled: true
+            primary: true
+            protocol: TCP
+            port: 50413
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config
+        mountPath: /config
+      downloads:
+        enabled: true
+        existingClaim: shared-downloads
+        mountPath: /downloads
+    resources:
+      requests:
+        cpu: 10m
+        memory: 105Mi
+      # TODO: waiting for goldilocks
+      # limits:
+      #   memory: 105Mi

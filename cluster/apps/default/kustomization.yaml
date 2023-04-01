@@ -22,6 +22,7 @@ resources:
   - ./ombi/kustomization-fluxCRD.yaml
   - ./postgrescluster/kustomization-fluxCRD.yaml
   - ./prowlarr/kustomization-fluxCRD.yaml
+  - ./qbittorrent/kustomization-fluxCRD.yaml
   - ./radarr/kustomization-fluxCRD.yaml
   - ./radicale/kustomization-fluxCRD.yaml
   - ./redis/kustomization-fluxCRD.yaml
