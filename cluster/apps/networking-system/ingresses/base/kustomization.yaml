@@ -30,6 +30,5 @@ resources:
   - ./sonarr
   - ./syncthing
   - ./traefik
-  - ./transmission
   - ./vaultwarden
   - ./zigbee2mqtt

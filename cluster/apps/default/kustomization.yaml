@@ -29,7 +29,6 @@ resources:
   - ./reloader/kustomization-fluxCRD.yaml
   - ./sonarr/kustomization-fluxCRD.yaml
   - ./syncthing/kustomization-fluxCRD.yaml
-  - ./transmission/kustomization-fluxCRD.yaml
   - ./unpackerr/kustomization-fluxCRD.yaml
   - ./vaultwarden/kustomization-fluxCRD.yaml
   - ./zigbee2mqtt/kustomization-fluxCRD.yaml
