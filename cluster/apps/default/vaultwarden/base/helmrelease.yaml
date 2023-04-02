@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: vaultwarden/server
-      tag: 1.28.0-alpine
+      tag: 1.28.1-alpine
     controller:
       strategy: RollingUpdate
     service:
