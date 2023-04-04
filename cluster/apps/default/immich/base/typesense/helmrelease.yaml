@@ -29,7 +29,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: typesense/typesense
-      tag: 0.24.0
+      tag: 0.24.1
     service:
       main:
         ports:
