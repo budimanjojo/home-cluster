@@ -26,7 +26,7 @@ jobs:
       - name: Setup Flux
         uses: fluxcd/flux2/action@f00fee5328903d4f435e2e990f2a2150ca309f75
       - name: Setup Python
-        uses: actions/setup-python@d1244c8404095bc119fe30f1b9296fc644569ac0
+        uses: actions/setup-python@7a4f344e33a712c3d16d01bdb95be5ef34e8ab59
         with:
           python-version: "3.11"
       - name: Setup QEMU
