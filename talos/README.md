@@ -27,7 +27,7 @@ Feel free to open a [Github issue](https://github.com/budimanjojo/home-cluster/i
 5. Run `sops -e -i talsecret.sops.yaml` to encrypt your secrets (make sure you already have your own `.sops.yaml`) file.
 6. Run `talhelper genconfig` and the files will be generated in `./clusterconfig` directory by default.
 7. Copy the generated `./clusterconfig/talosconfig` to your `~/.talos/config`.
-8. Run `talosctl -n <node-ip> apply-config --insecure ./clusterconfig/<clustername>-<hostname>.yaml` on each of your node. Don't forget to run `talosctl -n <node-ip> bootstrap` on one of your controlplane node.
+8. Run `talosctl -n <node-ip> apply-config --insecure --file ./clusterconfig/<clustername>-<hostname>.yaml` on each of your node. Don't forget to run `talosctl -n <node-ip> bootstrap` on one of your controlplane node.
 9. Push your current directory to your git repository of choice. :wink:
 
 ---
