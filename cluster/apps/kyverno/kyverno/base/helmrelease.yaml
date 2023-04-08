@@ -26,4 +26,5 @@ spec:
     installCRDs: true
     serviceMonitor:
       enabled: true
-    config.excludeKyvernoNamespace: false
+    config:
+      excludeKyvernoNamespace: false
