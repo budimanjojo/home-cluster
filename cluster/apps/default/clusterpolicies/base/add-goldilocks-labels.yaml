@@ -26,6 +26,7 @@ spec:
               names:
                 - default
                 - rook-ceph
+                - kyverno
                 - monitoring-system
       mutate:
         targets:
