@@ -27,3 +27,6 @@ spec:
     serviceMonitor:
       enabled: true
     excludeKyvernoNamespace: false
+    resources:
+      limits:
+        memory: 582Mi
