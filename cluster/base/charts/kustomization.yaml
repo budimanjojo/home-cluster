@@ -14,6 +14,7 @@ resources:
   - kyverno-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
+  - mittwald-charts.yaml
   - nextcloud-charts.yaml
   - nfs-provisioner-charts.yaml
   - node-feature-discovery-charts.yaml
