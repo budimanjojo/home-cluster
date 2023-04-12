@@ -27,8 +27,9 @@ metadata:
   name: "${SECRET_DOMAIN_1//./-}"
 spec:
   secretName: "${SECRET_DOMAIN_1//./-}-prod-tls"
-  annotations:
-    replicator.v1.mittwald.de/replicate-to: default
+  secretTemplate:
+    annotations:
+      replicator.v1.mittwald.de/replicate-to: default
   subject:
     organizations:
       - budimanjojo
@@ -46,8 +47,9 @@ metadata:
   name: "${SECRET_DOMAIN_2//./-}"
 spec:
   secretName: "${SECRET_DOMAIN_2//./-}-prod-tls"
-  annotations:
-    replicator.v1.mittwald.de/replicate-to: default
+  secretTemplate:
+    annotations:
+      replicator.v1.mittwald.de/replicate-to: default
   subject:
     organizations:
       - budimanjojo
