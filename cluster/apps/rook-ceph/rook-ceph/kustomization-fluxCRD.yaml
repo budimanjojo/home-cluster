@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1beta2.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-rook-ceph-operator
@@ -17,8 +17,8 @@ spec:
     - name: monitoring-system-kube-prometheus-stack
 
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1beta2.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-rook-ceph-cluster
@@ -35,8 +35,8 @@ spec:
     - name: rook-ceph-rook-ceph-operator
 
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1beta2.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-rook-ceph-dashboard
