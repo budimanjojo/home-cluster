@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/horizontalrunnerautoscaler_v1alpha1.json
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/actions.summerwind.dev/horizontalrunnerautoscaler_v1alpha1.json
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
 metadata:
