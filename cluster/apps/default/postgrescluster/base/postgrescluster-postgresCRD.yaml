@@ -4,6 +4,10 @@ metadata:
   name: pgo-cluster
 spec:
   postgresVersion: 14
+  metadata:
+    annotations:
+      replicator.v1.mittwald.de/replication-allowed: "true"
+      replicator.v1.mittwald.de/replication-allowed-namespaces: "authentication-system"
   patroni:
     dynamicConfiguration:
       synchronous_mode: true

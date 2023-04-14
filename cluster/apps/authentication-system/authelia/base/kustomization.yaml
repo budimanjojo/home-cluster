@@ -6,6 +6,7 @@ namespace: authentication-system
 resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
+  - ./secret.yaml
 configMapGenerator:
   - name: authelia-config
     files:

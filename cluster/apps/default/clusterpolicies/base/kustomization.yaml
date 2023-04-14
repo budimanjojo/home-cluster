@@ -8,4 +8,3 @@ resources:
   - ./add-psa-labels.yaml
   - ./delete-cpu-limits.yaml
   - ./inject-timezone.yaml
-  - ./sync-authelia-db-secret.yaml
