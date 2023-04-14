@@ -47,10 +47,10 @@ spec:
         type: emptyDir
     resources:
       requests:
-        cpu: 100m
+        cpu: 15m
         memory: 250Mi
       limits:
-        memory: 1000Mi
+        memory: 1239Mi
     envFrom:
       - secretRef:
           name: immich-secret
