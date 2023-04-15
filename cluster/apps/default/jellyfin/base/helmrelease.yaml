@@ -41,7 +41,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-dashboard-headers@kubernetescrd,
+            networking-system-dashboard-headers@kubernetescrd
         hosts:
           - host: &host jellyfin.${SECRET_DOMAIN_0}
             paths:

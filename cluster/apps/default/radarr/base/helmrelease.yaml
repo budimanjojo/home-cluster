@@ -42,7 +42,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: >-
             networking-system-secure-headers@kubernetescrd,
-            networking-system-authelia@kubernetescrd,
+            networking-system-authelia@kubernetescrd
         hosts:
           - host: &host movie.${SECRET_DOMAIN_0}
             paths:

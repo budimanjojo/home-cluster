@@ -42,7 +42,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: >-
             networking-system-secure-headers@kubernetescrd,
-            networking-system-local-only@kubernetescrd,
+            networking-system-local-only@kubernetescrd
         hosts:
           - host: &host status.${SECRET_DOMAIN_1}
             paths:
