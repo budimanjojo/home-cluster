@@ -33,6 +33,24 @@ spec:
         ports:
           http:
             port: 3579
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-dashboard-headers@kubernetescrd,
+        hosts:
+          - host: &host ombi.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     podSecurityContext:
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
