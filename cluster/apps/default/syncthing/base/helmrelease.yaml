@@ -56,7 +56,7 @@ spec:
             networking-system-secure-headers@kubernetescrd,
             networking-system-authelia@kubernetescrd
         hosts:
-          - host: &host syncthing.${SECRET_DOMAIN_0}
+          - host: &host sync.${SECRET_DOMAIN_0}
             paths:
               - path: /
                 pathType: Prefix
