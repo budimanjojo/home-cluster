@@ -39,11 +39,9 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: >-
             networking-system-local-only@kubernetescrd
-        hosts:
-          - host: &host rook.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
+        host:
+          name: &host rook.${SECRET_DOMAIN_0}
+          paths: /
         tls:
           - hosts:
               - *host
