@@ -50,7 +50,7 @@ spec:
           - host: &host goldilocks.${SECRET_DOMAIN_0}
             paths:
               - path: /
-                pathType: Prefix
+                type: Prefix
         tls:
           - hosts:
               - *host
