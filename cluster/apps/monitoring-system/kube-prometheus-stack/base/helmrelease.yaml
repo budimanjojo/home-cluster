@@ -34,11 +34,9 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: >-
             networking-system-secure-headers@kubernetescrd,
             networking-system-local-only@kubernetescrd
+        pathType: Prefix
         hosts:
-          - host: &host prom.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
+          - &host prom.${SECRET_DOMAIN_0}
         tls:
           - hosts:
               - *host
