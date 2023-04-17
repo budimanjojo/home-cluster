@@ -38,3 +38,20 @@ spec:
           memory: 105Mi
         limits:
           memory: 105Mi
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: >-
+          networking-system-secure-headers@kubernetescrd,
+          networking-system-local-only@kubernetescrd
+      hosts:
+        - host: &host goldilocks.${SECRET_DOMAIN_0}
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls

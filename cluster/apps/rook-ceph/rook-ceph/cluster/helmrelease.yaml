@@ -32,6 +32,22 @@ spec:
           memory: 105Mi
         limits:
           memory: 105Mi
+    ingress:
+      dashboard:
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-local-only@kubernetescrd
+        hosts:
+          - host: &host rook.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     monitoring:
       enabled: true
       createPrometheusRules: true

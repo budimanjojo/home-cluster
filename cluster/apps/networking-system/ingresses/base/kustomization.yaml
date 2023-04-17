@@ -5,11 +5,7 @@ kind: Kustomization
 namespace: networking-system
 resources:
   - ./authelia
-  - ./goldilocks
-  - ./grafana
-  - ./kube-prometheus-stack
   - ./nextcloud
   - ./immich
   - ./omada-controller
-  - ./rook-ceph
   - ./traefik
