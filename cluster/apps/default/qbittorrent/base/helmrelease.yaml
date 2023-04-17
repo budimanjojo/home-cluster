@@ -34,12 +34,33 @@ spec:
       main:
         ports:
           http:
-            port: 8080
+            port: &http-port 8080
           bittorrent:
             enabled: true
             primary: true
             protocol: TCP
             port: 50413
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-secure-headers@kubernetescrd,
+            networking-system-local-only@kubernetescrd
+        hosts:
+          - host: &host qbit.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *http-port
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

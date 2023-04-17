@@ -34,11 +34,35 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: &http-port 80
           websocket:
             enabled: true
-            port: 3012
+            port: &websocket-port 3012
             protocol: TCP
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-dashboard-headers@kubernetescrd
+        hosts:
+          - host: &host vault.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *http-port
+              - path: /notification/hub
+                pathType: Prefix
+                service:
+                  port: *websocket-port
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     initContainers:
       wait-database:
         image: busybox:1.36.0

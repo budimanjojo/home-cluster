@@ -33,6 +33,25 @@ spec:
         ports:
           http:
             port: 9696
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-secure-headers@kubernetescrd,
+            networking-system-authelia@kubernetescrd
+        hosts:
+          - host: &host prowlarr.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

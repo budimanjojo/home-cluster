@@ -35,10 +35,49 @@ spec:
       main:
         ports:
           http:
-            port: 9001
+            port: &console-port 9001
           api:
             enabled: true
-            port: 9000
+            port: &api-port 9000
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-secure-headers@kubernetescrd
+        hosts:
+          - host: &host minio.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *console-port
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+      s3:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-secure-headers@kubernetescrd
+        hosts:
+          - host: &host s3.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *api-port
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     serviceMonitor:
       main:
         enabled: true
