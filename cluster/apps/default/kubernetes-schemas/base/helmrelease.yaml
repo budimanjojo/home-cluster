@@ -43,14 +43,14 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: >-
             networking-system-secure-headers@kubernetescrd
         hosts:
-          - host: &host schemas.${SECRET_DOMAIN_0}
+          - host: &host schemas.${SECRET_DOMAIN_1}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+            secretName: ${SECRET_DOMAIN_1//./-}-prod-tls
     resources:
       requests:
         cpu: 10m
