@@ -31,8 +31,8 @@ spec:
         matchRule: Host(`traefik.${SECRET_DOMAIN_0}`)
         entryPoints: ["websecure"]
         middlewares:
-          - authelia
-          - local-only
+          - name: authelia
+          - name: local-only
         tls:
           secretName: "${SECRET_DOMAIN_0//./-}-prod-tls"
     providers:
