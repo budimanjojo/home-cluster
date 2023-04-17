@@ -27,7 +27,14 @@ spec:
       replicas: 3
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
+        matchRule: Host(`traefik.${SECRET_DOMAIN_0}`)
+        entryPoints: ["websecure"]
+        middlewares:
+          - authelia
+          - local-only
+        tls:
+          secretName: "${SECRET_DOMAIN_0//./-}-prod-tls"
     providers:
       kubernetesCRD:
         enabled: true
@@ -71,6 +78,16 @@ spec:
           enabled: true
         serviceMonitor:
           namespace: networking-system
+    tlsOptions:
+      default:
+        minVersion: VersionTLS12
+        cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        curvePreferences:
+          - CurveP521
+          - CurveP384
+        sniStrict: true
+        preferServerCipherSuites: true
     experimental:
       http3:
         enabled: true
