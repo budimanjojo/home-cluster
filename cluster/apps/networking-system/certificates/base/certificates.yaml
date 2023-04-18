@@ -29,7 +29,7 @@ spec:
   secretName: "${SECRET_DOMAIN_1//./-}-prod-tls"
   secretTemplate:
     annotations:
-      replicator.v1.mittwald.de/replicate-to: default
+      replicator.v1.mittwald.de/replicate-to: default,monitoring-system
   subject:
     organizations:
       - budimanjojo
