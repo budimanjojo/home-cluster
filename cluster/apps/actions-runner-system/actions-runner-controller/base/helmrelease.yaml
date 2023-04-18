@@ -41,3 +41,19 @@ spec:
         name: *secret
       podAnnotation:
         secret.reloader.stakater.com/reload: *secret
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-arc-webhook@kubernetescrd
+        hosts:
+          - host: &host arc-wh.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
