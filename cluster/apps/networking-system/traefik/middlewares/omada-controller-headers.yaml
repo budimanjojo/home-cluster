@@ -13,17 +13,3 @@ spec:
       X-Forwarded-Proto: ""
     customResponseHeaders:
       Host: "omada.${SECRET_DOMAIN_0}"
-
----
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/traefik.containo.us/middleware_v1alpha1.json
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: omada-controller-redirect
-  labels:
-    app.kubernetes.io/name: omada-controller
-spec:
-  redirectRegex:
-    permanent: true
-    regex: "^https:\\/\\/([^\\/]+)\\/?$"
-    replacement: "https://omada.${SECRET_DOMAIN_0}/${SECRET_OMADA_CONTROLLER_ID}/login"

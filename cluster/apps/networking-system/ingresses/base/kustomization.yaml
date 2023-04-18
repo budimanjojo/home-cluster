@@ -7,4 +7,3 @@ resources:
   - ./authelia
   - ./nextcloud
   - ./immich
-  - ./omada-controller

@@ -46,7 +46,7 @@ spec:
           mgmt-8043-tcp:
             enabled: true
             port: 8043
-            targetPort: 8043
+            targetPort: &https-port 8043
             protocol: TCP
           portal-8843-tcp:
             enabled: true
@@ -88,6 +88,31 @@ spec:
             port: 27217
             targetPort: 27217
             protocol: TCP
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: >-
+            networking-system-local-only@kubernetescrd,
+            networking-system-omada-controller-headers@kubernetescrd,
+            networking-system-omada-controller-redirect@kubernetescrd
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+          traefik.ingress.kubernetes.io/service.serverstransport: >-
+            networking-system-omada-controller@kubernetescrd
+        hosts:
+          - host: &host omada.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: *https-port
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     persistence:
       data:
         enabled: true
