@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: networking-system
 resources:
   - ./omada-controller.yaml
+  - ./proxmox.yaml

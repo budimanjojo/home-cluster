@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/ingress-networking-v1.json
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: opnsense
+  labels:
+    app.kubernetes.io/name: opnsense
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: >-
+      networking-system-local-only@kubernetescrd,
+      networking-system-secure-headers@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: &host opnsense.${SECRET_DOMAIN_0}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: opnsense
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - *host
+      secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
