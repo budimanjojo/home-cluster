@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/ingress-networking-v1.json
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flux-webhook
+  labels:
+    app.kubernetes.io/name: flux
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: >-
+      networking-system-flux-webhook@kubernetescrd
+spec:
+  rules:
+    - host: &host flux-wh.${SECRET_DOMAIN_0}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flux-webhook
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - *host
+      secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
