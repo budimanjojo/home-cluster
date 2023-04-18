@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/traefik.containo.us/middleware_v1alpha1.json
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-headers
+spec:
+  headers:
+    sslRedirect: true
+    sslHost: "${SECRET_DOMAIN_0}"
+    stsSeconds: 315360000
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+    frameDeny: false
+    customFrameOptionsValue: SAMEORIGIN
+    contentTypeNosniff: true
+    browserXssFilter: true
