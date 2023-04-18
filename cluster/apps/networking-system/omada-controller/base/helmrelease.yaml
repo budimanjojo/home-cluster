@@ -31,13 +31,23 @@ spec:
     service:
       main:
         enabled: true
-        type: LoadBalancer
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+          traefik.ingress.kubernetes.io/service.serverstransport: >-
+            networking-system-omada-controller@kubernetescrd
+        ports:
+          http:
+            enabled: true
+            port: 8043
+            targetPort: 8043
+            protocol: TCP
+      controller:
+        enabled: true
         externalTrafficPolicy: Local
+        type: LoadBalancer
         annotations:
           metallb.universe.tf/loadBalancerIPs: ${CONFIG_OMADA_CONTROLLER_IP}
         ports:
-          http:
-            enabled: false
           mgmt-8088-tcp:
             enabled: true
             port: 8088
@@ -46,7 +56,7 @@ spec:
           mgmt-8043-tcp:
             enabled: true
             port: 8043
-            targetPort: &https-port 8043
+            targetPort: 8043
             protocol: TCP
           portal-8843-tcp:
             enabled: true
@@ -99,16 +109,11 @@ spec:
             networking-system-local-only@kubernetescrd,
             networking-system-omada-controller-headers@kubernetescrd,
             networking-system-omada-controller-redirect@kubernetescrd
-          traefik.ingress.kubernetes.io/service.serversscheme: https
-          traefik.ingress.kubernetes.io/service.serverstransport: >-
-            networking-system-omada-controller@kubernetescrd
         hosts:
           - host: &host omada.${SECRET_DOMAIN_0}
             paths:
               - path: /
                 pathType: Prefix
-                service:
-                  port: *https-port
         tls:
           - hosts:
               - *host
