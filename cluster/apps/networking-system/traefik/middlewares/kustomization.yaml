@@ -5,5 +5,7 @@ kind: Kustomization
 namespace: networking-system
 resources:
   - ./local-only.yaml
+  - ./omada-controller-headers.yaml
+  - ./omada-controller-redirect.yaml
   - ./secure-headers.yaml
   - ./dashboard-headers.yaml
