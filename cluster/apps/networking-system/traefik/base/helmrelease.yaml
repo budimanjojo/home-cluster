@@ -102,7 +102,6 @@ spec:
       - "--entrypoints.web.forwardedheaders.trustedips=127.0.0.1/32"
       - "--entrypoints.websecure.proxyprotocol.trustedips=127.0.0.1"
       - "--entrypoints.websecure.forwardedheaders.trustedips=127.0.0.1/32"
-      - "--log.filepath=/tmp/traefik.log"
       - "--ping.entrypoint=traefik"
       - "--api.debug=true"
       - "--providers.providersthrottleduration=2"
