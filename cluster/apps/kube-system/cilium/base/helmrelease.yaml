@@ -23,10 +23,14 @@ spec:
     remediation:
       retries: 5
   values:
-    bgp:
-      enabled: false
     ipam:
       mode: kubernetes
-    ipv4NativeRoutingCIDR: 10.244.0.0/16
+    kubeProxyReplacement: disabled
     securityContext:
-      privileged: true
+      capabilities:
+        ciliumAgent: "{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}"
+        cleanCiliumState: "{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}"
+    cgroup:
+      autoMount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
