@@ -7,6 +7,10 @@ yaml-files:
 rules:
   brackets:
     max-spaces-inside: 1
+  document-start:
+    ignore: |
+      *.sops.yaml
+      *.sops.yml
   empty-lines:
     max: 1
   line-length: disable
