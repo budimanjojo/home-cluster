@@ -79,6 +79,5 @@ spec:
       requests:
         cpu: 10m
         memory: 105Mi
-      # TODO: waiting for goldilocks
-      # limits:
-      #   memory: 105Mi
+      limits:
+        memory: 1039Mi
