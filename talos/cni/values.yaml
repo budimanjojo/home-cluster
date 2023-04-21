@@ -1,3 +1,4 @@
+---
 ipam:
   mode: kubernetes
 kubeProxyReplacement: disabled

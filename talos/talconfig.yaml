@@ -1,3 +1,4 @@
+---
 clusterName: home-cluster
 talosVersion: v1.4.0
 kubernetesVersion: v1.27.1

@@ -1,3 +1,4 @@
+---
 theme: auto
 default_redirection_url: https://auth.${SECRET_DOMAIN_0}
 server:
