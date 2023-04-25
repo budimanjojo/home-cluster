@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/job-batch-v1.json
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -12,7 +13,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: wipe
-          image: ghcr.io/onedr0p/alpine:3.17.0@sha256:8e1eb13c3ca5c038f3bf22a5fe9e354867f97f98a78027c44b7c76fce81fa61d
+          image: ghcr.io/onedr0p/alpine:latest
           command: ["/bin/bash", "-c", "cd /config; find . -delete"]
           volumeMounts:
             - name: config

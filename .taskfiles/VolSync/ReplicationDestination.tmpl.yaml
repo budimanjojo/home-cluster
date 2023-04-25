@@ -23,3 +23,7 @@ spec:
     #   Do not restore snapshots made after the following RFC3339 Timestamp.
     #   date --rfc-3339=seconds (--utc)
     # restoreAsOf: "2022-12-10T16:00:00-05:00"
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568

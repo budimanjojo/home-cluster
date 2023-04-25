@@ -3,8 +3,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "list-${rsrc}-${ts}"
+  name: "unlock-${rsrc}-${ts}"
   namespace: "${namespace}"
+  labels:
+    app.kubernetes.io/name: "unlock-${rsrc}-${ts}"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -12,9 +14,11 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: list
+        - name: unlock
           image: docker.io/restic/restic:latest
-          args: ["snapshots"]
+          args:
+            - unlock
+            - --remove-all
           envFrom:
             - secretRef:
                 name: "${rsrc}-restic-secret"
