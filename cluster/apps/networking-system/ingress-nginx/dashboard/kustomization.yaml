@@ -12,7 +12,5 @@ configMapGenerator:
       - nginx-request-handling-performance-dashboard.json=https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
 generatorOptions:
   disableNameSuffixHash: true
-  annotations:
-    grafana_folder: NGINX
   labels:
     grafana_dashboard: "true"
