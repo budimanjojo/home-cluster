@@ -71,4 +71,4 @@ spec:
     - kind: ConfigMap
       name: cloudflare-networks
       targetPath: controller.config.proxy-real-ip-cidr
-      valuesKey: cloudflare-network.txt
+      valuesKey: cloudflare-networks.txt
