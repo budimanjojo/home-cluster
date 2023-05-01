@@ -54,10 +54,10 @@ spec:
         hsts-max-age: 315360000
         hsts-include-subdomains: "true"
         hsts-preload: "true"
-        location-snippet: |
-          add_header X-Frame-Options "SAMEORIGIN";
-          add_header X-Content-Type-Options "nosniff";
-          add_header X-XSS-Protection "1; mode=block";
+        server-snippet: |
+          proxy_set_header X-Frame-Options "SAMEORIGIN";
+          proxy_set_header X-Content-Type-Options "nosniff";
+          proxy_set_header X-XSS-Protection "1; mode=block";
       metrics:
         enabled: true
         serviceMonitor:
