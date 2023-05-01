@@ -6,11 +6,8 @@ metadata:
   name: flux-webhook
   labels:
     app.kubernetes.io/name: flux
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.middlewares: >-
-      networking-system-flux-webhook@kubernetescrd
 spec:
+  ingressClassName: nginx
   rules:
     - host: &host flux-wh.${SECRET_DOMAIN_0}
       http:

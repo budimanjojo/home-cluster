@@ -42,12 +42,10 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: traefik
+        ingressClassName: nginx
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-secure-headers@kubernetescrd,
-            networking-system-local-only@kubernetescrd
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+            10.244.0.0/16,10.10.0.0/24,10.0.8.0/24,192.168.10.0/24,192.168.200.0/24
         hosts:
           - host: &host qbit.${SECRET_DOMAIN_0}
             paths:

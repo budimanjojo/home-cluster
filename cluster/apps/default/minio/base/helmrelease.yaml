@@ -43,11 +43,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-secure-headers@kubernetescrd
+        ingressClassName: nginx
         hosts:
           - host: &host minio.${SECRET_DOMAIN_0}
             paths:
@@ -62,11 +58,7 @@ spec:
       s3:
         enabled: true
         primary: true
-        ingressClassName: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-secure-headers@kubernetescrd
+        ingressClassName: nginx
         hosts:
           - host: &host s3.${SECRET_DOMAIN_0}
             paths:

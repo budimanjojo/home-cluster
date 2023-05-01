@@ -37,12 +37,13 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: traefik
+        ingressClassName: nginx
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-secure-headers@kubernetescrd,
-            networking-system-authelia@kubernetescrd
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.authentication-system.svc.cluster.local:9091/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN_0}?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
           - host: &host music.${SECRET_DOMAIN_0}
             paths:

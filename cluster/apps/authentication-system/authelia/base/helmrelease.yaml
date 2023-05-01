@@ -46,9 +46,11 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: traefik
+        ingressClassName: nginx
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            add_header Cache-Control "no-store";
+            add_header Pragma "no-cache";
         hosts:
           - host: &host auth.${SECRET_DOMAIN_0}
             paths:

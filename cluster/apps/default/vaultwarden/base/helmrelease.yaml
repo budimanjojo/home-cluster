@@ -43,11 +43,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-dashboard-headers@kubernetescrd
+        ingressClassName: nginx
         hosts:
           - host: &host vault.${SECRET_DOMAIN_0}
             paths:

@@ -44,12 +44,11 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: traefik
+        ingressClassName: nginx
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-secure-headers@kubernetescrd,
-            networking-system-immich-strip-prefix@kubernetescrd
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            rewrite /api/(.*) /$1 break;
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
         hosts:
           - host: &host photos.${SECRET_DOMAIN_0}
             paths:

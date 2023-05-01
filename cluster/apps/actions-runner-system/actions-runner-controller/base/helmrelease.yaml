@@ -43,11 +43,7 @@ spec:
         secret.reloader.stakater.com/reload: *secret
       ingress:
         enabled: true
-        ingressClassName: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: >-
-            networking-system-arc-webhook@kubernetescrd
+        ingressClassName: nginx
         hosts:
           - host: &host arc-wh.${SECRET_DOMAIN_0}
             paths:
