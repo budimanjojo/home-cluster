@@ -54,10 +54,7 @@ spec:
         hsts-max-age: 315360000
         hsts-include-subdomains: "true"
         hsts-preload: "true"
-        server-snippet: |
-          proxy_set_header X-Frame-Options "SAMEORIGIN";
-          proxy_set_header X-Content-Type-Options "nosniff";
-          proxy_set_header X-XSS-Protection "1; mode=block";
+        proxy-set-headers: networking-system/secure-headers
       metrics:
         enabled: true
         serviceMonitor:

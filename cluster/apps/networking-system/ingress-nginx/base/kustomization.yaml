@@ -9,5 +9,8 @@ configMapGenerator:
   - name: cloudflare-networks
     files:
       - ./cloudflare-networks.txt
+  - name: secure-headers
+    files:
+      - ./secure-headers.txt
 generatorOptions:
   disableNameSuffixHash: true
