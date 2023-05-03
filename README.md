@@ -86,8 +86,8 @@ Secrets are encrypted using [sops](https://github.com/mozilla/sops) before being
 The encrypted secrets are then decrypted by sops using the private key inside the cluster.
 For encryption/decryption, I use [age](https://github.com/FiloSottile/age).
 The public key to encrypt the secret is in [.sops.yaml](.sops.yaml).
-Secrets environment variables for the cluster are in [cluster-secret-vars.yaml](.cluster/base/cluster-secret-vars.yaml).
-The non secret variables are in [cluster-vars.yaml](.cluster/base/cluster-vars.yaml).
+Secrets environment variables for the cluster are in [cluster-secret-vars.yaml](.cluster/base/config/cluster-secret-vars.sops.yaml).
+The non secret variables are in [cluster-vars.yaml](.cluster/base/config/cluster-vars.yaml).
 
 ---
 
@@ -99,7 +99,7 @@ Dashboards included in my cluster are:
 
 - The provided dashboard from [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 - Ingress-nginx dashboard from [here](https://github.com/kubernetes/ingress-nginx/tree/main/deploy/grafana/dashboards)
-- Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/grafana/dashboards)
+- Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/monitoring-config/dashboards)
 - Rook-ceph dashboards from [here](https://www.rook.io/docs/rook/v1.10/Storage-Configuration/Monitoring/ceph-monitoring/?h=grafana#grafana-dashboards)
 
 To add your own dashboard, create a configmap with the data include the json file of the dashboard and add label `grafana_dashboard: "1"` to the manifest.
