@@ -75,9 +75,9 @@ jobs:
         id: diff
         uses: workflow/nix-shell-action@v3
         with:
-          packages: kubernetes-helm,dyff,kustomize,yq
+          packages: kubernetes-helm,dyff,kustomize,yq,nodePackages.zx
           script: |
-            diff=$(npx zx ./.github/scripts/helmReleaseDiff.mjs \
+            diff=$(zx ./.github/scripts/helmReleaseDiff.mjs \
               --current-release "default/${{ matrix.file }}" \
               --incoming-release "${{ matrix.file }}" \
               --kubernetes-dir ${{ env.KUBERNETES_DIR }})
