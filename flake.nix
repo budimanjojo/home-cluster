@@ -14,6 +14,7 @@
           packages = [
             pkgs.bashInteractive
             pkgs.restic
+            pkgs.kubeconform
           ];
         };
       };
