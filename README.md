@@ -86,8 +86,8 @@ Secrets are encrypted using [sops](https://github.com/mozilla/sops) before being
 The encrypted secrets are then decrypted by sops using the private key inside the cluster.
 For encryption/decryption, I use [age](https://github.com/FiloSottile/age).
 The public key to encrypt the secret is in [.sops.yaml](.sops.yaml).
-Secrets environment variables for the cluster are in [cluster-secret-vars.yaml](.cluster/base/config/cluster-secret-vars.sops.yaml).
-The non secret variables are in [cluster-vars.yaml](.cluster/base/config/cluster-vars.yaml).
+Secrets environment variables for the cluster are in [cluster-secret-vars.yaml](./cluster/base/config/cluster-secret-vars.sops.yaml).
+The non secret variables are in [cluster-vars.yaml](./cluster/base/config/cluster-vars.yaml).
 
 ---
 
