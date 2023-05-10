@@ -49,7 +49,7 @@ spec:
             secretName: ${SECRET_DOMAIN_1//./-}-prod-tls
     initContainers:
       wait-database:
-        image: alpine:3.17.3
+        image: alpine:3.18.0
         imagePullPolicy: IfNotPresent
         command:
           - sh
