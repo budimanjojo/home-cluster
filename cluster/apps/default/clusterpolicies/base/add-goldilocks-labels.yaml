@@ -28,6 +28,7 @@ spec:
                 - rook-ceph
                 - kyverno
                 - monitoring-system
+                - networking-system
       mutate:
         targets:
           - apiVersion: v1
