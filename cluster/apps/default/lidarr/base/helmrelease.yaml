@@ -55,7 +55,7 @@ spec:
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     initContainers:
       init-permission:
-        image: busybox:1.36.0
+        image: busybox:1.36.1
         imagePullPolicy: IfNotPresent
         command:
           - sh
