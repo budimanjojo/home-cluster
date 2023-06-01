@@ -13,7 +13,6 @@ metadata:
       This policy deletes CPU limits from all Pods
 spec:
   mutateExistingOnPolicyUpdate: true
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: delete-containers-cpu-limits
       match:

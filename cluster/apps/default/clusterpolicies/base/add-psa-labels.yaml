@@ -19,7 +19,6 @@ metadata:
       to matching Namespaces if those labels are not included.
 spec:
   mutateExistingOnPolicyUpdate: true
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: add-privileged-enforce
       match:

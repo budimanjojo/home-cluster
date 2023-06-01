@@ -46,3 +46,11 @@ spec:
             memory: 582Mi
       serviceMonitor:
         enabled: true
+    backgroundController:
+      clusterRole:
+        extraResources:
+          - apiGroups:
+              - ""
+            resources:
+              - namespace
+              - pods
