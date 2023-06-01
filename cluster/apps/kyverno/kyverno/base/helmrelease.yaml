@@ -52,5 +52,5 @@ spec:
           - apiGroups:
               - ""
             resources:
-              - namespace
+              - namespaces
               - pods
