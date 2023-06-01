@@ -23,22 +23,26 @@ spec:
     remediation:
       retries: 5
   values:
-    replicaCount: 3
-    updateStrategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 1
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/instance: kyverno
-    installCRDs: true
-    serviceMonitor:
-      enabled: true
-    excludeKyvernoNamespace: false
-    resources:
-      limits:
-        memory: 582Mi
+    crds:
+      install: true
+    config:
+      excludeKyvernoNamespace: false
+    admissionController:
+      replicas: 3
+      updateStrategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 1
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: kyverno
+      container:
+        resources:
+          limits:
+            memory: 582Mi
+      serviceMonitor:
+        enabled: true
