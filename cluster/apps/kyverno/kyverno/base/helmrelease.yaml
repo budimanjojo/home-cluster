@@ -47,10 +47,11 @@ spec:
       serviceMonitor:
         enabled: true
     backgroundController:
-      clusterRole:
-        extraResources:
-          - apiGroups:
-              - ""
-            resources:
-              - namespaces
-              - pods
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups:
+                - ""
+              resources:
+                - namespaces
+                - pods
