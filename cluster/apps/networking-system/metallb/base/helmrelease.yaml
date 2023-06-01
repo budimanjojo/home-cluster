@@ -33,7 +33,5 @@ spec:
       prometheusRule:
         enabled: true
     speaker:
-      excludeInterfaces:
-        enabled: false
       frr:
         enabled: false
