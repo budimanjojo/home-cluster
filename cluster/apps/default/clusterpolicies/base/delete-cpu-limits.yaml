@@ -12,7 +12,6 @@ metadata:
     policies.kyverno.io/description: >-
       This policy deletes CPU limits from all Pods
 spec:
-  mutateExistingOnPolicyUpdate: true
   rules:
     - name: delete-containers-cpu-limits
       match:
