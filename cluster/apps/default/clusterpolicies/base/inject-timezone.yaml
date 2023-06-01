@@ -13,7 +13,6 @@ metadata:
       environment variable so the container will have the correct
       time.
 spec:
-  mutateExistingOnPolicyUpdate: true
   rules:
     - name: inject-timezone
       match:
