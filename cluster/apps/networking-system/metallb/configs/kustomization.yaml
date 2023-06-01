@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: networking-system
 resources:
   - ./bgppeer-metallbCRD.yaml
-  - ./bfdprofile-metallbCRD.yaml
   - ./ipaddresspool-metallbCRD.yaml
   - ./l2advertisement-metallbCRD.yaml
   - ./bgpadvertisement-metallbCRD.yaml
