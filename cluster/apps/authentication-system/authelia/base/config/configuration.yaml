@@ -133,6 +133,7 @@ identity_providers:
           - https://photos.${SECRET_DOMAIN_0}/auth/login
           - https://photos.${SECRET_DOMAIN_0}/user-settings
           - https://photos.${SECRET_DOMAIN_0}/api/oauth/mobile-redirect
+          - app.immich:/
         scopes:
           - openid
           - profile
