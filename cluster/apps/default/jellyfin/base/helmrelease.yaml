@@ -84,6 +84,10 @@ spec:
         enabled: true
         existingClaim: jellyfin-transcode
         mountPath: /config/transcodes
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/cache
     resources:
       requests:
         cpu: 15m
