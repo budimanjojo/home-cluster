@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: homepage
-      version: 1.2.0
+      chart: app-template
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: jameswynn-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 15m
   install:
@@ -29,7 +29,6 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: &config homepage-config
       secret.reloader.stakater.com/reload: homepage-secret
-    enableRbac: true
     service:
       main:
         ports:
@@ -51,8 +50,26 @@ spec:
           - hosts:
               - *host
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
-    config:
-      useExistingConfigMap: *config
+    persistence:
+      config:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: *config
+        subPath:
+          - path: bookmarks.yaml
+            mountPath: /app/config/bookmarks.yaml
+          - path: docker.yaml
+            mountPath: /app/config/docker.yaml
+          - path: services.yaml
+            mountPath: /app/config/services.yaml
+          - path: settings.yaml
+            mountPath: /app/config/settings.yaml
+          - path: widgets.yaml
+            mountPath: /app/config/widgets.yaml
+    serviceAccount:
+      create: true
     # TODO: wait for kyverno
     resources:
       requests:

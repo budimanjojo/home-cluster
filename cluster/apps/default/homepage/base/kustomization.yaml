@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
+  - ./rbac.yaml
   - ./secret.sops.yaml
 configMapGenerator:
   - name: homepage-config
