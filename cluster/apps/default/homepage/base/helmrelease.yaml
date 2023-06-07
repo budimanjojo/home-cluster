@@ -27,7 +27,8 @@ spec:
       repository: ghcr.io/benphelps/homepage
       tag: v0.6.20
     podAnnotations:
-      secret.reloader.stakater.com/reload: &config homepage-config
+      configmap.reloader.stakater.com/reload: &config homepage-config
+      secret.reloader.stakater.com/reload: homepage-secret
     enableRbac: true
     service:
       main:
