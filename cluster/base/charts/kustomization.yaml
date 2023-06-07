@@ -11,6 +11,7 @@ resources:
   - ./grafana-charts.yaml
   - ./ingress-nginx-charts.yaml
   - ./intel-charts.yaml
+  - ./jameswynn-charts.yaml
   - ./jetstack-charts.yaml
   - ./kyverno-charts.yaml
   - ./metallb-charts.yaml
