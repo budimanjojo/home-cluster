@@ -11,6 +11,7 @@ resources:
   - ./firefly-iii/kustomization-fluxCRD.yaml
   - ./goldilocks/kustomization-fluxCRD.yaml
   - ./homeassistant/kustomization-fluxCRD.yaml
+  - ./homepage/kustomization-fluxCRD.yaml
   - ./jellyfin/kustomization-fluxCRD.yaml
   - ./kubernetes-schemas/kustomization-fluxCRD.yaml
   - ./lidarr/kustomization-fluxCRD.yaml
