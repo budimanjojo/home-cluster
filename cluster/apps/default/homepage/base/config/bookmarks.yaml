@@ -1,0 +1,17 @@
+---
+- Favorites:
+    - My GitHub Repo:
+        - icon: si-github
+          href: https://github.com/budimanjojo
+    - k8s-at-home-search:
+        - icon: si-kubernetes
+          href: https://nanne.dev/k8s-at-home-search/
+    - onedr0p home-ops:
+        - icon: si-github
+          href: https://github.com/onedr0p/home-ops
+    - bjw-s Chart Values:
+        - icon: si-github
+          href: https://github.com/bjw-s/helm-charts/tree/main/charts/library/common#values
+    - NixOS Search:
+        - icon: si-nixos
+          href: https://search.nixos.org

@@ -1,0 +1,62 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: homepage
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: homepage
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: jameswynn-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    image:
+      repository: ghcr.io/benphelps/homepage
+      tag: v0.6.20
+    podAnnotations:
+      secret.reloader.stakater.com/reload: &config homepage-config
+    enableRbac: true
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+            10.244.0.0/16,10.10.0.0/24,10.0.8.0/24,192.168.10.0/24,192.168.200.0/24
+        hosts:
+          - host: &host homepage.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+    config:
+      useExistingConfigMap: *config
+    # TODO: wait for kyverno
+    resources:
+      requests:
+        cpu: 25m
+        memory: 50Mi
+    envFrom:
+      - secretRef:
+          name: homepage-secret
