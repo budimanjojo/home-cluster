@@ -62,6 +62,8 @@ spec:
             mountPath: /app/config/bookmarks.yaml
           - path: docker.yaml
             mountPath: /app/config/docker.yaml
+          - path: kubernetes.yaml
+            mountPath: /app/config/kubernetes.yaml
           - path: services.yaml
             mountPath: /app/config/services.yaml
           - path: settings.yaml
