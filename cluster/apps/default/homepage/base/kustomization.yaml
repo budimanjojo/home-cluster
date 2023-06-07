@@ -11,6 +11,7 @@ configMapGenerator:
   - name: homepage-config
     files:
       - ./config/bookmarks.yaml
+      - ./config/docker.yaml
       - ./config/kubernetes.yaml
       - ./config/services.yaml
       - ./config/settings.yaml
