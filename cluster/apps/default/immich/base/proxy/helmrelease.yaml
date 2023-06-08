@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: immich-web
+  name: immich-proxy
 spec:
   interval: 15m
   chart:
@@ -27,38 +27,35 @@ spec:
   values:
     controller:
       strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/immich-app/immich-web
+      repository: ghcr.io/immich-app/immich-proxy
       tag: v1.60.0
-    command: /bin/sh
-    args:
-      - ./entrypoint.sh
     service:
       main:
         ports:
           http:
-            port: 3000
-    persistence:
-      data:
+            port: 8080
+    ingress:
+      main:
         enabled: true
-        existingClaim: immich-data
-        mountPath: /usr/src/app/upload
+        primary: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        hosts:
+          - host: &host photos.${SECRET_DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+    # TODO: wait for goldilocks
     resources:
       requests:
         cpu: 100m
         memory: 250Mi
-      limits:
-        memory: 1000Mi
     envFrom:
-      - secretRef:
-          name: immich-secret
       - configMapRef:
           name: immich-config
-    env:
-      DB_URL:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-immich
-            key: uri
