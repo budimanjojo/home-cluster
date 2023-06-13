@@ -2,7 +2,7 @@
 - Media:
     - Jellyfin:
         icon: jellyfin.png
-        href: https://jellyfin.${SECRET_DOMAIN_O}
+        href: https://jellyfin.${SECRET_DOMAIN_0}
         description: Media Server
         widget:
           type: jellyfin
@@ -11,7 +11,7 @@
           enableNowPlaying: true
     - Ombi:
         icon: ombi.png
-        href: https://ombi.${SECRET_DOMAIN_O}
+        href: https://ombi.${SECRET_DOMAIN_0}
         description: Media Requests
         widget:
           type: ombi
@@ -19,7 +19,7 @@
           key: {{HOMEPAGE_VAR_OMBI_KEY}}
     - Immich:
         icon: immich.png
-        href: https://photos.${SECRET_DOMAIN_O}
+        href: https://photos.${SECRET_DOMAIN_0}
         description: Photos and Videos Backup
         widget:
           type: immich
@@ -27,7 +27,7 @@
           key: {{HOMEPAGE_VAR_IMMICH_KEY}}
     - qBittorrent:
         icon: qbittorrent.png
-        href: https://qbit.${SECRET_DOMAIN_O}
+        href: https://qbit.${SECRET_DOMAIN_0}
         description: Torrent Management
         widget:
           type: qbittorrent
@@ -36,7 +36,7 @@
           password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
     - Radarr:
         icon: radarr.png
-        href: https://movie.${SECRET_DOMAIN_O}
+        href: https://movie.${SECRET_DOMAIN_0}
         description: Movies Management
         widget:
           type: radarr
@@ -44,7 +44,7 @@
           key: {{HOMEPAGE_VAR_RADARR_KEY}}
     - Sonarr:
         icon: sonarr.png
-        href: https://tv.${SECRET_DOMAIN_O}
+        href: https://tv.${SECRET_DOMAIN_0}
         description: TV Shows Management
         widget:
           type: sonarr
@@ -52,7 +52,7 @@
           key: {{HOMEPAGE_VAR_SONARR_KEY}}
     - Lidarr:
         icon: lidarr.png
-        href: https://music.${SECRET_DOMAIN_O}
+        href: https://music.${SECRET_DOMAIN_0}
         description: Musics Management
         widget:
           type: lidarr
@@ -60,7 +60,7 @@
           key: {{HOMEPAGE_VAR_LIDARR_KEY}}
     - Bazarr:
         icon: bazarr.png
-        href: https://bazarr.${SECRET_DOMAIN_O}
+        href: https://bazarr.${SECRET_DOMAIN_0}
         description: Subtitles Management
         widget:
           type: bazarr
@@ -69,7 +69,7 @@
 - Network:
     - AdGuardHome:
         icon: adguard-home.png
-        href: https://adguard.${SECRET_DOMAIN_O}
+        href: https://adguard.${SECRET_DOMAIN_0}
         description: Ad Blocking DNS
         widget:
           type: adguard
@@ -83,7 +83,7 @@
         description: My Code Repository
     - Grafana Dashboard:
         icon: si-grafana
-        href: https://dashboard.${SECRET_DOMAIN_O}
+        href: https://dashboard.${SECRET_DOMAIN_0}
         description: My Cluster Metrics Visualization
     - k8s-at-home-search:
         icon: si-kubernetes
