@@ -51,7 +51,7 @@ spec:
                 pathType: Prefix
                 service:
                   port: *http-port
-              - path: /notification/hub
+              - path: /notifications/hub
                 pathType: Prefix
                 service:
                   port: *websocket-port
