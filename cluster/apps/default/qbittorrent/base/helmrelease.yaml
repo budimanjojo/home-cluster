@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/qbittorrent
-      tag: 4.5.3
+      tag: 4.5.4
     service:
       main:
         ports:
