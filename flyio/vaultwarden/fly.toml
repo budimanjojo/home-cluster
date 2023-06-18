@@ -1,0 +1,46 @@
+# FLY_APP in the `flyctl-secret.sops.yaml` will be used
+# so I don't have to expose my app name
+# Secrets created for this app are:
+# - DATABASE_URL is set to fly postgres instance
+# - DOMAIN is set to my own custom domain
+# - SMTP_PASSWORD for sending invitation email
+#
+# In my Cloudflare DNS records, I have a domain CNAME to the app url
+# with Cloudflare Proxy TURNED OFF so I can issue the certificate
+# using `flyctl certs add` command
+
+primary_region = "sin"
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+
+[build]
+  image = "vaultwarden/server:1.28.1-alpine"
+
+[env]
+  SIGNUPS_ALLOWED = "false"
+  INVITATIONS_ALLOWED = "true"
+  SMTP_HOST = "smtp.gmail.com"
+  SMTP_FROM = "budimanjojo@gmail.com"
+  SMTP_PORT = "587"
+  SMTP_SECURITY = "starttls"
+  SMTP_USERNAME = "budimanjojo@gmail.com"
+  SMTP_PASSWORD_HINT = "true"
+  WEB_VAULT_ENABLED = "true"
+  WEB_VAULT_FOLDER = "web-vault"
+  DATA_FOLDER = "data"
+
+[mounts]
+  source = "vaultwarden_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
