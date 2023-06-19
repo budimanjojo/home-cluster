@@ -61,6 +61,13 @@
         "- (\\w+://)?(raw\\.)?github(usercontent)?\\.com\\/(?<depName>[\\w\\-_]+\\/[\\w\\-_]+)\\/(.+\\/)?v?[\\d+\\.]+\\/kured-(?<currentValue>[\\d.\\.]+)"
       ],
       "datasourceTemplate": "github-tags"
+    },
+    {
+      "fileMatch": ["fly.toml"],
+      "matchStrings": [
+        "\\[build\\]\\n[\\w\\W]*?image ?= ?\"?(?<depName>[\\w\\.\\-_)\\/[\\w\\.\\-_]+):(?<currentValue>v?[\\d+\\.]+-?.+?)\""
+      ],
+      "datasourceTemplate": "docker"
     }
   ],
   "packageRules": [
