@@ -122,6 +122,8 @@ spec:
         existingClaim: nextcloud-data
     startupProbe:
       enabled: true
+    cronjob:
+      enabled: true
     resources:
       requests:
         cpu: 34m
