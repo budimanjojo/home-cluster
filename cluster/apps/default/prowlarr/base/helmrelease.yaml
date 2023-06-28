@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.6.1.3564
+      tag: 1.6.3.3608
     service:
       main:
         ports:
