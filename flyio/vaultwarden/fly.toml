@@ -33,14 +33,29 @@ kill_timeout = "5s"
   source = "vaultwarden_data"
   destination = "/data"
 
-[http_service]
+[[services]]
+  http_checks = []
   internal_port = 80
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
 
-  [http_service.concurrency]
+  [services.concurrency]
     type = "connections"
     hard_limit = 25
     soft_limit = 20
+
+  [[services.ports]]
+    port = 80
+    force_https = true
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
