@@ -109,8 +109,7 @@ The sidecar container from this [image](https://github.com/kiwigrid/k8s-sidecar)
 
 ## :handshake:&nbsp; Thanks
 
-A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes)
-
+A lot of inspiration for my cluster came from this [awesome template](https://github.com/onedr0p/flux-cluster-template)
 ---
 
 ## Todo List
