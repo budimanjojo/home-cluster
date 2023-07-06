@@ -55,3 +55,10 @@ spec:
               resources:
                 - namespaces
                 - pods
+              verbs:
+                - create
+                - update
+                - patch
+                - delete
+                - get
+                - list
