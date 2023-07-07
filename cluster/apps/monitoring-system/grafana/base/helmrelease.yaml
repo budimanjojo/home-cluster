@@ -57,7 +57,7 @@ spec:
         cpu: 10m
         memory: 94Mi
       limits:
-        memory: 103Mi
+        memory: 366Mi
     admin:
       existingSecret: grafana-secret
       userKey: gf_security_admin_user
