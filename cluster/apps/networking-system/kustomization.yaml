@@ -9,4 +9,3 @@ resources:
   - ./external/kustomization-fluxCRD.yaml
   - ./ingress-nginx/kustomization-fluxCRD.yaml
   - ./metallb/kustomization-fluxCRD.yaml
-  - ./omada-controller/kustomization-fluxCRD.yaml
