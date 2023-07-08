@@ -6,8 +6,8 @@ metadata:
   name: adguard
 subsets:
   - addresses:
-      - ip: ${CONFIG_OPNSENSE_IP_ADDRESS}
+      - ip: 10.5.0.2
     ports:
       - name: http
-        port: 81
+        port: 80
         protocol: TCP
