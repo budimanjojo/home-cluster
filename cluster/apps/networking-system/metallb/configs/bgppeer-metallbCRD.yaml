@@ -6,4 +6,4 @@ metadata:
 spec:
   myASN: 65401
   peerASN: 65400
-  peerAddress: ${CONFIG_OPNSENSE_IP_ADDRESS}
+  peerAddress: ${CONFIG_VYOS_IP_ADDRESS}

@@ -6,7 +6,7 @@ metadata:
   name: opnsense
 subsets:
   - addresses:
-      - ip: ${CONFIG_OPNSENSE_IP_ADDRESS}
+      - ip: ${CONFIG_VYOS_IP_ADDRESS}
     ports:
       - name: http
         port: 80
