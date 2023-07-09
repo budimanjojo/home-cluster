@@ -44,6 +44,14 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
+        additionalScrapeConfigs:
+          - job_name: external-node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - ${CONFIG_VYOS_IP_ADDRESS}:9100
     alertmanager:
       config:
         global:
