@@ -52,6 +52,11 @@ spec:
             isDefault: true
             url: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
             access: proxy
+          - name: Loki
+            type: loki
+            url: http://loki-gateway.monitoring-system.svc.cluster.local
+            jsonData:
+              maxLines: 250
     resources:
       requests:
         cpu: 10m
