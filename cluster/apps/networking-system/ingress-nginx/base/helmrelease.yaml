@@ -32,6 +32,7 @@ spec:
       service:
         annotations:
           metallb.universe.tf/address-pool: diff-subnet
+          metallb.universe.tf/loadBalancerIPs: 192.168.15.0
         externalTrafficPolicy: Local
       ingressClassResource:
         default: true
