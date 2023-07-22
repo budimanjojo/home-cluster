@@ -5,4 +5,3 @@ kind: Kustomization
 namespace: postgres-operator
 resources:
   - ./helmrelease.yaml
-  - ./gitrepository-fluxCRD.yaml

@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: ./helm
-      version: 0.6.0
+      chart: pgo
+      version: 5.4.0
       sourceRef:
-        kind: GitRepository
-        name: pgo-operator
+        kind: HelmRepository
+        name: crunchydata-charts
         namespace: flux-system
       interval: 15m
   install:
