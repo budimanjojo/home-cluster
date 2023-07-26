@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app actions-runner-controller
+  name: actions-runner-controller
 spec:
   interval: 15m
   chart:
     spec:
-      chart: *app
-      version: 0.23.3
+      chart: gha-runner-scale-set-controller
+      version: 0.4.0
       sourceRef:
         kind: HelmRepository
         name: actions-runner-controller-charts
@@ -25,31 +25,4 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/actions-runner-controller/actions-runner-controller
-      tag: v0.27.4
-    authSecret:
-      create: false
-      name: &secret actions-runner-controller-secret
-    podAnnotation:
-      secret.reloader.stakater.com/reload: *secret
-    githubWebhookServer:
-      enabled: true
-      syncPeriod: 10m
-      secret:
-        create: false
-        name: *secret
-      podAnnotation:
-        secret.reloader.stakater.com/reload: *secret
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        hosts:
-          - host: &host arc-wh.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+    fullnameOverride: gha-runner-scale-set-controller

@@ -5,5 +5,4 @@ kind: Kustomization
 namespace: actions-runner-system
 resources:
   - ./helmrelease.yaml
-  - ./pvc.yaml
   - ./secret.sops.yaml

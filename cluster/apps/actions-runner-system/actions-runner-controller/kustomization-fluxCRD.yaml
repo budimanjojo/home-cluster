@@ -13,9 +13,6 @@ spec:
   interval: 30m
   prune: true
   wait: true
-  dependsOn:
-    - name: rook-ceph-rook-ceph-cluster
-    - name: networking-system-cert-manager
 
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1.json
