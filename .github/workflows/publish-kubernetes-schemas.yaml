@@ -17,7 +17,7 @@ env:
 jobs:
   publish-kubernetes-schemas:
     name: Publish Kubernetes schemas
-    runs-on: ["self-hosted"]
+    runs-on: ["arc-runner-set-home-cluster"]
     steps:
       - name: Setup Kube tools
         uses: yokawasa/action-setup-kube-tools@af4ebb1af1efd30c5bd84a2e9773355ad6362a33
