@@ -10,7 +10,7 @@ nodes:
   - hostname: kmaster1
     ipAddress: 192.168.200.21
     controlPlane: true
-    installDisk: /dev/sda
+    installDisk: /dev/nvme0n1
     nameservers:
       - 1.1.1.1
       - 8.8.8.8
@@ -48,7 +48,7 @@ nodes:
   - hostname: kmaster3
     ipAddress: 192.168.200.23
     controlPlane: true
-    installDisk: /dev/sda
+    installDisk: /dev/nvme0n1
     nameservers:
       - 1.1.1.1
       - 8.8.8.8
