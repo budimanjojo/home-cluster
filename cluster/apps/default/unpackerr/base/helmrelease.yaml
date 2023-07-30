@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/unpackerr
-      tag: 0.11.2
+      tag: 0.12.0
     service:
       main:
         enabled: false
