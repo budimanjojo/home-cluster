@@ -57,10 +57,19 @@ spec:
         enabled: true
         existingClaim: zigbee2mqtt-config
         mountPath: /config
+      usb:
+        enabled: true
+        type: hostPath
+        hostPathType: CharDevice
+        hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+        mountPath: /dev/ttyUSB0
+    securityContext:
+      privileged: true
+    nodeSelector:
+      feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
     resources:
       requests:
         cpu: 15m
         memory: 110Mi
       limits:
         memory: 136Mi
-        smarter-devices/ttyUSB0: 1

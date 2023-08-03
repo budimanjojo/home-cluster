@@ -10,6 +10,5 @@ resources:
   - ./kubernetes-replicator/kustomization-fluxCRD.yaml
   - ./metrics-server/kustomization-fluxCRD.yaml
   - ./node-feature-discovery/kustomization-fluxCRD.yaml
-  - ./smarter-device-manager/kustomization-fluxCRD.yaml
   - ./snapshot-controller/kustomization-fluxCRD.yaml
   - ./vpa/kustomization-fluxCRD.yaml
