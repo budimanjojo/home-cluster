@@ -74,7 +74,7 @@ spec:
         args:
           - -c
           - >-
-            echo "0 */3 * * * wget -q0- http://firefly-iii:8080/api/v1/cron/$(STATIC_CRON_TOKEN)"
+            echo "0 */3 * * * wget -qO- http://firefly-iii:8080/api/v1/cron/$(STATIC_CRON_TOKEN)"
             | crontab -
             && crond -f -L /dev/stdout
         env:
