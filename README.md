@@ -43,7 +43,6 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 
 - [Intel GPU plugin](https://github.com/intel/intel-device-plugins-for-kubernetes): Access intel gpu available on nodes.
 - [node-feature-discovery](https://github.com/kubernetes-sigs/node-feature-discovery): Discover features available on nodes.
-- [smarter-device-manager](https://gitlab.com/arm-research/smarter/smarter-device-manager): Access devices available on nodes.
 
 ### Metrics
 
