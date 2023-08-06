@@ -29,7 +29,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/immich-app/immich-proxy
-      tag: v1.71.0
+      tag: v1.72.0
     service:
       main:
         ports:
