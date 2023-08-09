@@ -16,12 +16,12 @@ on:
     - cron: 0 * * * *
   push:
     paths:
-      - .github/renovate.json
+      - .github/renovate.json5
 
 env:
   LOG_LEVEL: debug
   RENOVATE_DRY_RUN: false
-  RENOVATE_CONFIG_FILE: .github/renovate.json
+  RENOVATE_CONFIG_FILE: .github/renovate.json5
 
 jobs:
   renovate:

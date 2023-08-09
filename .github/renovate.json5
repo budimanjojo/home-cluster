@@ -1,0 +1,51 @@
+{
+  "extends": [
+    "github>budimanjojo/renovate-config:default.json5",
+    "github>budimanjojo/renovate-config:automerge-minor.json5",
+    "github>budimanjojo/renovate-config:budimanjojo-bot"
+  ],
+  "repositories": ["budimanjojo/home-cluster"],
+  "helm-values": {
+    "fileMatch": [
+      "cluster/.+/helm-?release\\.ya?ml$"
+    ]
+  },
+  "flux": {
+    "fileMatch": [
+      "cluster/.+/helm-?release\\.ya?ml$",
+      "flux-system/.+\\.ya?ml$",
+      "charts/.+\\.ya?ml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/.+/deployment\\.ya?ml$",
+      "cluster/.+/daemonset\\.ya?ml$",
+      "cluster/.+/statefulset\\.ya?ml$",
+      "cluster/.+/cronjob\\.ya?ml$",
+      "cluster/.+/helm-?release\\.ya?ml$",
+      "talos/.+/kustomization.ya?ml$"
+    ]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["fly.toml"],
+      "matchStrings": [
+        "\\[build\\]\\n[\\w\\W]*?image ?= ?\"?(?<depName>[\\w\\.\\-_)\\/[\\w\\.\\-_]+):(?<currentValue>v?[\\d+\\.]+-?.+?)\""
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["renovatebot/github-action"],
+      "automerge": true,
+      "ignoreTests": true
+    },
+    {
+      "description": "Use custom versioning for Minio",
+      "matchDepNames": ["quay.io/minio/minio"],
+      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$"
+    }
+  ]
+}
