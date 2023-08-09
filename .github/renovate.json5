@@ -2,7 +2,7 @@
   "extends": [
     "github>budimanjojo/renovate-config:default.json5",
     "github>budimanjojo/renovate-config:automerge-minor.json5",
-    "github>budimanjojo/renovate-config:budimanjojo-bot"
+    "github>budimanjojo/renovate-config:budimanjojo-bot.json5"
   ],
   "repositories": ["budimanjojo/home-cluster"],
   "helm-values": {
