@@ -15,9 +15,7 @@ jobs:
     strategy:
       matrix:
         path: ["cluster"]
-        resource:
-          - helmrelease
-          - kustomization
+        resource: ["helmrelease", "kustomization"]
     steps:
       - name: Generate token
         uses: tibdex/github-app-token@v1
