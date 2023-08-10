@@ -1,0 +1,170 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/configmap-v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  bookmarks.yaml: |
+    ---
+  docker.yaml: |
+    ---
+  kubernetes.yaml: |
+    ---
+    mode: cluster
+
+  services.yaml: |
+    ---
+    - Media:
+        - Jellyfin:
+            icon: jellyfin.png
+            href: https://jellyfin.${SECRET_DOMAIN_0}
+            description: Media Server
+            widget:
+              type: jellyfin
+              url: http://jellyfin.default.svc.cluster.local:8096
+              key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
+              enableNowPlaying: true
+        - Ombi:
+            icon: ombi.png
+            href: https://ombi.${SECRET_DOMAIN_0}
+            description: Media Requests
+            widget:
+              type: ombi
+              url: http://ombi.default.svc.cluster.local:3579
+              key: {{HOMEPAGE_VAR_OMBI_KEY}}
+        - Immich:
+            icon: immich.png
+            href: https://photos.${SECRET_DOMAIN_0}
+            description: Photos and Videos Backup
+            widget:
+              type: immich
+              url: http://immich-proxy.default.svc.cluster.local:8080
+              key: {{HOMEPAGE_VAR_IMMICH_KEY}}
+        - qBittorrent:
+            icon: qbittorrent.png
+            href: https://qbit.${SECRET_DOMAIN_0}
+            description: Torrent Management
+            widget:
+              type: qbittorrent
+              url: http://qbittorrent.default.svc.cluster.local:8080
+              username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
+              password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
+        - Radarr:
+            icon: radarr.png
+            href: https://movie.${SECRET_DOMAIN_0}
+            description: Movies Management
+            widget:
+              type: radarr
+              url: http://radarr.default.svc.cluster.local:7878
+              key: {{HOMEPAGE_VAR_RADARR_KEY}}
+        - Sonarr:
+            icon: sonarr.png
+            href: https://tv.${SECRET_DOMAIN_0}
+            description: TV Shows Management
+            widget:
+              type: sonarr
+              url: http://sonarr.default.svc.cluster.local:8989
+              key: {{HOMEPAGE_VAR_SONARR_KEY}}
+        - Lidarr:
+            icon: lidarr.png
+            href: https://music.${SECRET_DOMAIN_0}
+            description: Musics Management
+            widget:
+              type: lidarr
+              url: http://lidarr.default.svc.cluster.local:8686
+              key: {{HOMEPAGE_VAR_LIDARR_KEY}}
+        - Bazarr:
+            icon: bazarr.png
+            href: https://bazarr.${SECRET_DOMAIN_0}
+            description: Subtitles Management
+            widget:
+              type: bazarr
+              url: http://bazarr.default.svc.cluster.local:6767
+              key: {{HOMEPAGE_VAR_BAZARR_KEY}}
+    - Network:
+        - AdGuardHome:
+            icon: adguard-home.png
+            href: https://adguard.${SECRET_DOMAIN_0}
+            description: Ad Blocking DNS
+            widget:
+              type: adguard
+              url: http://10.5.0.2:80
+              username: {{HOMEPAGE_VAR_AGH_USERNAME}}
+              password: {{HOMEPAGE_VAR_AGH_PASSWORD}}
+    - Favorites:
+        - My GitHub Repo:
+            icon: si-github
+            href: https://github.com/budimanjojo
+            description: My Code Repository
+        - Grafana Dashboard:
+            icon: si-grafana
+            href: https://dashboard.${SECRET_DOMAIN_0}
+            description: My Cluster Metrics Visualization
+        - k8s-at-home-search:
+            icon: si-kubernetes
+            href: https://nanne.dev/k8s-at-home-search/
+            description: Search KAH HelmReleases
+        - onedr0p home-ops:
+            icon: si-github
+            href: https://github.com/onedr0p/home-ops
+            description: onedr0p HomeOps Repository
+        - bjw-s Chart Values:
+            icon: si-github
+            href: https://github.com/bjw-s/helm-charts/tree/main/charts/library/common#values
+            description: app-template Helm Chart Values
+        - NixOS Search:
+            icon: si-nixos
+            href: https://search.nixos.org
+            description: Search NixOS Packages and Options
+
+  settings.yaml: |
+    ---
+    title: My Personal Home Dashboard
+    theme: dark
+    color: slate
+    headerStyle: clean
+    target: _blank
+    layout:
+      Media:
+        style: row
+        columns: 4
+      Network:
+        style: row
+      Favorites:
+        style: row
+        columns: 3
+    quicklaunch:
+      searchDescription: true
+      hideInternetSearch: true
+      hideVisitURL: true
+
+  widgets.yaml: |
+    ---
+    - search:
+        provider:
+          - google
+          - duckduckgo
+    - openmeteo:
+        label: Home
+        latitude: {{HOMEPAGE_VAR_HOME_LATITUDE}}
+        longitude: {{HOMEPAGE_VAR_HOME_LONGITUDE}}
+        units: metric
+        cache: 5
+    - openmeteo:
+        label: Shop
+        latitude: {{HOMEPAGE_VAR_SHOP_LATITUDE}}
+        longitude: {{HOMEPAGE_VAR_SHOP_LONGITUDE}}
+        units: metric
+        cache: 5
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: home-cluster
+        nodes:
+          show: false
