@@ -29,16 +29,4 @@ spec:
     maxRunners: 3
     containerMode:
       type: dind
-  valuesFrom:
-    - kind: Secret
-      name: actions-runner-controller-secret
-      valuesKey: github_app_id
-      targetPath: githubConfigSecret.github_app_id
-    - kind: Secret
-      name: actions-runner-controller-secret
-      valuesKey: github_app_installation_id
-      targetPath: githubConfigSecret.github_app_installation_id
-    - kind: Secret
-      name: actions-runner-controller-secret
-      valuesKey: github_app_private_key
-      targetPath: githubConfigSecret.github_app_private_key
+    githubConfigSecret: actions-runner-controller-secret
