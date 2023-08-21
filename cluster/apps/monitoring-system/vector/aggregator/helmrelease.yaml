@@ -46,7 +46,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/vector
-      tag: 0.32.0-debian
+      tag: 0.32.1-debian
     args:
       - --config
       - /etc/vector/vector.yaml
