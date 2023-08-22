@@ -29,4 +29,9 @@ spec:
     maxRunners: 3
     containerMode:
       type: dind
+    template:
+      spec:
+        containers:
+          - name: runner
+            image: ghcr.io/onedr0p/github-actions-runner:rolling@sha256:b595cf0735825bfb5f2da427da993b128b64f10cd3d8e5631a0e67546155f1eb
     githubConfigSecret: actions-runner-controller-secret
