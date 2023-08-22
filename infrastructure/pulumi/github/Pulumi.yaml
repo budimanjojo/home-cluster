@@ -1,0 +1,4 @@
+---
+name: pulumi-github
+runtime: go
+description: Pulumi Go program to manage my repositories IaC
