@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/role-rbac-v1.json
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pulumi-flux-source-access
+  labels:
+    app.kubernetes.io/name: pulumi-kubernetes-operator
+rules:
+  - apiGroups:
+      - source.toolkit.fluxcd.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/rolebinding-rbac-v1.json
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pulumi-flux-source-access
+  labels:
+    app.kubernetes.io/name: pulumi-kubernetes-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pulumi-flux-source-access
+subjects:
+  - kind: ServiceAccount
+    name: pulumi-kubernetes-operator
