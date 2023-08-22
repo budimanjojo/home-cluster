@@ -3,7 +3,7 @@ package config
 type Config struct {
 	Repositories     []Repository
 	DefaultLabels    []Label `validate:"requiredIf:Repositories..UseDefaultLabels,true"`
-	BotActionSecrets []ActionSecret
+	BotActionSecrets []ActionSecret `validate:"requiredIf:Repositories..UseBotApplication,true"`
 }
 
 type Repository struct {
