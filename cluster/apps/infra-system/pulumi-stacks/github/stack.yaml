@@ -1,0 +1,18 @@
+---
+apiVersion: pulumi.com/v1
+kind: Stack
+metadata:
+  name: pulumi-github-budimanjojo
+spec:
+  stack: budimanjojo/pulumi-github/budimanjojo
+  fluxSource:
+    sourceRef:
+      apiVersion: source.toolkit.fluxcd.io/v1beta2
+      kind: OCIRepository
+      name: pulumi-github-budimanjojo
+  envRefs:
+    PULUMI_ACCESS_TOKEN:
+      type: Secret
+      secret:
+        name: pulumi-secret
+        key: PULUMI_ACCESS_TOKEN
