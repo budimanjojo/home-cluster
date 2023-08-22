@@ -1,0 +1,75 @@
+---
+name: Publish Pulumi OCI
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - infrastructure/pulumi/**
+
+jobs:
+  changed-files:
+    name: Generate matrix for building images
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v22
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Install tools
+        uses: workflow/nix-shell-action@v3.3.0
+        with:
+          packages: jo
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@37.6.1
+        with:
+          dir_names: "true"
+          dir_names_max_depth: "3"
+          json: "true"
+          files: |
+            infrastructure/pulumi/**
+      - name: List all changed files
+        run: |
+          echo '${{ steps.changed-files.outputs.all_changed_files }}'
+      - name: Store changed projects
+        id: set-matrix
+        run: |
+          if [[ "${{ steps.changed-files.outputs.all_changed_files }}" == "[]" ]]; then
+            echo "matrix={\"project\":$(find infrastructure/pulumi -type d -mindepth 1 -maxdepth 1 | jo -a)}" >> "${GITHUB_OUTPUT}"
+          else
+            echo "matrix={\"project\":${{ steps.changed-files.outputs.all_changed_files }}}" >> "${GITHUB_OUTPUT}"
+          fi
+
+  publish-pulumi-oci:
+    name: Publish Pulumi OCI
+    runs-on: ubuntu-latest
+    needs:
+      - changed-files
+    strategy:
+      matrix: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Flux
+        uses: fluxcd/flux2/action@v2.0.1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish as OCI
+        run: |
+          flux push artifact "oci://ghcr.io/budimanjojo/pulumi/$(basename ${{ matrix.project }}):$(git rev-parse --short HEAD)" \
+            --path="./${{ matrix.project }}" \
+            --source="$(git config --get remote.origin.URL)" \
+            --revision="$(git branch --show-current)/$(git rev-parse HEAD)"
+      - name: Tag OCI
+        run: |
+          flux tag artifact "oci://ghcr.io/budimanjojo/pulumi/$(basename ${{ matrix.project }}):$(git rev-parse --short HEAD)" \
+            --tag main
