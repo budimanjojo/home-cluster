@@ -92,7 +92,7 @@ data:
           - type: discord
       - name: home-dns
         group: frontend-services
-        url: 192.168.200.1
+        url: 10.5.0.2
         interval: 30s
         dns:
           query-name: "${SECRET_DOMAIN_0}"
