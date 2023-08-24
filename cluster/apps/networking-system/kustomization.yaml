@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   - ./cert-manager/kustomization-fluxCRD.yaml
   - ./certificates/kustomization-fluxCRD.yaml
+  - ./cloudflared/kustomization-fluxCRD.yaml
   - ./external/kustomization-fluxCRD.yaml
   - ./ingress-nginx/kustomization-fluxCRD.yaml
   - ./metallb/kustomization-fluxCRD.yaml

@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/configmap-v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+  labels:
+    app.kubernetes.io/name: cloudflared
+data:
+  config.yaml: |
+    originRequest:
+      http2Origin: true
+      noTLSVerify: true
+    ingress:
+      - hostname: "${SECRET_DOMAIN_0}"
+        service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
+      - hostname: "*.${SECRET_DOMAIN_0}"
+        service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
+      - hostname: "*.${SECRET_DOMAIN_1}"
+        service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
+      - hostname: "*.${SECRET_DOMAIN_2}"
+        service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
+      - service: http_status:404
