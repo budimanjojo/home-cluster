@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: lscr.io/linuxserver/ombi
-      tag: 4.39.1
+      tag: 4.43.5
     service:
       main:
         ports:
