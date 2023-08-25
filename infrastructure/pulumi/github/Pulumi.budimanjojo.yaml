@@ -139,6 +139,9 @@ config:
         - name: renovate/github-release
           description: Pull request to a Renovate Github releases update
           color: 2ac3de
+        - name: nvfetcher
+          description: Pull request created by Nvfetcher
+          color: 4fd6be
       branchProtectionRules:
         - pattern: "main"
           allowsForcePushes: true
