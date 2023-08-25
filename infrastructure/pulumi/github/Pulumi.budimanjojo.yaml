@@ -140,7 +140,7 @@ config:
           description: Pull request to a Renovate Github releases update
           color: 2ac3de
       branchProtectionRules:
-        - pattern: "*"
+        - pattern: "main"
           allowsForcePushes: true
           requiredStatusChecks:
             strict: false
