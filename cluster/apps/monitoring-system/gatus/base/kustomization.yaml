@@ -6,4 +6,3 @@ namespace: monitoring-system
 resources:
   - ./configmap.yaml
   - ./helmrelease.yaml
-  - ./grafana-dashboard.yaml

@@ -1,9 +1,0 @@
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: monitoring-system
-commonLabels:
-  grafana_dashboard: "1"
-resources:
-  - https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.12.0/manifests/grafana-dashboardDefinitions.yaml

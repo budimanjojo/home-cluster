@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app grafana
+  name: grafana
 spec:
   interval: 15m
   chart:
@@ -23,26 +23,59 @@ spec:
     remediation:
       retries: 5
   values:
-    nameOverride: *app
-    image:
-      repository: grafana/grafana
-      tag: 10.1.0
-    service:
-      portName: http
-      port: 3000
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        nginx.ingress.kubernetes.io/whitelist-source-range: |
-          10.244.0.0/16,10.10.0.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
-      pathType: Prefix
-      hosts:
-        - &host dashboard.${SECRET_DOMAIN_0}
-      tls:
-        - hosts:
-            - *host
-          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+    grafana.ini:
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
+      news:
+        news_feed_enabled: false
+
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: default
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+          - name: ceph
+            orgId: 1
+            folder: Ceph
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/ceph
+          - name: flux
+            orgId: 1
+            folder: Flux
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/flux
+          - name: kubernetes
+            orgId: 1
+            folder: Kubernetes
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/kubernetes
+          - name: nginx
+            orgId: 1
+            folder: Nginx
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/nginx
+
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -57,6 +90,107 @@ spec:
             url: http://loki-gateway.monitoring-system.svc.cluster.local
             jsonData:
               maxLines: 250
+
+    dashboards:
+      default:
+        cloudflared:
+          gneId: 17457  # https://grafana.com/grafana/dashboards/17457?tab=revisions
+          revision: 6
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        minio:
+          gneId: 13502  # https://grafana.com/grafana/dashboards/13502?tab=revisions
+          revision: 24
+          datasource: Prometheus
+        node-exporter-full:
+          gneId: 1860  # https://grafana.com/grafana/dashboards/1860?tab=revisions
+          revision: 31
+          datasource: Prometheus
+        gatus:
+          url: https://raw.githubusercontent.com/TwiN/gatus/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
+          datasource: Prometheus
+      ceph:
+        ceph-cluster:
+          gneId: 2842  # https://grafana.com/grafana/dashboards/2842?tab=revisions
+          revision: 17
+          datasource: Prometheus
+        ceph-osd:
+          gneId: 5336  # https://grafana.com/grafana/dashboards/5336?tab=revisions
+          revision: 9
+          datasource: Prometheus
+        ceph-pools:
+          gneId: 5342  # https://grafana.com/grafana/dashboards/5342?tab=revisions
+          revision: 9
+          datasource: Prometheus
+      flux:
+        flux-cluster:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
+          datasource: Prometheus
+        flux-control-plane:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+          datasource: Prometheus
+        flux-logs:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
+          datasource: Prometheus
+      kubernetes:
+        kubernetes-api-server:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+          datasource: Prometheus
+        kubernetes-coredns:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+          datasource: Prometheus
+        kubernetes-global:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-view-global.json
+          datasource: Prometheus
+        kubernetes-namespaces:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-view-namespaces.json
+          datasource: Prometheus
+        kubernetes-nodes:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-view-nodes.json
+          datasource: Prometheus
+        kubernetes-pods:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-view-pods.json
+          datasource: Prometheus
+      nginx:
+        nginx:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+          datasource: Prometheus
+        nginx-request-handling-performance:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+          datasource: Prometheus
+
+    sidecar:
+      dashboards:
+        enabled: true
+        label: grafana_dashboard
+        labelValue: ""
+        folderAnnotation: grafana_folder
+        searchNamespace: ALL
+        provider:
+          disableDelete: true
+          foldersFromFilesStructure: true
+      datasources:
+        enabled: true
+        labelValue: ""
+        searchNamespace: ALL
+
+    plugins:
+      - grafana-piechart-panel
+
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: |
+          10.244.0.0/16,10.10.0.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
+      pathType: Prefix
+      hosts:
+        - &host dashboard.${SECRET_DOMAIN_0}
+      tls:
+        - hosts:
+            - *host
+          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     resources:
       requests:
         cpu: 10m
@@ -67,17 +201,6 @@ spec:
       existingSecret: grafana-secret
       userKey: gf_security_admin_user
       passwordKey: gf_security_admin_password
-    sidecar:
-      dashboards:
-        enabled: true
-        labelValue: ""
-        searchNamespace: ALL
-      datasources:
-        enabled: true
-        labelValue: ""
-        searchNamespace: ALL
-    plugins:
-      - grafana-piechart-panel
     serviceMonitor:
       enabled: true
     rbac:
