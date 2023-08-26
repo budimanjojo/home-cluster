@@ -126,6 +126,8 @@ github.com/pulumi/pulumi/sdk/v3 v3.78.0 h1:NfK+z0ScbMX/C/odh3VN26YZ4x23c5hVJSVpZ
 github.com/pulumi/pulumi/sdk/v3 v3.78.0/go.mod h1:FEFictCHoa8CYzKDSc0t9ErrNiaO9n7pChreLQLDH+M=
 github.com/pulumi/pulumi/sdk/v3 v3.78.1 h1:itSfMcILvEq5wOpGEAzeZdpH973yJ4sRn02nx5SCJHM=
 github.com/pulumi/pulumi/sdk/v3 v3.78.1/go.mod h1:FEFictCHoa8CYzKDSc0t9ErrNiaO9n7pChreLQLDH+M=
+github.com/pulumi/pulumi/sdk/v3 v3.79.0 h1:GJ46WDwJ78jQ9qJW0nI1WdnypjCNkRQG9rVymw0go9A=
+github.com/pulumi/pulumi/sdk/v3 v3.79.0/go.mod h1:FEFictCHoa8CYzKDSc0t9ErrNiaO9n7pChreLQLDH+M=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
 github.com/rivo/uniseg v0.4.4/go.mod h1:FN3SvrM+Zdj16jyLfmOkMNblXMcoc8DfTHruCPUcx88=
