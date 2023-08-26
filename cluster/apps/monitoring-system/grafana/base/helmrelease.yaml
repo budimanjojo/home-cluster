@@ -94,17 +94,17 @@ spec:
     dashboards:
       default:
         cloudflared:
-          gneId: 17457  # https://grafana.com/grafana/dashboards/17457?tab=revisions
+          gnetId: 17457  # https://grafana.com/grafana/dashboards/17457?tab=revisions
           revision: 6
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
         minio:
-          gneId: 13502  # https://grafana.com/grafana/dashboards/13502?tab=revisions
+          gnetId: 13502  # https://grafana.com/grafana/dashboards/13502?tab=revisions
           revision: 24
           datasource: Prometheus
         node-exporter-full:
-          gneId: 1860  # https://grafana.com/grafana/dashboards/1860?tab=revisions
+          gnetId: 1860  # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
           datasource: Prometheus
         gatus:
@@ -112,15 +112,15 @@ spec:
           datasource: Prometheus
       ceph:
         ceph-cluster:
-          gneId: 2842  # https://grafana.com/grafana/dashboards/2842?tab=revisions
+          gnetId: 2842  # https://grafana.com/grafana/dashboards/2842?tab=revisions
           revision: 17
           datasource: Prometheus
         ceph-osd:
-          gneId: 5336  # https://grafana.com/grafana/dashboards/5336?tab=revisions
+          gnetId: 5336  # https://grafana.com/grafana/dashboards/5336?tab=revisions
           revision: 9
           datasource: Prometheus
         ceph-pools:
-          gneId: 5342  # https://grafana.com/grafana/dashboards/5342?tab=revisions
+          gnetId: 5342  # https://grafana.com/grafana/dashboards/5342?tab=revisions
           revision: 9
           datasource: Prometheus
       flux:
