@@ -76,7 +76,7 @@ jobs:
 
       - name: Tag manifests
         shell: bash
-        run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} -- tag main
+        run: flux tag artifact oci://${{ steps.generate-tag.outputs.tag }} --tag main
 
   publish-web:
     name: Publish web
