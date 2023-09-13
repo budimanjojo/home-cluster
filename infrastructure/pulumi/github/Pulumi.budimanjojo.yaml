@@ -82,6 +82,7 @@ config:
           color: 2ac3de
     - name: talhelper
       description: A tool to help creating Talos kubernetes cluster
+      homepageUrl: https://budimanjojo.github.io/talhelper
       topics:
         - kubernetes
         - talos
