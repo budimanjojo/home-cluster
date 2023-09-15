@@ -27,7 +27,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/budimanjojo/kubernetes-schemas-web
-      tag: latest@sha256:33c4da560c57512343f0861c06fa5e0b03cd68c1cd01058afcb921296e0b0670
+      tag: latest@sha256:2ddfc4761ccef303719ddaec856d9769f00ab93e487cd593895aed8a5bb8e659
     service:
       main:
         ports:
