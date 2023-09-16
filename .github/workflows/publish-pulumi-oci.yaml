@@ -16,7 +16,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
       - name: Setup Nix
         uses: cachix/install-nix-action@6a9a9e84a173d90b3ffb42c5ddaf9ea033fad011 # v23
         with:
@@ -54,7 +54,7 @@ jobs:
     strategy:
       matrix: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
       - name: Setup Flux
         uses: fluxcd/flux2/action@v2.1.0
       - name: Login to GitHub Container Registry
