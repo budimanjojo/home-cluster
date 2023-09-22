@@ -120,8 +120,6 @@ spec:
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data
-    startupProbe:
-      enabled: true
     cronjob:
       enabled: true
     resources:
