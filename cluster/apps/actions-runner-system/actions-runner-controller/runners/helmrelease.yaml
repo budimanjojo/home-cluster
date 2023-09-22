@@ -23,6 +23,8 @@ spec:
     remediation:
       retries: 5
   values:
+    controllerServiceAccount:
+      name: actions-runner-controller-gha-rs-controller
     runnerScaleSetName: arc-runner-set-home-cluster
     githubConfigUrl: https://github.com/budimanjojo/home-cluster
     minRunners: 1

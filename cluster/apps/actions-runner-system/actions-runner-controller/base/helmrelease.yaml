@@ -24,5 +24,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
-  values:
-    fullnameOverride: gha-runner-scale-set-controller
