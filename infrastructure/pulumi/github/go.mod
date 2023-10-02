@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/gookit/validate v1.5.1
-	github.com/pulumi/pulumi-github/sdk/v5 v5.19.0
+	github.com/pulumi/pulumi-github/sdk/v5 v5.20.0
 	github.com/pulumi/pulumi/sdk/v3 v3.86.0
 )
 
