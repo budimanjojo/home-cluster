@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: ghcr.io/gethomepage/homepage
-      tag: v0.7.2
+      tag: v0.7.3
     podAnnotations:
       configmap.reloader.stakater.com/reload: &config homepage-config
       secret.reloader.stakater.com/reload: homepage-secret
