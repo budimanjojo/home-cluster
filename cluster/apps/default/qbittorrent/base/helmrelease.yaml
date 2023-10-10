@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app qbittorrent
+  name: qbittorrent
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,11 +23,25 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: ghcr.io/onedr0p/qbittorrent
-      tag: 4.5.5
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.5.5
+            resources:
+              requests:
+                cpu: 10m
+                memory: 105Mi
+              limits:
+                memory: 2Gi
     service:
       main:
         ports:
@@ -42,7 +56,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: |
             10.244.0.0/16,10.10.0.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
@@ -52,28 +66,20 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
+                  name: main
                   port: *http-port
         tls:
           - hosts:
               - *host
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
         existingClaim: qbittorrent-config
-        mountPath: /config
+        globalMounts:
+          - path: /config
       downloads:
         enabled: true
         existingClaim: shared-downloads
-        mountPath: /downloads
-    resources:
-      requests:
-        cpu: 10m
-        memory: 105Mi
-      limits:
-        memory: 2Gi
+        globalMounts:
+          - path: /downloads

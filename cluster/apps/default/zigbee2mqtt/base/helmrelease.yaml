@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app zigbee2mqtt
+  name: zigbee2mqtt
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,13 +23,26 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: 1.33.1
-    env:
-      ZIGBEE2MQTT_DATA: /config
+    controllers:
+      main:
+        pod:
+          securityContext:
+            privileged: true
+          nodeSelector:
+            feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/koenkk/zigbee2mqtt
+              tag: 1.33.1
+            resources:
+              requests:
+                cpu: 15m
+                memory: 110Mi
+              limits:
+                memory: 136Mi
+            env:
+              ZIGBEE2MQTT_DATA: /config
     service:
       main:
         ports:
@@ -39,7 +52,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: |
             10.244.0.0/16,10.10.0.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
@@ -48,6 +61,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -56,20 +72,12 @@ spec:
       config:
         enabled: true
         existingClaim: zigbee2mqtt-config
-        mountPath: /config
+        globalMounts:
+          - path: /config
       usb:
         enabled: true
         type: hostPath
         hostPathType: CharDevice
         hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
-        mountPath: /dev/ttyUSB0
-    securityContext:
-      privileged: true
-    nodeSelector:
-      feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
-    resources:
-      requests:
-        cpu: 15m
-        memory: 110Mi
-      limits:
-        memory: 136Mi
+        globalMounts:
+          - path: /dev/ttyUSB0

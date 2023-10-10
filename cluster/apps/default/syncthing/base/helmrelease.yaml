@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app syncthing
+  name: syncthing
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,11 +23,22 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: syncthing/syncthing
-      tag: 1.25.0
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: syncthing/syncthing
+              tag: 1.25.0
+            resources:
+              requests:
+                cpu: 15m
+                memory: 249Mi
+              limits:
+                memory: 265Mi
+            env:
+              PUID: "1000"
+              PGID: "1000"
     service:
       main:
         ports:
@@ -35,6 +46,7 @@ spec:
             port: 8384
       listdisc:
         enabled: true
+        controller: main
         type: LoadBalancer
         ports:
           discovery:
@@ -49,7 +61,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/auth-method: GET
           nginx.ingress.kubernetes.io/auth-url: http://authelia.authentication-system.svc.cluster.local:9091/api/verify
@@ -61,6 +73,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -69,13 +84,5 @@ spec:
       config:
         enabled: true
         existingClaim: syncthing-config
-        mountPath: /var/syncthing
-    resources:
-      requests:
-        cpu: 15m
-        memory: 249Mi
-      limits:
-        memory: 265Mi
-    env:
-      PUID: "1000"
-      PGID: "1000"
+        globalMounts:
+          - path: /var/syncthing

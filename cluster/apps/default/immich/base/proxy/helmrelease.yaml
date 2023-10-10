@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,11 +25,22 @@ spec:
   dependsOn:
     - name: immich-server
   values:
-    controller:
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/immich-app/immich-proxy
-      tag: v1.81.1
+    controllers:
+      main:
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-proxy
+              tag: v1.81.1
+            # TODO: wait for goldilocks
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+            envFrom:
+              - configMapRef:
+                  name: immich-config
     service:
       main:
         ports:
@@ -39,7 +50,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/proxy-body-size: "0"
         hosts:
@@ -47,15 +58,10 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
-    # TODO: wait for goldilocks
-    resources:
-      requests:
-        cpu: 100m
-        memory: 250Mi
-    envFrom:
-      - configMapRef:
-          name: immich-config

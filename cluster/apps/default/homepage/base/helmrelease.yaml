@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,12 +23,25 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/gethomepage/homepage
-      tag: v0.7.3
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: &config homepage-config
-      secret.reloader.stakater.com/reload: homepage-secret
+    controllers:
+      main:
+        pod:
+          annotations:
+            configmap.reloader.stakater.com/reload: &config homepage-config
+            secret.reloader.stakater.com/reload: homepage-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v0.7.3
+            # TODO: wait for kyverno
+            resources:
+              requests:
+                cpu: 25m
+                memory: 50Mi
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
     service:
       main:
         ports:
@@ -37,7 +50,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: |
             10.244.0.0/16,10.10.0.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
@@ -46,6 +59,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -53,30 +69,20 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: *config
-        subPath:
-          - path: bookmarks.yaml
-            mountPath: /app/config/bookmarks.yaml
-          - path: docker.yaml
-            mountPath: /app/config/docker.yaml
-          - path: kubernetes.yaml
-            mountPath: /app/config/kubernetes.yaml
-          - path: services.yaml
-            mountPath: /app/config/services.yaml
-          - path: settings.yaml
-            mountPath: /app/config/settings.yaml
-          - path: widgets.yaml
-            mountPath: /app/config/widgets.yaml
+        type: configMap
+        name: *config
+        globalMounts:
+          - subPath: bookmarks.yaml
+            path: /app/config/bookmarks.yaml
+          - subPath: docker.yaml
+            path: /app/config/docker.yaml
+          - subPath: kubernetes.yaml
+            path: /app/config/kubernetes.yaml
+          - subPath: services.yaml
+            path: /app/config/services.yaml
+          - subPath: settings.yaml
+            path: /app/config/settings.yaml
+          - subPath: widgets.yaml
+            path: /app/config/widgets.yaml
     serviceAccount:
       create: true
-    # TODO: wait for kyverno
-    resources:
-      requests:
-        cpu: 25m
-        memory: 50Mi
-    envFrom:
-      - secretRef:
-          name: homepage-secret
