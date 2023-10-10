@@ -43,21 +43,21 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: http
+                    port: 8080
               liveness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health
-                    port: http
+                    port: 8080
               readiness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health
-                    port: http
+                    port: 8080
     service:
       main:
         ports:
