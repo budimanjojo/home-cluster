@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,13 +25,33 @@ spec:
   dependsOn:
     - name: immich-server
   values:
-    controller:
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/immich-app/immich-machine-learning
-      tag: v1.81.1
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v1.81.1
+            resources:
+              requests:
+                cpu: 15m
+                memory: 250Mi
+              limits:
+                memory: 4000Mi
+            envFrom:
+              - secretRef:
+                  name: immich-secret
+              - configMapRef:
+                  name: immich-config
+            env:
+              DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgo-cluster-pguser-immich
+                    key: uri
     service:
       main:
         ports:
@@ -41,24 +61,8 @@ spec:
       data:
         enabled: true
         existingClaim: immich-data
-        mountPath: /usr/src/app/upload
+        globalMounts:
+          - path: /usr/src/app/upload
       cache:
         enabled: true
         type: emptyDir
-    resources:
-      requests:
-        cpu: 15m
-        memory: 250Mi
-      limits:
-        memory: 4000Mi
-    envFrom:
-      - secretRef:
-          name: immich-secret
-      - configMapRef:
-          name: immich-config
-    env:
-      DB_URL:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-immich
-            key: uri

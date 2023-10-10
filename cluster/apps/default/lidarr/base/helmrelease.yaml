@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app lidarr
+  name: lidarr
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,11 +23,42 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: ghcr.io/onedr0p/lidarr
-      tag: 1.4.5.3639
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/lidarr
+              tag: 1.4.5.3639
+            resources:
+              requests:
+                cpu: 15m
+                memory: 352Mi
+              limits:
+                memory: 408Mi
+            probes:
+              startup:
+                enabled: false
+        initContainers:
+          init-permission:
+            image:
+              repository: ghcr.io/cbc02009/busybox
+              tag: 1.36.1
+            imagePullPolicy: IfNotPresent
+            command:
+              - sh
+              - -c
+            args:
+              - chown -R 568:568 /music;
+                chown -R 568:568 /downloads
+            securityContext:
+              runAsUser: 0
     service:
       main:
         ports:
@@ -37,7 +68,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/auth-method: GET
           nginx.ingress.kubernetes.io/auth-url: http://authelia.authentication-system.svc.cluster.local:9091/api/verify
@@ -49,52 +80,29 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
-    initContainers:
-      init-permission:
-        image: ghcr.io/cbc02009/busybox:1.36.1
-        imagePullPolicy: IfNotPresent
-        command:
-          - sh
-          - -c
-        args:
-          - chown -R 568:568 /music;
-            chown -R 568:568 /downloads
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-          - name: media
-            mountPath: /music
-          - name: downloads
-            mountPath: /downloads
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
         existingClaim: lidarr-config
-        mountPath: /config
+        advancedMounts:
+          main:
+            main:
+              - path: /config
       media:
         enabled: true
         existingClaim: shared-media
-        mountPath: /music
-        subPath: Music
+        globalMounts:
+          - path: /music
+            subPath: Music
       downloads:
         enabled: true
         existingClaim: shared-downloads
-        mountPath: /downloads
-      probes:
-        startup:
-          enabled: false
-    resources:
-      requests:
-        cpu: 15m
-        memory: 352Mi
-      limits:
-        memory: 408Mi
+        globalMounts:
+          - path: /downloads

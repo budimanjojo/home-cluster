@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app ombi
+  name: ombi
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,11 +23,26 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: lscr.io/linuxserver/ombi
-      tag: 4.43.5
+    controllers:
+      main:
+        pod:
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/ombi
+              tag: 4.43.5
+            env:
+              PUID: "1000"
+              PGID: "1000"
+            resources:
+              requests:
+                cpu: 15m
+                memory: 273Mi
+              limits:
+                memory: 292Mi
     service:
       main:
         ports:
@@ -37,30 +52,22 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         hosts:
           - host: &host ombi.${SECRET_DOMAIN_0}
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
-    podSecurityContext:
-      fsGroup: 1000
-      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
         existingClaim: ombi-config
-        mountPath: /config
-    env:
-      PUID: "1000"
-      PGID: "1000"
-    resources:
-      requests:
-        cpu: 15m
-        memory: 273Mi
-      limits:
-        memory: 292Mi
+        globalMounts:
+          - path: /config

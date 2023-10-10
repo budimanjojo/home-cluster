@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,33 +23,43 @@ spec:
     remediation:
       retries: 5
   values:
-    initContainers:
-      init-geoip:
-        image: ghcr.io/maxmind/geoipupdate:v6.0.0
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: GEOIPUPDATE_EDITION_IDS
-            value: GeoLite2-City
-          - name: GEOIPUPDATE_FREQUENCY
-            value: "0"
-          - name: GEOIPUPDATE_VERBOSE
-            value: "true"
-        envFrom:
-          - secretRef:
-              name: vector-aggregator-secret
-        volumeMounts:
-          - name: geoip
-            mountPath: /usr/share/GeoIP
-    controller:
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/vector
-      tag: 0.33.0-debian
-    args:
-      - --config
-      - /etc/vector/vector.yaml
+    controllers:
+      main:
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *name
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/vector
+              tag: 0.33.0-debian
+            args:
+              - --config
+              - /etc/vector/vector.yaml
+        initContainers:
+          init-geoip:
+            image:
+              repository: ghcr.io/maxmind/geoipupdate
+              tag: v6.0.0
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: GEOIPUPDATE_EDITION_IDS
+                value: GeoLite2-City
+              - name: GEOIPUPDATE_FREQUENCY
+                value: "0"
+              - name: GEOIPUPDATE_VERBOSE
+                value: "true"
+            envFrom:
+              - secretRef:
+                  name: vector-aggregator-secret
     service:
       main:
         type: LoadBalancer
@@ -68,21 +78,21 @@ spec:
         enabled: true
         type: configMap
         name: vector-aggregator-config
-        subPath: vector.yaml
-        mountPath: /etc/vector/vector.yaml
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /etc/vector/vector.yaml
+                subPath: vector.yaml
+                readOnly: true
       data:
         enabled: true
         type: emptyDir
-        mountPath: /vector-data-dir
+        advancedMounts:
+          main:
+            main:
+              - path: /vector-data-dir
       geoip:
         enabled: true
         type: emptyDir
-        mountPath: /usr/share/GeoIP
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *name
+        globalMounts:
+          - path: /usr/share/GeoIP

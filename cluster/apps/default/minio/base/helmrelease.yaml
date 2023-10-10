@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app minio
+  name: minio
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,14 +23,30 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: quay.io/minio/minio
-      tag: RELEASE.2023-10-07T15-07-38Z
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: quay.io/minio/minio
+              tag: RELEASE.2023-10-07T15-07-38Z
+            args:
+              - server
+              - /data
+              - --console-address
+              - :9001
+            env:
+              MINIO_UPDATE: "off"
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_0}
+              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN_0}
+              MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
+              MINIO_PROMETHEUS_JOB_ID: minio
+              MINIO_PROMETHEUS_AUTH_TYPE: public
+            envFrom:
+              - secretRef:
+                  name: minio-secret
     service:
       main:
         ports:
@@ -43,13 +59,14 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         hosts:
           - host: &host minio.${SECRET_DOMAIN_0}
             paths:
               - path: /
                 pathType: Prefix
                 service:
+                  name: main
                   port: *console-port
         tls:
           - hosts:
@@ -58,13 +75,14 @@ spec:
       s3:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         hosts:
           - host: &host s3.${SECRET_DOMAIN_0}
             paths:
               - path: /
                 pathType: Prefix
                 service:
+                  name: main
                   port: *api-port
         tls:
           - hosts:
@@ -79,23 +97,9 @@ spec:
             path: /minio/v2/metrics/cluster
             interval: 1m
             scrapeTimeout: 10s
-    args:
-      - server
-      - /data
-      - --console-address
-      - :9001
     persistence:
       config:
         enabled: true
         existingClaim: minio-nfs
-        mountPath: /data
-    env:
-      MINIO_UPDATE: "off"
-      MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_0}
-      MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN_0}
-      MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
-      MINIO_PROMETHEUS_JOB_ID: minio
-      MINIO_PROMETHEUS_AUTH_TYPE: public
-    envFrom:
-      - secretRef:
-          name: minio-secret
+        globalMounts:
+          - path: /data

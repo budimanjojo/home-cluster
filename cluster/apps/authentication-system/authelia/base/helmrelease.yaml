@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app authelia
+  name: authelia
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -23,20 +23,56 @@ spec:
     remediation:
       retries: 5
   values:
-    global:
-      nameOverride: *app
-    image:
-      repository: ghcr.io/authelia/authelia
-      tag: 4.37.5
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    command:
-      - sh
-      - -c
-      - authelia --config /config/configuration.yaml
+    controllers:
+      main:
+        replicas: 3
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          enableServiceLinks: false
+        containers:
+          main:
+            image:
+              repository: ghcr.io/authelia/authelia
+              tag: 4.37.5
+            command:
+              - sh
+              - -c
+              - authelia --config /config/configuration.yaml
+            resources:
+              requests:
+                cpu: 1m
+                memory: 50Mi
+            envFrom:
+              - secretRef:
+                  name: authelia-secret
+            env:
+              AUTHELIA_STORAGE_POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgo-cluster-pguser-authelia
+                    key: password
+              AUTHELIA_STORAGE_POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgo-cluster-pguser-authelia
+                    key: host
+              AUTHELIA_STORAGE_POSTGRES_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgo-cluster-pguser-authelia
+                    key: port
+              AUTHELIA_STORAGE_POSTGRES_DATABASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgo-cluster-pguser-authelia
+                    key: dbname
+              AUTHELIA_STORAGE_POSTGRES_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgo-cluster-pguser-authelia
+                    key: user
     service:
       main:
         ports:
@@ -46,7 +82,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";
@@ -56,6 +92,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -63,43 +102,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: custom
-        mountPath: /config
-        readOnly: true
-        volumeSpec:
-          configMap:
-            name: authelia-config
-    resources:
-      requests:
-        cpu: 1m
-        memory: 50Mi
-    enableServiceLinks: false
-    envFrom:
-      - secretRef:
-          name: authelia-secret
-    env:
-      AUTHELIA_STORAGE_POSTGRES_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-authelia
-            key: password
-      AUTHELIA_STORAGE_POSTGRES_HOST:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-authelia
-            key: host
-      AUTHELIA_STORAGE_POSTGRES_PORT:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-authelia
-            key: port
-      AUTHELIA_STORAGE_POSTGRES_DATABASE:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-authelia
-            key: dbname
-      AUTHELIA_STORAGE_POSTGRES_USERNAME:
-        valueFrom:
-          secretKeyRef:
-            name: pgo-cluster-pguser-authelia
-            key: user
+        type: configMap
+        name: authelia-config
+        globalMounts:
+          - path: /config
+            readOnly: true
