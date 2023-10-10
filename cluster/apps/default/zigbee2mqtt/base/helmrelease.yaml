@@ -26,8 +26,6 @@ spec:
     controllers:
       main:
         pod:
-          securityContext:
-            privileged: true
           nodeSelector:
             feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
         containers:
@@ -41,6 +39,8 @@ spec:
                 memory: 110Mi
               limits:
                 memory: 136Mi
+            securityContext:
+              privileged: true
             env:
               ZIGBEE2MQTT_DATA: /config
     service:
