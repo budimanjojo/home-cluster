@@ -6,9 +6,6 @@ namespace: networking-system
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: cloudflare-networks
-    files:
-      - ./cloudflare-networks.txt
   - name: secure-headers
     literals:
       - X-Frame-Options=SAMEORIGIN

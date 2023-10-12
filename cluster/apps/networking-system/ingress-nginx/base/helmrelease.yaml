@@ -43,7 +43,6 @@ spec:
         client-header-timeout: 120
         enable-brotli: "true"
         enable-real-ip: "true"
-        forwarded-for-header: CF-Connecting-IP
         keep-alive-requests: 10000
         keep-alive: 120
         proxy-body-size: 0
@@ -71,8 +70,3 @@ spec:
         # TODO: wait for goldilocs to determine
         # limits:
         #   memory: 500Mi
-  valuesFrom:
-    - kind: ConfigMap
-      name: cloudflare-networks
-      targetPath: controller.config.proxy-real-ip-cidr
-      valuesKey: cloudflare-networks.txt
