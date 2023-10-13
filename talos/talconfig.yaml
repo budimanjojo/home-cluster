@@ -45,6 +45,7 @@ nodes:
           path: /machine/install/extraKernelArgs
           value:
             - nvme_core.default_ps_max_latency_us=0
+            - pcie_aspm=off
   - hostname: kmaster3
     ipAddress: 192.168.200.23
     controlPlane: true
