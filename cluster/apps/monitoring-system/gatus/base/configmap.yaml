@@ -90,6 +90,14 @@ data:
           - "[CONNECTED] == true"
         alerts:
           - type: discord
+      - name: echo-server
+        group: frontend-services
+        url: https://echo-server.${SECRET_DOMAIN_1}
+        interval: 30s
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: discord
       - name: home-dns
         group: frontend-services
         url: 10.5.0.2
