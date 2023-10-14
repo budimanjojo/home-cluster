@@ -8,6 +8,7 @@ resources:
   - ./bjw-s-charts.yaml
   - ./cilium-charts.yaml
   - ./crunchydata-charts.yaml
+  - ./external-dns-charts.yaml
   - ./fairwinds-charts.yaml
   - ./grafana-charts.yaml
   - ./ingress-nginx-charts.yaml
