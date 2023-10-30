@@ -91,6 +91,7 @@ config:
         - talosctl
       license: bsd-3-clause
       visibility: public
+      allowAutoMerge: true
       useBotApplication: true
       additionalLabels:
         - name: renovatebot
