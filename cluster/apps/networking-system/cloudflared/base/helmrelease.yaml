@@ -41,7 +41,7 @@ spec:
           main:
             image:
               repository: ghcr.io/cbc02009/cloudflared
-              tag: 2023.8.2
+              tag: 2023.10.0
             args:
               - tunnel
               - --config
