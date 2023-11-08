@@ -27,4 +27,4 @@ spec:
   values:
     image:
       repository: pulumi/pulumi-kubernetes-operator
-      tag: 1.13.0
+      tag: v1.14.0
