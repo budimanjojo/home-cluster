@@ -24,7 +24,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
-  values:
-    image:
-      repository: pulumi/pulumi-kubernetes-operator
-      tag: v1.14.0
