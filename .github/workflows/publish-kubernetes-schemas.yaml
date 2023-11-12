@@ -16,6 +16,12 @@ jobs:
     name: Publish manifests
     runs-on: ["arc-runner-set-home-cluster"]
     steps:
+      - name: Setup tools
+        shell: bash
+        run: |
+          sudo apt-get -qq update && \
+          sudo apt-get -qq install --no-install-recommends -y curl
+
       - name: Setup Kube tools
         uses: yokawasa/action-setup-kube-tools@v0.9.3
         with:
