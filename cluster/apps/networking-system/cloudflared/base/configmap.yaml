@@ -18,6 +18,4 @@ data:
         service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
       - hostname: "*.${SECRET_DOMAIN_1}"
         service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
-      - hostname: "*.${SECRET_DOMAIN_2}"
-        service: https://ingress-nginx-controller.networking-system.svc.cluster.local:443
       - service: http_status:404

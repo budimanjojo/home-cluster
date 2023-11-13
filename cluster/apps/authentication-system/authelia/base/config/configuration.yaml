@@ -117,7 +117,7 @@ identity_providers:
         public: false
         authorization_policy: two_factor
         redirect_uris:
-          - https://nextcloud.${SECRET_DOMAIN_2}/apps/oidc_login/oidc
+          - https://nextcloud.${SECRET_DOMAIN_0}/apps/oidc_login/oidc
         scopes:
           - openid
           - profile

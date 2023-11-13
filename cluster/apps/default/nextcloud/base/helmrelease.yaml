@@ -48,8 +48,8 @@ spec:
           location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)                { return 404; }
       tls:
         - hosts:
-            - &host nextcloud.${SECRET_DOMAIN_2}
-          secretName: ${SECRET_DOMAIN_2//./-}-prod-tls
+            - &host nextcloud.${SECRET_DOMAIN_0}
+          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     nextcloud:
       host: *host
       existingSecret:
