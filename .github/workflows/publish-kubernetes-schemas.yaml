@@ -43,13 +43,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup crd-extractor
-        uses: robinraju/release-downloader@v1.8
-        with:
-          repository: datreeio/CRDs-catalog
-          latest: true
-          fileName: crd-extractor.zip
-
       - name: Write kubeconfig
         id: kubeconfig
         uses: timheuer/base64-to-file@v1.2
