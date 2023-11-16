@@ -51,6 +51,8 @@ jobs:
           fileName: kubeconfig
 
       - name: Download and run crd-extractor
+        env:
+          KUBECONFIG: ${{ steps.kubeconfig.outputs.filePath }}
         shell: bash
         run: |
           mkdir -p /home/runner/crds
