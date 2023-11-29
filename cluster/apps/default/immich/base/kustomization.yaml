@@ -16,5 +16,3 @@ resources:
   - ./server
   - ./microservices
   - ./machine-learning
-  - ./web
-  - ./proxy
