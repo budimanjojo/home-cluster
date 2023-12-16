@@ -12,7 +12,6 @@ resources:
   - ./configmap.yaml
   - ./pvc.yaml
   - ./secret.sops.yaml
-  - ./typesense
   - ./server
   - ./microservices
   - ./machine-learning
