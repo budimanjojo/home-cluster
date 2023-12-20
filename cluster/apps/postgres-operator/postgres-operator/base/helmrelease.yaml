@@ -29,6 +29,6 @@ spec:
       postgres_16:
         image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-16.1-0
       postgres_15:
-        image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-15.5-0
+        image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-16.1-0
       postgres_14:
-        image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-14.10-0
+        image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-16.1-0
