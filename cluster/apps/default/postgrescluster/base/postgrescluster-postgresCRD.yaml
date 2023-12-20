@@ -4,7 +4,8 @@ kind: PostgresCluster
 metadata:
   name: pgo-cluster
 spec:
-  postgresVersion: 14
+  postgresVersion: 16
+  image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-16.1-0
   metadata:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
