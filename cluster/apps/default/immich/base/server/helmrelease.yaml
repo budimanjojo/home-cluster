@@ -22,8 +22,6 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: immich-typesense
   values:
     controllers:
       main:
