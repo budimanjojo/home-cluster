@@ -1,7 +1,7 @@
 ---
 clusterName: home-cluster
-talosVersion: v1.5.3
-kubernetesVersion: v1.28.2
+talosVersion: v1.6.0
+kubernetesVersion: v1.29.0
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
@@ -42,10 +42,11 @@ nodes:
     patches:
       - |-
         - op: add
-          path: /machine/install/extraKernelArgs
-          value:
-            - nvme_core.default_ps_max_latency_us=0
-            - pcie_aspm=off
+          path: /machine/install/extraKernelArgs/-
+          value: nvme_core.default_ps_max_latency_us=0
+        - op: add
+          path: /machine/install/extraKernelArgs/-
+          value: pcie_aspm=off
   - hostname: kmaster3
     ipAddress: 192.168.200.23
     controlPlane: true
@@ -63,6 +64,14 @@ nodes:
         vip:
           ip: 192.168.200.20
 controlPlane:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
   patches:
     - |-
       - op: add
@@ -89,6 +98,14 @@ controlPlane:
           servers:
             - 192.168.200.1
 worker:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
   patches:
     - |-
       - op: add
