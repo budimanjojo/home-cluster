@@ -98,7 +98,7 @@ Dashboards included in my cluster are:
 
 - The provided dashboard from [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 - Ingress-nginx dashboard from [here](https://github.com/kubernetes/ingress-nginx/tree/main/deploy/grafana/dashboards)
-- Fluxcd dashboard from [here](https://github.com/fluxcd/flux2/tree/main/manifests/monitoring/monitoring-config/dashboards)
+- Fluxcd dashboard from [here](https://github.com/fluxcd/flux2-monitoring-example/tree/main/monitoring/configs/dashboards)
 - Rook-ceph dashboards from [here](https://www.rook.io/docs/rook/v1.10/Storage-Configuration/Monitoring/ceph-monitoring/?h=grafana#grafana-dashboards)
 
 To add your own dashboard, create a configmap with the data include the json file of the dashboard and add label `grafana_dashboard: "1"` to the manifest.
