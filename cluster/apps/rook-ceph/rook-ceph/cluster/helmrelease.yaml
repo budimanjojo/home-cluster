@@ -81,7 +81,7 @@ spec:
         osd: system-node-critical
         mgr: system-cluster-critical
       storage:
-        useAllNodes: true
+        useAllNodes: false
         useAllDevices: false
         config:
           osdsPerDevice: "1"
