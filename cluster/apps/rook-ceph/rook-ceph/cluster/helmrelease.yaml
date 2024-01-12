@@ -82,7 +82,19 @@ spec:
         mgr: system-cluster-critical
       storage:
         useAllNodes: true
-        useAllDevices: true
+        useAllDevices: false
+        config:
+          osdsPerDevice: "1"
+        nodes:
+          - name: kmaster1
+            devices:
+              - name: "/dev/disk/by-id/ata-V-GEN09SM21AR128SDK_128GB_VGAR2021092700008074"
+          - name: kmaster2
+            devices:
+              - name: "/dev/disk/by-id/ata-ADATA_SU650_2L3429SNKHFW"
+          - name: kmaster3
+            devices:
+              - name: "/dev/disk/by-id/ata-V-GEN09SM21AR128SDK_128GB_VGAR2021092700008661"
       disruptionManagement:
         managePodBudgets: true
         osdMaintenanceTimeout: 30
