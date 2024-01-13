@@ -15,8 +15,8 @@ totp:
 webauthn:
   disable: true
 ntp:
-  address: time.cloudflare.com:123
-  version: 4
+  address: ${CONFIG_VYOS_IP_ADDRESS}:123
+  version: 3
   max_desync: 3s
   disable_startup_check: false
   disable_failure: false
