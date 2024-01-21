@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.0.748
+              tag: 4.0.1.929
             probes:
               startup:
                 enabled: false
