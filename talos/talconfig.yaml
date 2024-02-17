@@ -1,7 +1,7 @@
 ---
 clusterName: home-cluster
-talosVersion: v1.6.0
-kubernetesVersion: v1.29.0
+talosVersion: v1.6.4
+kubernetesVersion: v1.29.2
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
@@ -78,7 +78,7 @@ controlPlane:
         path: /machine/kubelet/extraArgs
         value:
           rotate-server-certificates: "true"
-          feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
+          feature-gates: GracefulNodeShutdown=true
       - op: add
         path: /cluster/controllerManager/extraArgs
         value:
