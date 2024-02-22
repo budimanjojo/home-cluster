@@ -5,7 +5,7 @@ metadata:
   name: pgo-cluster
 spec:
   postgresVersion: 16
-  image: ghcr.io/chkpwd/cdpgvecto.rs:ubi8-16.1-0
+  image: ghcr.io/chkpwd/cdpgvecto.rs:16@sha256:e91f57d69e516c08ba5d452c9ed67b097e5f4e050f3389cf22cb2f23991ba322
   metadata:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
