@@ -144,11 +144,11 @@ config:
         - name: nvfetcher
           description: Pull request created by Nvfetcher
           color: 4fd6be
-      branchProtectionRules:
-        - pattern: "main"
-          allowsForcePushes: true
-          requiredStatusChecks:
-            strict: false
+      # branchProtectionRules:
+      #   - pattern: "main"
+      #     allowsForcePushes: true
+      #     requiredStatusChecks:
+      #       strict: false
     - name: vyos-config
       description: My VyOS IaC configuration
       license: apache-2.0
