@@ -1,10 +1,11 @@
 package generate
 
 import (
-	"pulumi-github/pkg/config"
 	"reflect"
 
-	"github.com/pulumi/pulumi-github/sdk/v5/go/github"
+	"pulumi-github/pkg/config"
+
+	"github.com/pulumi/pulumi-github/sdk/v6/go/github"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumiCfg "github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
@@ -87,24 +88,6 @@ func genLabels(ctx *pulumi.Context, reponame string, labels []config.Label) erro
 	return nil
 }
 
-func genDefaultLabels(ctx *pulumi.Context, repo *config.Repository, ghRepo *github.Repository) error {
-	var labels []config.Label
-	pulumiCfg.RequireObject(ctx, "defaultLabels", &labels)
-	for _, label := range labels {
-		name := "label-" + repo.Name + "-" + label.Name
-		_, err := github.NewIssueLabel(ctx, name, &github.IssueLabelArgs{
-			Name:        pulumi.String(label.Name),
-			Description: pulumi.String(label.Description),
-			Color:       pulumi.String(label.Color),
-			Repository:  ghRepo.Name,
-		})
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 func genBotSecrets(ctx *pulumi.Context, repo *config.Repository) error {
 	var actionSecrets []config.ActionSecret
 	pulumiCfg.RequireObject(ctx, "botActionSecrets", &actionSecrets)
@@ -129,7 +112,6 @@ func genBranchProtectionRules(ctx *pulumi.Context, repo *config.Repository, ghRe
 			RepositoryId:                  ghRepo.NodeId,
 			AllowsDeletions:               pulumi.Bool(rule.AllowsDeletions),
 			AllowsForcePushes:             pulumi.Bool(rule.AllowsForcePushes),
-			BlocksCreations:               pulumi.Bool(rule.BlocksCreations),
 			EnforceAdmins:                 pulumi.Bool(rule.EnforceAdmins),
 			LockBranch:                    pulumi.Bool(rule.LockBranch),
 			RequireConversationResolution: pulumi.Bool(rule.RequireConversationResolution),

@@ -2,7 +2,7 @@ package config
 
 type Config struct {
 	Repositories     []Repository
-	DefaultLabels    []Label `validate:"requiredIf:Repositories..UseDefaultLabels,true"`
+	DefaultLabels    []Label        `validate:"requiredIf:Repositories..UseDefaultLabels,true"`
 	BotActionSecrets []ActionSecret `validate:"requiredIf:Repositories..UseBotApplication,true"`
 }
 
@@ -39,14 +39,13 @@ type Label struct {
 
 type ActionSecret struct {
 	Name  string `validate:"requiredWith:BotActionSecrets"`
-	Value string 
+	Value string
 }
 
 type BranchProtectionRule struct {
 	Pattern                       string `validate:"requiredWith:Repositories.BranchProtectionRules"`
 	AllowsDeletions               bool
 	AllowsForcePushes             bool
-	BlocksCreations               bool
 	EnforceAdmins                 bool
 	LockBranch                    bool
 	RequireConversationResolution bool
