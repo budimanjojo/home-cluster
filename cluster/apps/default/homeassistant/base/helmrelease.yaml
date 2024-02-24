@@ -41,7 +41,7 @@ spec:
                 cpu: 15m
                 memory: 324Mi
               limits:
-                memory: 347Mi
+                memory: 600Mi
             envFrom:
               - secretRef:
                   name: homeassistant-secret
