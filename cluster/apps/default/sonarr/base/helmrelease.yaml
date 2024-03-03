@@ -44,7 +44,7 @@ spec:
                 cpu: 15m
                 memory: 443Mi
               limits:
-                memory: 474Mi
+                memory: 2Gi
         initContainers:
           init-permission:
             image:
