@@ -39,13 +39,13 @@ spec:
             image:
               repository: ghcr.io/onedr0p/jellyfin
               tag: 10.8.11
-              resources:
-                requests:
-                  cpu: 15m
-                  memory: 866Mi
-                limits:
-                  memory: 1390Mi
-                  gpu.intel.com/i915: 1
+            resources:
+              requests:
+                cpu: 15m
+                memory: 866Mi
+              limits:
+                memory: 1390Mi
+                gpu.intel.com/i915: 1
         initContainers:
           init-permission:
             image:
