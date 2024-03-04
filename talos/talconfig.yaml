@@ -6,6 +6,18 @@ endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
   name: none
+patches:
+  - |-
+    machine:
+      kubelet:
+        extraMounts:
+          - destination: /var/openebs/local
+            type: bind
+            source: /var/openebs/local
+            options:
+              - rbind
+              - rshared
+              - rw
 nodes:
   - hostname: kmaster1
     ipAddress: 192.168.200.21
