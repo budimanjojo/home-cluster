@@ -33,6 +33,7 @@ spec:
                 - rook-ceph
                 - monitoring-system
                 - networking-system
+                - openebs-system
       mutate:
         targets:
           - apiVersion: v1
