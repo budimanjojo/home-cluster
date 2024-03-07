@@ -24,14 +24,14 @@ spec:
   instances:
     - name: instance
       dataVolumeClaimSpec:
-        storageClassName: rook-ceph-block
+        storageClassName: openebs-hostpath
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
             storage: 2Gi
       walVolumeClaimSpec:
-        storageClassName: rook-ceph-block
+        storageClassName: openebs-hostpath
         accessModes:
           - ReadWriteOnce
         resources:
