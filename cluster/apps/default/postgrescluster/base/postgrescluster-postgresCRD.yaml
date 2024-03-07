@@ -2,7 +2,7 @@
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
-  name: pgo-cluster
+  name: &name pgo-cluster
 spec:
   postgresVersion: 16
   image: ghcr.io/chkpwd/cdpgvecto.rs:16@sha256:caaee4e8df2143ba4dc7736add2655944c66d00fffc55d1f032a837bb3132bc5
@@ -23,6 +23,7 @@ spec:
           - hostssl all all all md5
   instances:
     - name: instance
+      replicas: 3
       dataVolumeClaimSpec:
         storageClassName: openebs-hostpath
         accessModes:
@@ -37,6 +38,13 @@ spec:
         resources:
           requests:
             storage: 5Gi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
   users:
     - name: fireflyiii
       databases:
