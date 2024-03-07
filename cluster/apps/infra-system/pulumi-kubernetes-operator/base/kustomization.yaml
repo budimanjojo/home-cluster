@@ -5,5 +5,4 @@ kind: Kustomization
 namespace: infra-system
 resources:
   - ./helmrelease.yaml
-  - ./rbac.yaml
   - ./secret.sops.yaml
