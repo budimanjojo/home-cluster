@@ -52,9 +52,6 @@ spec:
     - name: homeassistant
       databases:
         - homeassistant
-    - name: vaultwarden
-      databases:
-        - vaultwarden
     - name: nextcloud
       databases:
         - nextcloud
