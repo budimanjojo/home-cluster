@@ -4,7 +4,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
-  - ./adminer/kustomization-fluxCRD.yaml
   - ./bazarr/kustomization-fluxCRD.yaml
   - ./clusterpolicies/kustomization-fluxCRD.yaml
   - ./common/kustomization-fluxCRD.yaml
