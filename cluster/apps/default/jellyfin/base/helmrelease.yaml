@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      jellyfin:
         pod:
           securityContext:
             runAsUser: 568
@@ -46,12 +46,22 @@ spec:
               limits:
                 memory: 1390Mi
                 gpu.intel.com/i915: 1
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
         initContainers:
           init-permission:
             image:
               repository: ghcr.io/cbc02009/busybox
               tag: 1.36.1
-            imagePullPolicy: IfNotPresent
+              pullPolicy: IfNotPresent
             command:
               - sh
               - -c
@@ -59,20 +69,15 @@ spec:
               - chown -R 568:568 /config/transcodes
             securityContext:
               runAsUser: 0
-            volumeMounts:
-              - name: media
-                mountPath: /media
-              - name: transcode
-                mountPath: /config/transcodes
     service:
       main:
+        controller: jellyfin
         ports:
           http:
             port: 8096
     ingress:
       main:
         enabled: true
-        primary: true
         className: nginx
         hosts:
           - host: &host jellyfin.${SECRET_DOMAIN_0}
@@ -80,7 +85,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:
@@ -91,7 +96,7 @@ spec:
         enabled: true
         existingClaim: jellyfin-config
         advancedMounts:
-          main:
+          jellyfin:
             main:
               - path: /config
       media:
@@ -108,6 +113,6 @@ spec:
         enabled: true
         type: emptyDir
         advancedMounts:
-          main:
+          jellyfin:
             main:
               - path: /config/cache

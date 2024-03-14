@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      radarr:
         pod:
           securityContext:
             runAsUser: 568
@@ -42,12 +42,22 @@ spec:
                 memory: 352Mi
               limits:
                 memory: 2Gi
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
         initContainers:
           init-permission:
             image:
               repository: ghcr.io/cbc02009/busybox
               tag: 1.36.1
-            imagePullPolicy: IfNotPresent
+              pullPolicy: IfNotPresent
             command:
               - sh
               - -c
@@ -58,13 +68,13 @@ spec:
               runAsUser: 0
     service:
       main:
+        controller: radarr
         ports:
           http:
             port: 7878
     ingress:
       main:
         enabled: true
-        primary: true
         className: nginx
         annotations:
           nginx.ingress.kubernetes.io/auth-method: GET
@@ -78,7 +88,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:
@@ -89,7 +99,7 @@ spec:
         enabled: true
         existingClaim: radarr-config
         advancedMounts:
-          main:
+          radarr:
             main:
               - path: /config
       media:

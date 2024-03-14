@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      firefly-iii:
         containers:
           main:
             image:
@@ -36,6 +36,16 @@ spec:
                 memory: 164Mi
               limits:
                 memory: 175Mi
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             envFrom:
               - secretRef:
                   name: firefly-iii-secret
@@ -70,7 +80,7 @@ spec:
             image:
               repository: alpine
               tag: 3.19.1
-            imagePullPolicy: IfNotPresent
+              pullPolicy: IfNotPresent
             command:
               - sh
             args:
@@ -90,7 +100,7 @@ spec:
             image:
               repository: alpine
               tag: 3.19.1
-            imagePullPolicy: IfNotPresent
+              pullPolicy: IfNotPresent
             command:
               - sh
             args:
@@ -107,13 +117,13 @@ spec:
                     key: host
     service:
       main:
+        controller: firefly-iii
         ports:
           http:
             port: 8080
     ingress:
       main:
         enabled: true
-        primary: true
         className: nginx
         hosts:
           - host: &host money.${SECRET_DOMAIN_1}
@@ -121,7 +131,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:
@@ -132,6 +142,6 @@ spec:
         enabled: true
         existingClaim: firefly-iii-data
         advancedMounts:
-          main:
+          firefly-iii:
             main:
               - path: /var/www/html/firefly-iii/storage/upload

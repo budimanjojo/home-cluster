@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      gatus:
         containers:
           main:
             image:
@@ -44,29 +44,31 @@ spec:
                   httpGet:
                     path: /health
                     port: 8080
-              liveness:
+                  initialDelaySeconds: 0
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 30
+              liveness: &lrprobes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health
                     port: 8080
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *lrprobes
     service:
       main:
+        controller: gatus
         ports:
           http:
             port: 8080
     ingress:
       main:
         enabled: true
-        primary: true
         className: nginx
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: |
@@ -77,7 +79,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:

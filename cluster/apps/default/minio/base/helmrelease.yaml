@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      minio:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -37,6 +37,16 @@ spec:
               - /data
               - --console-address
               - :9001
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             env:
               MINIO_UPDATE: "off"
               MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_0}
@@ -49,6 +59,7 @@ spec:
                   name: minio-secret
     service:
       main:
+        controller: minio
         ports:
           http:
             port: &console-port 9001
@@ -58,7 +69,6 @@ spec:
     ingress:
       main:
         enabled: true
-        primary: true
         className: nginx
         hosts:
           - host: &host minio.${SECRET_DOMAIN_0}
@@ -66,7 +76,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: *console-port
         tls:
           - hosts:
@@ -74,7 +84,6 @@ spec:
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
       s3:
         enabled: true
-        primary: true
         className: nginx
         hosts:
           - host: &host s3.${SECRET_DOMAIN_0}
@@ -82,7 +91,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: *api-port
         tls:
           - hosts:
@@ -90,6 +99,7 @@ spec:
             secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     serviceMonitor:
       main:
+        serviceName: minio
         enabled: true
         endpoints:
           - port: api
