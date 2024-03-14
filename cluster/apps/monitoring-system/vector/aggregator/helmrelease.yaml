@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      vector-aggregator:
         pod:
           topologySpreadConstraints:
             - maxSkew: 1
@@ -44,12 +44,22 @@ spec:
             args:
               - --config
               - /etc/vector/vector.yaml
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
         initContainers:
           init-geoip:
             image:
               repository: ghcr.io/maxmind/geoipupdate
               tag: v6.1.0
-            imagePullPolicy: IfNotPresent
+              pullPolicy: IfNotPresent
             env:
               - name: GEOIPUPDATE_EDITION_IDS
                 value: GeoLite2-City
@@ -62,6 +72,7 @@ spec:
                   name: vector-aggregator-secret
     service:
       main:
+        controller: vector-aggregator
         type: LoadBalancer
         annotations:
           metallb.universe.tf/address-pool: diff-subnet
@@ -79,7 +90,7 @@ spec:
         type: configMap
         name: vector-aggregator-config
         advancedMounts:
-          main:
+          vector-aggregator:
             main:
               - path: /etc/vector/vector.yaml
                 subPath: vector.yaml
@@ -88,7 +99,7 @@ spec:
         enabled: true
         type: emptyDir
         advancedMounts:
-          main:
+          vector-aggregator:
             main:
               - path: /vector-data-dir
       geoip:

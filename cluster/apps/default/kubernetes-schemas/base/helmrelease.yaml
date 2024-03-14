@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controllers:
-      main:
+      kubernetes-schemas:
         containers:
           main:
             image:
@@ -36,15 +36,25 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 100Mi
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
     service:
       main:
+        controller: kubernetes-schemas
         ports:
           http:
             port: 8080
     ingress:
       main:
         enabled: true
-        primary: true
         className: nginx
         hosts:
           - host: &host schemas.${SECRET_DOMAIN_1}
@@ -52,7 +62,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:
