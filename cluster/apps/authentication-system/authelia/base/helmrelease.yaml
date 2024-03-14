@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: 4.37.5
+              tag: 4.38.0
             command:
               - sh
               - -c
