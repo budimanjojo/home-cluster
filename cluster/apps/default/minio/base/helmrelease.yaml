@@ -62,10 +62,9 @@ spec:
         controller: minio
         ports:
           http:
-            port: &console-port 9001
+            port: 9001
           api:
-            enabled: true
-            port: &api-port 9000
+            port: 9000
     ingress:
       main:
         enabled: true
@@ -77,7 +76,7 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: main
-                  port: *console-port
+                  port: http
         tls:
           - hosts:
               - *host
@@ -92,7 +91,7 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: main
-                  port: *api-port
+                  port: api
         tls:
           - hosts:
               - *host
