@@ -55,7 +55,7 @@ spec:
           web:
             enabled: true
             protocol: TCP
-            port: &http-port 17170
+            port: 17170
     ingress:
       main:
         enabled: true
@@ -69,8 +69,8 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
-                  port: *http-port
+                  identifier: main
+                  port: web
         tls:
           - hosts:
               - *host
