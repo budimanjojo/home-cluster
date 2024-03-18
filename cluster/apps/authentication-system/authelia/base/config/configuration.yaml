@@ -38,7 +38,7 @@ authentication_backend:
     group_name_attribute: cn
     mail_attribute: mail
     display_name_attribute: displayName
-    user: uid=admin,ou=people,dc=home,dc=cluster
+    user: uid=authelia_bind,ou=people,dc=home,dc=cluster
 access_control:
   default_policy: deny
   networks:
