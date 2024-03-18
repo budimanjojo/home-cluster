@@ -1,13 +1,8 @@
 ---
 theme: auto
-default_redirection_url: https://auth.${SECRET_DOMAIN_0}
 server:
-  host: 0.0.0.0
-  port: 9091
-  buffers:
-    read: 4096
-    write: 4096
-  path: ""
+  address: tcp://0.0.0.0:9091
+  disable_healthcheck: true
 log:
   level: debug
 totp:
@@ -26,19 +21,22 @@ authentication_backend:
   refresh_interval: 1m
   ldap:
     implementation: custom
-    url: ldap://lldap.authentication-system.svc.cluster.local:3890
+    address: ldap://lldap.authentication-system.svc.cluster.local:3890
     timeout: 5s
     start_tls: false
     base_dn: dc=home,dc=cluster
-    username_attribute: uid
     additional_users_dn: ou=people
     users_filter: "(&({username_attribute}={input})(objectClass=person))"
     additional_groups_dn: ou=groups
     groups_filter: "(member={dn})"
-    group_name_attribute: cn
-    mail_attribute: mail
-    display_name_attribute: displayName
+    group_search_mode: filter
     user: uid=authelia_bind,ou=people,dc=home,dc=cluster
+    attributes:
+      username: uid
+      display_name: displayName
+      mail: mail
+      group_name: cn
+      member_of: memberOf
 access_control:
   default_policy: deny
   networks:
@@ -60,8 +58,11 @@ session:
   name: authelia_session
   expiration: 1h
   inactivity: 15m
-  remember_me_duration: 1M
-  domain: ${SECRET_DOMAIN_0}
+  remember_me: 1M
+  cookies:
+    - domain: ${SECRET_DOMAIN_0}
+      authelia_url: https://auth.${SECRET_DOMAIN_0}
+      default_redirection_url: https://${SECRET_DOMAIN_0}
   redis:
     host: redis.default.svc.cluster.local
     port: 6379
@@ -72,12 +73,14 @@ regulation:
 notifier:
   disable_startup_check: false
   smtp:
-    host: smtp.gmail.com
-    port: 587
+    address: submission://smtp.gmail.com:587
     username: budimanjojo@gmail.com
     sender: Authelia Admin <admin@budimanjojo.com>
 identity_providers:
   oidc:
+    jwks:
+      - key: {{ secret "/config/secret/jwks-0-key.pem" | mindent 10 "|" | msquote }}
+        certificate_chain: {{ secret "/config/secret/jwks-0-cert.cert" | mindent 10 "|" | msquote }}
     cors:
       endpoints:
         - authorization
@@ -86,9 +89,9 @@ identity_providers:
         - introspection
       allowed_origins_from_client_redirect_uris: true
     clients:
-      - id: proxmox
-        description: Proxmox
-        secret: ${SECRET_OIDC_PROXMOX_CLIENT_SECRET}
+      - client_id: proxmox
+        client_name: Proxmox
+        client_secret: ${SECRET_OIDC_PROXMOX_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -97,10 +100,10 @@ identity_providers:
           - openid
           - profile
           - email
-        userinfo_signing_algorithm: none
-      - id: minio
-        description: Minio
-        secret: ${SECRET_OIDC_MINIO_CLIENT_SECRET}
+        userinfo_signed_response_alg: none
+      - client_id: minio
+        client_name: Minio
+        client_secret: ${SECRET_OIDC_MINIO_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -110,10 +113,10 @@ identity_providers:
           - profile
           - email
           - groups
-        userinfo_signing_algorithm: none
-      - id: nextcloud
-        description: Nextcloud
-        secret: ${SECRET_OIDC_NEXTCLOUD_CLIENT_SECRET}
+        userinfo_signed_response_alg: none
+      - client_id: nextcloud
+        client_name: Nextcloud
+        client_secret: ${SECRET_OIDC_NEXTCLOUD_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -123,10 +126,10 @@ identity_providers:
           - profile
           - email
           - groups
-        userinfo_signing_algorithm: none
-      - id: immich
-        description: Immich
-        secret: ${SECRET_OIDC_IMMICH_CLIENT_SECRET}
+        userinfo_signed_response_alg: none
+      - client_id: immich
+        client_name: Immich
+        client_secret: ${SECRET_OIDC_IMMICH_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -136,4 +139,4 @@ identity_providers:
           - openid
           - profile
           - email
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
