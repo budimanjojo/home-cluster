@@ -10,6 +10,7 @@ labels:
       app.kubernetes.io/part-of: immich
 resources:
   - ./configmap.yaml
+  - ./database
   - ./pvc.yaml
   - ./secret.sops.yaml
   - ./server
