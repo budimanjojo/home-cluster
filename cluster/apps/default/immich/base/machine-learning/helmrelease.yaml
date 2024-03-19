@@ -60,7 +60,7 @@ spec:
               DB_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-immich
+                    name: immich-database-pguser-immich
                     key: uri
     service:
       main:
