@@ -5,7 +5,6 @@ metadata:
   name: &name pgo-cluster
 spec:
   postgresVersion: 16
-  image: ghcr.io/chkpwd/cdpgvecto.rs:16@sha256:caaee4e8df2143ba4dc7736add2655944c66d00fffc55d1f032a837bb3132bc5
   metadata:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
@@ -15,9 +14,6 @@ spec:
       synchronous_mode: true
       postgresql:
         synchronous_commit: "on"
-        parameters:
-          shared_preload_libraries: "vectors.so"
-          search_path: '"$user", public, vectors"'
         pg_hba:
           - hostnossl all all 10.244.0.0/16 md5
           - hostssl all all all md5
@@ -58,9 +54,6 @@ spec:
     - name: authelia
       databases:
         - authelia
-    - name: immich
-      databases:
-        - immich
   backups:
     pgbackrest:
       global:
