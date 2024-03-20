@@ -22,6 +22,11 @@ tasks:
     cmds:
       - kubectl exec -it $(kubectl -n default get pod -l "app.kubernetes.io/name=nextcloud" -l "app.kubernetes.io/component=app" -o jsonpath='{.items[0].metadata.name}') -- su -s /bin/sh www-data
 
+  gen-authelia-client-secret:
+    desc: Generate random hashed authelia client secret
+    cmds:
+      - kubectl -n authentication-system exec -it $(kubectl -n authentication-system get pod -l "app.kubernetes.io/name=authelia" -o jsonpath='{.items[0].metadata.name}') -- authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986
+
   mount-pvc:
     desc: Mount a PersistentVolumeClaim to a pod temporarily
     interactive: true
