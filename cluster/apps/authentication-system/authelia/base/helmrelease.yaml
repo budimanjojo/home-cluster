@@ -55,6 +55,7 @@ spec:
                   name: authelia-secret
             env:
               X_AUTHELIA_CONFIG: /config/configuration.yaml
+              X_AUTHELIA_CONFIG_FILTERS: template
               AUTHELIA_STORAGE_POSTGRES_ADDRESS: tcp://pgo-cluster-primary.default.svc:5432
               AUTHELIA_STORAGE_POSTGRES_PASSWORD:
                 valueFrom:
@@ -105,3 +106,9 @@ spec:
         globalMounts:
           - path: /config
             readOnly: true
+      secret-files:
+        enabled: true
+        type: secret
+        name: authelia-secret-files
+        globalMounts:
+          - path: /config/secret

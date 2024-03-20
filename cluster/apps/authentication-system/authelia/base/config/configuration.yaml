@@ -78,6 +78,11 @@ notifier:
     sender: Authelia Admin <admin@budimanjojo.com>
 identity_providers:
   oidc:
+    jwks:
+      - key: |
+          {{ secret "/config/secret/jwks-0-key.pem" | mindent 10 "|" | msquote }}
+        certificate_chain: |
+          {{ secret "/config/secret/jwks-0-cert.cert" | mindent 10 "|" | msquote }}
     cors:
       endpoints:
         - authorization
