@@ -93,7 +93,7 @@ identity_providers:
     clients:
       - client_id: proxmox
         client_name: Proxmox
-        client_secret: ${SECRET_OIDC_PROXMOX_CLIENT_SECRET}
+        client_secret: '{{ secret "/config/secret/oidc-client-proxmox" }}'
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -105,7 +105,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: minio
         client_name: Minio
-        client_secret: ${SECRET_OIDC_MINIO_CLIENT_SECRET}
+        client_secret: '{{ secret "/config/secret/oidc-client-minio" }}'
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -118,7 +118,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: nextcloud
         client_name: Nextcloud
-        client_secret: ${SECRET_OIDC_NEXTCLOUD_CLIENT_SECRET}
+        client_secret: '{{ secret "/config/secret/oidc-client-nextcloud" }}'
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -131,7 +131,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: immich
         client_name: Immich
-        client_secret: ${SECRET_OIDC_IMMICH_CLIENT_SECRET}
+        client_secret: '{{ secret "/config/secret/oidc-client-immich" }}'
         public: false
         authorization_policy: two_factor
         redirect_uris:
