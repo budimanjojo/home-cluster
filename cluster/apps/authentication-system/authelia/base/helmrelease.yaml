@@ -36,10 +36,6 @@ spec:
             image:
               repository: ghcr.io/authelia/authelia
               tag: 4.38.5
-            command:
-              - sh
-              - -c
-              - authelia --config /config/configuration.yaml
             resources:
               requests:
                 cpu: 1m
@@ -58,21 +54,13 @@ spec:
               - secretRef:
                   name: authelia-secret
             env:
+              X_AUTHELIA_CONFIG: /config/configuration.yaml
+              AUTHELIA_STORAGE_POSTGRES_ADDRESS: tcp://pgo-cluster-primary.default.svc:5432
               AUTHELIA_STORAGE_POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: pgo-cluster-pguser-authelia
                     key: password
-              AUTHELIA_STORAGE_POSTGRES_HOST:
-                valueFrom:
-                  secretKeyRef:
-                    name: pgo-cluster-pguser-authelia
-                    key: host
-              AUTHELIA_STORAGE_POSTGRES_PORT:
-                valueFrom:
-                  secretKeyRef:
-                    name: pgo-cluster-pguser-authelia
-                    key: port
               AUTHELIA_STORAGE_POSTGRES_DATABASE:
                 valueFrom:
                   secretKeyRef:
