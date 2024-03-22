@@ -115,6 +115,11 @@ spec:
       replicas: 1
     grafana:
       enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          annotations:
+            grafana_folder: Kubernetes
     serviceMonitor:
       scrapeTimeout: 60s
     kubeControllerManager:
