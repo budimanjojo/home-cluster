@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/lidarr
-              tag: 2.1.7.4030
+              tag: 2.2.5.4141
             resources:
               requests:
                 cpu: 15m
