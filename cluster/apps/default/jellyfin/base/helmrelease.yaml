@@ -37,8 +37,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/jellyfin
-              tag: 10.8.11
+              repository: jellyfin/jellyfin
+              tag: 10.8.13-1
             resources:
               requests:
                 cpu: 15m
