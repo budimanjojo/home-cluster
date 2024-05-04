@@ -34,8 +34,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/unpackerr
-              tag: 0.12.0
+              repository: ghcr.io/unpacker/unpackerr
+              tag: 0.13.1
             probes:
               startup:
                 enabled: false
