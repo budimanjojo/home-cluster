@@ -34,7 +34,7 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/unpacker/unpackerr
+              repository: ghcr.io/unpackerr/unpackerr
               tag: 0.13.1
             probes:
               startup:
