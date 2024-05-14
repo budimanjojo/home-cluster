@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.103.1
+              tag: v1.105.0
             command: /bin/sh
             args:
               - ./start-microservices.sh
