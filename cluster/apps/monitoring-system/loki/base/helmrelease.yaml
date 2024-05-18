@@ -29,7 +29,7 @@ spec:
         replication_factor: 1
       schemaConfig:
         configs:
-          - from: 2024-04-01
+          - from: "2024-04-01"
             object_store: filesystem
             store: tsdb
             schema: v13
