@@ -42,6 +42,7 @@ spec:
         retention_delete_worker_count: 150
       storage:
         type: filesystem
+    deploymentMode: SingleBinary
     singleBinary:
       replicas: 1
       persistence:
