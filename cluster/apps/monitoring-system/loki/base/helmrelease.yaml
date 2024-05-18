@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 5.48.0
+      version: 6.5.2
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
@@ -27,6 +27,15 @@ spec:
       auth_enabled: false
       commonConfig:
         replication_factor: 1
+      schemaConfig:
+        configs:
+          - from: 2024-04-01
+            object_store: filesystem
+            store: tsdb
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
       limits_config:
         retention_period: 14d
         ingestion_rate_mb: 50
@@ -42,11 +51,22 @@ spec:
         retention_delete_worker_count: 150
       storage:
         type: filesystem
+    deploymentMode: SingleBinary
     singleBinary:
       replicas: 1
       persistence:
         size: 5Gi
         storageClass: rook-ceph-block
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
     gateway:
       image:
         registry: ghcr.io
