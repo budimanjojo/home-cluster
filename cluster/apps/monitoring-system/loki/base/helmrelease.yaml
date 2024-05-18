@@ -57,6 +57,10 @@ spec:
       persistence:
         size: 5Gi
         storageClass: rook-ceph-block
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
     backend:
       replicas: 0
     read:
