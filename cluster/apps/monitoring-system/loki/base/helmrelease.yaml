@@ -48,6 +48,12 @@ spec:
       persistence:
         size: 5Gi
         storageClass: rook-ceph-block
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
     gateway:
       image:
         registry: ghcr.io
