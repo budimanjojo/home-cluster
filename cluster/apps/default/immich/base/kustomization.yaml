@@ -14,5 +14,4 @@ resources:
   - ./pvc.yaml
   - ./secret.sops.yaml
   - ./server
-  - ./microservices
   - ./machine-learning
