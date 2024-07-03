@@ -87,7 +87,7 @@ jobs:
         uses: fluxcd/flux2/action@v2.3.0
 
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@v3.0.0
+        uses: docker/setup-qemu-action@v3.1.0
 
       - name: Set up Docker Buildx
         id: buildx
