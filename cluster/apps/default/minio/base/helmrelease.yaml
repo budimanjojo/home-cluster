@@ -31,7 +31,7 @@ spec:
           main:
             image:
               repository: quay.io/minio/minio
-              tag: RELEASE.2024-07-10T18-41-49Z
+              tag: RELEASE.2024-07-13T01-46-15Z
             args:
               - server
               - /data
