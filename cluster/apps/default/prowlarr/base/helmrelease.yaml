@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.20.1.4603
+              tag: 1.21.0.4615
             resources:
               requests:
                 cpu: 15m
