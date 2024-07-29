@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/budimanjojo/kubernetes-schemas-web
-              tag: latest@sha256:04ca3469c9a15c07f26ec13c01f8008d6838e94efbd43ac74bfad56d0b03173c
+              tag: latest@sha256:17aa6304978b2dfdf8b89e9200d515e1b0d1fa335dcfc6284a0cb62b97d7649d
             resources:
               requests:
                 cpu: 10m
