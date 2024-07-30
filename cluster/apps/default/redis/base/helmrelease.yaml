@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: redis
-              tag: 7.2.5-alpine
+              tag: 7.4.0-alpine
             command:
               - sh
             args:
