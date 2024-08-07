@@ -2,7 +2,7 @@
 config:
   github:owner: budimanjojo
   github:token:
-    secure: AAABADoyES1DkMPoWk63a3nw4L/JrSGOSpP3fsFnnD4aURXgmX5Gdykkay0Y6H7lFXy/0OYAW7Qm7v+WzulQSkNoic7LmMVrhiDnMx6R1ljIpqv98j70z1g+VOqfzI70ivRChGLCe++UpsusHOdu7ZbkGZxnklK6NQ5Dxbo=
+    secure: AAABAH1Qez4gYd6fjidP0ltkjHS22xo6PGV1MVxAD4sB4uqPmLj8Px3WXxLfPa2A+IRAEJfouNmlSRg3B33KyHwtnqlIIJ0gXGtOzqrbDJpjj+e2Pec8cK7dGGIV+qRrjWuePopvRCBaIp5HS18+runM1etrkuZQHfIp+zc=
   defaultLabels:
     - name: type/digest
       description: Pull request of type digest version bump
