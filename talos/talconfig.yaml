@@ -62,7 +62,8 @@ nodes:
   - hostname: kmaster3
     ipAddress: 192.168.200.23
     controlPlane: true
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      model: SAMSUNG MZ27KM480
     nameservers:
       - 1.1.1.1
       - 8.8.8.8
