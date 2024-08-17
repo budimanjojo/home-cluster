@@ -67,10 +67,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: networking-system-external-proxmox
+  name: networking-system-external-incus
   namespace: flux-system
 spec:
-  path: ./cluster/apps/networking-system/external/proxmox
+  path: ./cluster/apps/networking-system/external/incus
   sourceRef:
     kind: GitRepository
     name: flux-system

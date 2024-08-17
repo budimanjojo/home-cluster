@@ -91,17 +91,18 @@ identity_providers:
         - introspection
       allowed_origins_from_client_redirect_uris: true
     clients:
-      - client_id: proxmox
-        client_name: Proxmox
-        client_secret: '{{ secret "/config/secret/oidc-client-proxmox" }}'
-        public: false
+      - client_id: incus
+        client_name: Incus
+        public: true
         authorization_policy: two_factor
         redirect_uris:
-          - https://proxmox.${SECRET_DOMAIN_0}
+          - https://incus.${SECRET_DOMAIN_0}/oidc/callback
+        audience:
+          - https://incus.${SECRET_DOMAIN_0}
         scopes:
           - openid
-          - profile
-          - email
+          - offline_access
+        access_token_signed_response_alg: RS256
         userinfo_signed_response_alg: none
       - client_id: minio
         client_name: Minio
