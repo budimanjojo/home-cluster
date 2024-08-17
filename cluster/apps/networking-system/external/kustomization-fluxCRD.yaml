@@ -35,22 +35,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: networking-system-external-omv
-  namespace: flux-system
-spec:
-  path: ./cluster/apps/networking-system/external/omv
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  interval: 30m
-  prune: true
-  wait: true
-
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: networking-system-external-omada-controller
   namespace: flux-system
 spec:
