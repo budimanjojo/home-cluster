@@ -109,12 +109,11 @@ config:
         - name: renovate/go-module
           description: Pull request to a Renovate Go module update
           color: 2ac3de
-    - name: dotfiles
-      description: My dotfiles are here, managed with Chezmoi and NixOS Flakes
+    - name: nix-config
+      description: My infrastructure managed by Nix Flakes and Chezmoi are here
       topics:
         - vim
         - dotfiles
-        - tmux
         - fish
         - vimrc
         - neovim
