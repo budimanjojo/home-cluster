@@ -50,9 +50,9 @@ data:
           - "[CONNECTED] == true"
         alerts:
           - type: discord
-      - name: OMV
+      - name: NAS
         group: servers
-        url: "icmp://192.168.200.31"
+        url: "icmp://192.168.200.30"
         interval: 30s
         conditions:
           - "[CONNECTED] == true"
