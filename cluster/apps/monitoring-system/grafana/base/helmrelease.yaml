@@ -109,6 +109,12 @@ spec:
           gnetId: 1860  # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
           datasource: Prometheus
+        smart:
+          gnetId: 20204  # https://grafana.com/grafana/dashboards/20204?tab=revisions
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         gatus:
           url: https://raw.githubusercontent.com/TwiN/gatus/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
           datasource: Prometheus

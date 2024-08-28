@@ -9,4 +9,5 @@ resources:
   - ./kube-prometheus-stack/kustomization-fluxCRD.yaml
   - ./loki/kustomization-fluxCRD.yaml
   - ./miscellaneous/kustomization-fluxCRD.yaml
+  - ./smartctl-exporter/kustomization-fluxCRD.yaml
   - ./vector/kustomization-fluxCRD.yaml
