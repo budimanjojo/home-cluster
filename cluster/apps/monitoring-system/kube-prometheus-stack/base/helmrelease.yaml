@@ -52,6 +52,15 @@ spec:
             static_configs:
               - targets:
                   - ${CONFIG_VYOS_IP_ADDRESS}:9100
+                  - ${CONFIG_NFS_SERVER_IP_ADDRESS}:9100
+          - job_name: external-smartctl-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - ${CONFIG_NFS_SERVER_IP_ADDRESS}:9633
+                  - 192.168.50.49:9633
     alertmanager:
       config:
         global:
