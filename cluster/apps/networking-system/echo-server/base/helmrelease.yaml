@@ -35,7 +35,7 @@ spec:
                 cpu: 5m
                 memory: 30Mi
               limits:
-                memory: 30Mi
+                memory: 50Mi
             probes:
               startup:
                 enabled: true
