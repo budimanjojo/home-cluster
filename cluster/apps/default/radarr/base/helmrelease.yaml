@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/radarr
-              tag: 5.10.4.9218
+              tag: 5.11.0.9244
             resources:
               requests:
                 cpu: 15m
