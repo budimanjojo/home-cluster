@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: eclipse-mosquitto
-              tag: 2.0.18
+              tag: 2.0.19
             resources:
               requests:
                 cpu: 15m
