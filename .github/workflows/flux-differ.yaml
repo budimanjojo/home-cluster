@@ -28,7 +28,7 @@ jobs:
         uses: fluxcd/flux2/action@v2.4.0
 
       - name: Diff resources
-        uses: allenporter/flux-local/action/diff@5.5.1
+        uses: allenporter/flux-local/action/diff@6.0.0
         id: diff
         with:
           sources: flux-system
