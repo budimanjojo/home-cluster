@@ -65,7 +65,7 @@ spec:
         controller: immich-server
         ports:
           http:
-            port: 3001
+            port: 2283
     ingress:
       main:
         enabled: true
