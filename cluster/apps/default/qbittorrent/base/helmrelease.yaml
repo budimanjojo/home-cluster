@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/qbittorrent
-              tag: 5.0.0
+              tag: 5.0.1
             resources:
               requests:
                 cpu: 10m
