@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/lldap/lldap
-              tag: v0.6.0
+              tag: v0.6.1
             probes:
               startup:
                 enabled: true
