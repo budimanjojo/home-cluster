@@ -115,7 +115,7 @@ jobs:
           EOF
 
       - name: Publish web container
-        uses: docker/build-push-action@v6.9.0
+        uses: docker/build-push-action@v6.10.0
         with:
           context: /home/runner/crdSchemas
           platforms: linux/amd64,linux/arm64
