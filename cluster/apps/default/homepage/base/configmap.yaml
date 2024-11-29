@@ -92,7 +92,7 @@ data:
             description: Ad Blocking DNS
             widget:
               type: adguard
-              url: http://10.5.0.2:80
+              url: http://192.168.10.1:3000
               username: {{HOMEPAGE_VAR_AGH_USERNAME}}
               password: {{HOMEPAGE_VAR_AGH_PASSWORD}}
     - Favorites:
