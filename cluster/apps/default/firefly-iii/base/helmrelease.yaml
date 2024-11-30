@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: fireflyiii/core
-              tag: version-6.1.22
+              tag: version-6.1.24
             resources:
               requests:
                 cpu: 15m
