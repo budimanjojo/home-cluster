@@ -60,6 +60,11 @@ spec:
     service:
       main:
         controller: minio
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/address-pool: diff-subnet
+          metallb.universe.tf/loadBalancerIPs: 192.168.15.15
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 9001
