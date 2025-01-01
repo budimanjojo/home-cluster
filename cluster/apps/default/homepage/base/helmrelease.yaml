@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v0.10.6
+              tag: v0.10.7
             # TODO: wait for kyverno
             probes:
               startup:
