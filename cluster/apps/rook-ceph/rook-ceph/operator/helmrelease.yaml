@@ -30,7 +30,6 @@ spec:
     pspEnable: false
     csi:
       enableCephfsDriver: false
-      enableCephfsSnapshotter: false
     resources:
       requests:
         cpu: 92m
