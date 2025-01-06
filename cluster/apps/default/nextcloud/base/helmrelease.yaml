@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 6.5.2
+      version: 6.6.2
       sourceRef:
         kind: HelmRepository
         name: nextcloud-charts
