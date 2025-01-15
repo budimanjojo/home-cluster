@@ -27,7 +27,7 @@ spec:
       enabled: true
       image:
         repository: registry.k8s.io/autoscaling/vpa-recommender
-        tag: 1.2.1
+        tag: 1.2.2
       extraArgs:
         prometheus-address: |
           http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
