@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.125.6
+              tag: v1.125.7
             resources:
               requests:
                 cpu: 100m
