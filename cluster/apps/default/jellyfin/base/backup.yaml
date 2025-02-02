@@ -21,6 +21,7 @@ spec:
     retain:
       daily: 10
       within: 3d
+    cacheCapacity: 2Gi
 
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/secret-v1.json
