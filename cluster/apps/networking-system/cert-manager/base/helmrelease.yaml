@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cert-manager
-      version: v1.15.3
+      version: v1.17.1
       sourceRef:
         kind: HelmRepository
         name: jetstack-charts
@@ -24,9 +24,9 @@ spec:
       retries: 5
   values:
     installCRDs: true
-    dns01RecursiveNameserver: 1.1.1.1:53,9.9.9.9:53
-    dns01RecursiveNameserverOnly: true
-    podDnsPoilicy: None
+    dns01RecursiveNameservers: 1.1.1.1:53,9.9.9.9:53
+    dns01RecursiveNameserversOnly: true
+    podDnsPolicy: None
     podDnsConfig:
       nameservers:
         - 1.1.1.1
