@@ -1,7 +1,7 @@
 ---
 clusterName: home-cluster
-talosVersion: v1.7.6
-kubernetesVersion: v1.30.5
+talosVersion: v1.9.4
+kubernetesVersion: v1.32.2
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
@@ -84,7 +84,7 @@ controlPlane:
       systemExtensions:
         officialExtensions:
           - siderolabs/intel-ucode
-          - siderolabs/i915-ucode
+          - siderolabs/i915
   patches:
     - |-
       - op: add
