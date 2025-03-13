@@ -24,3 +24,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
+  values:
+    resources:
+      limits:
+        memory: 256Mi
