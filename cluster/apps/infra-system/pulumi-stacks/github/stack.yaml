@@ -5,6 +5,7 @@ metadata:
   name: pulumi-github-budimanjojo
 spec:
   stack: budimanjojo/pulumi-github/budimanjojo
+  serviceAccountName: pulumi-stack
   fluxSource:
     sourceRef:
       apiVersion: source.toolkit.fluxcd.io/v1beta2

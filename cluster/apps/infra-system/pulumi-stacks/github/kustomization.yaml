@@ -5,4 +5,5 @@ kind: Kustomization
 namespace: infra-system
 resources:
   - ./ocirepository.yaml
+  - ./rbac.yaml
   - ./stack.yaml
