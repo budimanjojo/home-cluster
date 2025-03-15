@@ -105,6 +105,9 @@ controlPlane:
         value:
           bind-address: 0.0.0.0
     - |-
+      cluster:
+        proxy:
+          disabled: true
       machine:
         time:
           disabled: false
