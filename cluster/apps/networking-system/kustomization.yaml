@@ -10,4 +10,3 @@ resources:
   - ./echo-server/kustomization-fluxCRD.yaml
   - ./external/kustomization-fluxCRD.yaml
   - ./ingress-nginx/kustomization-fluxCRD.yaml
-  - ./metallb/kustomization-fluxCRD.yaml

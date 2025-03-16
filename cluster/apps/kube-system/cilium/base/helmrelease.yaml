@@ -23,6 +23,8 @@ spec:
     remediation:
       retries: 5
   values:
+    bgpControlPlane:
+      enabled: true
     ipam:
       mode: kubernetes
     kubeProxyReplacement: true

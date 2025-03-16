@@ -75,8 +75,7 @@ spec:
         controller: vector-aggregator
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/address-pool: diff-subnet
-          metallb.universe.tf/loadBalancerIPs: 192.168.15.5
+          lbipam.cilium.io/ips: 192.168.15.5
         externalTrafficPolicy: Cluster
         ports:
           http:

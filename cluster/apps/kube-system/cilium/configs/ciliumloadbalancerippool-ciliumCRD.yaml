@@ -1,0 +1,28 @@
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: diff-subnet
+spec:
+  blocks:
+    - cidr: 192.168.15.0/24
+
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: same-subnet
+spec:
+  blocks:
+    - start: 192.168.200.200
+      stop: 192.168.200.210
+
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: mgmt-subnet
+spec:
+  blocks:
+    - start: 192.168.10.200
+      stop: 192.168.10.210

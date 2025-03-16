@@ -15,7 +15,6 @@ resources:
   - ./intel-charts.yaml
   - ./jetstack-charts.yaml
   - ./kyverno-charts.yaml
-  - ./metallb-charts.yaml
   - ./metrics-server-charts.yaml
   - ./mittwald-charts.yaml
   - ./nextcloud-charts.yaml

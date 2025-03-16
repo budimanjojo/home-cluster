@@ -1,9 +1,0 @@
----
-apiVersion: metallb.io/v1beta2
-kind: BGPPeer
-metadata:
-  name: main
-spec:
-  myASN: 65401
-  peerASN: 65400
-  peerAddress: ${CONFIG_VYOS_IP_ADDRESS}

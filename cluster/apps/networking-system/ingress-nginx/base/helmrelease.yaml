@@ -32,8 +32,7 @@ spec:
       allowSnippetAnnotations: true
       service:
         annotations:
-          metallb.universe.tf/address-pool: diff-subnet
-          metallb.universe.tf/loadBalancerIPs: 192.168.15.0
+          lbipam.cilium.io/ips: 192.168.15.1
         externalTrafficPolicy: Local
       ingressClassResource:
         default: true

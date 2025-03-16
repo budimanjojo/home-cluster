@@ -57,8 +57,7 @@ spec:
         controller: qbittorrent
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/address-pool: diff-subnet
-          metallb.universe.tf/loadBalancerIPs: 192.168.15.10
+          lbipam.cilium.io/ips: 192.168.15.10
         ports:
           http:
             port: &http-port 8080
