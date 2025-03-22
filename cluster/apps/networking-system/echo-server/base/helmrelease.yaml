@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/mendhak/http-https-echo
-              tag: 35
+              tag: 36
             resources:
               requests:
                 cpu: 5m
