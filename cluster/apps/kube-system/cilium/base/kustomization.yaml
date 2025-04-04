@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
+  - https://github.com/kubernetes-sigs/gateway-api//config/crd/experimental/?ref=v1.2.1

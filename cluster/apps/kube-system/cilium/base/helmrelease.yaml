@@ -23,6 +23,8 @@ spec:
     remediation:
       retries: 5
   values:
+    gatewayAPI:
+      enabled: true
     bgpControlPlane:
       enabled: true
     ipam:
