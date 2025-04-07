@@ -8,7 +8,7 @@ spec:
   secretName: "${SECRET_DOMAIN_0//./-}-prod-tls"
   secretTemplate:
     annotations:
-      replicator.v1.mittwald.de/replicate-to: default,actions-runner-system,authentication-system,monitoring-system,rook-ceph,flux-system
+      replicator.v1.mittwald.de/replicate-to: default,actions-runner-system,authentication-system,monitoring-system,rook-ceph,flux-system,kube-system
   subject:
     organizations:
       - budimanjojo
@@ -29,7 +29,7 @@ spec:
   secretName: "${SECRET_DOMAIN_1//./-}-prod-tls"
   secretTemplate:
     annotations:
-      replicator.v1.mittwald.de/replicate-to: default,monitoring-system
+      replicator.v1.mittwald.de/replicate-to: default,monitoring-system,kube-system
   subject:
     organizations:
       - budimanjojo
