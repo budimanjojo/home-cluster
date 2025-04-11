@@ -5,7 +5,7 @@ metadata:
   name: &name immich-database
 spec:
   postgresVersion: 16
-  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:ff3ef1c82ee60b45ad950809d2d0c3c33f90164135fdde966f230818953da992
+  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:2a54142d7a2becd027025e95ac3e4542f7688621f3a63fe131a8fec6a65ccc49
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
