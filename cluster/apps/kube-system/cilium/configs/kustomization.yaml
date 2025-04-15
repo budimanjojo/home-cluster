@@ -8,4 +8,3 @@ resources:
   - ./ciliumbgpclusterconfig-ciliumCRD.yaml
   - ./ciliumbgppeerconfig-ciliumCRD.yaml
   - ./ciliumloadbalancerippool-ciliumCRD.yaml
-  - ./gateway-ciliumCRD.yaml
