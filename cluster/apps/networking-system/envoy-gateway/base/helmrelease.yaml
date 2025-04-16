@@ -31,3 +31,8 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  values:
+    config:
+      envoyGateway:
+        gateway:
+          controllerName: gateway.envoyproxy.io/gatewayclass-controller
