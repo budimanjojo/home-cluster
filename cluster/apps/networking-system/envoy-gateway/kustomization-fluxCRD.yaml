@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: networking-system-envoy-gateway
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/networking-system/envoy-gateway/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 30m
+  prune: true
+  wait: true
+  dependsOn:
+    - name: networking-system-certificates
