@@ -27,7 +27,7 @@ spec:
     hostname: budimanjojo-nas
     caCertificateRefs:
       # TODO: currently there's no way to disable cert validation on Gateway API
-      - group: v1
+      - group: ""
         kind: ConfigMap
         name: incus-server-cert
 ---
