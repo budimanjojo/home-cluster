@@ -58,6 +58,17 @@ spec:
         ports:
           http:
             port: 3000
+    route:
+      main:
+        hostnames: ["homepage.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: homepage
+                port: 3000
     ingress:
       main:
         enabled: true

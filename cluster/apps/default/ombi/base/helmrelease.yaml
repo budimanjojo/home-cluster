@@ -59,6 +59,17 @@ spec:
         ports:
           http:
             port: 3579
+    route:
+      main:
+        hostnames: ["ombi.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: ombi
+                port: 3579
     ingress:
       main:
         enabled: true

@@ -72,6 +72,17 @@ spec:
         ports:
           http:
             port: 7878
+    route:
+      main:
+        hostnames: ["movie.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: radarr
+                port: 7878
     ingress:
       main:
         enabled: true

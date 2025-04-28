@@ -59,6 +59,17 @@ spec:
         ports:
           http:
             port: 8080
+    route:
+      main:
+        hostnames: ["zigbee.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: zigbee2mqtt
+                port: 8080
     ingress:
       main:
         enabled: true

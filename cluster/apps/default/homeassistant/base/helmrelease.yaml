@@ -67,6 +67,17 @@ spec:
         ports:
           http:
             port: 8123
+    route:
+      main:
+        hostnames: ["home.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: homeassistant
+                port: 8123
     ingress:
       main:
         enabled: true

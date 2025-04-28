@@ -52,6 +52,17 @@ spec:
         ports:
           http:
             port: 8080
+    route:
+      main:
+        hostnames: ["jellyfin.${SECRET_DOMAIN_1}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-1
+        rules:
+          - backendRefs:
+              - name: kubernetes-schemas
+                port: 8080
     ingress:
       main:
         enabled: true

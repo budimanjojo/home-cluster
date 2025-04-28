@@ -69,6 +69,27 @@ spec:
             port: 9001
           api:
             port: 9000
+    route:
+      main:
+        hostnames: ["minio.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: minio
+                port: 9001
+      s3:
+        hostnames: ["s3.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: minio
+                port: 9000
     ingress:
       main:
         enabled: true

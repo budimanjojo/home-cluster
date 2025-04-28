@@ -1,0 +1,15 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rook-ceph-dashboard
+spec:
+  hostnames: ["rook.${SECRET_DOMAIN_0}"]
+  parentRefs:
+    - name: internal
+      namespace: networking-system
+      port: 443
+  rules:
+    - backendRefs:
+        - name: rook-ceph-mgr-dashboard
+          port: 7000

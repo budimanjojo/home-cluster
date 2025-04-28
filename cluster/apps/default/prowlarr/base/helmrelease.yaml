@@ -58,6 +58,17 @@ spec:
         ports:
           http:
             port: 9696
+    route:
+      main:
+        hostnames: ["prowlarr.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: prowlarr
+                port: 9696
     ingress:
       main:
         enabled: true

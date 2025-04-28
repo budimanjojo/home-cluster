@@ -56,6 +56,17 @@ spec:
             enabled: true
             protocol: TCP
             port: 17170
+    route:
+      main:
+        hostnames: ["ldap.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: lldap
+                port: 17170
     ingress:
       main:
         enabled: true

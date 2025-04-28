@@ -183,6 +183,15 @@ spec:
     plugins:
       - grafana-piechart-panel
 
+    route:
+      main:
+        enabled: true
+        hostnames: ["dashboard.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-0
+
     ingress:
       enabled: true
       ingressClassName: nginx

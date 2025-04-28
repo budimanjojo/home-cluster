@@ -75,6 +75,17 @@ spec:
         ports:
           http:
             port: 8096
+    route:
+      main:
+        hostnames: ["jellyfin.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: jellyfin
+                port: 8096
     ingress:
       main:
         enabled: true

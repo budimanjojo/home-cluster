@@ -66,6 +66,17 @@ spec:
             primary: true
             protocol: TCP
             port: 50413
+    route:
+      main:
+        hostnames: ["qbit.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: qbittorrent
+                port: 8080
     ingress:
       main:
         enabled: true

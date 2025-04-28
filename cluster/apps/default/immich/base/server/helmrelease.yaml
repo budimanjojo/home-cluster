@@ -66,6 +66,17 @@ spec:
         ports:
           http:
             port: 2283
+    route:
+      main:
+        hostnames: ["photos.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: immich-server
+                port: 2283
     ingress:
       main:
         enabled: true

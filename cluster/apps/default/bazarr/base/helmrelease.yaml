@@ -71,6 +71,17 @@ spec:
         ports:
           http:
             port: 6767
+    route:
+      main:
+        hostnames: ["bazarr.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: bazarr
+                port: 6767
     ingress:
       main:
         enabled: true

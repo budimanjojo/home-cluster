@@ -69,6 +69,17 @@ spec:
         ports:
           http:
             port: 8989
+    route:
+      main:
+        hostnames: ["tv.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: sonarr
+                port: 8989
     ingress:
       main:
         enabled: true

@@ -78,6 +78,17 @@ spec:
         ports:
           http:
             port: 9091
+    route:
+      main:
+        hostnames: ["auth.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: authelia
+                port: 9091
     ingress:
       main:
         enabled: true

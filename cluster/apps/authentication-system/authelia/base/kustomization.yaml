@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: authentication-system
 resources:
   - ./helmrelease.yaml
+  - ./referencegrant.yaml
   - ./secret.sops.yaml
   - ./secret.yaml
 configMapGenerator:

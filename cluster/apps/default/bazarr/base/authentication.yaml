@@ -1,0 +1,27 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: bazarr
+spec:
+  extAuth:
+    failOpen: false
+    headersToExtAuth:
+      - X-Forwarded-For # this is here so we can get the real IP
+      - X-Forwarded-Proto
+      - authorization
+      - proxy-authorization
+      - accept
+      - cookie
+    http:
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: authelia
+          namespace: authentication-system
+          port: 9091
+      path: /api/authz/ext-authz/
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: bazarr

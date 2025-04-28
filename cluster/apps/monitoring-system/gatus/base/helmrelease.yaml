@@ -66,6 +66,17 @@ spec:
         ports:
           http:
             port: 8080
+    route:
+      main:
+        hostnames: ["status.${SECRET_DOMAIN_1}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-1
+        rules:
+          - backendRefs:
+              - name: gatus
+                port: 8080
     ingress:
       main:
         enabled: true

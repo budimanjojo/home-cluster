@@ -26,6 +26,14 @@ spec:
       retries: 5
   values:
     prometheus:
+      route:
+        main:
+          enabled: true
+        hostnames: ["prom.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            sectionName: https-0
       ingress:
         enabled: true
         ingressClassName: nginx

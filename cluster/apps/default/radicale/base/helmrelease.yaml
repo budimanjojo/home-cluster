@@ -60,6 +60,17 @@ spec:
         ports:
           http:
             port: 5232
+    route:
+      main:
+        hostnames: ["dav.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: external
+            namespace: networking-system
+            sectionName: https-0
+        rules:
+          - backendRefs:
+              - name: radicale
+                port: 5232
     ingress:
       main:
         enabled: true
