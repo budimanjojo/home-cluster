@@ -6,3 +6,4 @@ namespace: networking-system
 resources:
   - ./gatewayclass.yaml
   - ./gateway.yaml
+  - ./redirect.yaml
