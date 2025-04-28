@@ -23,7 +23,7 @@ spec:
   targetRefs:
     - group: ""
       kind: Service
-      name: incus
+      name: omada-controller
   validation:
     hostname: budimanjojo-firewall
     caCertificateRefs:
