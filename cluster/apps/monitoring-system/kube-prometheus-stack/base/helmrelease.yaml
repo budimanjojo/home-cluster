@@ -29,11 +29,11 @@ spec:
       route:
         main:
           enabled: true
-        hostnames: ["prom.${SECRET_DOMAIN_0}"]
-        parentRefs:
-          - name: internal
-            namespace: networking-system
-            sectionName: https-0
+          hostnames: ["prom.${SECRET_DOMAIN_0}"]
+          parentRefs:
+            - name: internal
+              namespace: networking-system
+              sectionName: https-0
       ingress:
         enabled: true
         ingressClassName: nginx
