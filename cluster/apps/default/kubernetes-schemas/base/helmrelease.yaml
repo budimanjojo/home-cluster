@@ -54,7 +54,7 @@ spec:
             port: 8080
     route:
       main:
-        hostnames: ["schema.${SECRET_DOMAIN_1}"]
+        hostnames: ["schemas.${SECRET_DOMAIN_1}"]
         parentRefs:
           - name: external
             namespace: networking-system
