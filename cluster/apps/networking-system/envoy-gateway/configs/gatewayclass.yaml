@@ -5,3 +5,16 @@ metadata:
   name: envoy-gateway
 spec:
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: proxy-config
+    namespace: networking-system
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: proxy-config
+spec:
+  backendTLS:
+    minVersion: "1.3"
