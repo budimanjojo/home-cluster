@@ -6,7 +6,7 @@ metadata:
 spec:
   hostnames: ["nextcloud.${SECRET_DOMAIN_0}"]
   parentRefs:
-    - name: internal
+    - name: external
       namespace: networking-system
       port: 443
   rules:
