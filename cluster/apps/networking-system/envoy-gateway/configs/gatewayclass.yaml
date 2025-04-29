@@ -18,3 +18,4 @@ metadata:
 spec:
   backendTLS:
     minVersion: "1.3"
+    maxVersion: "1.3"
