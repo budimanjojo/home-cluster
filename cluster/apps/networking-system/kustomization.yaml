@@ -4,6 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
+  - ./adguardhome-external-dns/kustomization-fluxCRD.yaml
   - ./cert-manager/kustomization-fluxCRD.yaml
   - ./certificates/kustomization-fluxCRD.yaml
   - ./cloudflared/kustomization-fluxCRD.yaml

@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1beta2.json
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: adguardhome-external-dns
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.16.1
+  url: oci://ghcr.io/home-operations/charts-mirror/external-dns
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app adguardhome-external-dns
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: adguardhome-external-dns
+  install:
+    createNamespace: true
+    crds: Skip
+    remediation:
+      retries: 5
+  upgrade:
+    crds: Skip
+    remediation:
+      retries: 5
+  values:
+    fullnameOverride: *app
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/muhlba91/external-dns-provider-adguard
+          tag: v8.0.1@sha256:267761a55dde38b7cba7b3bff59d0437402538a29659b03144dc9c132c887444
+        env:
+          - name: ADGUARD_URL
+            value: http://192.168.10.1:3000
+          - name: ADGUARD_USER
+            valueFrom:
+              secretKeyRef:
+                name: &secret adguardhome-external-dns-secret
+                key: ADGUARD_USER
+          - name: ADGUARD_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: *secret
+                key: ADGUARD_PASSWORD
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-webhook
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http-webhook
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+    triggerLoopOnEvent: true
+    policy: sync
+    sources:
+      - gateway-httproute
+      - gateway-tlsroute
+      - service
+    txtOwnerId: main
+    txtPrefix: k8s.main.
+    domainFilters:
+      - ${SECRET_DOMAIN_0}
+      - ${SECRET_DOMAIN_1}
+    serviceMonitor:
+      enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
