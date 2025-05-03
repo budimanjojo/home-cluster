@@ -4,7 +4,7 @@ kind: Gateway
 metadata:
   name: internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN_0}
+    external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN_1}
 spec:
   gatewayClassName: envoy-gateway
   addresses:
@@ -12,7 +12,7 @@ spec:
       value: 192.168.15.20
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN_0}
+      external-dns.alpha.kubernetes.io/hostname: internal.${SECRET_DOMAIN_1}
   listeners:
     - name: http-0
       protocol: HTTP
@@ -58,7 +58,7 @@ kind: Gateway
 metadata:
   name: external
   annotations:
-    external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN_0}
+    external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN_1}
 spec:
   gatewayClassName: envoy-gateway
   addresses:
@@ -66,7 +66,7 @@ spec:
       value: 192.168.15.21
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN_0}
+      external-dns.alpha.kubernetes.io/hostname: external.${SECRET_DOMAIN_1}
   listeners:
     - name: http-0
       protocol: HTTP
