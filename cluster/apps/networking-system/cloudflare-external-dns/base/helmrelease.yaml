@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1beta2.json
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: cloudflare-external-dns
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.16.1
+  url: oci://ghcr.io/home-operations/charts-mirror/external-dns
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app cloudflare-external-dns
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: cloudflare-external-dns
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 5
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 5
+  values:
+    fullnameOverride: *app
+    provider:
+      name: cloudflare
+      env:
+        - name: &name CF_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: &secret cloudflare-external-dns-secret
+              key: *name
+        - name: &name DOMAIN_0_ZONE_ID
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: *name
+        - name: &name DOMAIN_1_ZONE_ID
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: *name
+      extraArgs:
+        - --cloudflare-dns-records-per-page=1000
+        - --cloudflare-proxied
+        - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+        - --crd-source-kind=DNSEndpoint
+        - --gateway-name=external
+        - --zone-id-filter=${DOMAIN_0_ZONE_ID}
+        - --zone-id-filter=${DOMAIN_1_ZONE_ID}
+    triggerLoopOnEvent: true
+    policy: sync
+    sources:
+      - crd
+      - gateway-httproute
+      - gateway-tlsroute
+    txtOwnerId: default
+    txtPrefix: k8s.
+    domainFilters:
+      - ${SECRET_DOMAIN_0}
+      - ${SECRET_DOMAIN_1}
+    serviceMonitor:
+      enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
