@@ -58,8 +58,8 @@ spec:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-name=external
-      - --zone-id-filter=${DOMAIN_0_ZONE_ID}
-      - --zone-id-filter=${DOMAIN_1_ZONE_ID}
+      - --zone-id-filter=$${DOMAIN_0_ZONE_ID}
+      - --zone-id-filter=$${DOMAIN_1_ZONE_ID}
     triggerLoopOnEvent: true
     policy: sync
     sources:
