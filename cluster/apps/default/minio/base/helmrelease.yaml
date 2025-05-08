@@ -90,37 +90,6 @@ spec:
           - backendRefs:
               - name: minio
                 port: 9000
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host minio.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
-      s3:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host s3.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: api
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     serviceMonitor:
       main:
         serviceName: minio

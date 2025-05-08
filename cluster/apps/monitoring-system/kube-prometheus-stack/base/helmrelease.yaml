@@ -34,19 +34,6 @@ spec:
             - name: internal
               namespace: networking-system
               sectionName: https-0
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: |
-            10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
-        pathType: Prefix
-        hosts:
-          - &host prom.${SECRET_DOMAIN_0}
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false

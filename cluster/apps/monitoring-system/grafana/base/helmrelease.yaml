@@ -157,13 +157,6 @@ spec:
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
-      nginx:
-        nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
 
     sidecar:
       dashboards:
@@ -192,19 +185,6 @@ spec:
             namespace: networking-system
             sectionName: https-0
 
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        nginx.ingress.kubernetes.io/whitelist-source-range: |
-          10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
-      pathType: Prefix
-      hosts:
-        - &host dashboard.${SECRET_DOMAIN_0}
-      tls:
-        - hosts:
-            - *host
-          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     resources:
       requests:
         cpu: 10m

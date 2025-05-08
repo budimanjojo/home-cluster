@@ -89,26 +89,6 @@ spec:
           - backendRefs:
               - name: authelia
                 port: 9091
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Cache-Control "no-store";
-            add_header Pragma "no-cache";
-        hosts:
-          - host: &host auth.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     persistence:
       config:
         enabled: true

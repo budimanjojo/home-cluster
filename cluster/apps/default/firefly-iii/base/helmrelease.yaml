@@ -132,22 +132,6 @@ spec:
           - backendRefs:
               - name: firefly-iii
                 port: 8080
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host money.${SECRET_DOMAIN_1}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_1//./-}-prod-tls
     persistence:
       data:
         enabled: true

@@ -12,4 +12,3 @@ resources:
   - ./echo-server/kustomization-fluxCRD.yaml
   - ./envoy-gateway/kustomization-fluxCRD.yaml
   - ./external/kustomization-fluxCRD.yaml
-  - ./ingress-nginx/kustomization-fluxCRD.yaml

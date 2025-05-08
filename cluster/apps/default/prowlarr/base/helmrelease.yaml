@@ -69,28 +69,6 @@ spec:
           - backendRefs:
               - name: prowlarr
                 port: 9696
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-method: GET
-          nginx.ingress.kubernetes.io/auth-url: http://authelia.authentication-system.svc.cluster.local:9091/api/verify
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN_0}?rm=$request_method
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-        hosts:
-          - host: &host prowlarr.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     persistence:
       config:
         enabled: true

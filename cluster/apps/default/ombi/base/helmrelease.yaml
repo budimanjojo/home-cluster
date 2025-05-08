@@ -70,22 +70,6 @@ spec:
           - backendRefs:
               - name: ombi
                 port: 3579
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host ombi.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     persistence:
       config:
         enabled: true

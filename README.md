@@ -29,7 +29,6 @@ This repository is built off the [k8s-at-home/template-cluster-k3s](https://gith
 
 - [Cilium](https://cilium.io): For internal cluster networking, also as load balancer to expose services.
 - [cert-manager](https://cert-manager.io/docs/): Configured to create TLS certs for all ingress services automatically using LetsEncrypt.
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Ingress controller for services.
 - [authelia](https://www.authelia.com/): Full featured authentication server.
 
 ### Storage
@@ -66,10 +65,10 @@ Every app will have its own "Fluxtomization" file that describe their manifests 
 
 ## :satellite:&nbsp; Network structure
 
-Incoming http and https traffics from outside of my network are forwarded from OPNSense firewall into `ingress-nginx` pod with a LoadBalancer service using MetalLB layer2 implementation.
+Incoming http and https traffics from outside of my network are forwarded from OPNSense firewall into `envoy-gateway` pod with a LoadBalancer service using MetalLB layer2 implementation.
 So, basically this is how the http(s) traffic flows:
 ```
-Internet -> OPNSense firewall -> ingress-nginx service -> Kubernetes pod
+Internet -> OPNSense firewall -> envoy-gateway service -> Kubernetes pod
 ```
 Ingress-nginx service is using `Local` `externalTrafficPolicy` so I can track the real IP of clients trying to access my services.
 For important backend services like my OPNSense, I use `nginx.ingress.kubernetes.io/whitelist-source-range` annotation to only allow access from my internal networks.
@@ -95,7 +94,6 @@ Metrics scraping for the cluster are done using Prometheus.
 Dashboards included in my cluster are:
 
 - The provided dashboard from [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
-- Ingress-nginx dashboard from [here](https://github.com/kubernetes/ingress-nginx/tree/main/deploy/grafana/dashboards)
 - Fluxcd dashboard from [here](https://github.com/fluxcd/flux2-monitoring-example/tree/main/monitoring/configs/dashboards)
 - Rook-ceph dashboards from [here](https://www.rook.io/docs/rook/v1.10/Storage-Configuration/Monitoring/ceph-monitoring/?h=grafana#grafana-dashboards)
 

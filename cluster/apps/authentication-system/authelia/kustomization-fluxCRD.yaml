@@ -14,6 +14,6 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: networking-system-ingress-nginx
+    - name: networking-system-envoy-gateway
     - name: default-postgrescluster
     - name: default-redis

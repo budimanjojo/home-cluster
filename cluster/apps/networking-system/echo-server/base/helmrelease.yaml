@@ -67,19 +67,3 @@ spec:
           - backendRefs:
               - name: echo-server
                 port: 8080
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host echo-server.${SECRET_DOMAIN_1}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_1//./-}-prod-tls

@@ -70,21 +70,6 @@ spec:
     gateway:
       image:
         registry: ghcr.io
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: |
-            10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
-        hosts:
-          - host: &host loki.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     test:
       enabled: false
     monitoring:

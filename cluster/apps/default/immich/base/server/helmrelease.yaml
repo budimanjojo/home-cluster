@@ -77,24 +77,6 @@ spec:
           - backendRefs:
               - name: immich-server
                 port: 2283
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/proxy-body-size: "0"
-        hosts:
-          - host: &host photos.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     persistence:
       data:
         enabled: true

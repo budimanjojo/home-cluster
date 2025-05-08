@@ -6,5 +6,4 @@ namespace: flux-system
 resources:
   - ./github.yaml
   - ./httproute.yaml
-  - ./ingress.yaml
   - ./secret.sops.yaml

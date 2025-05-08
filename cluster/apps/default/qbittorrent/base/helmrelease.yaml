@@ -76,26 +76,7 @@ spec:
         rules:
           - backendRefs:
               - name: qbittorrent
-                port: 8080
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: |
-            10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
-        hosts:
-          - host: &host qbit.${SECRET_DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: *http-port
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+                port: *http-port
     persistence:
       config:
         enabled: true

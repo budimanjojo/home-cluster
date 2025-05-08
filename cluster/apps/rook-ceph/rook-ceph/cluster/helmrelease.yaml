@@ -32,19 +32,6 @@ spec:
           memory: 105Mi
         limits:
           memory: 105Mi
-    ingress:
-      dashboard:
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: |
-            10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
-        host:
-          name: &host rook.${SECRET_DOMAIN_0}
-          paths: /
-        tls:
-          - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     monitoring:
       enabled: true
       createPrometheusRules: true

@@ -26,30 +26,8 @@ spec:
     fullnameOverride: *app
     image:
       flavor: fpm-alpine
-    ingress:
-      enabled: true
-      className: nginx
-      annotations:
-        nginx.ingress.kubernetes.io/proxy-body-size: 512M
-        nginx.ingress.kubernetes.io/proxy-buffering: "off"
-        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-        nginx.ingress.kubernetes.io/server-snippet: |
-          server_tokens off;
-          location ^~ /.well-known {
-            location = /.well-known/carddav { return 301 /remote.php/dav/; }
-            location = /.well-known/caldav { return 301 /remote.php/dav/; }
-            location = /.well-known/acme-challenge { try_files $uri $uri/ =404; }
-            location = /.well-known/pki-validation { try_files $uri $uri/ =404; }
-            return 301 /index.php$request_uri;
-          }
-          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)  { return 404; }
-          location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)                { return 404; }
-      tls:
-        - hosts:
-            - &host nextcloud.${SECRET_DOMAIN_0}
-          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
     nextcloud:
-      host: *host
+      host: nextcloud.${SECRET_DOMAIN_0}
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
