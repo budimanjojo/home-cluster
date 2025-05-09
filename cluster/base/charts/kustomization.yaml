@@ -6,7 +6,6 @@ resources:
   - ./app-template.yaml
   - ./actions-runner-controller-charts.yaml
   - ./backube-charts.yaml
-  - ./bjw-s-charts.yaml
   - ./cilium-charts.yaml
   - ./crunchydata-charts.yaml
   - ./external-dns-charts.yaml
