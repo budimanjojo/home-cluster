@@ -23,6 +23,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudflare-external-dns
+    namespace: flux-system
   install:
     createNamespace: true
     crds: CreateReplace
