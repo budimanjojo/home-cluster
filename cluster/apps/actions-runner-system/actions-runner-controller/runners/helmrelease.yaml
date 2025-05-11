@@ -25,6 +25,7 @@ spec:
   values:
     controllerServiceAccount:
       name: actions-runner-controller-gha-rs-controller
+      namespace: actions-runner-system
     runnerScaleSetName: arc-runner-set-home-cluster
     githubConfigUrl: https://github.com/budimanjojo/home-cluster
     minRunners: 1
