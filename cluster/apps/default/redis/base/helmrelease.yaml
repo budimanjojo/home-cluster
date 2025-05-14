@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: redis
-              tag: 7.4.2-alpine
+              tag: 7.4.3-alpine
             command:
               - sh
             args:
