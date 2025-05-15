@@ -9,7 +9,7 @@ on:
     branches:
       - main
     paths:
-      - ./github/workflows/publish-kubernetes-schemas.yaml
+      - .github/workflows/publish-kubernetes-schemas.yaml
 
 jobs:
   main:
