@@ -33,3 +33,6 @@ spec:
     containerMode:
       type: dind
     githubConfigSecret: actions-runner-controller-secret
+    template:
+      spec:
+        serviceAccountName: home-cluster

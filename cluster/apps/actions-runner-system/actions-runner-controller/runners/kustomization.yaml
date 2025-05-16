@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: actions-runner-system
 resources:
   - ./helmrelease.yaml
+  - ./rbac.yaml
