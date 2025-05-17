@@ -68,6 +68,7 @@ spec:
                 port: 5232
     configMaps:
       config:
+        suffix: config
         enabled: true
         data:
           config.cfg: |

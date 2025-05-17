@@ -57,6 +57,7 @@ spec:
             port: 1883
     configMaps:
       config:
+        suffix: config
         enabled: true
         data:
           mosquitto.conf: |
