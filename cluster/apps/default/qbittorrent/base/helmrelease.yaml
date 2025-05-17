@@ -67,7 +67,7 @@ spec:
         parentRefs:
           - name: internal
             namespace: networking-system
-            sectionName: https-0
+            port: 443
         rules:
           - backendRefs:
               - name: qbittorrent

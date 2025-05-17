@@ -61,7 +61,7 @@ spec:
         parentRefs:
           - name: external
             namespace: networking-system
-            sectionName: https-0
+            port: 443
         rules:
           - backendRefs:
               - name: radicale
