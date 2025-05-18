@@ -24,7 +24,7 @@ spec:
     kind: OCIRepository
     name: flux-manifests
   interval: 30m
-  prune: true
+  prune: false
   wait: true
   patches:
     - patch: |

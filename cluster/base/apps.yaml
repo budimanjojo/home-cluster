@@ -12,7 +12,7 @@ spec:
       name: sops-age
   interval: 5m0s
   path: ./cluster/apps
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
