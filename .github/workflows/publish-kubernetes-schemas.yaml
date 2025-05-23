@@ -46,7 +46,8 @@ jobs:
 
       - name: Run crd-extractor
         run: |
-          curl -fsSL https://raw.githubusercontent.com/datreeio/CRDs-catalog/f3cdc86d7e26c959f2c366f19a29c5e5872bf9d6/Utilities/crd-extractor.sh | bash
+          curl -fsSL https://raw.githubusercontent.com/datreeio/CRDs-catalog/f3cdc86d7e26c959f2c366f19a29c5e5872bf9d6/Utilities/crd-extractor.sh -o crd-extractor.sh
+          chmod +x crd-extractor.sh && ./crd-extractor.sh
 
       - name: Setup Node
         # yamllint disable-line rule:comments
