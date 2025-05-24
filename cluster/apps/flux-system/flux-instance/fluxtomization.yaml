@@ -21,7 +21,7 @@ spec:
   healthChecks:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: FluxInstance
-      name: *name
+      name: flux
       namespace: *namespace
   dependsOn:
     - name: flux-operator
