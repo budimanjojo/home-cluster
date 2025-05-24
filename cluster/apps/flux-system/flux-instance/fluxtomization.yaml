@@ -19,7 +19,8 @@ spec:
     name: flux-system
     namespace: flux-system
   healthChecks:
-    - kind: FluxInstance
+    - apiVersion: fluxcd.controlplane.io/v1
+      kind: FluxInstance
       name: *name
       namespace: *namespace
   dependsOn:

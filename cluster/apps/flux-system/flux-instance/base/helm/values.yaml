@@ -1,4 +1,5 @@
 ---
+fullnameOverride: flux-instance
 instance:
   distribution:
     # renovate: depName=controlplaneio-fluxcd/distribution datasource=github-releases
