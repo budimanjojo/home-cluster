@@ -1,0 +1,8 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/namespace-v1.json
+apiVersion: v1
+kind: Namespace
+metadata:
+  # make sure the component called kustomization
+  # has `namespace` field filled
+  name: to-be-replaced

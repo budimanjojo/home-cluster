@@ -2,6 +2,12 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: flux-system
+components:
+  - ../../components/common
 resources:
-  - ./namespace.yaml
-  - ./fluxcd/kustomization-fluxCRD.yaml
+  - ./flux-instance/fluxtomization.yaml
+  - ./flux-metrics/fluxtomization.yaml
+  - ./flux-networkpolicies/fluxtomization.yaml
+  - ./flux-operator/fluxtomization.yaml
+  - ./flux-webhook/fluxtomization.yaml
