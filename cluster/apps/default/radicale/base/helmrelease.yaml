@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: tomsquest/docker-radicale
-              tag: 3.5.3.1
+              tag: 3.5.4.0
             resources:
               requests:
                 cpu: 15m
