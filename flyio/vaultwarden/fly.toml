@@ -14,7 +14,7 @@ kill_signal = "SIGINT"
 kill_timeout = "5s"
 
 [build]
-  image = "vaultwarden/server:1.33.2-alpine"
+  image = "vaultwarden/server:1.34.0-alpine"
 
 [env]
   SIGNUPS_ALLOWED = "false"
