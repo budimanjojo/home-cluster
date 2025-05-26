@@ -11,7 +11,7 @@ spec:
   ref:
     tag: 0.11.0
   layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tag+gzip
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
 ---
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
