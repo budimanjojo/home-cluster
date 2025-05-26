@@ -2,6 +2,9 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: actions-runner-system
+components:
+  - ../../components/common
 resources:
-  - ./namespace.yaml
-  - ./actions-runner-controller/kustomization-fluxCRD.yaml
+  - ./actions-runner-controller/fluxtomization.yaml
+  - ./actions-runner-runners/fluxtomization.yaml
