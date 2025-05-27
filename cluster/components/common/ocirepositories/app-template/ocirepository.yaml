@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: app-template
+spec:
+  interval: 30m
+  timeout: 60s
+  url: oci://ghcr.io/bjw-s-lab/helm/app-template
+  ref:
+    tag: 4.0.1
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
