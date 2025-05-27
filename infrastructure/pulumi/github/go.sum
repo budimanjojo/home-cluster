@@ -119,6 +119,8 @@ github.com/gookit/validate v1.5.3 h1:czD1H+fcOJX+dfY0vzjHSMb+jrKTMeI8Fhu59ZMIB9o
 github.com/gookit/validate v1.5.3/go.mod h1:1OfvI1eGJqSODHERKdxvPGcconT4eTvVLmYt1A3QZlI=
 github.com/gookit/validate v1.5.4 h1:nwBo6vULnVUeNFCOde6RKFRbOCKJXVMnWR0ghedacLg=
 github.com/gookit/validate v1.5.4/go.mod h1:p9sRPfpvYB4vXICBpEPzv8FoAky+XhUOhWQghgmmat4=
+github.com/gookit/validate v1.5.5 h1:jzMrwAYy9tbQa0mH8YFnv3C3JQR/0N4pRTsYiySwRJM=
+github.com/gookit/validate v1.5.5/go.mod h1:p9sRPfpvYB4vXICBpEPzv8FoAky+XhUOhWQghgmmat4=
 github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645 h1:MJG/KsmcqMwFAkh8mTnAwhyKoB+sTAnY4CACC110tbU=
 github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645/go.mod h1:6iZfnjpejD4L/4DwD7NryNaJyCQdzwWwH2MWhCA90Kw=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
