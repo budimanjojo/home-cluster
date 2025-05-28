@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name volsync
+  namespace: &namespace backup-system
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *name
+  path: ./cluster/apps/backup-system/volsync/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *name
+      namespace: *namespace
+  dependsOn:
+    - name: default-minio
+      namespace: flux-system
+    - name: rook-ceph-rook-ceph-cluster
+      namespace: flux-system
+    - name: kube-system-snapshot-controller
+      namespace: flux-system
+    - name: monitoring-system-kube-prometheus-stack
+      namespace: flux-system
