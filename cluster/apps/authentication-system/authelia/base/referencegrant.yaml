@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/gateway.networking.k8s.io/referencegrant_v1beta1.json
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:

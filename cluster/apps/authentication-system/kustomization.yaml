@@ -2,7 +2,10 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: authentication-system
+components:
+  - ../../components/common
+  - ../../components/envsubst
 resources:
-  - ./namespace.yaml
-  - ./authelia/kustomization-fluxCRD.yaml
-  - ./lldap/kustomization-fluxCRD.yaml
+  - ./authelia/fluxtomization.yaml
+  - ./lldap/fluxtomization.yaml
