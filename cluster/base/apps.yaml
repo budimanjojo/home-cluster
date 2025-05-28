@@ -33,12 +33,6 @@ spec:
             provider: sops
             secretRef:
               name: sops-age
-          postBuild:
-            substituteFrom:
-              - kind: ConfigMap
-                name: cluster-vars
-              - kind: Secret
-                name: cluster-secret-vars
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
