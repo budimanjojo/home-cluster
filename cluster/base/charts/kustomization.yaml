@@ -21,6 +21,5 @@ resources:
   - ./piraeus-charts.yaml
   - ./postfinance-charts.yaml
   - ./prometheus-community-charts.yaml
-  - ./pulumi-charts.yaml
   - ./rook-ceph-charts.yaml
   - ./stakater-charts.yaml

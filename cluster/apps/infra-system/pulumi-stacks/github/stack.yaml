@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/pulumi.com/stack_v1.json
 apiVersion: pulumi.com/v1
 kind: Stack
 metadata:

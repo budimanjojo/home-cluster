@@ -6,4 +6,5 @@ namespace: infra-system
 resources:
   - ./ocirepository.yaml
   - ./rbac.yaml
+  - ./secret.sops.yaml
   - ./stack.yaml
