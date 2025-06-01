@@ -34,14 +34,28 @@ spec:
     remediation:
       retries: 5
   values:
-    ndm:
-      enabled: false
-    localprovisioner:
-      enabled: true
-      deviceClass:
-        enabled: false
+    localpv-provisioner:
+      localpv:
+        enabled: true
+        image:
+          registry: quay.io/
+        basePath: &hostPath /var/openebs/local
       hostpathClass:
         enabled: true
         name: openebs-hostpath
         isDefaultClass: false
-        basePath: /var/openebs/local
+        basePath: *hostPath
+    openebs-crds:
+      csi:
+        volumeSnapshots:
+          enabled: false
+          keep: false
+    engines:
+      local:
+        zfs:
+          enabled: false
+        lvm:
+          enabled: false
+      replicated:
+        mayastor:
+          enabled: false
