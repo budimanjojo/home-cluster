@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./adguardhome-external-dns/kustomization-fluxCRD.yaml
-  - ./certificates/kustomization-fluxCRD.yaml
   - ./cloudflare-external-dns/kustomization-fluxCRD.yaml
   - ./cloudflared/kustomization-fluxCRD.yaml
   - ./echo-server/kustomization-fluxCRD.yaml
