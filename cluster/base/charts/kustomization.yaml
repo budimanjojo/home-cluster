@@ -9,7 +9,6 @@ resources:
   - ./fairwinds-charts.yaml
   - ./grafana-charts.yaml
   - ./intel-charts.yaml
-  - ./jetstack-charts.yaml
   - ./metrics-server-charts.yaml
   - ./mittwald-charts.yaml
   - ./nextcloud-charts.yaml
