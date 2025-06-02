@@ -22,7 +22,6 @@ spec:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
       name: ${SECRET_DOMAIN_0}-prod
-      namespace: *namespace
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
@@ -56,7 +55,6 @@ spec:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
       name: ${SECRET_DOMAIN_1}-prod
-      namespace: *namespace
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
