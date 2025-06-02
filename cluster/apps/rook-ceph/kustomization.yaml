@@ -8,4 +8,4 @@ components:
   - ../../components/envsubst
 resources:
   - ./rook-ceph/cluster/fluxtomization.yaml
-  - ./rook-ceph/kustomization-fluxCRD.yaml
+  - ./rook-ceph/operator/fluxtomization.yaml
