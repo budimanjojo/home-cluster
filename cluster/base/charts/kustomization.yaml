@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./app-template.yaml
   - ./cilium-charts.yaml
-  - ./external-dns-charts.yaml
   - ./fairwinds-charts.yaml
   - ./grafana-charts.yaml
   - ./intel-charts.yaml
