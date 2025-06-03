@@ -10,7 +10,6 @@ spec:
     kind: OCIRepository
     name: app-template
   install:
-    createNamespace: true
     remediation:
       retries: -1
   upgrade:

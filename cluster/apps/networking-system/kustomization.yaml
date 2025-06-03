@@ -2,11 +2,17 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: networking-system
+components:
+  - ../../components/common
+  - ../../components/envsubst
 resources:
-  - ./namespace.yaml
-  - ./adguardhome-external-dns/kustomization-fluxCRD.yaml
-  - ./cloudflare-external-dns/kustomization-fluxCRD.yaml
-  - ./cloudflared/kustomization-fluxCRD.yaml
-  - ./echo-server/kustomization-fluxCRD.yaml
-  - ./envoy-gateway/kustomization-fluxCRD.yaml
-  - ./external/kustomization-fluxCRD.yaml
+  - ./adguardhome-external-dns/fluxtomization.yaml
+  - ./cloudflare-external-dns/fluxtomization.yaml
+  - ./cloudflared/fluxtomization.yaml
+  - ./echo-server/fluxtomization.yaml
+  - ./envoy-gateway/certificates/fluxtomization.yaml
+  - ./envoy-gateway/crds/fluxtomization.yaml
+  - ./envoy-gateway/gateways/fluxtomization.yaml
+  - ./envoy-gateway/operator/fluxtomization.yaml
+  - ./external-services/fluxtomization.yaml

@@ -1,0 +1,99 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name external-service-adguardhome
+  namespace: networking-system
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *name
+  path: ./cluster/apps/networking-system/external-services/adguardhome
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  dependsOn:
+    - name: envoy-gateway-crds
+      namespace: networking-system
+
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name external-service-fullykioskbrowser
+  namespace: networking-system
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *name
+  path: ./cluster/apps/networking-system/external-services/fullykioskbrowser
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  dependsOn:
+    - name: envoy-gateway-crds
+      namespace: networking-system
+
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name external-service-incus
+  namespace: networking-system
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *name
+  path: ./cluster/apps/networking-system/external-services/incus
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  dependsOn:
+    - name: envoy-gateway-crds
+      namespace: networking-system
+
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name external-service-omada-controller
+  namespace: networking-system
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *name
+  path: ./cluster/apps/networking-system/external-services/omada-controller
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: false
+  dependsOn:
+    - name: envoy-gateway-crds
+      namespace: networking-system

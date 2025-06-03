@@ -1,39 +1,41 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1beta2.json
 ---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: adguardhome-external-dns
 spec:
-  interval: 5m
+  interval: 30m
+  timeout: 60s
+  url: oci://ghcr.io/home-operations/charts-mirror/external-dns
+  ref:
+    tag: 1.16.1
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
-  ref:
-    tag: 1.16.1
-  url: oci://ghcr.io/home-operations/charts-mirror/external-dns
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app adguardhome-external-dns
+  name: &name adguardhome-external-dns
 spec:
-  interval: 15m
+  interval: 1h
+  timeout: 5m
   chartRef:
     kind: OCIRepository
     name: adguardhome-external-dns
   install:
-    createNamespace: true
     crds: Skip
     remediation:
-      retries: 5
+      retries: -1
   upgrade:
+    cleanupOnFail: true
     crds: Skip
     remediation:
       retries: 5
   values:
-    fullnameOverride: *app
+    fullnameOverride: *name
     provider:
       name: webhook
       webhook:

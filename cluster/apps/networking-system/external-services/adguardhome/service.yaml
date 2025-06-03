@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguardhome
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: http
+  type: ClusterIP
