@@ -33,5 +33,5 @@ spec:
       inProgress: status.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'Unknown')
       current: status.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
   dependsOn:
-    - name: envoy-gateway-operator-crds
+    - name: envoy-gateway-crds
       namespace: *namespace
