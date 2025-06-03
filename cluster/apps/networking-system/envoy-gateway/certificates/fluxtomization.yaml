@@ -20,7 +20,7 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
-    - name: cert-manager-issuers-domain-0
+    - name: cert-manager-issuer-domain-0
       namespace: cert-manager
 
 ---
@@ -45,5 +45,5 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
-    - name: cert-manager-issuers-domain-1
+    - name: cert-manager-issuer-domain-1
       namespace: cert-manager
