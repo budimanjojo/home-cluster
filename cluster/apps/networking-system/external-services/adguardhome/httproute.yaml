@@ -12,5 +12,5 @@ spec:
       port: 443
   rules:
     - backendRefs:
-        - name: adguard
+        - name: adguardhome
           port: 3000
