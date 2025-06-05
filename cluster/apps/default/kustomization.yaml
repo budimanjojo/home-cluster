@@ -8,7 +8,6 @@ resources:
   - ./clusterpolicies/kustomization-fluxCRD.yaml
   - ./common/kustomization-fluxCRD.yaml
   - ./firefly-iii/kustomization-fluxCRD.yaml
-  - ./goldilocks/kustomization-fluxCRD.yaml
   - ./homeassistant/kustomization-fluxCRD.yaml
   - ./homepage/kustomization-fluxCRD.yaml
   - ./jellyfin/kustomization-fluxCRD.yaml

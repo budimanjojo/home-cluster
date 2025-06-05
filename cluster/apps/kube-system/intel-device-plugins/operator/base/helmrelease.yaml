@@ -3,13 +3,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: kubernetes-replicator
+  name: intel-device-plugins-operator
 spec:
   interval: 30m
   timeout: 60s
-  url: oci://ghcr.io/home-operations/charts-mirror/kubernetes-replicator
+  url: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-operator
   ref:
-    tag: 2.11.1
+    tag: 0.32.1
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
@@ -18,17 +18,19 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kubernetes-replicator
+  name: intel-device-plugins-operator
 spec:
   interval: 1h
   timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: kubernetes-replicator
+    name: intel-device-plugins-operator
   install:
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 5

@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name intel-device-plugins-gpu
+  namespace: &namespace kube-system
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: intel-device-plugins
+  path: ./cluster/apps/kube-system/intel-device-plugins/gpu/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *name
+      namespace: *namespace
+    - apiVersion: deviceplugin.intel.com/v1
+      kind: GpuDevicePlugin
+      name: i915
+  healthCheckExprs:
+    - apiVersion: deviceplugin.intel.com/v1
+      kind: GpuDevicePlugin
+      failed: status.desiredNumberScheduled != status.numberReady
+      current: status.desiredNumberScheduled == status.numberReady
+  dependsOn:
+    - name: intel-device-plugins-operator
+      namespace: *namespace

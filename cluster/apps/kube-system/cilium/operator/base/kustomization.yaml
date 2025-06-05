@@ -2,10 +2,12 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: kube-system
 resources:
-  - ./app-template.yaml
-  - ./grafana-charts.yaml
-  - ./nextcloud-charts.yaml
-  - ./nfs-provisioner-charts.yaml
-  - ./prometheus-community-charts.yaml
-  - ./stakater-charts.yaml
+  - ./helmrelease.yaml
+configMapGenerator:
+  - name: cilium-values
+    files:
+      - values.yaml=./helm/values.yaml
+configurations:
+  - ./helm/kustomizeconfig.yaml

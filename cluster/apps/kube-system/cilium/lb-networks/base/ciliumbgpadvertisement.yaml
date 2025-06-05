@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumbgpadvertisement_v2alpha1.json
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  name: main
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: Service
+      service:
+        addresses:
+          - LoadBalancerIP
+          - ExternalIP
+      selector:
+        matchExpressions:
+          - key: thisFakeSelector
+            operator: NotIn
+            values:
+              - will-match-and-announce-all-services
