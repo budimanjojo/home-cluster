@@ -12,7 +12,6 @@ resources:
   - ./cloudflared/fluxtomization.yaml
   - ./echo-server/fluxtomization.yaml
   - ./envoy-gateway/certificates/fluxtomization.yaml
-  - ./envoy-gateway/crds/fluxtomization.yaml
   - ./envoy-gateway/gateways/fluxtomization.yaml
   - ./envoy-gateway/operator/fluxtomization.yaml
   - ./external-services/fluxtomization.yaml

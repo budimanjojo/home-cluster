@@ -32,6 +32,3 @@ spec:
       failed: status.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'False')
       inProgress: status.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'Unknown')
       current: status.conditions.filter(e, e.type == 'Accepted').all(e, e.status == 'True')
-  dependsOn:
-    - name: envoy-gateway-crds
-      namespace: *namespace

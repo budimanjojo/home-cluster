@@ -26,5 +26,5 @@ spec:
   dependsOn:
     - name: kube-prometheus-crds
       namespace: monitoring-system
-    - name: envoy-gateway-crds
+    - name: envoy-gateway-operator
       namespace: networking-system

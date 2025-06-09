@@ -26,12 +26,12 @@ spec:
     kind: OCIRepository
     name: envoy-gateway-operator
   install:
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: 5
   values:

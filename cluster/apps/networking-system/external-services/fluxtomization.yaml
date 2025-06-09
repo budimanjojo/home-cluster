@@ -20,7 +20,7 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
-    - name: envoy-gateway-crds
+    - name: envoy-gateway-operator
       namespace: networking-system
 
 ---
@@ -45,7 +45,7 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
-    - name: envoy-gateway-crds
+    - name: envoy-gateway-operator
       namespace: networking-system
 
 ---
@@ -70,7 +70,7 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
-    - name: envoy-gateway-crds
+    - name: envoy-gateway-operator
       namespace: networking-system
 
 ---
@@ -95,5 +95,5 @@ spec:
     namespace: flux-system
   wait: false
   dependsOn:
-    - name: envoy-gateway-crds
+    - name: envoy-gateway-operator
       namespace: networking-system
