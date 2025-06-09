@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name volsync
-  namespace: &namespace backup-system
+  name: &name kube-prometheus-crds
+  namespace: &namespace monitoring-system
 spec:
   interval: 1h
   retryInterval: 2m
@@ -12,8 +12,8 @@ spec:
   prune: false
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *name
-  path: ./cluster/apps/backup-system/volsync/base
+      app.kubernetes.io/name: kube-prometheus-stack
+  path: ./cluster/apps/monitoring-system/kube-prometheus/crds/base
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -23,12 +23,3 @@ spec:
       kind: HelmRelease
       name: *name
       namespace: *namespace
-  dependsOn:
-    - name: default-minio
-      namespace: flux-system
-    - name: rook-ceph-rook-ceph-cluster
-      namespace: flux-system
-    - name: kube-system-snapshot-controller
-      namespace: flux-system
-    - name: kube-prometheus-crds
-      namespace: monitoring-system

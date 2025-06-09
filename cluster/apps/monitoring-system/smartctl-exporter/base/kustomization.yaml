@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: monitoring-system
 resources:
   - ./helmrelease.yaml
-  - ./prometheusrule-prometheusCRD.yaml
+  - ./prometheusrule.yaml

@@ -2,12 +2,15 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: monitoring-system
+components:
+  - ../../components/common
+  - ../../components/envsubst
 resources:
-  - ./namespace.yaml
-  - ./gatus/kustomization-fluxCRD.yaml
-  - ./grafana/kustomization-fluxCRD.yaml
-  - ./kube-prometheus-stack/kustomization-fluxCRD.yaml
-  - ./loki/kustomization-fluxCRD.yaml
-  - ./miscellaneous/kustomization-fluxCRD.yaml
-  - ./smartctl-exporter/kustomization-fluxCRD.yaml
-  - ./vector/kustomization-fluxCRD.yaml
+  - ./gatus/fluxtomization.yaml
+  - ./grafana/fluxtomization.yaml
+  - ./kube-prometheus/crds/fluxtomization.yaml
+  - ./kube-prometheus/stack/fluxtomization.yaml
+  - ./loki/fluxtomization.yaml
+  - ./smartctl-exporter/fluxtomization.yaml
+  - ./vector-aggregator/fluxtomization.yaml

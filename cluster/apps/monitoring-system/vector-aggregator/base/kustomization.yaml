@@ -7,8 +7,8 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
 configMapGenerator:
-  - name: vector-aggregator-config
+  - name: vector-aggregator-configmap
     files:
-      - ./config/vector.yaml
+      - config.yaml=./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
