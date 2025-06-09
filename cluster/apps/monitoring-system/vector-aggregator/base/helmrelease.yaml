@@ -82,7 +82,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: vector-aggregator-config
+        name: vector-aggregator-configmap
         advancedMounts:
           vector-aggregator:
             main:
