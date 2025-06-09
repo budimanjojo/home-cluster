@@ -78,8 +78,7 @@ spec:
     write:
       replicas: 0
     gateway:
-      image:
-        registry: ghcr.io
+      replicas: 0
     test:
       enabled: false
     monitoring:
