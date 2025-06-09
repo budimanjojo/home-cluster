@@ -20,8 +20,8 @@ spec:
     namespace: flux-system
   wait: true
   dependsOn:
-    - name: networking-system-envoy-gateway
-      namespace: flux-system
+    - name: envoy-gateway-operator
+      namespace: networking-system
     - name: default-postgrescluster
       namespace: flux-system
     - name: default-redis
