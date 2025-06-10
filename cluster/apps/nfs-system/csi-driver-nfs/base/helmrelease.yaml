@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: csi-driver-nfs
+spec:
+  interval: 30m
+  timeout: 60s
+  url: oci://ghcr.io/home-operations/charts-mirror/csi-driver-nfs
+  ref:
+    tag: 4.11.0
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: csi-driver-nfs
+spec:
+  interval: 1h
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: csi-driver-nfs
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  values:
+    storageClass:
+      create: true
+      name: nfs-csi
+      annotations:
+        storageclass.kubernetes.io/is-default-class: "false"
+      parameters:
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        share: ${CONFIG_NFS_SERVER_PATH}
+        # double $ sign to avoid flux variable substitution
+        subDir: $${pvc.metadata.namespace}-$${pvc.metadata.name}
+        onDelete: retain
+      mountOptions:
+        - nfsvers=4
+        - nolock
+        - soft
+        - rw
