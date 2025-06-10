@@ -29,7 +29,7 @@ spec:
               names:
                 - actions-runner-system
                 - default
-                - nfd-system
+                - nfs-system
                 - rook-ceph
                 - monitoring-system
                 - networking-system
