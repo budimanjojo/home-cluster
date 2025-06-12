@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: flux-system
 components:
   - ../../components/common
+  - ../../components/envsubst
 resources:
   - ./flux-instance/fluxtomization.yaml
   - ./flux-metrics/fluxtomization.yaml
