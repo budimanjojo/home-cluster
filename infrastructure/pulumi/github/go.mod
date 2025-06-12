@@ -7,7 +7,7 @@ toolchain go1.24.4
 require (
 	github.com/gookit/validate v1.5.5
 	github.com/pulumi/pulumi-github/sdk/v6 v6.7.2
-	github.com/pulumi/pulumi/sdk/v3 v3.175.0
+	github.com/pulumi/pulumi/sdk/v3 v3.176.0
 )
 
 require (
