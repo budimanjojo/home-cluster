@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/postgres-operator.crunchydata.com/postgrescluster_v1beta1.json
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: &name immich-database
+spec:
+  postgresVersion: 16
+  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:e2fffc3c8777453b065bab713b0d25e712daca5c1156a268cdf0632429727fa9
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        synchronous_commit: "on"
+        parameters:
+          shared_preload_libraries: "vectors.so"
+          search_path: '"$user", public, vectors"'
+        pg_hba:
+          - hostnossl all all 10.244.0.0/16 md5
+          - hostssl all all all md5
+  databaseInitSQL:
+    name: immich-database-init-sql
+    key: init.sql
+  instances:
+    - name: instance
+      replicas: 3
+      dataVolumeClaimSpec:
+        storageClassName: openebs-hostpath
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
+      walVolumeClaimSpec:
+        storageClassName: openebs-hostpath
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
+  users:
+    - name: immich
+      databases:
+        - immich
+  backups:
+    pgbackrest:
+      global:
+        repo1-retention-full: "14"
+        repo1-retention-full-type: time
+        archive-push-queue-max: 4GiB
+      repos:
+        - name: repo1
+          schedules:
+            full: 0 1 * * 0
+            incremental: 0 1 * * 1-6
+          volume:
+            volumeClaimSpec:
+              accessModes:
+                - ReadWriteMany
+              resources:
+                requests:
+                  storage: 5Gi
+              storageClassName: nfs-csi

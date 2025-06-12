@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: shared-postgrescluster-pgo-cluster
+  namespace: default
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: pgo-cluster
+  path: ./cluster/apps/default/shared/postgresclusters/pgo-cluster
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  dependsOn:
+    - name: cdpg-operator
+      namespace: postgres-operator
+    - name: rook-ceph-operator
+      namespace: rook-ceph
+    - name: csi-driver-nfs
+      namespace: nfs-system
