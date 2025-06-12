@@ -23,3 +23,6 @@ spec:
       kind: HelmRelease
       name: *name
       namespace: *namespace
+  dependsOn:
+    - name: kube-prometheus-crds
+      namespace: monitoring-system

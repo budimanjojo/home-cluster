@@ -22,5 +22,7 @@ spec:
     namespace: flux-system
   wait: true
   dependsOn:
+    - name: envoy-gateway-operator
+      namespace: networking-system
     - name: immich-database
       namespace: default

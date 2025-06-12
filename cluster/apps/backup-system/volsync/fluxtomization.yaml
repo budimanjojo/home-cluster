@@ -24,11 +24,11 @@ spec:
       name: *name
       namespace: *namespace
   dependsOn:
-    - name: default-minio
-      namespace: flux-system
-    - name: rook-ceph-rook-ceph-cluster
-      namespace: flux-system
-    - name: kube-system-snapshot-controller
-      namespace: flux-system
+    - name: minio
+      namespace: default
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: snapshot-controller
+      namespace: kube-system
     - name: kube-prometheus-crds
       namespace: monitoring-system

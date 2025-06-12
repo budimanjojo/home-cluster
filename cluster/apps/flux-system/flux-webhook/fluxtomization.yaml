@@ -22,3 +22,5 @@ spec:
   dependsOn:
     - name: flux-instance
       namespace: flux-system
+    - name: envoy-gateway-operator
+      namespace: networking-system

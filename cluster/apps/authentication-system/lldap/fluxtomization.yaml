@@ -20,5 +20,9 @@ spec:
     namespace: flux-system
   wait: true
   dependsOn:
-    - name: backup-system-volsync
-      namespace: flux-system
+    - name: envoy-gateway-operator
+      namespace: networking-system
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: backup-system

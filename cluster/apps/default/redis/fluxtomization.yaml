@@ -20,7 +20,7 @@ spec:
     namespace: flux-system
   wait: true
   dependsOn:
-    - name: rook-ceph-operator
+    - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: backup-system

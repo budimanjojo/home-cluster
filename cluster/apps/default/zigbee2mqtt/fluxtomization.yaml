@@ -22,7 +22,7 @@ spec:
   dependsOn:
     - name: envoy-gateway-operator
       namespace: networking-system
-    - name: rook-ceph-operator
+    - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: backup-system

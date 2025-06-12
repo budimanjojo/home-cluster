@@ -23,3 +23,6 @@ spec:
       kind: HelmRelease
       name: *name
       namespace: *namespace
+  dependsOn:
+    - name: envoy-gateway-operator
+      namespace: networking-system
