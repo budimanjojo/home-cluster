@@ -73,4 +73,4 @@ spec:
               resources:
                 requests:
                   storage: 5Gi
-              storageClassName: nfs-provisioner
+              storageClassName: nfs-csi
