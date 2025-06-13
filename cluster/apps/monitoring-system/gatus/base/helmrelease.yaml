@@ -84,7 +84,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: gatus-config
+        name: gatus-configmap
         globalMounts:
           - path: /config
             readOnly: true
