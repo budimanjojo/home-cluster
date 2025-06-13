@@ -84,7 +84,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: cloudflared-config
+        name: cloudflared-configmap
         globalMounts:
           - path: /etc/cloudflared/config/config.yaml
             subPath: config.yaml
