@@ -3,14 +3,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_DOMAIN_0//./-}"
+  name: domain-0
 spec:
-  secretName: "${SECRET_DOMAIN_0//./-}-prod-tls"
+  secretName: domain-0-prod-tls
   subject:
     organizations:
       - budimanjojo
   issuerRef:
-    name: ${SECRET_DOMAIN_0}-prod
+    name: domain-0-prod
     kind: ClusterIssuer
   dnsNames:
     - "${SECRET_DOMAIN_0}"

@@ -32,7 +32,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: ${SECRET_DOMAIN_0//./-}-prod-tls
+            name: domain-0-prod-tls
 
     - name: http-1
       protocol: HTTP
@@ -51,4 +51,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: ${SECRET_DOMAIN_1//./-}-prod-tls
+            name: domain-1-prod-tls

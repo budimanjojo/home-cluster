@@ -21,7 +21,7 @@ spec:
   healthChecks:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
-      name: ${SECRET_DOMAIN_0}-prod
+      name: domain-0-prod
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
@@ -54,7 +54,7 @@ spec:
   healthChecks:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
-      name: ${SECRET_DOMAIN_1}-prod
+      name: domain-1-prod
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer

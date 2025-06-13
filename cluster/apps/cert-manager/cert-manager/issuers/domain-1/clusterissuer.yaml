@@ -3,14 +3,14 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: ${SECRET_DOMAIN_1}-prod
+  name: domain-1-prod
 spec:
   acme:
     email: "${SECRET_EMAIL_0}"
     server: https://acme-v02.api.letsencrypt.org/directory
     preferredChain: ISRG Root X1
     privateKeySecretRef:
-      name: ${SECRET_DOMAIN_1}-prod-issuer-account-key
+      name: domain-1-prod-issuer-account-key
     solvers:
       - dns01:
           cloudflare:
