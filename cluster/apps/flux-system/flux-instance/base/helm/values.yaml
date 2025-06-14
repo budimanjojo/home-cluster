@@ -65,3 +65,11 @@ instance:
                     resources:
                       limits:
                         memory: 2Gi
+
+      - target:
+          kind: Deployment
+          name: helm-controller
+        patch: |
+          - op: add
+            path: /spec/template/spec/containers/0/args/-
+            value: --feature-gates=DisableChartDigestTracking=true
