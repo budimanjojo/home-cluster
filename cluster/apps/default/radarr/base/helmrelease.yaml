@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/home-operations/radarr
-              tag: 5.26.1
+              tag: 5.26.2
             resources:
               requests:
                 cpu: 15m
