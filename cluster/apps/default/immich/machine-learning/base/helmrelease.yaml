@@ -27,7 +27,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.131.2
+              tag: v1.134.0
             resources:
               requests:
                 cpu: 15m
