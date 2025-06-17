@@ -6,15 +6,15 @@ metadata:
   name: &name immich-database
 spec:
   postgresVersion: 16
-  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:e2fffc3c8777453b065bab713b0d25e712daca5c1156a268cdf0632429727fa9
+  image: ghcr.io/budimanjojo/crunchy-postgres-vectorchord:16@sha256:dee1582cf7d39cb84fac771e01736b6255c2c08f6b35e3037e9e8595759f1229
+  config:
+    parameters:
+      shared_preload_libraries: vchord.so
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
       postgresql:
         synchronous_commit: "on"
-        parameters:
-          shared_preload_libraries: "vectors.so"
-          search_path: '"$user", public, vectors"'
         pg_hba:
           - hostnossl all all 10.244.0.0/16 md5
           - hostssl all all all md5

@@ -7,4 +7,8 @@ metadata:
 data:
   init.sql: |-
     \c immich\\
-    CREATE EXTENSION vectors;
+    BEGIN;
+    ALTER DATABASE immich OWNER TO immich;
+    CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+    CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+    COMMIT;
