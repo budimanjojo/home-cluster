@@ -5,6 +5,5 @@ kind: Kustomization
 namespace: openebs-system
 components:
   - ../../components/common
-  - ../../components/envsubst
 resources:
   - ./openebs/fluxtomization.yaml

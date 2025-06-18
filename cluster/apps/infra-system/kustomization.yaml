@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: infra-system
 components:
   - ../../components/common
-  - ../../components/envsubst
 resources:
   - ./pulumi-kubernetes-operator/fluxtomization.yaml
   - ./pulumi-stacks/fluxtomization.yaml

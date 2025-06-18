@@ -5,6 +5,5 @@ kind: Kustomization
 namespace: backup-system
 components:
   - ../../components/common
-  - ../../components/envsubst
 resources:
   - ./volsync/fluxtomization.yaml

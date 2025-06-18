@@ -5,6 +5,5 @@ kind: Kustomization
 namespace: kyverno
 components:
   - ../../components/common
-  - ../../components/envsubst
 resources:
   - ./kyverno/fluxtomization.yaml

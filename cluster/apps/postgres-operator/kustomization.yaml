@@ -5,6 +5,5 @@ kind: Kustomization
 namespace: postgres-operator
 components:
   - ../../components/common
-  - ../../components/envsubst
 resources:
   - ./cdpg-operator/fluxtomization.yaml
