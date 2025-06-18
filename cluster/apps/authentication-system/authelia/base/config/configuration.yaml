@@ -78,6 +78,16 @@ notifier:
     sender: Authelia Admin <admin@budimanjojo.com>
 identity_providers:
   oidc:
+    claims_policies:
+      default:
+        id_token:
+          - rat
+          - groups
+          - email
+          - email_verified
+          - alt_emails
+          - preferred_username
+          - name
     jwks:
       - key: |
           {{ secret "/config/secret/jwks-0-key.pem" | mindent 10 "|" | msquote }}
@@ -117,6 +127,7 @@ identity_providers:
           - email
           - groups
         userinfo_signed_response_alg: none
+        claims_policy: default
       - client_id: nextcloud
         client_name: Nextcloud
         client_secret: '{{ secret "/config/secret/oidc-client-nextcloud" }}'
