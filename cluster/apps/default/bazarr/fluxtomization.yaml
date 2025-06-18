@@ -13,6 +13,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
+  components:
+    - ../../../components/ext-auth
+  postBuild:
+    substitute:
+      APP_NAME: *name
   path: ./cluster/apps/default/bazarr/base
   sourceRef:
     kind: GitRepository
