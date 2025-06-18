@@ -49,7 +49,7 @@
     },
     {
       "description": "Use custom versioning for crunchy-postgres-vectorchord",
-      "matchDepNames": ["ghcr.io/buidmanjojo/crunchy-postgres-vectorchord"],
+      "matchDepNames": ["ghcr.io/budimanjojo/crunchy-postgres-vectorchord"],
       "versioning": "regex:^(?<compatibility>\\d+)-(?<major>\\d+).(?<minor>\\d+).(?<patch>\\d+)$"
     }
   ]
