@@ -46,6 +46,11 @@
       "description": "Use custom versioning for Firefly iii",
       "matchDepNames": ["fireflyiii/core"],
       "versioning": "regex:^version-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
+    {
+      "description": "Use custom versioning for crunchy-postgres-vectorchord",
+      "matchDepNames": ["ghcr.io/buidmanjojo/crunchy-postgres-vectorchord"],
+      "versioning": "regex:^(?<compatibility>\\d+)-(?<major>\\d+).(?<minor>\\d+).(?<patch>\\d+)$"
     }
   ]
 }
