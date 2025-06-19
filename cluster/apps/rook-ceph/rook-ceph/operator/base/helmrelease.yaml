@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/rook/rook-ceph
   ref:
-    tag: v1.17.3
+    tag: v1.17.5
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
