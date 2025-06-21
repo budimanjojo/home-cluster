@@ -30,7 +30,7 @@ jobs:
 
       - name: Install kubectl
         # yamllint disable-line rule:comments
-        uses: azure/setup-kubectl@3e0aec4d80787158d308d7b364cb1b702e7feb7f # v4.0.0
+        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4.0.1
 
       - name: Install uv
         # yamllint disable-line rule:comments
