@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  prune: false
+  prune: true
   path: ./cluster/apps/default/shared/volumes/base
   sourceRef:
     kind: GitRepository

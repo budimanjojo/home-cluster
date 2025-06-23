@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  prune: false
+  prune: true
   commonMetadata:
     labels:
       app.kubernetes.io/name: cilium
