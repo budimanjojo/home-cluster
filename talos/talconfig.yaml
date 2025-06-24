@@ -1,7 +1,7 @@
 ---
 clusterName: home-cluster
-talosVersion: v1.9.4
-kubernetesVersion: v1.32.2
+talosVersion: v1.10.4
+kubernetesVersion: v1.33.2
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
@@ -38,7 +38,8 @@ nodes:
   - hostname: kmaster2
     ipAddress: 192.168.200.22
     controlPlane: true
-    installDisk: /dev/sda
+    installDiskSelector:
+      model: V-GEN12SM22AR256
     nameservers:
       - 1.1.1.1
       - 8.8.8.8
@@ -51,14 +52,6 @@ nodes:
             gateway: 192.168.200.1
         vip:
           ip: 192.168.200.20
-    patches:
-      - |-
-        - op: add
-          path: /machine/install/extraKernelArgs/-
-          value: nvme_core.default_ps_max_latency_us=0
-        - op: add
-          path: /machine/install/extraKernelArgs/-
-          value: pcie_aspm=off
   - hostname: kmaster3
     ipAddress: 192.168.200.23
     controlPlane: true
@@ -91,17 +84,17 @@ controlPlane:
         path: /machine/kubelet/extraArgs
         value:
           rotate-server-certificates: "true"
-          feature-gates: GracefulNodeShutdown=true
+      - op: add
+        path: /cluster/apiServer/extraArgs
+        value:
+          feature-gates: MutatingAdmissionPolicy=true
+          runtime-config: admissionregistration.k8s.io/v1alpha1=true
       - op: add
         path: /cluster/controllerManager/extraArgs
         value:
           bind-address: 0.0.0.0
       - op: add
         path: /cluster/scheduler/extraArgs
-        value:
-          bind-address: 0.0.0.0
-      - op: add
-        path: /cluster/proxy/extraArgs
         value:
           bind-address: 0.0.0.0
     - |-
@@ -128,7 +121,6 @@ worker:
         path: /machine/kubelet/extraArgs
         value:
           rotate-server-certificates: "true"
-          feature-gates: CronJobTimeZone=true,GracefulNodeShutdown=true
     - |-
       machine:
         time:
