@@ -11,6 +11,7 @@ resources:
   - ./cilium/operator/fluxtomization.yaml
   - ./intel-device-plugins/operator/fluxtomization.yaml
   - ./intel-device-plugins/gpu/fluxtomization.yaml
+  - ./k8tz/fluxtomization.yaml
   - ./kubelet-csr-approver/fluxtomization.yaml
   - ./kubernetes-replicator/fluxtomization.yaml
   - ./metrics-server/fluxtomization.yaml
