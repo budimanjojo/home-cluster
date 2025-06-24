@@ -1,0 +1,8 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: k8tz-webhook-issuer
+spec:
+  selfSigned: {}
