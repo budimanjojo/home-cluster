@@ -6,5 +6,6 @@ namespace: nfs-system
 components:
   - ../../components/common
   - ../../components/envsubst
+  - ../../components/privileged-namespace
 resources:
   - ./csi-driver-nfs/fluxtomization.yaml

@@ -6,6 +6,7 @@ namespace: monitoring-system
 components:
   - ../../components/common
   - ../../components/envsubst
+  - ../../components/privileged-namespace
 resources:
   - ./gatus/fluxtomization.yaml
   - ./grafana/fluxtomization.yaml

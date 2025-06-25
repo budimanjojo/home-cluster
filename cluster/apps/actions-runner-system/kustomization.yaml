@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: actions-runner-system
 components:
   - ../../components/common
+  - ../../components/privileged-namespace
 resources:
   - ./actions-runner-controller/fluxtomization.yaml
   - ./actions-runner-runners/fluxtomization.yaml

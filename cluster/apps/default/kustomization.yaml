@@ -6,6 +6,7 @@ namespace: default
 components:
   - ../../components/common
   - ../../components/envsubst
+  - ../../components/privileged-namespace
 resources:
   - ./bazarr/fluxtomization.yaml
   - ./clusterpolicies/fluxtomization.yaml

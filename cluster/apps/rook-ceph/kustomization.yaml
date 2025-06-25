@@ -6,6 +6,7 @@ namespace: rook-ceph
 components:
   - ../../components/common
   - ../../components/envsubst
+  - ../../components/privileged-namespace
 resources:
   - ./rook-ceph/cluster/fluxtomization.yaml
   - ./rook-ceph/operator/fluxtomization.yaml

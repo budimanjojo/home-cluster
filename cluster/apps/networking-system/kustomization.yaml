@@ -6,6 +6,7 @@ namespace: networking-system
 components:
   - ../../components/common
   - ../../components/envsubst
+  - ../../components/privileged-namespace
 resources:
   - ./adguardhome-external-dns/fluxtomization.yaml
   - ./cloudflare-external-dns/fluxtomization.yaml
