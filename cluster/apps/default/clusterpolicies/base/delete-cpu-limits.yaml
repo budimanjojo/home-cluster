@@ -1,72 +1,45 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/kyverno.io/clusterpolicy_v1.json
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.0-standalone-strict/mutatingadmissionpolicybinding-admissionregistration-v1alpha1.json
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: MutatingAdmissionPolicyBinding
 metadata:
   name: delete-cpu-limits
-  annotations:
-    policies.kyverno.io/title: Delete CPU Limits
-    policies.kyverno.io/category: Best Practices
-    policies.kyverno.io/severity: medium
-    policies.kyverno.io/subject: Pod
-    policies.kyverno.io/description: >-
-      This policy deletes CPU limits from all Pods
 spec:
-  rules:
-    - name: delete-containers-cpu-limits
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      exclude:
-        any:
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  job-name: "*"
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  statefulset.kubernetes.io/pod-name: "*"
-      mutate:
-        foreach:
-          - list: "request.object.spec.containers"
-            patchesJson6902: |-
-              - path: /spec/containers/{{elementIndex}}/resources/limits/cpu
-                op: remove
-    - name: delete-initcontainers-cpu-limits
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      exclude:
-        any:
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  job-name: "*"
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  statefulset.kubernetes.io/pod-name: "*"
-      preconditions:
-        all:
-          - key: "{{ request.object.spec.initContainers[] || `[]` | length(@) }}"
-            operator: GreaterThanOrEquals
-            value: 1
-      mutate:
-        foreach:
-          - list: "request.object.spec.initContainers"
-            patchesJson6902: |-
-              - path: /spec/initContainers/{{elementIndex}}/resources/limits/cpu
-                op: remove
+  policyName: delete-cpu-limits
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.0-standalone-strict/mutatingadmissionpolicy-admissionregistration-v1alpha1.json
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: delete-cpu-limits
+spec:
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+  matchConditions:
+    - name: is-not-a-job
+      expression: "!('job-name' in object.metadata.labels)"
+    - name: is-not-a-statefulset
+      expression: "!('statefulset.kubernetes.io/pod-name' in object.metadata.labels)"
+  failurePolicy: Fail
+  reinvocationPolicy: IfNeeded
+  mutations:
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: |
+          object.spec.containers.filter(c, has(c.resources) && has(c.resources.limits) && has(c.resources.limits.cpu)).map(c, JSONPatch{
+            op: "remove",
+            path: "/spec/containers/" + string(object.spec.containers.indexOf(c)) + "/resources/limits/cpu"
+          })
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: |
+          has (object.spec.initContainers) ?
+            object.spec.initContainers.filter(c, has(c.resources) && has(c.resources.limits) && has(c.resources.limits.cpu)).map(c, JSONPatch{
+              op: "remove",
+              path: "/spec/initContainers/" + string(object.spec.initContainers.indexOf(c)) + "/resources/limits/cpu"
+            })
+          : []

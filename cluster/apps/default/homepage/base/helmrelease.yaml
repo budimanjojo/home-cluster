@@ -29,7 +29,6 @@ spec:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.10.9
-            # TODO: wait for kyverno
             probes:
               startup:
                 enabled: true
