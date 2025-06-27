@@ -21,9 +21,9 @@ spec:
         resources: ["pods"]
   matchConditions:
     - name: is-not-a-job
-      expression: "!('job-name' in object.metadata.labels)"
+      expression: "has(object.metadata.labels) && !('job-name' in object.metadata.labels)"
     - name: is-not-a-statefulset
-      expression: "!('statefulset.kubernetes.io/pod-name' in object.metadata.labels)"
+      expression: "has(object.metadata.labels) && !('statefulset.kubernetes.io/pod-name' in object.metadata.labels)"
   failurePolicy: Fail
   reinvocationPolicy: IfNeeded
   mutations:
