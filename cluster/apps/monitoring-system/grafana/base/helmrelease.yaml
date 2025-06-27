@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/grafana/helm-charts/grafana
   ref:
-    tag: 9.2.8
+    tag: 9.2.9
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
