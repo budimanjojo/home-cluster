@@ -19,6 +19,8 @@ spec:
       - ${VOLSYNC_CACHE_ACCESSMODE:=ReadWriteOnce}
     storageClassName: ${VOLSYNC_STORAGECLASS:=rook-ceph-block}
     capacity: ${VOLSYNC_CAPACITY:=1Gi}
+    accessModes:
+      - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}
