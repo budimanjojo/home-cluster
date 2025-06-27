@@ -34,3 +34,5 @@ spec:
       namespace: rook-ceph
     - name: shared-volumes
       namespace: default
+    - name: volsync
+      namespace: backup-system
