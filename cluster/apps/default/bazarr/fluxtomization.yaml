@@ -14,10 +14,13 @@ spec:
     labels:
       app.kubernetes.io/name: *name
   components:
-    - ../../../../components/ext-auth
+    - ../../../../components/ext-authh
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP_NAME: *name
+      VOLSYNC_PUID: "568"
+      VOLSYNC_PGID: "568"
   path: ./cluster/apps/default/bazarr/base
   sourceRef:
     kind: GitRepository
@@ -31,5 +34,3 @@ spec:
       namespace: rook-ceph
     - name: shared-volumes
       namespace: default
-    - name: volsync
-      namespace: backup-system

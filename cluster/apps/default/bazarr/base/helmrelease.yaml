@@ -80,7 +80,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: bazarr-config
+        existingClaim: bazarr
         advancedMounts:
           bazarr:
             main:

@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: ${APPNAME}
+spec:
+  sourcePVC: ${APPNAME}
+  trigger:
+    schedule: 0 0 * * *
+  restic:
+    copyMethod: ${VOLSYNC_COPYMETHOD:=Snapshot}
+    pruneIntervalDays: 10
+    repository: ${APPNAME}-volsync-secret
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=rook-ceph-block}
+    cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=1Gi}
+    cacheStorageClassName: ${VOLSYNC_CACHE_STORAGECLASS:=openebs-hostpath}
+    cacheAccessModes:
+      - ${VOLSYNC_CACHE_ACCESSMODE:=ReadWriteOnce}
+    storageClassName: ${VOLSYNC_STORAGECLASS:=rook-ceph-block}
+    accessModes:
+      - ${VOLSYNC_ACCESSMODE:=ReadWriteOnce}
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}
+    retain:
+      daily: 10

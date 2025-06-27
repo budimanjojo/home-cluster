@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/persistentvolumeclaim-v1.json
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${APPNAME}
+spec:
+  accessModes:
+    - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
+  dataSourceRef:
+    apiGroup: volsync.backube
+    kind: ReplicationDestination
+    name: ${APPNAME}-dst
+  resources:
+    requests:
+      storage: ${VOLSYNC_CAPACITY:=1Gi}
+  storageClassName: ${VOLSYNC_STORAGECLASS:=rook-ceph-block}
