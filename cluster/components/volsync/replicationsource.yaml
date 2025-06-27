@@ -3,15 +3,15 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ${APPNAME}
+  name: ${APP_NAME}
 spec:
-  sourcePVC: ${APPNAME}
+  sourcePVC: ${APP_NAME}
   trigger:
     schedule: 0 0 * * *
   restic:
     copyMethod: ${VOLSYNC_COPYMETHOD:=Snapshot}
     pruneIntervalDays: 10
-    repository: ${APPNAME}-volsync-secret
+    repository: ${APP_NAME}-volsync-secret
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=rook-ceph-block}
     cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=1Gi}
     cacheStorageClassName: ${VOLSYNC_CACHE_STORAGECLASS:=openebs-hostpath}
