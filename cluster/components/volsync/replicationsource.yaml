@@ -14,9 +14,9 @@ spec:
     repository: ${APP_NAME}-volsync-secret
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=rook-ceph-block}
     cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=1Gi}
-    cacheStorageClassName: ${VOLSYNC_CACHE_STORAGECLASS:=openebs-hostpath}
+    cacheStorageClassName: nfs-csi # this makes more sense for me because I don't need to worry about the size and I can use ReadWriteMany
     cacheAccessModes:
-      - ${VOLSYNC_CACHE_ACCESSMODE:=ReadWriteOnce}
+      - ReadWriteMany
     storageClassName: ${VOLSYNC_STORAGECLASS:=rook-ceph-block}
     accessModes:
       - ${VOLSYNC_ACCESSMODE:=ReadWriteOnce}
