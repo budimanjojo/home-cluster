@@ -130,7 +130,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: firefly-iii-data
+        existingClaim: firefly-iii
         advancedMounts:
           firefly-iii:
             main:
