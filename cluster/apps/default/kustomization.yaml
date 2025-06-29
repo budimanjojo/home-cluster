@@ -29,6 +29,7 @@ resources:
   - ./redis/fluxtomization.yaml
   - ./reloader/fluxtomization.yaml
   - ./shared/postgresclusters/fluxtomization.yaml
+  - ./shared/redisreplications/fluxtomization.yaml
   - ./shared/volumes/fluxtomization.yaml
   - ./sonarr/fluxtomization.yaml
   - ./unpackerr/fluxtomization.yaml
