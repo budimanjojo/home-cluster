@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: shared-redisreplication-ot-cluster
+  namespace: default
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: ot-cluster
+  path: ./cluster/apps/default/shared/redisreplications/ot-cluster
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  dependsOn:
+    - name: ot-operator
+      namespace: redis-operator
+    - name: openebs
+      namespace: openebs-system

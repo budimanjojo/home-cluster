@@ -1,0 +1,52 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: redis-replication
+spec:
+  interval: 30m
+  timeout: 60s
+  url: oci://ghcr.io/ot-container-kit/charts/redis-replication
+  ref:
+    tag: 0.16.7
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis-replication
+spec:
+  interval: 1h
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: redis-replication
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  values:
+    redisReplication:
+      clusterSize: 3
+      redisSecret:
+        secretName: redis-secret
+        secretKey: redis_password
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: openebs-hostpath
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 500Mi
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
