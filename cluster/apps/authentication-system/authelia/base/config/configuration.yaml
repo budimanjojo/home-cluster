@@ -64,7 +64,7 @@ session:
       authelia_url: https://auth.${SECRET_DOMAIN_0}
       default_redirection_url: https://${SECRET_DOMAIN_0}
   redis:
-    host: redis.default.svc.cluster.local
+    host: ot-cluster-leader.default.svc.cluster.local
     port: 6379
 regulation:
   max_retries: 3
