@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: shared-redisreplication-ot-cluster
+  name: shared-rediscluster-ot-cluster
   namespace: default
 spec:
   interval: 1h
@@ -13,7 +13,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: ot-cluster
-  path: ./cluster/apps/default/shared/redisreplications/ot-cluster
+  path: ./cluster/apps/default/shared/redisclusters/ot-cluster
   sourceRef:
     kind: GitRepository
     name: flux-system
