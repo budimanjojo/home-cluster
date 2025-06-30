@@ -3,13 +3,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: redis-cluster
+  name: redis-standalone
 spec:
   interval: 30m
   timeout: 60s
-  url: oci://ghcr.io/ot-container-kit/charts/redis-cluster
+  url: oci://ghcr.io/ot-container-kit/charts/redis
   ref:
-    tag: 0.17.0
+    tag: 0.16.5
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
@@ -18,13 +18,13 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: redis-cluster
+  name: redis-standalone
 spec:
   interval: 1h
   timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: redis-cluster
+    name: redis-standalone
   install:
     remediation:
       retries: -1
@@ -33,27 +33,15 @@ spec:
     remediation:
       retries: 5
   values:
-    redisCluster:
-      name: ot-cluster
-      clusterSize: 3
+    redisStandalone:
+      name: ot-standalone
       redisSecret:
         secretName: redis-secret
         secretKey: redis_password
-      leader:
-        replicas: 3
-      follower:
-        replicas: 3
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: openebs-hostpath
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 500Mi
-      nodeConfVolumeClaimTemplate:
-        spec:
-          storageClassName: openebs-hostpath
+          storageClassName: rook-ceph-block
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
