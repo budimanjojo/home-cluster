@@ -26,5 +26,5 @@ spec:
       namespace: nfs-system
     - name: shared-postgrescluster-pgo-cluster
       namespace: default
-    - name: redis
+    - name: shared-rediscluster-ot-standalone
       namespace: default
