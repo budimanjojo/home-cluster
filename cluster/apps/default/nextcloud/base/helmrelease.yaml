@@ -149,6 +149,8 @@ spec:
         memory: 363Mi
       limits:
         memory: 363Mi
+    securityContext:
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       enabled: true
       existingClaim: nextcloud
