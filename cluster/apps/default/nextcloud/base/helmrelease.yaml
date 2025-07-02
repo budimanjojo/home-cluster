@@ -33,7 +33,7 @@ spec:
     cleanupOnFail: true
     remediation:
       # we don't want to rollback because it will break nextcloud
-      retries: -1
+      ignoreTestFailures: true
   values:
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
@@ -154,4 +154,4 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
     persistence:
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: *name
