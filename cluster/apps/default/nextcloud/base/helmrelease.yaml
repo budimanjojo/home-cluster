@@ -71,7 +71,7 @@ spec:
             array (
               0 => 'nextcloud.${SECRET_DOMAIN_0}',
             ),
-            'forwarded_for_headers' => 'HTTP_X_FORWARDED_FOR',
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN_0}',
             'overwriteprotocol' => 'https',
             'default_phone_region' => 'ID',
