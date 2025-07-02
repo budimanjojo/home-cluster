@@ -32,9 +32,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 5
+      # we don't want to rollback because it will break nextcloud
+      retries: -1
   values:
-    fullnameOverride: *name
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
     image:
       flavor: fpm-alpine
     nextcloud:
@@ -42,10 +44,75 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
-      datadir: /var/www/data
+        usernameKey: nextcloud-username
+        passwordKey: nextcloud-password
+        smtpUsernameKey: smtp-username
+        smtpPasswordKey: smtp-password
+        smtpHostKey: smtp-host
+      datadir: /var/www/html/data
+      mail:
+        enabled: true
+        fromAddress: budimanjojo
+        domain: ${SECRET_DOMAIN_0}
+        smtp:
+          secure: tls
+          port: 587
+      configs:
+        local.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' =>
+            array (
+              0 => '127.0.0.1',
+              1 => '10.96.0.0/12',
+              2 => '10.244.0.0/16',
+            ),
+            'trusted_domains' =>
+            array (
+              0 => 'nextcloud.${SECRET_DOMAIN_0}',
+            ),
+            'forwarded_for_headers' => 'HTTP_X_FORWARDED_FOR',
+            'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN_0}',
+            'overwriteprotocol' => 'https',
+            'default_phone_region' => 'ID',
+          );
+        oidc.config.php: |-
+          $CONFIG = array (
+            'allow_user_to_change_display_name' => false,
+            'lost_password_link' => 'disabled',
+            'oidc_login_provider_url' => 'https://auth.${SECRET_DOMAIN_0}',
+            'oidc_login_client_id' => 'nextcloud',
+            'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
+            'oidc_login_auto_redirect' => false,
+            'oidc_login_button_text' => 'Log in with Authelia',
+            'oidc_login_hide_password_form' => false,
+            'oidc_login_use_id_token' => false,
+            'oidc_login_attributes' => array(
+              'id' => 'preferred_username',
+              'name' => 'name',
+              'mail' => 'email',
+              'groups' => 'groups',
+              'is_admin' => 'is_nextcloud_admin',
+            ),
+            'oidc_login_default_group' => 'oidc',
+            'oidc_login_use_external_storage' => false,
+            'oidc_login_scope' => 'openid profile email groups nextcloud_userinfo',
+            'oidc_login_proxy_ldap' => false,
+            'oidc_login_disable_registration' => true,
+            'oidc_login_redir_fallback' => false,
+            'oidc_login_tls_verify' => true,
+            'oidc_create_groups' => false,
+            'oidc_login_webdav_enabled' => false,
+            'oidc_login_password_authentication' => false,
+            'oidc_login_public_key_caching_time' => 86400,
+            'oidc_login_min_time_between_jwks_requests' => 10,
+            'oidc_login_well_known_caching_time' => 86400,
+            'oidc_login_update_avatar' => false,
+            'oidc_login_code_challenge_method' => 'S256',
+          );
       extraEnv:
         - name: REDIS_HOST
-          value: redis
+          value: ot-standalone.default.svc.cluster.local
         - name: REDIS_HOST_PORT
           value: "6379"
         - name: REDIS_HOST_PASSWORD
@@ -53,42 +120,13 @@ spec:
             secretKeyRef:
               name: nextcloud-secret
               key: redis-password
-      extraInitContainers:
-        - name: wait-database
-          image: alpine:3.22.0
-          imagePullPolicy: IfNotPresent
-          command:
-            - sh
-          args:
-            - -c
-            - >-
-              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
-              do echo "Waiting for database";
-              done
-          env:
-            - name: POSTGRES_HOST
-              value: pgo-cluster-primary.default.svc
-        - name: wait-redis
-          image: alpine:3.22.0
-          imagePullPolicy: IfNotPresent
-          command:
-            - sh
-          args:
-            - -c
-            - >-
-              until nc -w 1 -v $REDIS_HOST:$REDIS_HOST_PORT;
-              do echo "Waiting for Redis";
-              done
-          env:
-            - name: REDIS_HOST
-              value: ot-standalone.default.svc.cluster.local
-            - name: REDIS_HOST_PORT
-              value: "6379"
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secret
+              key: oidc-client-secret
     nginx:
       enabled: true
-      image:
-        repository: nginx
-        tag: 1.29-alpine
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -101,17 +139,16 @@ spec:
         secretName: pgo-cluster-pguser-nextcloud
         usernameKey: user
         passwordKey: password
-    persistence:
-      enabled: true
-      existingClaim: nextcloud-config
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-data
     cronjob:
+      enabled: true
+    startupProbe:
       enabled: true
     resources:
       requests:
-        cpu: 34m
-        memory: 204Mi
+        cpu: 100m
+        memory: 363Mi
       limits:
         memory: 363Mi
+    persistence:
+      enabled: true
+      existingClaim: nextcloud

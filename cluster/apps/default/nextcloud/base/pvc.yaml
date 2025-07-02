@@ -1,23 +1,9 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/persistentvolumeclaim-v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.0-standalone-strict/persistentvolumeclaim-v1.json
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-config
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: nfs-csi
-
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/persistentvolumeclaim-v1.json
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nextcloud-data
+  name: nextcloud
 spec:
   accessModes:
     - ReadWriteMany

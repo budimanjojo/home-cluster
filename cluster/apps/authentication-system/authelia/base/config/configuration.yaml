@@ -76,6 +76,10 @@ notifier:
     address: submission://smtp.gmail.com:587
     username: budimanjojo@gmail.com
     sender: Authelia Admin <admin@budimanjojo.com>
+definitions:
+  user_attributes:
+    is_nextcloud_admin:
+      expression: '"nextcloud-admins" in groups'
 identity_providers:
   oidc:
     claims_policies:
@@ -88,6 +92,13 @@ identity_providers:
           - alt_emails
           - preferred_username
           - name
+      nextcloud_userinfo:
+        custom_claims:
+          is_nextcloud_admin: {}
+    scopes:
+      nextcloud_userinfo:
+        claims:
+          - is_nextcloud_admin
     jwks:
       - key: |
           {{ secret "/config/secret/jwks-0-key.pem" | mindent 10 "|" | msquote }}
@@ -133,6 +144,9 @@ identity_providers:
         client_secret: '{{ secret "/config/secret/oidc-client-nextcloud" }}'
         public: false
         authorization_policy: two_factor
+        require_pkce: true
+        pkce_challenge_method: S256
+        claims_policy: nextcloud_userinfo
         redirect_uris:
           - https://nextcloud.${SECRET_DOMAIN_0}/apps/oidc_login/oidc
         scopes:
@@ -140,7 +154,14 @@ identity_providers:
           - profile
           - email
           - groups
+          - nextcloud_userinfo
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+        access_token_signed_response_alg: none
         userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
       - client_id: immich
         client_name: Immich
         client_secret: '{{ secret "/config/secret/oidc-client-immich" }}'
