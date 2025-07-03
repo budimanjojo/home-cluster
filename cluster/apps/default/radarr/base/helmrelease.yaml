@@ -22,9 +22,9 @@ spec:
       radarr:
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
@@ -47,20 +47,6 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-        initContainers:
-          init-permission:
-            image:
-              repository: ghcr.io/cbc02009/busybox
-              tag: 1.37.0
-              pullPolicy: IfNotPresent
-            command:
-              - sh
-              - -c
-            args:
-              - chown -R 568:568 /movies;
-                chown -R 568:568 /downloads
-            securityContext:
-              runAsUser: 0
     service:
       main:
         controller: radarr

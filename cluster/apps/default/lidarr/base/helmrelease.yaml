@@ -44,20 +44,6 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-        initContainers:
-          init-permission:
-            image:
-              repository: ghcr.io/cbc02009/busybox
-              tag: 1.37.0
-              pullPolicy: IfNotPresent
-            command:
-              - sh
-              - -c
-            args:
-              - chown -R 568:568 /music;
-                chown -R 568:568 /downloads
-            securityContext:
-              runAsUser: 0
     service:
       main:
         controller: lidarr

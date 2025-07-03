@@ -19,8 +19,8 @@ spec:
   postBuild:
     substitute:
       APP_NAME: *name
-      VOLSYNC_PUID: "568"
-      VOLSYNC_PGID: "568"
+      VOLSYNC_PUID: "1000"
+      VOLSYNC_PGID: "1000"
   path: ./cluster/apps/default/bazarr/base
   sourceRef:
     kind: GitRepository
