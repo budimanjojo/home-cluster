@@ -75,6 +75,7 @@ spec:
             'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN_0}',
             'overwriteprotocol' => 'https',
             'default_phone_region' => 'ID',
+            'maintenance_window_start' => 20,
           );
         oidc.config.php: |-
           <?php
@@ -128,6 +129,9 @@ spec:
               key: oidc-client-secret
     nginx:
       enabled: true
+      config:
+        headers:
+          Strict-Transport-Security: "max-age=15552000; includeSubDomains; preload;"
     internalDatabase:
       enabled: false
     externalDatabase:
