@@ -70,26 +70,31 @@ spec:
                 port: 8096
     persistence:
       config:
-        enabled: true
-        existingClaim: jellyfin-config
-        advancedMounts:
-          jellyfin:
-            main:
-              - path: /config
+        existingClaim: jellyfin
+        globalMounts:
+          - path: /config
+      config-cache:
+        existingClaim: jellyfin-cache
+        globalMounts:
+          - path: /config/metadata
+            subPath: metadata
+          - path: /config/transcode
+            subPath: transcode
+          - path: /config/cache
+            subPath: cache
       media:
         enabled: true
         existingClaim: shared-media
         globalMounts:
           - path: /media
-      transcode:
-        enabled: true
-        existingClaim: jellyfin-transcode
-        globalMounts:
-          - path: /config/transcodes
-      cache:
-        enabled: true
+      tmps:
         type: emptyDir
         advancedMounts:
           jellyfin:
             main:
-              - path: /config/cache
+              - path: /cache
+                subPath: cache
+              - path: /config/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
