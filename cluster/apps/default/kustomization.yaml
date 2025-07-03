@@ -26,7 +26,6 @@ resources:
   - ./qbittorrent/fluxtomization.yaml
   - ./radarr/fluxtomization.yaml
   - ./radicale/fluxtomization.yaml
-  - ./redis/fluxtomization.yaml
   - ./reloader/fluxtomization.yaml
   - ./shared/postgresclusters/fluxtomization.yaml
   - ./shared/redisclusters/fluxtomization.yaml
