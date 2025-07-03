@@ -15,6 +15,7 @@ spec:
       app.kubernetes.io/name: *name
   components:
     - ../../../../components/ext-auth
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP_NAME: *name
