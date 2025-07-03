@@ -75,7 +75,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config
+        existingClaim: qbittorrent
         globalMounts:
           - path: /config
       downloads:
