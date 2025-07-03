@@ -64,7 +64,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr-config
+        existingClaim: sonarr
         advancedMounts:
           sonarr:
             main:
