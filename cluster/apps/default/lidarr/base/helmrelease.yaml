@@ -78,7 +78,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: lidarr-config
+        existingClaim: lidarr
         advancedMounts:
           lidarr:
             main:
