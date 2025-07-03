@@ -67,7 +67,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: radarr-config
+        existingClaim: radarr
         advancedMounts:
           radarr:
             main:
