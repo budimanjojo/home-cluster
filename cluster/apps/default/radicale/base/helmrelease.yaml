@@ -22,15 +22,25 @@ spec:
       radicale:
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
-              repository: tomsquest/docker-radicale
-              tag: 3.5.3.1
+              repository: ghcr.io/kozea/radicale
+              tag: 3.5.4
+            args:
+              - --hosts
+              - 0.0.0.0:5232
+              - --auth-type
+              - htpasswd
+              - --auth-htpasswd-filename
+              - /secret/users
+              - --htpasswd-encryption bcrypt
+              - --storage-filesystem-folder
+              - /var/lib/radicale/collections
             resources:
               requests:
                 cpu: 15m
@@ -47,8 +57,6 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-            env:
-              RADICALE_CONFIG: /config/config
     service:
       main:
         controller: radicale
@@ -66,39 +74,13 @@ spec:
           - backendRefs:
               - name: radicale
                 port: 5232
-    configMaps:
-      config:
-        suffix: config
-        enabled: true
-        data:
-          config.cfg: |
-            [server]
-            hosts = 0.0.0.0:5232
-
-            [auth]
-            type = htpasswd
-            htpasswd_filename = /config/secret/users
-            htpasswd_encryption = bcrypt
-
-            [storage]
-            filesystem_folder = /data/collections
     persistence:
-      data:
-        enabled: true
-        existingClaim: radicale-data
-        globalMounts:
-          - path: /data
       config:
-        enabled: true
-        type: configMap
-        name: radicale-config
+        existingClaim: radicale
         globalMounts:
-          - path: /config/config
-            subPath: config.cfg
-            readOnly: true
+          - path: /var/lib/radicale
       secret:
-        enabled: true
         type: secret
         name: radicale-secret
         globalMounts:
-          - path: /config/secret
+          - path: /secret
