@@ -38,7 +38,8 @@ spec:
               - htpasswd
               - --auth-htpasswd-filename
               - /secret/users
-              - --htpasswd-encryption bcrypt
+              - --auth-htpasswd-encryption
+              - bcrypt
               - --storage-filesystem-folder
               - /var/lib/radicale/collections
             resources:
