@@ -14,7 +14,7 @@ spec:
     labels:
       app.kubernetes.io/name: *name
   components:
-    - ../../../../components/common
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP_NAME: *name
