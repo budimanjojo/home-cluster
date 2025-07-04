@@ -13,6 +13,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
+  components:
+    - ../../../../components/common
+  postBuild:
+    substitute:
+      APP_NAME: *name
   path: ./cluster/apps/default/homeassistant/base
   sourceRef:
     kind: GitRepository
@@ -26,5 +31,7 @@ spec:
       namespace: default
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: csi-driver-nfs
+      namespace: nfs-system
     - name: volsync
       namespace: backup-system

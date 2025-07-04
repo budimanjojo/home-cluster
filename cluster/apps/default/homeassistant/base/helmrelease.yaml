@@ -75,7 +75,10 @@ spec:
                 port: 8123
     persistence:
       config:
-        enabled: true
-        existingClaim: homeassistant-config
+        existingClaim: homeassistant
         globalMounts:
           - path: /config
+      config-cache:
+        existingClaim: homeassistant-cache
+        globalMounts:
+          - path: /config/.venv
