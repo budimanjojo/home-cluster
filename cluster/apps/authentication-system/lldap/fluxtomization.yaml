@@ -13,6 +13,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
+  components:
+    - ../../../../components/volsync
+  postBuild:
+    substitute:
+      APP_NAME: *name
   path: ./cluster/apps/authentication-system/lldap/base
   sourceRef:
     kind: GitRepository

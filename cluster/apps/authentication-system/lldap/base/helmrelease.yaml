@@ -38,18 +38,18 @@ spec:
               - secretRef:
                   name: lldap-secret
             env:
-              UID: "568"
-              GID: "568"
+              UID: "1000"
+              GID: "1000"
     service:
       main:
         controller: lldap
         ports:
           http:
             port: 3890
+            primary: true
           web:
-            enabled: true
             protocol: TCP
-            port: 17170
+            port: &port 17170
     route:
       main:
         hostnames: ["ldap.${SECRET_DOMAIN_0}"]
@@ -60,10 +60,9 @@ spec:
         rules:
           - backendRefs:
               - name: lldap
-                port: 17170
+                port: *port
     persistence:
       config:
-        enabled: true
-        existingClaim: lldap-config
+        existingClaim: lldap
         globalMounts:
           - path: /data
