@@ -24,14 +24,14 @@ spec:
           annotations:
             reloader.stakater.com/auto: "true"
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
-              repository: eclipse-mosquitto
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.21
             resources:
               requests:
@@ -57,25 +57,22 @@ spec:
             port: 1883
     configMaps:
       config:
-        suffix: config
-        enabled: true
         data:
           mosquitto.conf: |
             listener 1883
             allow_anonymous true
             persistence true
-            persistence_location /mosquitto/data
+            persistence_location /data
             connection_messages false
     persistence:
       config:
-        enabled: true
         type: configMap
-        name: mosquitto-config
-        globalMounts:
-          - path: /mosquitto/config/mosquitto.conf
-            subPath: mosquitto.conf
+        name: mosquitto
+        advancedMounts:
+          mosquitto:
+            main:
+              - path: /mosquitto/config/mosquitto.conf
+                subPath: mosquitto.conf
+                readOnly: true
       data:
-        enabled: true
-        existingClaim: mosquitto-data
-        globalMounts:
-          - path: /mosquitto/data
+        existingClaim: mosquitto
