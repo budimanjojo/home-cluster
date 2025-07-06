@@ -45,7 +45,9 @@ spec:
         subDir: $${pvc.metadata.namespace}-$${pvc.metadata.name}
         onDelete: retain
       mountOptions:
-        - nfsvers=4
+        - nfsvers=4.2
         - nolock
-        - soft
+        - hard
         - rw
+        - noatime
+        - nconnect=8
