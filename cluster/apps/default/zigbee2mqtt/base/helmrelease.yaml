@@ -67,7 +67,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: "20"
               # frontend
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: &url https://zigbee.${SECRET_DOMAIN_0}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${SECRET_DOMAIN_0}
     service:
       main:
         controller: zigbee2mqtt
@@ -76,7 +76,7 @@ spec:
             port: *port
     route:
       main:
-        hostnames: [ *url ]
+        hostnames: [ "zigbee.${SECRET_DOMAIN_0}" ]
         parentRefs:
           - name: internal
             namespace: networking-system
