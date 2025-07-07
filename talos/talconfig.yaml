@@ -18,6 +18,12 @@ patches:
               - rbind
               - rshared
               - rw
+  # change the owner and group of zigbee controller so I can run zigbee2mqtt as non root user
+  - |-
+    machine:
+      udev:
+        rules:
+          - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", OWNER="1000", GROUP="1000"
 nodes:
   - hostname: kmaster1
     ipAddress: 192.168.200.21
