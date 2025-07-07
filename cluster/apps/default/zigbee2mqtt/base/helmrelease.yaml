@@ -23,6 +23,11 @@ spec:
         pod:
           nodeSelector:
             feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
@@ -31,9 +36,9 @@ spec:
             resources:
               requests:
                 cpu: 15m
-                memory: 110Mi
+                memory: 150Mi
               limits:
-                memory: 136Mi
+                memory: 150Mi
             securityContext:
               privileged: true
             probes:
@@ -48,15 +53,30 @@ spec:
                 enabled: true
             env:
               ZIGBEE2MQTT_DATA: /config
+              ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: "true"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
+              # mqtt
+              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mosquitto.default.svc.cluster.local:1883
+              ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
+              ZIGBEE2MQTT_CONFIG_MQTT_VERSION: "5"
+              # adapter
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &usbdevice /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
+              ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: "20"
+              # frontend
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: &url https://zigbee.${SECRET_DOMAIN_0}
     service:
       main:
         controller: zigbee2mqtt
         ports:
           http:
-            port: 8080
+            port: *port
     route:
       main:
-        hostnames: ["zigbee.${SECRET_DOMAIN_0}"]
+        hostnames: [ *url ]
         parentRefs:
           - name: internal
             namespace: networking-system
@@ -64,17 +84,13 @@ spec:
         rules:
           - backendRefs:
               - name: zigbee2mqtt
-                port: 8080
+                port: *port
     persistence:
       config:
-        enabled: true
-        existingClaim: zigbee2mqtt-config
-        globalMounts:
-          - path: /config
+        existingClaim: zigbee2mqtt
       usb:
-        enabled: true
         type: hostPath
         hostPathType: CharDevice
-        hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+        hostPath: *usbdevice
         globalMounts:
-          - path: /dev/ttyUSB0
+          - path: *usbdevice
