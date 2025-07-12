@@ -80,9 +80,7 @@ spec:
     domainFilters:
       - ${SECRET_DOMAIN_0}
       - ${SECRET_DOMAIN_1}
-    # TODO
-    # ref: https://github.com/muhlba91/external-dns-provider-adguard/issues/133
     serviceMonitor:
-      enabled: false
+      enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: *secret
