@@ -112,7 +112,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
-  path: ./cluster/apps/networking-system/external-service/tdarr
+  path: ./cluster/apps/networking-system/external-services/tdarr
   sourceRef:
     kind: GitRepository
     name: flux-system
