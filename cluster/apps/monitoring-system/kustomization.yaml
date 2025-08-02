@@ -10,6 +10,7 @@ components:
 resources:
   - ./gatus/fluxtomization.yaml
   - ./grafana/fluxtomization.yaml
+  - ./keda/fluxtomization.yaml
   - ./kube-prometheus/crds/fluxtomization.yaml
   - ./kube-prometheus/stack/fluxtomization.yaml
   - ./loki/fluxtomization.yaml
