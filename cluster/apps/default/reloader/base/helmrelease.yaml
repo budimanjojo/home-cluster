@@ -37,20 +37,9 @@ spec:
     fullnameOverride: *name
     reloader:
       deployment:
-        labels:
-          app.kubernetes.io/name: *name
-          app.kubernetes.io/instance: *name
         resources:
           requests:
             cpu: 15m
             memory: 249Mi
           limits:
             memory: 249Mi
-      rbac:
-        labels:
-          app.kubernetes.io/name: *name
-          app.kubernetes.io/instance: *name
-      serviceAccount:
-        labels:
-          app.kubernetes.io/name: *name
-          app.kubernetes.io/instance: *name
