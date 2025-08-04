@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumloadbalancerippool_v2alpha1.json
-apiVersion: cilium.io/v2alpha1
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumloadbalancerippool_v2.json
+apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: diff-subnet
@@ -9,8 +9,8 @@ spec:
     - cidr: 192.168.15.0/24
 
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumloadbalancerippool_v2alpha1.json
-apiVersion: cilium.io/v2alpha1
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumloadbalancerippool_v2.json
+apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: same-subnet
@@ -20,8 +20,8 @@ spec:
       stop: 192.168.200.210
 
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumloadbalancerippool_v2alpha1.json
-apiVersion: cilium.io/v2alpha1
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumloadbalancerippool_v2.json
+apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: mgmt-subnet

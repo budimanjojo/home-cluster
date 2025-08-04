@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumbgppeerconfig_v2alpha1.json
-apiVersion: cilium.io/v2alpha1
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cilium.io/ciliumbgppeerconfig_v2.json
+apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
   name: main
