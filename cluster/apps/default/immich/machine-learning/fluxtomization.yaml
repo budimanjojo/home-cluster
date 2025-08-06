@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: immich-machine-learning
+  name: &name immich-machine-learning
   namespace: default
 spec:
   interval: 1h
@@ -15,6 +15,11 @@ spec:
       app.kubernetes.io/name: immich
       app.kubernetes.io/instance: immich
       app.kubernetes.io/part-of: immich
+  components:
+    - ../../../../../components/keda/nfs-scaler
+  postBuild:
+    substitute:
+      APP_NAME: *name
   path: ./cluster/apps/default/immich/machine-learning/base
   sourceRef:
     kind: GitRepository
@@ -24,3 +29,5 @@ spec:
   dependsOn:
     - name: immich-server
       namespace: default
+    - name: keda
+      namespace: monitoring-system

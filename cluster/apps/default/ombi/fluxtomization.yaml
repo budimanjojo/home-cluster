@@ -15,6 +15,7 @@ spec:
       app.kubernetes.io/name: *name
   components:
     - ../../../../components/volsync
+    - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
       APP_NAME: *name
@@ -31,3 +32,5 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: backup-system
+    - name: keda
+      namespace: monitoring-system

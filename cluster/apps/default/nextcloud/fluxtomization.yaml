@@ -13,6 +13,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
+  components:
+    - ../../../../components/keda/nfs-scaler
+  postBuild:
+    substitute:
+      APP_NAME: *name
   path: ./cluster/apps/default/nextcloud/base
   sourceRef:
     kind: GitRepository
@@ -28,3 +33,5 @@ spec:
       namespace: default
     - name: shared-rediscluster-ot-standalone
       namespace: default
+    - name: keda
+      namespace: monitoring-system
