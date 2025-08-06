@@ -33,6 +33,7 @@ spec:
     remediation:
       retries: 5
   values:
+    fullnameOverride: blackbox-exporter
     config:
       modules:
         http_2xx:
