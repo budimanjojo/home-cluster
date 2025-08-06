@@ -8,6 +8,7 @@ components:
   - ../../components/envsubst
   - ../../components/privileged-namespace
 resources:
+  - ./blackbox-exporter/fluxtomization.yaml
   - ./gatus/fluxtomization.yaml
   - ./grafana/fluxtomization.yaml
   - ./keda/fluxtomization.yaml
