@@ -97,7 +97,7 @@ spec:
             access: proxy
           - name: Loki
             type: loki
-            url: http://loki-gateway.monitoring-system.svc.cluster.local
+            url: http://loki-headless.monitoring-system.svc.cluster.local:3100
             jsonData:
               maxLines: 250
 

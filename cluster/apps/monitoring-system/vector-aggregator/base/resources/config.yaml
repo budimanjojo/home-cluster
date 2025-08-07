@@ -80,7 +80,7 @@ sinks:
       - vyos_firewall_wan_route._unmatched
       - vyos_firewall_geoip_remap
       - vyos_firewall_remap.dropped
-    endpoint: http://loki-gateway.monitoring-system.svc.cluster.local
+    endpoint: http://loki-headless.monitoring-system.svc.cluster.local:3100
     encoding:
       codec: json
     out_of_order_action: rewrite_timestamp
