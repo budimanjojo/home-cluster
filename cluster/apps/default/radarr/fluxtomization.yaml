@@ -16,7 +16,7 @@ spec:
   components:
     - ../../../../components/ext-auth
     - ../../../../components/volsync
-    - ../../../../components/keda
+    - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
       APP_NAME: *name
