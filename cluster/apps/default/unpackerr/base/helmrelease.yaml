@@ -53,7 +53,9 @@ spec:
         enabled: false
     persistence:
       downloads:
-        enabled: true
-        existingClaim: shared-downloads
+        type: nfs
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        path: /Media
         globalMounts:
           - path: /downloads
+            subPath: Downloads/qbittorrent
