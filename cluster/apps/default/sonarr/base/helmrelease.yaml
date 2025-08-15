@@ -63,20 +63,10 @@ spec:
                 port: 8989
     persistence:
       config:
-        enabled: true
         existingClaim: sonarr
-        advancedMounts:
-          sonarr:
-            main:
-              - path: /config
       media:
-        enabled: true
-        existingClaim: shared-media
+        type: nfs
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        path: /Media
         globalMounts:
-          - path: /tv
-            subPath: TV
-      downloads:
-        enabled: true
-        existingClaim: shared-downloads
-        globalMounts:
-          - path: /downloads
+          - path: /media
