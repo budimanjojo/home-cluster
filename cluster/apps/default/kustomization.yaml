@@ -29,6 +29,5 @@ resources:
   - ./reloader/fluxtomization.yaml
   - ./shared/postgresclusters/fluxtomization.yaml
   - ./shared/redisclusters/fluxtomization.yaml
-  - ./shared/volumes/fluxtomization.yaml
   - ./sonarr/fluxtomization.yaml
   - ./zigbee2mqtt/fluxtomization.yaml
