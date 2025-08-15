@@ -63,20 +63,10 @@ spec:
                 port: 8686
     persistence:
       config:
-        enabled: true
         existingClaim: lidarr
-        advancedMounts:
-          lidarr:
-            main:
-              - path: /config
       media:
-        enabled: true
-        existingClaim: shared-media
+        type: nfs
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        path: /Media
         globalMounts:
-          - path: /music
-            subPath: Music
-      downloads:
-        enabled: true
-        existingClaim: shared-downloads
-        globalMounts:
-          - path: /downloads
+          - path: /media
