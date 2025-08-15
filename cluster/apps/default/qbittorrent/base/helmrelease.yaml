@@ -74,12 +74,13 @@ spec:
                 port: *http-port
     persistence:
       config:
-        enabled: true
         existingClaim: qbittorrent
         globalMounts:
           - path: /config
       downloads:
-        enabled: true
-        existingClaim: shared-downloads
+        type: nfs
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        path: /Media
         globalMounts:
           - path: /downloads
+            subPath: Downloads/qbittorrent
