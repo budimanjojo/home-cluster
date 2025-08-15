@@ -66,20 +66,10 @@ spec:
                 port: 7878
     persistence:
       config:
-        enabled: true
         existingClaim: radarr
-        advancedMounts:
-          radarr:
-            main:
-              - path: /config
       media:
-        enabled: true
-        existingClaim: shared-media
+        type: nfs
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        path: /Media
         globalMounts:
-          - path: /movies
-            subPath: Movies
-      downloads:
-        enabled: true
-        existingClaim: shared-downloads
-        globalMounts:
-          - path: /downloads
+          - path: /media
