@@ -31,5 +31,4 @@ resources:
   - ./shared/redisclusters/fluxtomization.yaml
   - ./shared/volumes/fluxtomization.yaml
   - ./sonarr/fluxtomization.yaml
-  - ./unpackerr/fluxtomization.yaml
   - ./zigbee2mqtt/fluxtomization.yaml
