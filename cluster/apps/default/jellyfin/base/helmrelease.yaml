@@ -71,8 +71,6 @@ spec:
     persistence:
       config:
         existingClaim: jellyfin
-        globalMounts:
-          - path: /config
       config-cache:
         existingClaim: jellyfin-cache
         globalMounts:
@@ -83,10 +81,9 @@ spec:
           - path: /config/cache
             subPath: cache
       media:
-        enabled: true
-        existingClaim: shared-media
-        globalMounts:
-          - path: /media
+        type: nfs
+        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        path: /Media
       tmps:
         type: emptyDir
         advancedMounts:
