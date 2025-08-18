@@ -30,8 +30,6 @@ spec:
       namespace: networking-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: shared-volumes
-      namespace: default
     - name: volsync
       namespace: backup-system
     - name: keda
