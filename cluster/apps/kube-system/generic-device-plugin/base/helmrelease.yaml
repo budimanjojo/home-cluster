@@ -31,7 +31,7 @@ spec:
               tag: 0f7fddf166f17d58107d9811b53bec74e4d52e7c
             args:
               - --log-level=info
-              - device
+              - --device
               - |
                 name: tun
                 groups:
