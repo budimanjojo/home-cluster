@@ -20,12 +20,59 @@ spec:
   values:
     controllers:
       qbittorrent:
+        type: statefulset
+        annotations:
+          secret.reloader.stakater.com/reload: qbittorrent-secret
         pod:
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
+
+        initContainers:
+          coredns:
+            restartPolicy: Always
+            image:
+              repository: mirror.gcr.io/coredns/coredns
+              tag: 1.12.3
+            args:
+              - -conf
+              - /etc/coredns/Corefile
+          gluetun:
+            dependsOn: [ coredns ]
+            restartPolicy: Always
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.0
+            resources:
+              limits:
+                squat.ai/tun: "1"
+            securityContext:
+              capabilities:
+                add: [ NET_ADMIN ]
+              allowPrivilegeEscalation: false
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - (ip rule del table 51820; ip -6 rule del table 51820) || true
+            env:
+              VPN_SERVICE_PROVIDER: custom
+              VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
+              DOT: "off"
+              DNS_ADDRESS: 127.0.0.2
+              FIREWALL_INPUT_PORTS: &port 8080
+              FIREWALL_VPN_INPUT_PORTS: &torrentPort 50413
+              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16 # allow access k8s subnets
+              WIREGUARD_PUBLIC_KEY: e71Old3Ax2DEw8QB9yvhyOIIuNJHtp8nBYKJJaDVPkw=
+              WIREGUARD_ADDRESSES: 10.10.10.50/32
+              WIREGUARD_PERSISTENT_KEEPALIVE_INTERVAL: 25s
+            envFrom:
+              - secretRef:
+                  name: qbittorrent-secret
+
         containers:
           main:
             image:
@@ -33,34 +80,45 @@ spec:
               tag: 5.1.2
             resources:
               requests:
-                cpu: 10m
-                memory: 105Mi
+                cpu: 100m
               limits:
-                memory: 2Gi
+                memory: 4Gi
             probes:
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: *port
+                    path: /api/v2/app/version
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: [ALL]
+            env:
+              QBT_WEBUI_PORT: *port
+              QBT_TORRENTING_PORT: *torrentPort
+
     service:
       main:
         controller: qbittorrent
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.15.10
         ports:
           http:
-            port: &http-port 8080
-          bittorrent:
-            enabled: true
-            primary: true
-            protocol: TCP
-            port: 50413
+            port: *port
     route:
       main:
         hostnames: ["qbit.${SECRET_DOMAIN_0}"]
@@ -71,7 +129,8 @@ spec:
         rules:
           - backendRefs:
               - name: qbittorrent
-                port: *http-port
+                port: *port
+
     persistence:
       config:
         existingClaim: qbittorrent
@@ -84,3 +143,12 @@ spec:
         globalMounts:
           - path: /downloads
             subPath: Downloads/qbittorrent
+      coredns:
+        name: qbittorrent-coredns
+        type: configMap
+        advancedMounts:
+          qbittorrent:
+            coredns:
+              - path: /etc/coredns/Corefile
+                subPath: Corefile
+                readOnly: true

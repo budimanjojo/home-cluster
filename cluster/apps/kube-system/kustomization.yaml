@@ -9,6 +9,7 @@ components:
 resources:
   - ./cilium/lb-networks/fluxtomization.yaml
   - ./cilium/operator/fluxtomization.yaml
+  - ./generic-device-plugin/fluxtomization.yaml
   - ./intel-device-plugins/operator/fluxtomization.yaml
   - ./intel-device-plugins/gpu/fluxtomization.yaml
   - ./k8tz/fluxtomization.yaml
