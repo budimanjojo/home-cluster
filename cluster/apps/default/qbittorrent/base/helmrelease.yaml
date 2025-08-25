@@ -89,18 +89,10 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    port: *port
-                    path: /api/v2/app/version
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+              readiness:
+                enabled: true
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
