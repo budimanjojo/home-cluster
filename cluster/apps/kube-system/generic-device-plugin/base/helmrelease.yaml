@@ -50,13 +50,6 @@ spec:
                 drop:
                   - ALL
     persistence:
-      config:
-        type: configMap
-        name: generic-device-plugin-configmap
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
-            readOnly: true
       dev:
         type: hostPath
         hostPath: /dev
