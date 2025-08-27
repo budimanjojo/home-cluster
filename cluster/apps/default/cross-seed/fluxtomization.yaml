@@ -19,7 +19,7 @@ spec:
   postBuild:
     substitute:
       APP_NAME: *name
-  path: ./cluster/apps/default/qbittorrent/base
+  path: ./cluster/apps/default/cross-seed/base
   sourceRef:
     kind: GitRepository
     name: flux-system
