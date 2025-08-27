@@ -14,10 +14,10 @@ function fetchIndexers(baseUrl, apiKey, tag) {
   return indexers;
 }
 
-module.exports = {
+export default {
   port: Number(process.env.CROSS_SEED_PORT),
-  tornzab: fetchIndexers(prowlarrURL, process.env.PROWLARR_API_KEY, "cross-seed"),
-  torrentClients: [qbittorrentURL],
+  torznab: fetchIndexers(prowlarrURL, process.env.PROWLARR_API_KEY, "cross-seed"),
+  torrentClients: [`qbittorrent:$${qbittorrentURL}`],
   sonarr: [`$${sonarrURL}/?apikey=$${process.env.SONARR_API_KEY}`],
   radarr: [`$${radarrURL}/?apikey=$${process.env.RADARR_API_KEY}`],
   useClientTorrents: true,
