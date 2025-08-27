@@ -8,6 +8,7 @@ components:
   - ../../components/envsubst
   - ../../components/privileged-namespace
 resources:
+  - ./autobrr/fluxtomization.yaml
   - ./bazarr/fluxtomization.yaml
   - ./clusterpolicies/fluxtomization.yaml
   - ./cross-seed/fluxtomization.yaml
