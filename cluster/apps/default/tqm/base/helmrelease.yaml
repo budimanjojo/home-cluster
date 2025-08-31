@@ -42,7 +42,7 @@ spec:
         initContainers:
           retag: &container
             image:
-              repository: ghcr.io/home-operation/tqm
+              repository: ghcr.io/home-operations/tqm
               tag: 1.16.0
             args:
               - retag
