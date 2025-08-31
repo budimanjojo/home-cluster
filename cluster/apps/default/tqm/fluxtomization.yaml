@@ -13,17 +13,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
-  components:
-    - ../../../../components/keda/nfs-scaler
-  postBuild:
-    substitute:
-      APP_NAME: *name
   path: ./cluster/apps/default/tqm/base
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   wait: true
-  dependsOn:
-    - name: keda
-      namespace: monitoring-system
