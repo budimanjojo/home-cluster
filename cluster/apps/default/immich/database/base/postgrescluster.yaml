@@ -6,7 +6,7 @@ metadata:
   name: &name immich-database
 spec:
   postgresVersion: 16
-  image: ghcr.io/budimanjojo/crunchy-postgres-vectorchord:16-0.4.3:sha256:2f3d2f5c27e5aa2381e945f3223f2abbe1b5448062b21c492386e959747f3c62
+  image: ghcr.io/budimanjojo/crunchy-postgres-vectorchord:16-0.4.3@sha256:2f3d2f5c27e5aa2381e945f3223f2abbe1b5448062b21c492386e959747f3c62
   config:
     parameters:
       shared_preload_libraries: vchord.so
