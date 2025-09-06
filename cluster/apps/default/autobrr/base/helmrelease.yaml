@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/autobrr/autobrr
-              tag: v1.65.0
+              tag: v1.66.0
             resources:
               requests:
                 cpu: 10m
