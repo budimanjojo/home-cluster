@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &name recyclarr
+  namespace: default
+spec:
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *name
+  components:
+    - ../../../../components/volsync
+  postBuild:
+    substitute:
+      APP_NAME: *name
+  path: ./cluster/apps/default/recyclarr/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: backup-system
