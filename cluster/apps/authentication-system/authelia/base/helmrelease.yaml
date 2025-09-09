@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: 4.39.8
+              tag: 4.39.9
             resources:
               requests:
                 cpu: 1m
