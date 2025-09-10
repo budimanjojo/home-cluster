@@ -19,7 +19,7 @@ spec:
   postBuild:
     substitute:
       APP_NAME: *name
-  path: ./cluster/apps/default/jellyseer/base
+  path: ./cluster/apps/default/jellyseerr/base
   sourceRef:
     kind: GitRepository
     name: flux-system
