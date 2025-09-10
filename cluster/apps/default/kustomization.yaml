@@ -19,7 +19,7 @@ resources:
   - ./immich/machine-learning/fluxtomization.yaml
   - ./immich/server/fluxtomization.yaml
   - ./jellyfin/fluxtomization.yaml
-  - ./jellyseer/fluxtomization.yaml
+  - ./jellyseerr/fluxtomization.yaml
   - ./lidarr/fluxtomization.yaml
   - ./minio/fluxtomization.yaml
   - ./mosquitto/fluxtomization.yaml

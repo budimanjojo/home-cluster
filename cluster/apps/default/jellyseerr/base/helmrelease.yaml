@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: jellyseer
+  name: jellyseerr
 spec:
   interval: 1h
   timeout: 5m
@@ -19,7 +19,7 @@ spec:
       retries: 5
   values:
     controllers:
-      jellyseer:
+      jellyseerr:
         pod:
           securityContext:
             runAsUser: 1000
@@ -29,7 +29,7 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/fallenbagel/jellyseer
+              repository: ghcr.io/fallenbagel/jellyseerr
               tag: 2.7.3
             resources:
               requests:
@@ -63,24 +63,24 @@ spec:
             port: *port
     route:
       main:
-        hostnames: ["jellyseer.${SECRET_DOMAIN_0}"]
+        hostnames: ["jellyseerr.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: internal
             namespace: networking-system
             port: 443
     persistence:
       config:
-        existingClaim: jellyseer
+        existingClaim: jellyseerr
         globalMounts:
           - path: /app/config
       config-cache:
-        existingClaim: jellyseer-cache
+        existingClaim: jellyseerr-cache
         globalMounts:
           - path: /app/config/cache
       tmps:
         type: emptyDir
         advancedMounts:
-          jellyseer:
+          jellyseerr:
             main:
               - path: /app/config/logs
                 subPath: logs
