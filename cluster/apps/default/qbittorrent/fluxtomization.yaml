@@ -19,6 +19,7 @@ spec:
   postBuild:
     substitute:
       APP_NAME: *name
+      DEPLOY_TYPE: StatefulSet
   path: ./cluster/apps/default/qbittorrent/base
   sourceRef:
     kind: GitRepository
