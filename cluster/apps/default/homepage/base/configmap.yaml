@@ -32,7 +32,7 @@ data:
             widget:
               type: jellyseerr
               url: http://jellyseerr.default.svc.cluster.local
-              key: {{HOMEPAGE_VAR_OMBI_KEY}}
+              key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
         - Immich:
             icon: immich.png
             href: https://photos.${SECRET_DOMAIN_0}
