@@ -25,13 +25,13 @@ data:
               url: http://jellyfin.default.svc.cluster.local:8096
               key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
               enableNowPlaying: true
-        - Ombi:
-            icon: ombi.png
-            href: https://ombi.${SECRET_DOMAIN_0}
+        - Jellyseerr:
+            icon: jellyseerr.png
+            href: https://jellyseerr.${SECRET_DOMAIN_0}
             description: Media Requests
             widget:
-              type: ombi
-              url: http://ombi.default.svc.cluster.local:3579
+              type: jellyseerr
+              url: http://jellyseerr.default.svc.cluster.local
               key: {{HOMEPAGE_VAR_OMBI_KEY}}
         - Immich:
             icon: immich.png
