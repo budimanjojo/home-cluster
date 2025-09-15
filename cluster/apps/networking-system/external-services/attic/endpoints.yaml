@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/endpoints-v1.json
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: attic
+subsets:
+  - addresses:
+      - ip: 192.168.200.30
+    ports:
+      - name: http
+        port: 8080
+        protocol: TCP
