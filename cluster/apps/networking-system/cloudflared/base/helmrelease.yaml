@@ -64,6 +64,7 @@ spec:
               TUNNEL_CRED_FILE: /etc/cloudflared/creds/credentials.json
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_TRANSPORT_PROTOCOL: http2
+              TUNNEL_ORIGIN_ENABLE_HTTP2: true
     service:
       main:
         controller: cloudflared
