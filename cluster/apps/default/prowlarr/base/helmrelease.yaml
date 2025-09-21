@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/home-operations/prowlarr
-              tag: 2.1.1
+              tag: 2.1.2
             resources:
               requests:
                 cpu: 15m
