@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/home-operations/charts-mirror/node-feature-discovery
   ref:
-    tag: 0.17.4
+    tag: 0.18.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
