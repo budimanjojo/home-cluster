@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/prometheus-community/charts/prometheus-smartctl-exporter
   ref:
-    tag: 0.15.4
+    tag: 0.16.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
