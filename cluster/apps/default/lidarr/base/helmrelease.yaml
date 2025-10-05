@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/home-operations/lidarr
-              tag: 2.14.4
+              tag: 2.14.5
             resources:
               requests:
                 cpu: 15m
