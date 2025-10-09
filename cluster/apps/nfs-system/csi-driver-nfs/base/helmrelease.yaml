@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/home-operations/charts-mirror/csi-driver-nfs
   ref:
-    tag: 4.11.0
+    tag: 4.12.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
