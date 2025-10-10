@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.10.1
+              tag: 2025.10.2
             resources:
               requests:
                 cpu: 15m
