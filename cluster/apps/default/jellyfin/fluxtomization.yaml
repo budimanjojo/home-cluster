@@ -19,6 +19,7 @@ spec:
   postBuild:
     substitute:
       APP_NAME: *name
+      VOLSYNC_CAPACITY: 3Gi
   path: ./cluster/apps/default/jellyfin/base
   sourceRef:
     kind: GitRepository
