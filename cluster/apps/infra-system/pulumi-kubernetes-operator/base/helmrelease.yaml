@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/pulumi/helm-charts/pulumi-kubernetes-operator
   ref:
-    tag: 2.2.0
+    tag: 2.3.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
