@@ -67,14 +67,6 @@ data:
               type: sonarr
               url: http://sonarr.default.svc.cluster.local:8989
               key: {{HOMEPAGE_VAR_SONARR_KEY}}
-        - Lidarr:
-            icon: lidarr.png
-            href: https://music.${SECRET_DOMAIN_0}
-            description: Musics Management
-            widget:
-              type: lidarr
-              url: http://lidarr.default.svc.cluster.local:8686
-              key: {{HOMEPAGE_VAR_LIDARR_KEY}}
         - Bazarr:
             icon: bazarr.png
             href: https://bazarr.${SECRET_DOMAIN_0}
