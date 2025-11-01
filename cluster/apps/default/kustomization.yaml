@@ -20,7 +20,6 @@ resources:
   - ./immich/server/fluxtomization.yaml
   - ./jellyfin/fluxtomization.yaml
   - ./jellyseerr/fluxtomization.yaml
-  - ./lidarr/fluxtomization.yaml
   - ./minio/fluxtomization.yaml
   - ./mosquitto/fluxtomization.yaml
   - ./nextcloud/fluxtomization.yaml
