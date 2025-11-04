@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/stakater/charts/reloader
   ref:
-    tag: 2.2.3
+    tag: 2.2.4
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
