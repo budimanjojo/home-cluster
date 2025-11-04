@@ -1,7 +1,7 @@
 ---
 clusterName: home-cluster
-talosVersion: v1.10.4
-kubernetesVersion: v1.33.2
+talosVersion: v1.11.3
+kubernetesVersion: v1.34.1
 endpoint: https://192.168.200.20:6443
 allowSchedulingOnMasters: true
 cniConfig:
@@ -94,7 +94,7 @@ controlPlane:
         path: /cluster/apiServer/extraArgs
         value:
           feature-gates: MutatingAdmissionPolicy=true
-          runtime-config: admissionregistration.k8s.io/v1alpha1=true
+          runtime-config: admissionregistration.k8s.io/v1beta1=true
       - op: add
         path: /cluster/controllerManager/extraArgs
         value:
