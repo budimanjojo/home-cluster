@@ -2,7 +2,7 @@ module pulumi-github
 
 go 1.23.11
 
-toolchain go1.25.3
+toolchain go1.25.4
 
 require (
 	github.com/gookit/validate v1.5.6
