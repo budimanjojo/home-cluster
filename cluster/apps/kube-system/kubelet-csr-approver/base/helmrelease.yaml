@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/postfinance/charts/kubelet-csr-approver
   ref:
-    tag: 1.2.11
+    tag: 1.2.12
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
