@@ -9,6 +9,5 @@ components:
 resources:
   - ./flux-instance/fluxtomization.yaml
   - ./flux-metrics/fluxtomization.yaml
-  - ./flux-networkpolicies/fluxtomization.yaml
   - ./flux-operator/fluxtomization.yaml
   - ./flux-webhook/fluxtomization.yaml
