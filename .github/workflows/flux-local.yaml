@@ -27,7 +27,7 @@ jobs:
 
   test:
     name: Flux Local - Test
-    if: ${{ needs.filter.outputs.changed-files != '{}' }}
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     runs-on: ubuntu-latest
     steps:
