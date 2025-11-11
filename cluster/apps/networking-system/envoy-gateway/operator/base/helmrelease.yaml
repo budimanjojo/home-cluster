@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://docker.io/envoyproxy/gateway-helm
   ref:
-    tag: 1.5.4
+    tag: 1.6.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
