@@ -41,7 +41,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/muhlba91/external-dns-provider-adguard
-          tag: v9.1.0@sha256:888b77f42d9d3436f01f942b399c7ef4ff331a9fc67bd5e7b3485cc1b8ee1a9b
+          tag: v10.0.0@sha256:1d0f4803ddcf8d8f13040d356380201bd41781af6d740c684bcdf7604a1b3789
         env:
           - name: ADGUARD_URL
             value: http://192.168.10.1:3000
