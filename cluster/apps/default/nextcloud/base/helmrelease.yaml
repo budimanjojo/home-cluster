@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/nextcloud/helm/nextcloud
   ref:
-    tag: 8.5.9
+    tag: 8.5.10
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
