@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/home-operations/charts-mirror/kubernetes-replicator
   ref:
-    tag: 2.12.1
+    tag: 2.12.2
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
