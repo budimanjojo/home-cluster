@@ -87,7 +87,7 @@ spec:
   healthChecks:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
-      name: cluster-selfsined
+      name: cluster-selfsigned
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
