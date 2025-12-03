@@ -38,6 +38,9 @@ spec:
       enabled: true
       podAnnotations:
         secret.reloader.stakater.com/reload: bitwarden,bitwarden-tls-certs
+      image:
+        tls:
+          secretName: bitwarden-tls-cert
     leaderElect: true
     serviceMonitor:
       enabled: true
