@@ -26,6 +26,7 @@ spec:
     - apiVersion: &certApiVersion cert-manager.io/v1
       kind: &certKind Certificate
       name: bitwarden-tls-cert
+      namespace: *namespace
   healthCheckExprs:
     - apiVersion: *certApiVersion
       kind: *certKind
