@@ -13,7 +13,7 @@ spec:
     - 127.0.0.1
     - ::1
   privateKey:
-    algorithm: ECDSA
+    algorithm: RSA
     encoding: PKCS8
     size: 2048
     rotationPolicy: Always
