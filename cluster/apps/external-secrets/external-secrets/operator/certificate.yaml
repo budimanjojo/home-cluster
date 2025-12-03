@@ -18,6 +18,6 @@ spec:
     size: 2048
     rotationPolicy: Always
   issuerRef:
-    name: cluster-selfsigned-ca
+    name: cluster-selfsigned
     kind: ClusterIssuer
     group: cert-manager.io
