@@ -1,0 +1,47 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: external-secrets-operator
+spec:
+  interval: 30m
+  timeout: 60s
+  url: oci://ghcr.io/external-secrets/charts/external-secrets
+  ref:
+    tag: 1.1.0
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-secrets-operator
+spec:
+  interval: 1h
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: external-secrets-operator
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  values:
+    fullnameOverride: external-secrets
+    bitwarden-sdk-server:
+      enabled: true
+      podAnnotations:
+        secret.reloader.stakater.com/reload: bitwarden,bitwarden-tls-certs
+    leaderElect: true
+    serviceMonitor:
+      enabled: true
+    grafanaDashboard:
+      enabled: true
+    webhook:
+      replicaCount: 2

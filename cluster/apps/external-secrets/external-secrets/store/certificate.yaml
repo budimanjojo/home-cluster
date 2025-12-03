@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: &name bitwarden-tls-cert
+spec:
+  secretName: *name
+  dnsNames:
+    - bitwarden-sdk-server.external-secrets.svc.cluster.local
+    - localhost
+  ipAddresses:
+    - 127.0.0.1
+    - ::1
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS8
+    size: 2048
+    rotationPolicy: Always
+  issuerRef:
+    name: cluster-selfsigned-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
