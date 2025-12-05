@@ -8,5 +8,5 @@ spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: external-secrets
+      app.kubernetes.io/instance: external-secrets-operator
       app.kubernetes.io/name: external-secrets-webhook
