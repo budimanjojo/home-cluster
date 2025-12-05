@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/external-secrets/charts/external-secrets
   ref:
-    tag: 1.1.0
+    tag: 1.1.1
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
