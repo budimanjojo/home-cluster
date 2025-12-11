@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-gpu
   ref:
-    tag: 0.34.0
+    tag: 0.34.1
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
