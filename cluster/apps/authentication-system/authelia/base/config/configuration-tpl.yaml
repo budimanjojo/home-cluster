@@ -3,7 +3,7 @@
 
 # This is sort of a template file for Authelia configurations.
 # It will be deployed as `ConfigMap` then used as template by `external-secrets` to create a `Secret`.
-# `${var}` will be substituted by `fluxcd`, `{{.var}}` will be substituted by `external-secrets`.
+# `${var}` will be substituted by `fluxcd`, `\{\{.var\}\}` will be substituted by `external-secrets`.
 theme: auto
 server:
   address: tcp://0.0.0.0:9091
