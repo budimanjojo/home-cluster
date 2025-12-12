@@ -10,6 +10,6 @@ resources:
 configMapGenerator:
   - name: authelia-config-tpl
     files:
-      - ./config/configuration-tpl.yaml
+      - ./config/configuration.yaml
 generatorOptions:
   disableNameSuffixHash: true
