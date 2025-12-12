@@ -45,28 +45,8 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-            envFrom:
-              - secretRef:
-                  name: authelia-secret
             env:
               X_AUTHELIA_CONFIG: /config/configuration.yaml
-              X_AUTHELIA_CONFIG_FILTERS: template
-              AUTHELIA_STORAGE_POSTGRES_ADDRESS: tcp://pgo-cluster-primary.default.svc:5432
-              AUTHELIA_STORAGE_POSTGRES_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: pgo-cluster-pguser-authelia
-                    key: password
-              AUTHELIA_STORAGE_POSTGRES_DATABASE:
-                valueFrom:
-                  secretKeyRef:
-                    name: pgo-cluster-pguser-authelia
-                    key: dbname
-              AUTHELIA_STORAGE_POSTGRES_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: pgo-cluster-pguser-authelia
-                    key: user
     service:
       main:
         controller: authelia
@@ -87,14 +67,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
+        type: secret
         name: authelia-config
         globalMounts:
           - path: /config
             readOnly: true
-      secret-files:
-        enabled: true
-        type: secret
-        name: authelia-secret-files
-        globalMounts:
-          - path: /config/secret

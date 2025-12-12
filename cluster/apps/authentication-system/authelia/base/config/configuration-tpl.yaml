@@ -1,42 +1,52 @@
 ---
+# yaml-language-server: $schema=https://www.authelia.com/schemas/latest/json-schema/configuration.json
+
+# This is sort of a template file for Authelia configurations.
+# It will be deployed as `ConfigMap` then used as template by `external-secrets` to create a `Secret`.
+# `${var}` will be substituted by `fluxcd`, `{{.var}}` will be substituted by `external-secrets`.
 theme: auto
 server:
   address: tcp://0.0.0.0:9091
   disable_healthcheck: true
 log:
   level: debug
+duo_api:
+  disable: false
+  hostname: "{{ .duo_api_hostname }}"
+  integration_key: "{{ .duo_api_integration_key }}"
+  secret_key: "{{ .duo_api_secret_key }}"
 totp:
   disable: false
 webauthn:
   disable: true
+storage:
+  encryption_key: "{{ .storage_encryption_key }}"
+  postgres:
+    address: tcp://{{ .postgres_host }}:{{ .postgres_port }}
+    database: '{{ .postgres_dbname }}'
+    username: '{{ .postgres_user }}'
+    password: '{{ .postgres_password }}'
 ntp:
-  address: ${CONFIG_VYOS_IP_ADDRESS}:123
-  version: 3
+  address: 192.168.200.1:123
+  version: 4
   max_desync: 3s
   disable_startup_check: false
   disable_failure: false
+identity_validation:
+  reset_password:
+    jwt_secret: "{{ .reset_password_jwt }}"
 authentication_backend:
   password_reset:
     disable: false
   refresh_interval: 1m
   ldap:
-    implementation: custom
+    implementation: lldap
     address: ldap://lldap.authentication-system.svc.cluster.local:3890
     timeout: 5s
     start_tls: false
     base_dn: dc=home,dc=cluster
-    additional_users_dn: ou=people
-    users_filter: "(&({username_attribute}={input})(objectClass=person))"
-    additional_groups_dn: ou=groups
-    groups_filter: "(member={dn})"
-    group_search_mode: filter
     user: uid=authelia_bind,ou=people,dc=home,dc=cluster
-    attributes:
-      username: uid
-      display_name: displayName
-      mail: mail
-      group_name: cn
-      member_of: memberOf
+    password: "{{ .lldap_password }}"
 access_control:
   default_policy: deny
   networks:
@@ -55,6 +65,7 @@ access_control:
     - domain: "*.${SECRET_DOMAIN_0}"
       policy: two_factor
 session:
+  secret: "{{ .session_secret }}"
   name: authelia_session
   expiration: 1h
   inactivity: 15m
@@ -65,6 +76,7 @@ session:
       default_redirection_url: https://${SECRET_DOMAIN_0}
   redis:
     host: ot-standalone.default.svc.cluster.local
+    password: "{{ .session_redis_password }}"
     port: 6379
 regulation:
   max_retries: 3
@@ -75,6 +87,7 @@ notifier:
   smtp:
     address: submission://smtp.gmail.com:587
     username: budimanjojo@gmail.com
+    password: "{{ .notifier_smtp_password }}"
     sender: Authelia Admin <admin@budimanjojo.com>
 definitions:
   user_attributes:
@@ -82,6 +95,7 @@ definitions:
       expression: '"nextcloud-admins" in groups'
 identity_providers:
   oidc:
+    hmac_secret: "{{ .oidc_hmac_secret }}"
     claims_policies:
       default:
         id_token:
@@ -100,10 +114,8 @@ identity_providers:
         claims:
           - is_nextcloud_admin
     jwks:
-      - key: |
-          {{ secret "/config/secret/jwks-0-key.pem" | mindent 10 "|" | msquote }}
-        certificate_chain: |
-          {{ secret "/config/secret/jwks-0-cert.cert" | mindent 10 "|" | msquote }}
+      - key: "{{ .oidc_jwks_0_key | b64dec }}"
+        certificate_chain: "{{ .oidc_jwks_0_cert | b64dec }}"
     cors:
       endpoints:
         - authorization
@@ -127,7 +139,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: minio
         client_name: Minio
-        client_secret: '{{ secret "/config/secret/oidc-client-minio" }}'
+        client_secret: "{{ .oidc_client_minio }}"
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -141,7 +153,7 @@ identity_providers:
         claims_policy: default
       - client_id: nextcloud
         client_name: Nextcloud
-        client_secret: '{{ secret "/config/secret/oidc-client-nextcloud" }}'
+        client_secret: "{{ .oidc_client_nextcloud }}"
         public: false
         authorization_policy: two_factor
         require_pkce: true
@@ -164,7 +176,7 @@ identity_providers:
         token_endpoint_auth_method: client_secret_basic
       - client_id: immich
         client_name: Immich
-        client_secret: '{{ secret "/config/secret/oidc-client-immich" }}'
+        client_secret: "{{ .oidc_client_immich }}"
         public: false
         authorization_policy: two_factor
         redirect_uris:
