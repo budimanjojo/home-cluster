@@ -114,8 +114,10 @@ identity_providers:
         claims:
           - is_nextcloud_admin
     jwks:
-      - key: "{{ .oidc_jwks_0_key | b64dec }}"
-        certificate_chain: "{{ .oidc_jwks_0_cert | b64dec }}"
+      - key: |
+          {{- .oidc_jwks_0_key | b64dec | nindent 10 }}
+        certificate_chain: |
+          {{- .oidc_jwks_0_cert | b64dec | nindent 10 }}
     cors:
       endpoints:
         - authorization
