@@ -4,8 +4,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring-system
 resources:
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./secret.sops.yaml
 configMapGenerator:
   - name: vector-aggregator-configmap
     files:
