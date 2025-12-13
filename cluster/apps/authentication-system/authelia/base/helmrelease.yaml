@@ -45,8 +45,6 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-            env:
-              X_AUTHELIA_CONFIG: /config/configuration.yaml
     service:
       main:
         controller: authelia
@@ -70,5 +68,6 @@ spec:
         type: secret
         name: authelia-config
         globalMounts:
-          - path: /config
+          - path: /config/configuration.yml
+            subPath: configuration.yaml
             readOnly: true

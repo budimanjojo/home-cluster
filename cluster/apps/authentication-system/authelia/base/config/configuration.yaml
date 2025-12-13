@@ -12,20 +12,20 @@ log:
   level: debug
 duo_api:
   disable: false
-  hostname: "{{ .duo_api_hostname }}"
-  integration_key: "{{ .duo_api_integration_key }}"
-  secret_key: "{{ .duo_api_secret_key }}"
+  hostname: "{{ .DUO_API_HOSTNAME }}"
+  integration_key: "{{ .DUO_API_INTEGRATION_KEY }}"
+  secret_key: "{{ .DUO_API_SECRET_KEY }}"
 totp:
   disable: false
 webauthn:
   disable: true
 storage:
-  encryption_key: "{{ .storage_encryption_key }}"
+  encryption_key: "{{ .STORAGE_ENCRYPTION_KEY }}"
   postgres:
-    address: tcp://{{ .postgres_host }}:{{ .postgres_port }}
-    database: '{{ .postgres_dbname }}'
-    username: '{{ .postgres_user }}'
-    password: '{{ .postgres_password }}'
+    address: tcp://{{ .POSTGRES_HOST }}:{{ .POSTGRES_PORT }}
+    database: '{{ .POSTGRES_DBNAME }}'
+    username: '{{ .POSTGRES_USER }}'
+    password: '{{ .POSTGRES_PASSWORD }}'
 ntp:
   address: 192.168.200.1:123
   version: 4
@@ -34,7 +34,7 @@ ntp:
   disable_failure: false
 identity_validation:
   reset_password:
-    jwt_secret: "{{ .reset_password_jwt }}"
+    jwt_secret: "{{ .RESET_PASSWORD_JWT }}"
 authentication_backend:
   password_reset:
     disable: false
@@ -46,7 +46,7 @@ authentication_backend:
     start_tls: false
     base_dn: dc=home,dc=cluster
     user: uid=authelia_bind,ou=people,dc=home,dc=cluster
-    password: "{{ .lldap_password }}"
+    password: "{{ .LLDAP_PASSWORD }}"
 access_control:
   default_policy: deny
   networks:
@@ -65,7 +65,7 @@ access_control:
     - domain: "*.${SECRET_DOMAIN_0}"
       policy: two_factor
 session:
-  secret: "{{ .session_secret }}"
+  secret: "{{ .SESSION_SECRET }}"
   name: authelia_session
   expiration: 1h
   inactivity: 15m
@@ -76,7 +76,7 @@ session:
       default_redirection_url: https://${SECRET_DOMAIN_0}
   redis:
     host: ot-standalone.default.svc.cluster.local
-    password: "{{ .session_redis_password }}"
+    password: "{{ .SESSION_REDIS_PASSWORD }}"
     port: 6379
 regulation:
   max_retries: 3
@@ -87,7 +87,7 @@ notifier:
   smtp:
     address: submission://smtp.gmail.com:587
     username: budimanjojo@gmail.com
-    password: "{{ .notifier_smtp_password }}"
+    password: "{{ .NOTIFIER_SMTP_PASSWORD }}"
     sender: Authelia Admin <admin@budimanjojo.com>
 definitions:
   user_attributes:
@@ -95,7 +95,7 @@ definitions:
       expression: '"nextcloud-admins" in groups'
 identity_providers:
   oidc:
-    hmac_secret: "{{ .oidc_hmac_secret }}"
+    hmac_secret: "{{ .OIDC_HMAC_SECRET }}"
     claims_policies:
       default:
         id_token:
@@ -115,9 +115,9 @@ identity_providers:
           - is_nextcloud_admin
     jwks:
       - key: |
-          {{- .oidc_jwks_0_key | b64dec | nindent 10 }}
+          {{- .OIDC_JWKS_0_KEY | b64dec | nindent 10 }}
         certificate_chain: |
-          {{- .oidc_jwks_0_cert | b64dec | nindent 10 }}
+          {{- .OIDC_JWKS_0_CERT | b64dec | nindent 10 }}
     cors:
       endpoints:
         - authorization
@@ -141,7 +141,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: minio
         client_name: Minio
-        client_secret: "{{ .oidc_client_minio }}"
+        client_secret: "{{ .OIDC_CLIENT_MINIO }}"
         public: false
         authorization_policy: two_factor
         redirect_uris:
@@ -155,7 +155,7 @@ identity_providers:
         claims_policy: default
       - client_id: nextcloud
         client_name: Nextcloud
-        client_secret: "{{ .oidc_client_nextcloud }}"
+        client_secret: "{{ .OIDC_CLIENT_NEXTCLOUD }}"
         public: false
         authorization_policy: two_factor
         require_pkce: true
@@ -178,7 +178,7 @@ identity_providers:
         token_endpoint_auth_method: client_secret_basic
       - client_id: immich
         client_name: Immich
-        client_secret: "{{ .oidc_client_immich }}"
+        client_secret: "{{ .OIDC_CLIENT_IMMICH }}"
         public: false
         authorization_policy: two_factor
         redirect_uris:
