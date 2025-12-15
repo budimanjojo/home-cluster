@@ -54,9 +54,6 @@ spec:
               readiness: *probes
             env:
               CROSS_SEED_PORT: *port
-            envFrom:
-              - secretRef:
-                  name: cross-seed-secret
     service:
       main:
         ports:
@@ -66,8 +63,8 @@ spec:
       config:
         existingClaim: cross-seed
       config-file:
-        name: cross-seed-configmap
-        type: configMap
+        name: cross-seed-config
+        type: secret
         globalMounts:
           - path: /config/config.js
             subPath: config.js

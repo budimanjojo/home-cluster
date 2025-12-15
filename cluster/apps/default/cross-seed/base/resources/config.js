@@ -1,3 +1,7 @@
+/*
+  This is a template config file
+  \{\{ .var \}\} will be replaced by `external-secrets`
+*/
 import { execSync } from 'child_process';
 
 const qbittorrentURL = "http://qbittorrent.default.svc.cluster.local:8080";
@@ -16,10 +20,10 @@ function fetchIndexers(baseUrl, apiKey, tag) {
 
 export default {
   port: Number(process.env.CROSS_SEED_PORT),
-  torznab: fetchIndexers(prowlarrURL, process.env.PROWLARR_API_KEY, "cross-seed"),
+  torznab: fetchIndexers(prowlarrURL, "{{ .PROWLARR_API_KEY }}", "cross-seed"),
   torrentClients: [`qbittorrent:$${qbittorrentURL}`],
-  sonarr: [`$${sonarrURL}/?apikey=$${process.env.SONARR_API_KEY}`],
-  radarr: [`$${radarrURL}/?apikey=$${process.env.RADARR_API_KEY}`],
+  sonarr: [`$${sonarrURL}/?apikey={{ .SONARR_API_KEY }}`],
+  radarr: [`$${radarrURL}/?apikey={{ .RADARR_API_KEY }}`],
   useClientTorrents: true,
   outputDir: null,
   linkCategory: "cross-seed",
