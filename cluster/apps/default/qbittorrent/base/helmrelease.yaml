@@ -33,7 +33,7 @@ spec:
             restartPolicy: Always
             image:
               repository: mirror.gcr.io/coredns/coredns
-              tag: 1.13.1
+              tag: 1.13.2
             args:
               - -conf
               - /etc/coredns/Corefile
