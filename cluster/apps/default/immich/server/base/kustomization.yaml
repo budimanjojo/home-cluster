@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: default
 resources:
   - ./configmap.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./pvc.yaml
-  - ./secret.sops.yaml
