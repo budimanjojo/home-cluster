@@ -17,7 +17,5 @@ patches:
         spec:
           postBuild:
             substituteFrom:
-              - kind: ConfigMap
-                name: cluster-vars
               - kind: Secret
-                name: cluster-secret-vars
+                name: cluster-vars
