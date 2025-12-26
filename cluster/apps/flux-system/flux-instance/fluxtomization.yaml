@@ -17,5 +17,6 @@ spec:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: FluxInstance
       name: flux
+      namespace: flux-system
   dependsOn:
     - name: flux-operator
