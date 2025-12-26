@@ -3,16 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name flux-instance
-  namespace: &namespace flux-system
+  name: flux-instance
 spec:
+  targetNamespace: flux-system
   interval: 1h
-  retryInterval: 2m
-  timeout: 5m
   prune: true
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
   path: ./cluster/apps/flux-system/flux-instance/base
   sourceRef:
     kind: GitRepository
@@ -22,7 +17,5 @@ spec:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: FluxInstance
       name: flux
-      namespace: *namespace
   dependsOn:
     - name: flux-operator
-      namespace: *namespace

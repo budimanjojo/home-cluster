@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
@@ -8,6 +8,4 @@ components:
   - ../../components/envsubst
 resources:
   - ./flux-instance/fluxtomization.yaml
-  - ./flux-metrics/fluxtomization.yaml
   - ./flux-operator/fluxtomization.yaml
-  - ./flux-webhook/fluxtomization.yaml
