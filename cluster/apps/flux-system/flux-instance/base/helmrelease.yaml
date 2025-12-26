@@ -71,7 +71,7 @@ spec:
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --concurrent=20
-              - op: add
+              - op: replace
                 path: /spec/template/spec/volumes/0
                 value:
                   name: temp
