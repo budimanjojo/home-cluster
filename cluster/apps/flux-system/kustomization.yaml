@@ -7,5 +7,6 @@ components:
   - ../../components/common
   - ../../components/envsubst
 resources:
+  - ./namespace.yaml
   - ./flux-instance/fluxtomization.yaml
   - ./flux-operator/fluxtomization.yaml
