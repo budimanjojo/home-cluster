@@ -3,31 +3,22 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-cluster
+  name: home-cluster-runner
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
   values:
-    controllerServiceAccount:
-      name: actions-runner-controller-gha-rs-controller
-      namespace: actions-runner-system
-    runnerScaleSetName: arc-runner-set-home-cluster
     githubConfigUrl: https://github.com/budimanjojo/home-cluster
+    githubConfigSecret: home-cluster-runner-secret
     minRunners: 1
     maxRunners: 3
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner-system
     containerMode:
       type: dind
-    githubConfigSecret: actions-runner-controller-secret
     template:
       spec:
-        serviceAccountName: home-cluster
+        serviceAccountName: home-cluster-runner

@@ -3,13 +3,13 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: home-cluster
+  name: home-cluster-runner
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone-strict/clusterrole-rbac-v1.json
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: home-cluster
+  name: home-cluster-runner
 rules:
   - apiGroups:
       - apiextensions.k8s.io
@@ -24,14 +24,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: home-cluster
+  name: home-cluster-runner
   labels:
     app.kubernetes.io/name: home-cluster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: home-cluster
+  name: home-cluster-runner
 subjects:
   - kind: ServiceAccount
-    name: home-cluster
+    name: home-cluster-runner
     namespace: actions-runner-system
