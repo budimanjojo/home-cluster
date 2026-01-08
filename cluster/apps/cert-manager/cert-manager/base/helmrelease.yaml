@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager-operator
+spec:
+  interval: 1h
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: cert-manager
+  values:
+    crds:
+      enabled: true
+    dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://9.9.9.11:443/dns-query
+    dns01RecursiveNameserversOnly: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+    webhook:
+      replicaCount: 2
+      podDisruptionBudget:
+        enabled: true

@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: cert-manager
+spec:
+  interval: 15m
+  url: oci://quay.io/jetstack/charts/cert-manager
+  ref:
+    tag: v1.19.2
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
