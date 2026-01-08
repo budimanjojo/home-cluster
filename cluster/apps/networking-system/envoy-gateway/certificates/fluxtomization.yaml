@@ -19,9 +19,6 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: false
-  dependsOn:
-    - name: cert-manager-issuer-domain-0
-      namespace: cert-manager
 
 ---
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
@@ -44,6 +41,3 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: false
-  dependsOn:
-    - name: cert-manager-issuer-domain-1
-      namespace: cert-manager

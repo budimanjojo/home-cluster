@@ -23,6 +23,3 @@ spec:
       kind: HelmRelease
       name: *name
       namespace: *namespace
-  dependsOn:
-    - name: cert-manager-operator
-      namespace: cert-manager

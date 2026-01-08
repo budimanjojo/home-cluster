@@ -24,7 +24,5 @@ spec:
       name: *name
       namespace: *namespace
   dependsOn:
-    - name: cert-manager-operator
-      namespace: cert-manager
     - name: node-feature-discovery
       namespace: kube-system

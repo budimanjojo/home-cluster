@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cert-manager-operator
+  name: cert-manager
 spec:
   interval: 1h
   timeout: 5m
