@@ -20,6 +20,9 @@ spec:
       namespace: cert-manager
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
+      name: domain-0-prod
+    - apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
       name: domain-1-prod
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
