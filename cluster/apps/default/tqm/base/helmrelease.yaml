@@ -43,7 +43,7 @@ spec:
           retag: &container
             image:
               repository: ghcr.io/home-operations/tqm
-              tag: 1.18.0
+              tag: 1.19.0
             args:
               - retag
               - qb
