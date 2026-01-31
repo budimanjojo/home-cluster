@@ -110,7 +110,7 @@ spec:
             - apiGroups:
                 - ""
               resources:
-                - service
+                - services
               verbs:
                 - get
                 - watch
