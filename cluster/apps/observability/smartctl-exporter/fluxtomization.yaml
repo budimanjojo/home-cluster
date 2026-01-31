@@ -5,6 +5,7 @@ kind: Kustomization
 metadata:
   name: smartctl-exporter
 spec:
+  targetNamespace: observability
   interval: 1h
   prune: true
   path: ./cluster/apps/observability/smartctl-exporter/base
