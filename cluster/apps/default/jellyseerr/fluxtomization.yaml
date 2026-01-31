@@ -33,4 +33,4 @@ spec:
     - name: volsync
       namespace: backup-system
     - name: keda
-      namespace: monitoring-system
+      namespace: observability

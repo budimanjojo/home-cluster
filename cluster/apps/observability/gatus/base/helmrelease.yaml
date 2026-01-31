@@ -1,0 +1,144 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gatus
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: gatus
+  values:
+    controllers:
+      gatus:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        initContainers:
+          gatus-sidecar:
+            image:
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.12@sha256:83bf82d422e9b0529a8076cb584d557a12158d9d8a4c373b4d27afcb87a17569
+            args:
+              - --auto-httproute
+              - --enable-httproute
+              - --enable-service
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+            restartPolicy: Always
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/twin/gatus
+              tag: v5.34.0@sha256:3fff895e77d35ee62e898860f4613755bc2344127d93e3f326429d40270e2115
+            env:
+              GATUS_DELAY_START_SECONDS: 5
+              GATUS_CONFIG_PATH: /config
+              GATUS_WEB_PORT: &port 80
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 256Mi
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              storageClass: rook-ceph-block
+              accessMode: ReadWriteOnce
+              size: 5Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+        hostnames: ["status.${SECRET_DOMAIN_1}"]
+        parentRefs:
+          - name: internal
+            namespace: networking-system
+            port: 443
+
+    rbac:
+      roles:
+        gatus:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - service
+              verbs:
+                - get
+                - watch
+                - list
+            - apiGroups:
+                - gateway.networking.k8s.io
+              resources:
+                - gateways
+                - httproutes
+              verbs:
+                - get
+                - watch
+                - list
+      bindings:
+        gatus:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: gatus
+          subjects:
+            - identifier: gatus
+
+    serviceAccount:
+      gatus: {}
+
+    persistence:
+      config-file:
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml

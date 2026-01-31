@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gatus-rules
+spec:
+  groups:
+    - name: gatus.rules
+      rules:
+        - alert: GatusEndpointDown
+          annotations:
+            summary: >-
+              The {{ $labels.name }} endpoint is down
+          expr: |-
+            gatus_results_endpoint_success{group=~"external|services"} == 0
+          for: 5m
+          labels:
+            severity: critical
+
+        - alert: GatusEndpointExposed
+          annotations:
+            summary: >-
+              The {{ $labels.name }} endpoint has a public DNS record and is exposed
+          expr: |-
+            gatus_results_endpoint_success{group="internal"} == 0
+          for: 5m
+          labels:
+            severity: critical

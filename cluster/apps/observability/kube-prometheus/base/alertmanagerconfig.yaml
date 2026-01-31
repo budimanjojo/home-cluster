@@ -1,0 +1,71 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/monitoring.coreos.com/alertmanagerconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager
+spec:
+  route:
+    receiver: discord
+    repeatInterval: 12h
+    routes:
+      - receiver: blackhole
+        matchers:
+          - name: alertname
+            value: InfoInhibitor
+            matchType: =
+      - receiver: blackhole
+        groupInterval: 2m
+        groupWait: 0s
+        repeatInterval: 2m30s
+        matchers:
+          - name: alertname
+            value: Watchdog
+            matchType: =
+      - receiver: discord
+        matchers:
+          - name: severity
+            value: critical
+            matchType: =
+    groupBy:
+      - alertname
+      - cluster
+      - job
+    groupInterval: 5m
+    groupWait: 1m
+
+  inhibitRules:
+    - equal:
+        - alertname
+        - namespace
+      sourceMatch:
+        - name: severity
+          value: critical
+          matchType: =
+      targetMatch:
+        - name: severity
+          value: warning
+          matchType: =
+
+  receivers:
+    - name: blackhole
+    - name: discord
+      discordConfigs:
+        - apiURL:
+            name: alertmanager-secret
+            key: ALERTMANAGER_DISCORD_WH_URL
+          title: |-
+            [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
+          message: |-
+            {{- range .Alerts }}
+              **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }}**
+              {{- if ne .Annotations.description "" }}
+                **Description:** {{ .Annotations.description }}
+              {{- else if ne .Annotations.summary "" }}
+                **Summary:** {{ .Annotations.summary }}
+              {{- else if ne .Annotations.message "" }}
+                **Message:** {{ .Annotations.message }}
+              {{- else }}
+                **Description:** N/A
+              {{- end }}
+            {{- end }}

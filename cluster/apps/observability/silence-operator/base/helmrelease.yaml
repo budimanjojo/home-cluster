@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: silence-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: silence-operator
+  values:
+    alertmanagerAddress: http://kube-prometheus-stack-alertmanager:9093
+    networkPolicy:
+      enabled: false

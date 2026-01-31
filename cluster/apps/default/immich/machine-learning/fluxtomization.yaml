@@ -30,4 +30,4 @@ spec:
     - name: immich-server
       namespace: default
     - name: keda
-      namespace: monitoring-system
+      namespace: observability

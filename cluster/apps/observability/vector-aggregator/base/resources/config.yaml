@@ -1,0 +1,88 @@
+---
+data_dir: /vector-data-dir
+
+api:
+  enabled: true
+  address: 0.0.0.0:8686
+
+enrichment_tables:
+  geoip_table:
+    type: geoip
+    path: /usr/share/GeoIP/GeoLite2-City.mmdb
+
+# Sources
+sources:
+  vyos_syslog:
+    type: syslog
+    mode: tcp
+    address: 0.0.0.0:6000
+
+transforms:
+  # [  118.582832] [WAN-LOCAL-default-D]IN=eth0 OUT= MAC=xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx SRC=xxx.xxx.xxx.xxx DST=xxx.xxx.xxx.xxx LEN=52 TOS=0x00 PREC=0x00 TTL=120 ID=14391 DF PROTO=TCP SPT=63938 DPT=445 WINDOW=8192 RES=0x00 SYN URGP=0
+  vyos_firewall_route:
+    type: route
+    inputs:
+      - vyos_syslog
+    route:
+      firewall: |
+        .facility == "kern" && match!(.message, r'^\[[ \.0-9]+\] \[.+?\].+')
+
+  vyos_firewall_remap:
+    type: remap
+    drop_on_abort: true
+    reroute_dropped: true
+    inputs:
+      - vyos_firewall_route.firewall
+    source: |
+      # Parse firewall rule message
+      split_message, split_err = parse_regex(.message, r'^\[.*\].\[(?P<rule>.+?)\](?P<fields>.*)')
+      if split_err != null {
+        abort
+      }
+      # Extract separate fields from message
+      split_message.fields, split_err = strip_whitespace(split_message.fields)
+      if split_err != null {
+        abort
+      }
+      .message, parse_err = parse_key_value(split_message.fields, whitespace: "strict")
+      if parse_err != null {
+        abort
+      }
+      # Add more information about the triggered rule
+      .message.RULE, parse_err = parse_regex(split_message.rule, r'^(?P<from_zone>\w+)-(?P<to_zone>\w+)-(?P<id>\w+)-(?P<action>\w+)$')
+      if parse_err != null {
+        abort
+      }
+
+  vyos_firewall_wan_route:
+    type: route
+    inputs:
+      - vyos_firewall_remap
+    route:
+      from_wan: .message.RULE.from_zone == "WAN"
+
+  vyos_firewall_geoip_remap:
+    type: remap
+    inputs:
+      - vyos_firewall_wan_route.from_wan
+    source: |
+      .geoip = get_enrichment_table_record!(
+        "geoip_table", {
+          "ip": .message.SRC
+        }
+      )
+
+# Sinks
+sinks:
+  loki_vyos:
+    type: loki
+    inputs:
+      - vyos_firewall_wan_route._unmatched
+      - vyos_firewall_geoip_remap
+      - vyos_firewall_remap.dropped
+    endpoint: http://victoria-logs.observability.svc.cluster.local:9428
+    encoding:
+      codec: json
+    out_of_order_action: rewrite_timestamp
+    labels:
+      hostname: "{{ host }}"

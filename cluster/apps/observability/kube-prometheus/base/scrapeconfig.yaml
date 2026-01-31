@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: node-exporter
+spec:
+  staticConfigs:
+    - targets:
+        - 192.168.200.1:9100
+        - 192.168.200.30:9100
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: node-exporter
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: smartctl-exporter
+spec:
+  staticConfigs:
+    - targets:
+        - 192.168.200.30:9633
+        - 192.168.50.49:9633
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: smartctl-exporter

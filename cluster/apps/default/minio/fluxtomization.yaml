@@ -25,11 +25,9 @@ spec:
     namespace: flux-system
   wait: true
   dependsOn:
-    - name: kube-prometheus-crds
-      namespace: monitoring-system
     - name: envoy-gateway-operator
       namespace: networking-system
     - name: csi-driver-nfs
       namespace: nfs-system
     - name: keda
-      namespace: monitoring-system
+      namespace: observability

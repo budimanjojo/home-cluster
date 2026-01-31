@@ -1,0 +1,104 @@
+---
+metrics: true
+
+alerting:
+  discord:
+    webhook-url: ${DISCORD_WEBHOOK_URL}
+    default-alert:
+      description: "healthcheck failed"
+      failure-threshold: 3
+      minimum-reminder-interval: 1h
+      send-on-resolved: true
+      success-threshold: 2
+    title: Gatus
+
+connectivity:
+  checker:
+    target: 1.1.1.1:53
+    interval: 1m
+
+ui:
+  title: Status | Gatus
+  header: Status
+  logo: https://avatars.githubusercontent.com/u/13085918
+  link: https://github.com/budimanjojo
+  buttons:
+    - name: Github
+      link: https://github.com/budimanjojo
+    - name: Homelab
+      link: https://github.com/budimanjojo/home-cluster
+
+web:
+  port: ${GATUS_WEB_PORT}
+
+storage:
+  type: sqlite
+  caching: true
+  path: ${GATUS_CONFIG_PATH}/gatus.db
+
+endpoints:
+  - name: Cloudflare
+    group: connectivity
+    url: icmp://1.1.1.1
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: Google
+    group: connectivity
+    url: icmp://8.8.8.8
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: Quad9
+    group: connectivity
+    url: icmp://9.9.9.9
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: home-dns
+    group: connectivity
+    url: 192.168.10.1
+    interval: 1m
+    dns:
+      query-name: "${INTERNAL_DOMAIN}"
+      query-type: "A"
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+      - "[BODY] == 192.168.15.20"
+
+  - name: firewall
+    group: infrastructure
+    url: "icmp://192.168.200.1"
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: NAS
+    group: infrastructure
+    url: "icmp://192.168.200.30"
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: talos-apiserver
+    group: infrastructure
+    url: "tcp://192.168.200.20:6443"
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: kmaster1
+    group: infrastructure
+    url: "icmp://192.168.200.21"
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: kmaster2
+    group: infrastructure
+    url: "icmp://192.168.200.22"
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+  - name: kmaster3
+    group: infrastructure
+    url: "icmp://192.168.200.23"
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"

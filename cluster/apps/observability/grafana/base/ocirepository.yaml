@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: grafana-operator
+spec:
+  interval: 15m
+  url: oci://ghcr.io/grafana/helm-charts/grafana-operator
+  ref:
+    tag: 5.21.4
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy

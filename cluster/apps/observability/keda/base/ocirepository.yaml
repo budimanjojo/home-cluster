@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: keda
+spec:
+  interval: 15m
+  url: oci://ghcr.io/home-operations/charts-mirror/keda
+  ref:
+    tag: 2.18.3
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy

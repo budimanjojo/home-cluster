@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: observability
+components:
+  - ../../components/alerts
+  - ../../components/envsubst
+resources:
+  - ./namespace.yaml
+  - ./blackbox-exporter/fluxtomization.yaml
+  - ./gatus/fluxtomization.yaml
+  - ./grafana/fluxtomization.yaml
+  - ./keda/fluxtomization.yaml
+  - ./kube-prometheus/fluxtomization.yaml
+  - ./silence-operator/fluxtomization.yaml
+  - ./smartctl-exporter/fluxtomization.yaml
+  - ./vector-aggregator/fluxtomization.yaml
+  - ./victoria-logs/fluxtomization.yaml
