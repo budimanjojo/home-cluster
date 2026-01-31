@@ -5,6 +5,7 @@ kind: Kustomization
 metadata:
   name: vector-aggregator
 spec:
+  targetNamespace: observability
   interval: 1h
   prune: true
   path: ./cluster/apps/observability/vector-aggregator/base
