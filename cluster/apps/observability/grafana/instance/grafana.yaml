@@ -30,6 +30,7 @@ spec:
     server:
       enable_gzip: "true"
       root_url: https://dashboard.${SECRET_DOMAIN_0}
+  disableDefaultAdminSecret: true
   deployment:
     spec:
       strategy:
