@@ -12,7 +12,7 @@ resources:
   - ./gatus/fluxtomization.yaml
   - ./grafana/fluxtomization.yaml
   - ./keda/fluxtomization.yaml
-  - ./kube-prometheus/fluxtomization.yaml
+  - ./kube-prometheus-stack/fluxtomization.yaml
   - ./silence-operator/fluxtomization.yaml
   - ./smartctl-exporter/fluxtomization.yaml
   - ./vector-aggregator/fluxtomization.yaml
