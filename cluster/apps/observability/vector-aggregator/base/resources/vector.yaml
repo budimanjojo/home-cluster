@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://www.schemastore.org/vector.json
 data_dir: /vector-data-dir
 
 api:

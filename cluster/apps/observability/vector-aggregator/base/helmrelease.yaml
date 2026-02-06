@@ -30,7 +30,7 @@ spec:
               tag: 0.52.0-alpine
             args:
               - --config
-              - /etc/vector/config.yaml
+              - /etc/vector/vector.yaml
             probes:
               startup:
                 enabled: true
@@ -78,8 +78,8 @@ spec:
         advancedMounts:
           vector-aggregator:
             main:
-              - path: /etc/vector/config.yaml
-                subPath: config.yaml
+              - path: /etc/vector/vector.yaml
+                subPath: vector.yaml
                 readOnly: true
       data:
         enabled: true
