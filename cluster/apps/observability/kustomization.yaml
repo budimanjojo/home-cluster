@@ -9,6 +9,7 @@ components:
 resources:
   - ./namespace.yaml
   - ./blackbox-exporter/fluxtomization.yaml
+  - ./fluent-bit/fluxtomization.yaml
   - ./gatus/fluxtomization.yaml
   - ./grafana/fluxtomization.yaml
   - ./keda/fluxtomization.yaml
