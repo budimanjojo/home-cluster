@@ -17,7 +17,7 @@ env:
 jobs:
   main:
     name: Publish Kubernetes schemas
-    runs-on: arc-runner-set-home-cluster
+    runs-on: home-cluster-runner
     permissions:
       contents: read
       packages: write
