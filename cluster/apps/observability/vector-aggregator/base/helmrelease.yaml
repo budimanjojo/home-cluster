@@ -27,7 +27,7 @@ spec:
           main:
             image:
               repository: ghcr.io/vectordotdev/vector
-              tag: 0.52.0-alpine
+              tag: 0.53.0-alpine
             args:
               - --config
               - /etc/vector/vector.yaml
