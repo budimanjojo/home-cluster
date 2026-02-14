@@ -62,8 +62,8 @@ spec:
       main:
         hostnames: ["ldap.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: internal
-            namespace: networking-system
+          - name: envoy-internal
+            namespace: network
             port: 443
         rules:
           - backendRefs:

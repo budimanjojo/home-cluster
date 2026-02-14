@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: fullykioskbrowser
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 2323
+      targetPort: 2323
+  type: ClusterIP
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/endpoints-v1.json
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: fullykioskbrowser
+subsets:
+  - addresses:
+      - ip: 192.168.50.40
+    ports:
+      - name: http
+        port: 2323
+        protocol: TCP
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fullykioskbrowser
+spec:
+  hostnames: ["fully.${SECRET_DOMAIN_0}"]
+  parentRefs:
+    - name: envoy-internal
+      namespace: network
+  rules:
+    - backendRefs:
+        - name: fullykioskbrowser
+          port: 2323

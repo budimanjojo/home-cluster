@@ -119,9 +119,8 @@ spec:
       main:
         hostnames: ["money.${SECRET_DOMAIN_1}"]
         parentRefs:
-          - name: external
-            namespace: networking-system
-            port: 443
+          - name: envoy-external
+            namespace: network
         rules:
           - backendRefs:
               - name: firefly-iii

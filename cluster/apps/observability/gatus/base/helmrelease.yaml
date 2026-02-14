@@ -98,9 +98,8 @@ spec:
           gatus.home-operations.com/enabled: "false"
         hostnames: ["status.${SECRET_DOMAIN_1}"]
         parentRefs:
-          - name: internal
-            namespace: networking-system
-            port: 443
+          - name: envoy-internal
+            namespace: network
 
     rbac:
       roles:

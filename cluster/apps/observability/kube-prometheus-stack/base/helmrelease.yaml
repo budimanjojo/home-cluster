@@ -19,9 +19,8 @@ spec:
           hostnames:
             - alertmanager.${SECRET_DOMAIN_0}
           parentRefs:
-            - name: internal
-              namespace: networking-system
-              sectionName: https-0
+            - name: envoy-internal
+              namespace: network
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
@@ -48,9 +47,8 @@ spec:
           enabled: true
           hostnames: ["prom.${SECRET_DOMAIN_0}"]
           parentRefs:
-            - name: internal
-              namespace: networking-system
-              sectionName: https-0
+            - name: envoy-internal
+              namespace: network
       prometheusSpec:
         externalUrl: https://prom.${SECRET_DOMAIN_0}
         podMonitorSelectorNilUsesHelmValues: false

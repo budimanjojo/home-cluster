@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguardhome
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: http
+  type: ClusterIP
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.26.1-standalone-strict/endpoints-v1.json
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: adguardhome
+subsets:
+  - addresses:
+      - ip: 192.168.10.1
+    ports:
+      - name: http
+        port: 3000
+        protocol: TCP
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: adguardhome
+spec:
+  hostnames: ["adguard.${SECRET_DOMAIN_0}"]
+  parentRefs:
+    - name: envoy-internal
+      namespace: network
+  rules:
+    - backendRefs:
+        - name: adguardhome
+          port: 3000

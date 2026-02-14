@@ -1,0 +1,9 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./adguardhome.yaml
+  - ./fullykioskbrowser.yaml
+  - ./incus.yaml
+  - ./omada-controller.yaml

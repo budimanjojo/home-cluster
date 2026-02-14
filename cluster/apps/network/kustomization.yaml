@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: network
+components:
+  - ../../components/alerts
+  - ../../components/envsubst
+resources:
+  - ./namespace.yaml
+  - ./adguardhome-dns/fluxtomization.yaml
+  - ./cloudflare-dns/fluxtomization.yaml
+  - ./cloudflare-tunnel/fluxtomization.yaml
+  - ./echo/fluxtomization.yaml
+  - ./envoy-gateway/fluxtomization.yaml
+  - ./external-services/fluxtomization.yaml

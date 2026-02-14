@@ -58,9 +58,8 @@ spec:
       main:
         hostnames: ["homepage.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: internal
-            namespace: networking-system
-            port: 443
+          - name: envoy-internal
+            namespace: network
         rules:
           - backendRefs:
               - name: homepage

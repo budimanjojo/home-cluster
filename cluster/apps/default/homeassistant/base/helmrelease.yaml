@@ -66,9 +66,8 @@ spec:
       main:
         hostnames: ["home.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: external
-            namespace: networking-system
-            port: 443
+          - name: envoy-external
+            namespace: network
         rules:
           - backendRefs:
               - name: homeassistant

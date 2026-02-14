@@ -65,9 +65,8 @@ spec:
       main:
         hostnames: ["jellyseerr.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: internal
-            namespace: networking-system
-            port: 443
+          - name: envoy-internal
+            namespace: network
     persistence:
       config:
         existingClaim: jellyseerr

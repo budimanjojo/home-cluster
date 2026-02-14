@@ -78,9 +78,8 @@ spec:
       main:
         hostnames: [ "zigbee.${SECRET_DOMAIN_0}" ]
         parentRefs:
-          - name: internal
-            namespace: networking-system
-            port: 443
+          - name: envoy-internal
+            namespace: network
         rules:
           - backendRefs:
               - name: zigbee2mqtt

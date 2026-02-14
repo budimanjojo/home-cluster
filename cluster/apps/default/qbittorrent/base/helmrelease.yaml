@@ -115,9 +115,8 @@ spec:
       main:
         hostnames: ["qbit.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: internal
-            namespace: networking-system
-            port: 443
+          - name: envoy-internal
+            namespace: network
         rules:
           - backendRefs:
               - name: qbittorrent

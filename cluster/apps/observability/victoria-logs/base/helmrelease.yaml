@@ -22,9 +22,8 @@ spec:
         hostnames:
           - victoria-logs.${SECRET_DOMAIN_0}
         parentRefs:
-          - name: internal
-            namespace: networking-system
-            sectionName: https-0
+          - name: envoy-internal
+            namespace: network
         extraRules:
           - filters:
               - type: RequestRedirect

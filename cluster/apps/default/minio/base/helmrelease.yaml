@@ -68,9 +68,8 @@ spec:
       main:
         hostnames: ["minio.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: external
-            namespace: networking-system
-            port: 443
+          - name: envoy-external
+            namespace: network
         rules:
           - backendRefs:
               - name: minio
@@ -78,9 +77,8 @@ spec:
       s3:
         hostnames: ["s3.${SECRET_DOMAIN_0}"]
         parentRefs:
-          - name: external
-            namespace: networking-system
-            port: 443
+          - name: envoy-external
+            namespace: network
         rules:
           - backendRefs:
               - name: minio
