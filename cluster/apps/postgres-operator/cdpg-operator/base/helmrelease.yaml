@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://registry.developers.crunchydata.com/crunchydata/pgo
   ref:
-    tag: 5.8.5
+    tag: 6.0.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
