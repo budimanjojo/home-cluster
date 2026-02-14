@@ -9,7 +9,7 @@ spec:
   timeout: 60s
   url: oci://ghcr.io/home-operations/charts-mirror/cilium
   ref:
-    tag: 1.18.4
+    tag: 1.18.6
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
