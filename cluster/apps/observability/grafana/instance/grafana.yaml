@@ -30,7 +30,6 @@ spec:
     server:
       enable_gzip: "true"
       root_url: https://dashboard.${SECRET_DOMAIN_0}
-  disableDefaultAdminSecret: true
   deployment:
     spec:
       strategy:
@@ -39,9 +38,17 @@ spec:
         spec:
           containers:
             - name: grafana
-              envFrom:
-                - secretRef:
-                    name: grafana-admin-password-secret
+              env:
+                - name: GF_SECURITY_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_USER
+                      name: &secret grafana-admin-password-secret
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_PASSWORD
+                      name: *secret
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
