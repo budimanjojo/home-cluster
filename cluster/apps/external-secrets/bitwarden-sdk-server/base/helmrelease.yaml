@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: bitwarden-sdk-server
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: bitwarden-sdk-server
+  values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: bitwarden-sdk-server-cert,bitwarden-sdk-server-secret
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+    tls:
+      secretName: bitwarden-sdk-server-cert
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities: {drop: ["ALL"]}
