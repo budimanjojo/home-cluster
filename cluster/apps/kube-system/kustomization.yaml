@@ -16,5 +16,6 @@ resources:
   - ./k8tz/fluxtomization.yaml
   - ./kubernetes-replicator/fluxtomization.yaml
   - ./metrics-server/fluxtomization.yaml
+  - ./node-feature-discovery/fluxtomization.yaml
   - ./reloader/fluxtomization.yaml
   - ./snapshot-controller/fluxtomization.yaml
