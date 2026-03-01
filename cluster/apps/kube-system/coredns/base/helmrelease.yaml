@@ -60,7 +60,7 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: node-role.kubernetes.io/controlplane
+                - key: node-role.kubernetes.io/control-plane
                   operator: Exists
 
     tolerations:
