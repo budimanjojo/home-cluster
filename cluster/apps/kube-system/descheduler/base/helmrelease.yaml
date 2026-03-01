@@ -46,7 +46,7 @@ spec:
                   - Terminated
                   - UnexpectedAdmissionError
                 includingInitContainers: true
-                ExcludeOwnerKinds:
+                excludeOwnerKinds:
                   - Job
                 minPodLifetimeSeconds: 1800
             - name: RemovePodsViolatingInterPodAntiAffinity
