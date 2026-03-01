@@ -35,12 +35,13 @@ spec:
               repository: ghcr.io/jellyfin/jellyfin
               tag: 10.11.5
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 15m
                 memory: 866Mi
               limits:
                 memory: 1390Mi
-                gpu.intel.com/i915: 1
             probes:
               startup:
                 enabled: true
@@ -51,6 +52,10 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin
     service:
       main:
         controller: jellyfin

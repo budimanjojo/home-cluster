@@ -24,6 +24,15 @@ patches:
       udev:
         rules:
           - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", OWNER="1000", GROUP="1000"
+  - |-
+    machine:
+      files:
+        - op: create
+          path: /etc/cri/conf.d/20-customization.part
+          content: |
+            [plugins."io.containerd.cri.v1.runtime"]
+              cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
+              device_ownership_from_security_context = true
 nodes:
   - hostname: kmaster1
     ipAddress: 192.168.200.21
@@ -87,10 +96,6 @@ controlPlane:
   patches:
     - |-
       - op: add
-        path: /machine/kubelet/extraArgs
-        value:
-          rotate-server-certificates: "true"
-      - op: add
         path: /cluster/apiServer/extraArgs
         value:
           feature-gates: MutatingAdmissionPolicy=true
@@ -122,11 +127,6 @@ worker:
           - siderolabs/intel-ucode
           - siderolabs/i915-ucode
   patches:
-    - |-
-      - op: add
-        path: /machine/kubelet/extraArgs
-        value:
-          rotate-server-certificates: "true"
     - |-
       machine:
         time:

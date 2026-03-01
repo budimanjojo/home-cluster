@@ -1,19 +1,4 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
-  name: kubernetes-replicator
-spec:
-  interval: 30m
-  timeout: 60s
-  url: oci://ghcr.io/home-operations/charts-mirror/kubernetes-replicator
-  ref:
-    tag: 2.12.2
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
----
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -21,14 +6,12 @@ metadata:
   name: kubernetes-replicator
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
     name: kubernetes-replicator
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+  values:
+    securityContext:
+      capabilities: {drop: ["ALL"]}
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000

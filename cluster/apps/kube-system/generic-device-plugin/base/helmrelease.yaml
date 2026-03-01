@@ -9,14 +9,7 @@ spec:
   timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: generic-device-plugin
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical

@@ -1,20 +1,20 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/kustomization.json
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kube-system
 components:
-  - ../../components/common
+  - ../../components/alerts
   - ../../components/envsubst
 resources:
-  - ./cilium/lb-networks/fluxtomization.yaml
-  - ./cilium/operator/fluxtomization.yaml
+  - ./namespace.yaml
+  - ./cilium/fluxtomization.yaml
+  - ./coredns/fluxtomization.yaml
+  - ./descheduler/fluxtomization.yaml
   - ./generic-device-plugin/fluxtomization.yaml
-  - ./intel-device-plugins/operator/fluxtomization.yaml
-  - ./intel-device-plugins/gpu/fluxtomization.yaml
+  - ./intel-gpu-resource-driver/fluxtomization.yaml
   - ./k8tz/fluxtomization.yaml
-  - ./kubelet-csr-approver/fluxtomization.yaml
   - ./kubernetes-replicator/fluxtomization.yaml
   - ./metrics-server/fluxtomization.yaml
-  - ./node-feature-discovery/fluxtomization.yaml
+  - ./reloader/fluxtomization.yaml
   - ./snapshot-controller/fluxtomization.yaml

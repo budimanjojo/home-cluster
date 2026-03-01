@@ -1,19 +1,4 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
-  name: snapshot-controller
-spec:
-  interval: 30m
-  timeout: 60s
-  url: oci://ghcr.io/piraeusdatastore/helm-charts/snapshot-controller
-  ref:
-    tag: 4.2.0
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
----
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -21,28 +6,12 @@ metadata:
   name: snapshot-controller
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
     name: snapshot-controller
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 5
   values:
     controller:
-      volumeSnapshotClasses:
-        - name: rook-ceph-block
-          driver: rook-ceph.rbd.csi.ceph.com
-          annotations:
-            snapshot.storage.kubernetes.io/is-default-class: "true"
-          parameters:
-            clusterID: rook-ceph
-            csi.storage.k8s.io/snapshotter-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/snapshotter-secret-namespace: rook-ceph
-          deletionPolicy: Delete
+      serviceMonitor:
+        create: true
+      webhook:
+        enabled: false

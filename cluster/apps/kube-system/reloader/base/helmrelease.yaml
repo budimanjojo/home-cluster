@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name reloader
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: reloader
+  values:
+    fullnameOverride: *name
+    reloader:
+      enableHA: true
+      deployment:
+        replicas: 1
+        readOnlyRootFileSystem: true
+        podMonitor:
+          enabled: true
+          namespace: "{{ .Release.Namespace }}"
