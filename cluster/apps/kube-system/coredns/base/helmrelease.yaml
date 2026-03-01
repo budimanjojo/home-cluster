@@ -68,4 +68,4 @@ spec:
         operator: Exists
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
-        affect: NoSchedule
+        effect: NoSchedule
