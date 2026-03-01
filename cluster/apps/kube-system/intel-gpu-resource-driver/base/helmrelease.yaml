@@ -10,6 +10,8 @@ spec:
     kind: OCIRepository
     name: intel-gpu-resource-driver
   values:
+    nodeFeatureRules:
+      enabled: true
     cdi:
       staticPath: /var/cdi/static
       dynamicPath: /var/cdi/dynamic
