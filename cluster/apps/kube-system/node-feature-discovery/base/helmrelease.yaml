@@ -8,4 +8,4 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: reloader
+    name: node-feature-discovery
