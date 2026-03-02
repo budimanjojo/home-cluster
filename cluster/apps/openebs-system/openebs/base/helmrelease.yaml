@@ -1,19 +1,4 @@
 ---
-# yaml-language-server: $schema=https://schemas.budimanjojo.com/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
-  name: openebs
-spec:
-  interval: 30m
-  timeout: 60s
-  url: oci://ghcr.io/home-operations/charts-mirror/openebs
-  ref:
-    tag: 4.4.0
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
----
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -21,22 +6,16 @@ metadata:
   name: openebs
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
     name: openebs
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
   values:
+    preUpgradeHook:
+      enabled: false
     localpv-provisioner:
+      analytics:
+        enabled: false
       localpv:
-        enabled: true
         image:
           registry: quay.io/
         basePath: &hostPath /var/openebs/local
@@ -45,16 +24,23 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: *hostPath
+      helperPod:
+        image:
+          registry: quay.io/
     openebs-crds:
       csi:
         volumeSnapshots:
           enabled: false
           keep: false
+    zfs-localpv:
+      enabled: false
+    mayastor:
+      enabled: false
     engines:
       local:
-        zfs:
-          enabled: false
         lvm:
+          enabled: false
+        zfs:
           enabled: false
       replicated:
         mayastor:
