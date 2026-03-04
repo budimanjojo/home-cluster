@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  prune: true
+  prune: false
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
