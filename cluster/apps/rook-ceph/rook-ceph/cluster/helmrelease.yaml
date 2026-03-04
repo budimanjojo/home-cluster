@@ -105,7 +105,7 @@ spec:
     cephFileSystems:
       - name: rook-ceph-filesystem
         spec:
-          metdataPool:
+          metadataPool:
             replicated:
               size: 3
           dataPools:
