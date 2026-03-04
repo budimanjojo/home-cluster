@@ -26,7 +26,5 @@ spec:
   dependsOn:
     - name: minio
       namespace: default
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
     - name: snapshot-controller
       namespace: kube-system
