@@ -30,10 +30,7 @@ spec:
       network:
         connections:
           requireMsgr2: true
-      resources:
-        osd:
-          limits:
-            memory: 8Gi # required for bootstrap
+      resources: null # my weak cluster can't handle this
       storage:
         useAllNodes: false
         useAllDevices: false
