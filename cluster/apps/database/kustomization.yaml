@@ -7,3 +7,4 @@ components:
   - ../../components/alerts
 resources:
   - ./namespace.yaml
+  - ./cloudnative-pg/fluxtomization.yaml
