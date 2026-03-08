@@ -8,3 +8,4 @@ components:
 resources:
   - ./namespace.yaml
   - ./cloudnative-pg/fluxtomization.yaml
+  - ./cnpg-i-barman-cloud/fluxtomization.yaml
