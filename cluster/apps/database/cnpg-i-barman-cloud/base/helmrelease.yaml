@@ -9,3 +9,5 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cnpg-i-barman-cloud
+  values:
+    fullnameOverride: cnpg-i-barman-cloud
