@@ -6,7 +6,6 @@ metadata:
   name: cloudflare-tunnel
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
     name: cloudflare-tunnel

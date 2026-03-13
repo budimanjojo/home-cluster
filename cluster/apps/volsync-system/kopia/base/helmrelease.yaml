@@ -1,0 +1,115 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kopia
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: kopia
+  values:
+    controllers:
+      kopia:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/kopia
+              tag: 0.22.3@sha256:17ab64542280197a5368247deaefadc3e3bbe15714ab666c2455a06824e86efd
+            env:
+              KOPIA_WEB_ENABLED: true
+              KOPIA_WEB_PORT: &port 80
+            envFrom:
+              - secretRef:
+                  name: kopia-secret
+            args:
+              - --without-password
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN_0}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+
+    configMaps:
+      config:
+        data:
+          repository.config: |-
+            {
+              "storage": {
+                "type": "filesystem",
+                "config": {
+                  "path": "/repository"
+                }
+              },
+              "hostname": "volsync.{{ .Release.Namespace }}.svc.cluster.local",
+              "username": "volsync",
+              "description": "volsync",
+              "enableActions": false
+            }
+
+    persistence:
+      config-file:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /config/repository.config
+            subPath: repository.config
+      repository:
+        type: nfs
+        server: 192.168.200.30
+        path: /Kubernetes-Volumes/Kopia
+        globalMounts:
+          - path: /repository
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          kopia:
+            app:
+              - path: /config/cache
+                subPath: cache
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
