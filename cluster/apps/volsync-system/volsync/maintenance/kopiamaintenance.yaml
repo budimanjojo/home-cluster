@@ -10,3 +10,9 @@ spec:
     schedule: 30 3,15 * * *
   repository:
     repository: volsync-maintenance-secret
+  moverVolumes:
+    - mountPath: repository
+      volumeSource:
+        nfs:
+          path: /Kubernetes-Volumes/Kopia
+          server: 192.168.200.30
