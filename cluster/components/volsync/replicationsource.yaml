@@ -7,22 +7,26 @@ metadata:
 spec:
   sourcePVC: ${APP}
   trigger:
-    schedule: 0 0 * * *
-  restic:
-    copyMethod: ${VOLSYNC_COPYMETHOD:=Snapshot}
-    pruneIntervalDays: 10
-    repository: ${APP}-volsync-secret
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=rook-ceph-block}
-    cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=1Gi}
-    cacheStorageClassName: nfs-csi # this makes more sense for me because I don't need to worry about the size and I can use ReadWriteMany
-    cacheAccessModes:
-      - ReadWriteMany
-    storageClassName: ${VOLSYNC_STORAGECLASS:=rook-ceph-block}
+    schedule: 0 */12 * * *
+  kopia:
     accessModes:
       - ${VOLSYNC_ACCESSMODE:=ReadWriteOnce}
+    compression: zstd-fastest
+    copyMethod: Snapshot
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}
       fsGroup: ${VOLSYNC_PGID:=1000}
+    moverVolumes:
+      - mountPath: repository
+        volumeSource:
+          nfs:
+            path: /Kubernetes-Volumes/Kopia
+            server: 192.168.200.30
+    parallelism: 2
+    repository: ${APP}-volsync-secret
     retain:
-      daily: 10
+      hourly: 24
+      daily: 7
+    storageClassName: ${VOLSYNC_STORAGECLASS:=rook-ceph-block}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=rook-ceph-block}
