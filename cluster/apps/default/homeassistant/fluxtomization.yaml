@@ -32,4 +32,4 @@ spec:
     - name: csi-driver-nfs
       namespace: nfs-system
     - name: volsync
-      namespace: backup-system
+      namespace: volsync-system

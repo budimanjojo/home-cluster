@@ -30,4 +30,4 @@ spec:
     - name: shared-postgrescluster-pgo-cluster
       namespace: default
     - name: volsync
-      namespace: backup-system
+      namespace: volsync-system
