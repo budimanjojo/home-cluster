@@ -14,8 +14,6 @@ spec:
     name: flux-system
     namespace: flux-system
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
     - name: snapshot-controller
       namespace: kube-system
   wait: true
