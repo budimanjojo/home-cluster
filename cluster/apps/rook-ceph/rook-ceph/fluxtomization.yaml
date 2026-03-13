@@ -46,4 +46,4 @@ spec:
   dependsOn:
     - name: rook-ceph
     - name: volsync
-      namespace: backup-system
+      namespace: volsync-system
