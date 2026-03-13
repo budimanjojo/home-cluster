@@ -13,7 +13,7 @@ spec:
     - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
-      APP_NAME: kopia
+      APP: kopia
   sourceRef:
     kind: GitRepository
     name: flux-system

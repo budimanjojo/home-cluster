@@ -18,7 +18,7 @@ spec:
     - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
-      APP_NAME: *name
+      APP: *name
       DEPLOY_TYPE: StatefulSet
   path: ./cluster/apps/default/qbittorrent/base
   sourceRef:

@@ -3,7 +3,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: ${APP_NAME}
+  name: ${APP}
 spec:
   advanced:
     restoreToOriginalReplicaCount: true
@@ -12,7 +12,7 @@ spec:
   maxReplicaCount: 1
   scaleTargetRef:
     apiVersion: apps/v1
-    name: ${APP_NAME}
+    name: ${APP}
     kind: ${DEPLOY_TYPE:=Deployment}
   triggers:
     - type: prometheus

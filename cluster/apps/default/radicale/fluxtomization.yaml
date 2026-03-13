@@ -17,7 +17,7 @@ spec:
     - ../../../../components/volsync
   postBuild:
     substitute:
-      APP_NAME: *name
+      APP: *name
   path: ./cluster/apps/default/radicale/base
   sourceRef:
     kind: GitRepository

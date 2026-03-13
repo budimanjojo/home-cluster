@@ -19,7 +19,7 @@ spec:
     - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
-      APP_NAME: *name
+      APP: *name
       VOLSYNC_PUID: "1000"
       VOLSYNC_PGID: "1000"
   path: ./cluster/apps/default/bazarr/base

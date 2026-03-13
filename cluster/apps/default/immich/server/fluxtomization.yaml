@@ -19,7 +19,7 @@ spec:
     - ../../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
-      APP_NAME: *name
+      APP: *name
   path: ./cluster/apps/default/immich/server/base
   sourceRef:
     kind: GitRepository

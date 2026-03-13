@@ -18,7 +18,7 @@ spec:
     - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
-      APP_NAME: *name
+      APP: *name
       VOLSYNC_CAPACITY: 3Gi
   path: ./cluster/apps/default/jellyfin/base
   sourceRef:

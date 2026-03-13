@@ -3,15 +3,15 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ${APP_NAME}
+  name: ${APP}
 spec:
-  sourcePVC: ${APP_NAME}
+  sourcePVC: ${APP}
   trigger:
     schedule: 0 0 * * *
   restic:
     copyMethod: ${VOLSYNC_COPYMETHOD:=Snapshot}
     pruneIntervalDays: 10
-    repository: ${APP_NAME}-volsync-secret
+    repository: ${APP}-volsync-secret
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=rook-ceph-block}
     cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=1Gi}
     cacheStorageClassName: nfs-csi # this makes more sense for me because I don't need to worry about the size and I can use ReadWriteMany

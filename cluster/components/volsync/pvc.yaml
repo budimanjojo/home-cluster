@@ -3,14 +3,14 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ${APP_NAME}
+  name: ${APP}
 spec:
   accessModes:
     - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
   dataSourceRef:
     apiGroup: volsync.backube
     kind: ReplicationDestination
-    name: ${APP_NAME}-dst
+    name: ${APP}-dst
   resources:
     requests:
       storage: ${VOLSYNC_CAPACITY:=1Gi}
