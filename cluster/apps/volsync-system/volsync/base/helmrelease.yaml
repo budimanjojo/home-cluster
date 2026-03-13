@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: volsync
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: volsync
+  values:
+    fullnameOverride: volsync # required for volsync-perfectra1n fork
+    image: &image
+      repository: ghcr.io/perfectra1n/volsync
+      tag: v0.17.11
+    kopia: *image
+    rclone: *image
+    restic: *image
+    rsync: *image
+    rsync-tls: *image
+    syncthing: *image
+    manageCRDs: true
+    metrics:
+      disableAuth: true
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000

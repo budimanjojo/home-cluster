@@ -9,3 +9,4 @@ components:
 resources:
   - ./namespace.yaml
   - ./kopia/fluxtomization.yaml
+  - ./volsync/fluxtomization.yaml
