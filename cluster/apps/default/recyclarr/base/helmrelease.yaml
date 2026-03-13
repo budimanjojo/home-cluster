@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/recyclarr/recyclarr
-              tag: 7.5.2
+              tag: 8.5.0
             resources:
               requests:
                 cpu: 10m
