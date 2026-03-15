@@ -15,14 +15,15 @@ patches:
           name: not-used
         spec:
           postRenderers:
-            patches:
-              - target:
-                  group: gateway.networking.k8s.io
-                  kind: HTTPRoute
-                patch:
-                  - op: add
-                    path: /metadata/annotations
-                    value:
-                      gatus.home-operations.com/endpoint: |-
-                        conditions:
-                          - "[STATUS] == any(401, 403)"
+            - kustomize:
+                patches:
+                  - target:
+                      group: gateway.networking.k8s.io
+                      kind: HTTPRoute
+                    patch:
+                      - op: add
+                        path: /metadata/annotations
+                        value:
+                          gatus.home-operations.com/endpoint: |-
+                            conditions:
+                              - "[STATUS] == any(401, 403)"
