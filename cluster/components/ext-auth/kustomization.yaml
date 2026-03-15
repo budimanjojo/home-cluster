@@ -20,7 +20,7 @@ patches:
                   - target:
                       group: gateway.networking.k8s.io
                       kind: HTTPRoute
-                    patch:
+                    patch: |
                       - op: add
                         path: /metadata/annotations
                         value:
