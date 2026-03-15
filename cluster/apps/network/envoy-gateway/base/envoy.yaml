@@ -100,8 +100,6 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname internal.${SECRET_DOMAIN_1}
     gatus.home-operations.com/endpoint: |-
-      client:
-        dns-resolver: tcp://192.168.10.1:53
       group: internal
       guarded: true
       ui:
