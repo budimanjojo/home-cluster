@@ -4,3 +4,25 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
   - ./authentication.yaml
+patches:
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      kind: Kustomization
+    patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: not-used
+        spec:
+          postRenderers:
+            patches:
+              - target:
+                  group: gateway.networking.k8s.io
+                  kind: HTTPRoute
+                patch:
+                  - op: add
+                    path: /metadata/annotations
+                    value:
+                      gatus.home-operations.com/endpoint: |-
+                        conditions:
+                          - "[STATUS] == any(401, 403)"
