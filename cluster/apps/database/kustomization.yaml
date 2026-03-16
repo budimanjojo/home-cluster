@@ -9,3 +9,4 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/fluxtomization.yaml
   - ./cnpg-i-barman-cloud/fluxtomization.yaml
+  - ./dragonfly-operator/fluxtomization.yaml
