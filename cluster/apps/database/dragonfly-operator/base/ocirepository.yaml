@@ -6,9 +6,9 @@ metadata:
   name: dragonfly-operator
 spec:
   interval: 15m
-  url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm
+  url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm/dragonfly-operator
   ref:
-    tag: 1.4.0
+    tag: v1.4.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
