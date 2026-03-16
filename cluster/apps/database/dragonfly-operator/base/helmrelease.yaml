@@ -30,5 +30,5 @@ spec:
               kind: GrafanaDashboard
               group: grafana.integreatly.org
             patch: |
-              op: remove
-              path: /spec/instanceSelector/matchLabels/dashboards
+              - op: remove
+                path: /spec/instanceSelector/matchLabels/dashboards
