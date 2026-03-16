@@ -21,3 +21,14 @@ spec:
         repository: ghcr.io/dragonflydb/operator
     serviceMonitor:
       enabled: true
+  # TODO: the default value needs to be removed
+  # ref: https://github.com/dragonflydb/dragonfly-operator/issues/484
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: GrafanaDashboard
+              group: grafana.integreatly.org
+            patch: |
+              op: remove
+              path: /spec/instanceSelector/matchLabels/dashboards
