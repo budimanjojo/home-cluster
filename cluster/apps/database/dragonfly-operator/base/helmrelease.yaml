@@ -19,6 +19,8 @@ spec:
     manager:
       image:
         repository: ghcr.io/dragonflydb/operator
+    rbacProxy:
+      enabled: false
     serviceMonitor:
       enabled: true
   # TODO: the default value needs to be removed
