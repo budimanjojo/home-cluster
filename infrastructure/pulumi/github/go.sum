@@ -613,6 +613,8 @@ github.com/pulumi/pulumi/sdk/v3 v3.225.1 h1:yn64PBZocE0Ums82fc6jaWRZthZ352BFi/tV
 github.com/pulumi/pulumi/sdk/v3 v3.225.1/go.mod h1:kiwkjulVm9ibqTOcyrZYhaRZsDSxWpzIKPXtCFeffBE=
 github.com/pulumi/pulumi/sdk/v3 v3.226.0 h1:C24HWnoJSspq/KweSkAAAqWht/5pEkDanoxHe0al/dM=
 github.com/pulumi/pulumi/sdk/v3 v3.226.0/go.mod h1:l88lS+aGRt37BD/nyPMEOYw+RmjG5baSH7eLtmTKpy0=
+github.com/pulumi/pulumi/sdk/v3 v3.227.0 h1:QMMHm+sGwauPnhU2pyI/pJT0VTrOaDYPconWwvtOO/c=
+github.com/pulumi/pulumi/sdk/v3 v3.227.0/go.mod h1:c6s36sG4nygVc5KeT+PHAneaICdZul0UFjFJ6ioh6mA=
 github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
@@ -1006,6 +1008,8 @@ google.golang.org/grpc v1.78.0 h1:K1XZG/yGDJnzMdd/uZHAkVqJE+xIDOcmdSFZkBUicNc=
 google.golang.org/grpc v1.78.0/go.mod h1:I47qjTo4OKbMkjA/aOOwxDIiPSBofUtQUI5EfpWvW7U=
 google.golang.org/grpc v1.79.1 h1:zGhSi45ODB9/p3VAawt9a+O/MULLl9dpizzNNpq7flY=
 google.golang.org/grpc v1.79.1/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhHLrHQ=
+google.golang.org/grpc v1.79.3 h1:sybAEdRIEtvcD68Gx7dmnwjZKlyfuc61Dyo9pGXXkKE=
+google.golang.org/grpc v1.79.3/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhHLrHQ=
 google.golang.org/protobuf v1.26.0-rc.1/go.mod h1:jlhhOSvTdKEhbULTjvd4ARK9grFBp09yW+WbY/TyQbw=
 google.golang.org/protobuf v1.26.0/go.mod h1:9q0QmTI4eRPtz6boOQmLYwt+qCgq0jsYwAQnmE0givc=
 google.golang.org/protobuf v1.31.0 h1:g0LDEJHgrBl9N9r17Ru3sqWhkIx2NB67okBHPwC7hs8=
