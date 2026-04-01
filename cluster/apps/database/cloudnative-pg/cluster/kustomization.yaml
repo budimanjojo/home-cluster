@@ -10,4 +10,4 @@ resources:
   - ./podmonitor.yaml
   - ./scheduledbackup.yaml
   - ./server-ca.yaml
-  - ./client-certificate.yaml
+  - ./server-certificate.yaml
