@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+resources:
+  - ./certificate.yaml
+  - ./secret.yaml
+patches:
+  - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: not-used
+      spec:
+        postRenderers:
+          - kustomize:
+              patches:
+                - patch: |-
+                    - op: add
+                      path: /spec/template/metadata/annotations
+                      value:
+                        internal.postgres/cert-secret-mount: ${APP}-postgres-cert
+                  target:
+                    kind: Deployment
+                    version: v1

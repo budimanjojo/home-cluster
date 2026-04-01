@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: &name postgres-server-cert
+spec:
+  commonName: *name
+  dnsNames:
+    - postgres-r
+    - postgres-ro
+    - postgres-rw
+    - postgres-r.database.svc
+    - postgres-ro.database.svc
+    - postgres-rw.database.svc
+    - postgres-r.database.svc.cluster.local
+    - postgres-ro.database.svc.cluster.local
+    - postgres-rw.database.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: postgres-server-ca
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS8
+    rotationPolicy: Always
+    size: 384
+  secretName: *name
+  secretTemplate:
+    labels:
+      cnpg.io/reload: ""
+  subject:
+    organizations:
+      - budimanjojo
+  usages:
+    - server auth

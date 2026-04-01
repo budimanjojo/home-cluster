@@ -43,6 +43,7 @@ spec:
             matchLabels:
               postgres-operator.crunchydata.com/cluster: *name
   users:
+    - name: postgres # we are migrating away from CDPG, we need superuser password to migrate
     - name: fireflyiii
       databases:
         - fireflyiii

@@ -1,0 +1,114 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.34.0-standalone-strict/mutatingadmissionpolicybinding-admissionregistration-v1beta1.json
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingAdmissionPolicyBinding
+metadata:
+  name: mount-postgres-certs
+spec:
+  policyName: mount-postgres-certs
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.34.0-standalone-strict/mutatingadmissionpolicy-admissionregistration-v1beta1.json
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: mount-postgres-certs
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+  matchConditions:
+    - expression: |
+        has(object.metadata.annotations) &&
+        object.metadata.annotations.exists(k, k == 'postgres.internal/cert-secret-mount' && object.metadata.annotations[k] != "")
+      name: has-required-annotations-and-value
+  mutations:
+    - jsonPatch:
+        expression: |
+          (object.spec.containers.map(
+            c,
+            (!has(c.volumeMounts) || !c.volumeMounts.exists(vm, vm.name == "postgres-root-ca")),
+            (has(c.volumeMounts)
+            ? JSONPatch{
+                op: "add",
+                path: "/spec/containers/" + string(object.spec.containers.indexOf(c)) + "/volumeMounts/-",
+                value: Object.spec.containers.volumeMounts{
+                  name: "postgres-root-ca",
+                  mountPath: "/var/run/secrets/postgres-root-ca",
+                  readOnly: true
+                }
+              }
+            : JSONPatch{
+                op: "add",
+                path: "/spec/containers/" + string(object.spec.containers.indexOf(c)) + "/volumeMounts",
+                value: [Object.spec.containers.volumeMounts{
+                    name: "postgres-root-ca",
+                    mountPath: "/var/run/secrets/postgres-root-ca",
+                    readOnly: true
+                }]
+              }
+            )
+          )) +
+          (has(object.spec.volumes) && object.spec.volumes.exists(v, v.name == "postgres-root-ca")
+          ? []
+          : (has(object.spec.volumes)
+            ? [JSONPatch{
+                op: "add",
+                path: "/spec/volumes/-",
+                value: Object.spec.volumes{
+                  name: "postgres-root-ca",
+                  configMap: Object.spec.volumes.configMap{
+                    name: "postgres-root-ca"
+                  }
+                }
+              }]
+            : [JSONPatch{
+                op: "add",
+                path: "/spec/volumes",
+                value: [Object.spec.volumes{
+                  name: "postgres-root-ca",
+                  configMap: Object.spec.volumes.configMap{
+                    name: "postgres-root-ca"
+                  }
+                }]
+              }]
+            )
+          )
+      patchType: JSONPatch
+    - jsonPatch:
+        expression: |
+          (
+            object.spec.containers.map(c,
+              (!c.volumeMounts.exists(vm, vm.name == "postgres-certs")),
+              JSONPatch{
+                op: "add",
+                path: "/spec/containers/" + string(object.spec.containers.indexOf(c)) + "/volumeMounts/-",
+                value: Object.spec.containers.volumeMounts{
+                  name: "postgres-certs",
+                  mountPath: "/var/run/secrets/postgres-certs",
+                  readOnly: true
+                }
+              }
+            )
+          ) +
+          (
+            (has(object.spec.volumes) && object.spec.volumes.exists(v, v.name == "postgres-certs"))
+            ? []
+            : [
+                  JSONPatch{
+                    op: "add",
+                    path: "/spec/volumes/-",
+                    value: Object.spec.volumes{
+                      name: "postgres-certs",
+                      secret: Object.spec.volumes.secret{
+                        secretName: object.metadata.annotations["postgres.internal/cert-secret-mount"]
+                      }
+                    }
+                  }
+              ]
+          )
+      patchType: JSONPatch
+  reinvocationPolicy: IfNeeded

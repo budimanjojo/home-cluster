@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: trust-manager
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: trust-manager

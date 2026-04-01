@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: &name postgres-server-ca
+spec:
+  commonName: *name
+  isCA: true
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-selfsigned
+  nameConstraints:
+    critical: true
+    permitted:
+      dnsDomains:
+        - .database.svc.cluster.local
+        - .database.svc
+        - postgres-r
+        - postgres-ro
+        - postgres-rw
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS8
+    rotationPolicy: Always
+    size: 384
+  secretName: *name
+  subject:
+    organizations:
+      - budimanjojo
+  usages:
+    - cert sign
+    - crl sign
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: &name postgres-server-ca
+spec:
+  ca:
+    secretName: *name

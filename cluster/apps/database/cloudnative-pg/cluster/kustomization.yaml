@@ -3,9 +3,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./clusterissuer.yaml
+  - ./client-certificate.yaml
+  - ./cluster.yaml
   - ./externalsecret.yaml
-  - ./helmrelease.yaml
-  - ./ocirepository.yaml
-  - ./postgres-client-ca.yaml
-  - ./prometheusrule.yaml
+  - ./objectstore.yaml
+  - ./podmonitor.yaml
+  - ./scheduledbackup.yaml
+  - ./server-ca.yaml
+  - ./client-certificate.yaml

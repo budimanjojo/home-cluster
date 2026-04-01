@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/barmancloud.cnpg.io/objectstore_v1.json
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: cloudflare-r2
+spec:
+  configuration:
+    data:
+      compression: gzip
+    destinationPath: s3://pg-backups/
+    endpointURL: https://c5e27308c7efc3f26f2088e29ecb84dd.r2.cloudflarestorage.com
+    s3Credentials:
+      accessKeyId:
+        name: cloudflare-r2-secret
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: cloudflare-r2-secret
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: zstd
+  retentionPolicy: 7d

@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ${APP}-postgres-db
+spec:
+  targetNamespace: database
+  interval: 1h
+  prune: true
+  path: ./cluster/components/postgres-database/base
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: database
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Database
+      name: ${APP}
+      namespace: database
+  postBuild:
+    substitute:
+      APP: ${APP}
+      OWNER: ${DATABASE_OWNER:=${APP}}
+      EXTENSIONS: ${q:='}${DATABASE_EXTENSIONS}${q:='}
+      emptyArray: "[]"

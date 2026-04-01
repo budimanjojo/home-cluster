@@ -1,0 +1,98 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+spec:
+  affinity:
+    podAntiAffinityType: required
+  bootstrap:
+    initdb:
+      import:
+        databases:
+          - authelia
+          - fireflyiii
+          - homeassistant
+          - nextcloud
+        source:
+          externalCluster: pgo-cluster
+        type: monolith
+    # UNCOMMENT LATER
+    # recovery:
+    #   source: &src source
+    #   recoveryTarget:
+    #     targetTLI: "1"
+  certificates:
+    clientCASecret: postgres-client-ca
+    replicationTLSSecret: postgres-client-cert
+    serverCASecret: postgres-server-ca
+    serverTLSSecret: postgres-server-cert
+  externalClusters:
+    # UNCOMMENT LATER
+    # - name: *src
+    #   plugin:
+    #     name: &plugin barman-cloud.cloudnative-pg.io
+    #     isWALArchiver: true
+    #     parameters:
+    #       barmanObjectName: &store cloudflare-r2
+    #       serverName: postgres
+    - name: pgo-cluster
+      connectionParameters:
+        dbname: postgres
+        host: pgo-cluster-primary
+        user: postgres
+      password:
+        key: password
+        name: pgo-cluster-pguser-postgres
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-202603181216-minimal-trixie@sha256:d526f80732df82e0cdebda7e6eafd43587f35d1605baab1fcf9fc8171e0b0d74
+  instances: 3
+  postgresql:
+    extensions:
+      - dynamic_library_path:
+          - /usr/lib/postgresql/18/lib
+        extension_control_path:
+          - /usr/share/postgresql/18/
+        name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
+    parameters:
+      max_locks_per_transaction: "128"
+    pg_hba:
+      - hostssl all all all cert clientcert=verify-full
+    shared_preload_libraries:
+      - vchord.so
+    synchronous:
+      dataDurability: preferred
+      method: any
+      number: 1
+  # UNCOMMENT LATER
+  # plugins:
+  #   - name: *plugin
+  #     isWALArchiver: true
+  #     parameters:
+  #       barmanObjectName: *store
+  storage:
+    resizeInUseVolumes: true
+    size: 5Gi
+    storageClass: openebs-hostpath
+  # TODO: waiting for https://github.com/cloudnative-pg/cloudnative-pg/issues/5341
+  managed:
+    roles:
+      - name: authelia
+        login: true
+        disablePassword: true
+      - name: fireflyiii
+        login: true
+        disablePassword: true
+      - name: homeassistant
+        login: true
+        disablePassword: true
+      - name: immich
+        login: true
+        disablePassword: true
+      - name: nextcloud
+        login: true
+        disablePassword: true

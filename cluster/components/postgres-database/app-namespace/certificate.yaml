@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: &name ${APP}-postgres-cert
+spec:
+  commonName: ${DATABASE_OWNER:=${APP}}
+  issuerRef:
+    kind: ClusterIssuer
+    name: postgres-client-ca
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS8
+    rotationPolicy: Always
+    size: 384
+  secretName: *name
+  usages:
+    - client auth

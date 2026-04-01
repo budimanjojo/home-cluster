@@ -83,3 +83,18 @@ metadata:
 spec:
   ca:
     secretName: cluster-selfsigned-ca
+
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/trust.cert-manager.io/bundle_v1alpha1.json
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: postgres-root-ca
+spec:
+  sources:
+    - secret:
+        key: tls.crt
+        name: cluster-selfsigned-ca
+  target:
+    configMap:
+      key: ca.crt
