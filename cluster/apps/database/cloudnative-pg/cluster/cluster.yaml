@@ -47,7 +47,7 @@ spec:
       password:
         key: password
         name: pgo-cluster-pguser-postgres
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-202603181216-minimal-trixie@sha256:d526f80732df82e0cdebda7e6eafd43587f35d1605baab1fcf9fc8171e0b0d74
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie@sha256:e4f9958296aac318d23c12e5f97369b47a925ee6f26eef4e2064affceb2ddf36
   instances: 3
   postgresql:
     extensions:
