@@ -42,7 +42,7 @@ spec:
     - name: pgo-cluster
       connectionParameters:
         dbname: postgres
-        host: pgo-cluster-primary
+        host: pgo-cluster-primary.default.svc
         user: postgres
       password:
         key: password
