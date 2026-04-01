@@ -9,3 +9,4 @@ components:
 resources:
   - ./namespace.yaml
   - ./cert-manager/fluxtomization.yaml
+  - ./trust-manager/fluxtomization.yaml
