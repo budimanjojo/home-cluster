@@ -8,7 +8,7 @@ spec:
   interval: 15m
   url: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg
   ref:
-    tag: 0.27.1
+    tag: 0.28.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
