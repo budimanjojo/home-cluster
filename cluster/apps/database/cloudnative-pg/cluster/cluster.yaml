@@ -17,6 +17,11 @@ spec:
           - fireflyiii
           - homeassistant
           - nextcloud
+        roles:
+          - authelia
+          - fireflyiii
+          - homeassistant
+          - nextcloud
         source:
           externalCluster: pgo-cluster
         type: monolith
