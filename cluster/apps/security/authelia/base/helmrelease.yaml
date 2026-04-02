@@ -60,7 +60,7 @@ spec:
       config:
         name: authelia-config
         globalMounts:
-          - path: /config/configuration.yaml
+          - path: /config/configuration.yml
             readOnly: true
             subPath: configuration.yaml
         type: secret
