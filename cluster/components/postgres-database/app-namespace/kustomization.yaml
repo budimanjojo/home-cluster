@@ -26,5 +26,3 @@ patches:
     target:
       group: helm.toolkit.fluxcd.io
       kind: HelmRelease
-      name: ${APP}
-      version: v2
