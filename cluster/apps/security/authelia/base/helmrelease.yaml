@@ -6,17 +6,9 @@ metadata:
   name: authelia
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: authelia
   values:
     controllers:
       authelia:
@@ -45,12 +37,14 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+
     service:
       main:
         controller: authelia
         ports:
           http:
             port: 9091
+
     route:
       main:
         hostnames: ["auth.${SECRET_DOMAIN_0}"]
@@ -61,12 +55,12 @@ spec:
           - backendRefs:
               - name: authelia
                 port: 9091
+
     persistence:
       config:
-        enabled: true
-        type: secret
         name: authelia-config
         globalMounts:
-          - path: /config/configuration.yml
-            subPath: configuration.yaml
+          - path: /config/configuration.yaml
             readOnly: true
+            subPath: configuration.yaml
+        type: secret

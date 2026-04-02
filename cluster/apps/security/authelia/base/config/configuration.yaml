@@ -22,10 +22,14 @@ webauthn:
 storage:
   encryption_key: "{{ .STORAGE_ENCRYPTION_KEY }}"
   postgres:
-    address: tcp://{{ .POSTGRES_HOST }}:{{ .POSTGRES_PORT }}
-    database: '{{ .POSTGRES_DBNAME }}'
-    username: '{{ .POSTGRES_USER }}'
-    password: '{{ .POSTGRES_PASSWORD }}'
+    address: tcp://postgres-rw.database.svc.cluster.local:5432
+    database: authelia
+    username: authelia
+    tls:
+      certificate_chain: "{{ `{{ secret \"/var/run/secrets/postgres-certs/tls.crt\" | mindent 8 \"|\" | msquote }}`} }}"
+      private_key: "{{ `{{ secret \"/var/run/secrets/postgres-certs/tls.key\" | mindent 8 \"|\" | msquote }}` }}"
+      skip_verify: false
+certificates_directory: /var/run/secrets/postgres-root-ca
 ntp:
   address: 192.168.200.1:123
   version: 4

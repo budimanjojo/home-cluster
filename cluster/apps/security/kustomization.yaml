@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: security
+components:
+  - ../../components/alerts
+  - ../../components/envsubst
+resources:
+  - ./namespace.yaml
+  - ./authelia/fluxtomization.yaml
+  - ./lldap/fluxtomization.yaml

@@ -5,17 +5,10 @@ kind: HelmRelease
 metadata:
   name: lldap
 spec:
-  interval: 15m
+  interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: lldap
   values:
     controllers:
       lldap:
@@ -48,6 +41,7 @@ spec:
             env:
               UID: "1000"
               GID: "1000"
+
     service:
       main:
         controller: lldap
@@ -58,6 +52,7 @@ spec:
           web:
             protocol: TCP
             port: &port 17170
+
     route:
       main:
         hostnames: ["ldap.${SECRET_DOMAIN_0}"]
@@ -69,6 +64,7 @@ spec:
           - backendRefs:
               - name: lldap
                 port: *port
+
     persistence:
       config:
         existingClaim: lldap

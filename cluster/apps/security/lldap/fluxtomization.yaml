@@ -3,27 +3,19 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name lldap
-  namespace: authentication-system
+  name: lldap
 spec:
+  targetNamespace: security
   interval: 1h
-  retryInterval: 2m
-  timeout: 5m
   prune: true
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
+  path: ./cluster/apps/security/lldap/base
   components:
     - ../../../../components/volsync
-  postBuild:
-    substitute:
-      APP: *name
-  path: ./cluster/apps/authentication-system/lldap/base
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
