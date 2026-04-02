@@ -26,8 +26,10 @@ storage:
     database: authelia
     username: authelia
     tls:
-      certificate_chain: "{{ `{{ secret \"/var/run/secrets/postgres-certs/tls.crt\" | mindent 8 \"|\" | msquote }}` }}"
-      private_key: "{{ `{{ secret \"/var/run/secrets/postgres-certs/tls.key\" | mindent 8 \"|\" | msquote }}` }}"
+      certificate_chain: |
+        {{ `{{- fileContent "/var/run/secrets/postgres-certs/tls.crt" | nindent 8 }}` }}
+      private_key: |
+        {{ `{{- fileContent "/var/run/secrets/postgres-certs/tls.key" | nindent 8 }}` }}
       skip_verify: false
 certificates_directory: /var/run/secrets/postgres-root-ca
 ntp:
