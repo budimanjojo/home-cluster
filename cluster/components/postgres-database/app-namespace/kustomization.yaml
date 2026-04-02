@@ -19,7 +19,7 @@ patches:
                     - op: add
                       path: /spec/template/metadata/annotations
                       value:
-                        internal.postgres/cert-secret-mount: ${APP}-postgres-cert
+                        postgres.internal/cert-secret-mount: ${APP}-postgres-cert
                   target:
                     kind: Deployment
                     version: v1
