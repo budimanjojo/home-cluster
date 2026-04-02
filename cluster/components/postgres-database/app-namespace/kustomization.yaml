@@ -23,3 +23,8 @@ patches:
                   target:
                     kind: Deployment
                     version: v1
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      name: ${APP}
+      version: v2
