@@ -8,7 +8,7 @@ spec:
   targetNamespace: database
   interval: 1h
   prune: true
-  path: ./cluster/components/postgres-database/base
+  path: ./cluster/components/postgres-database/database-namespace/base
   sourceRef:
     kind: GitRepository
     name: flux-system
