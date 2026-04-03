@@ -10,21 +10,6 @@ spec:
   affinity:
     podAntiAffinityType: required
   bootstrap:
-    initdb:
-      import:
-        databases:
-          - authelia
-          - fireflyiii
-          - homeassistant
-          - nextcloud
-        roles:
-          - authelia
-          - fireflyiii
-          - homeassistant
-          - nextcloud
-        source:
-          externalCluster: pgo-cluster
-        type: monolith
     recovery:
       source: &src source
       recoveryTarget:
