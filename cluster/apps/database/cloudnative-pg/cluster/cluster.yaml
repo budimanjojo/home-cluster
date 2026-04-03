@@ -25,33 +25,23 @@ spec:
         source:
           externalCluster: pgo-cluster
         type: monolith
-    # UNCOMMENT LATER
-    # recovery:
-    #   source: &src source
-    #   recoveryTarget:
-    #     targetTLI: "1"
+    recovery:
+      source: &src source
+      recoveryTarget:
+        targetTLI: "1"
   certificates:
     clientCASecret: postgres-client-ca
     replicationTLSSecret: postgres-client-cert
     serverCASecret: postgres-server-ca
     serverTLSSecret: postgres-server-cert
   externalClusters:
-    # UNCOMMENT LATER
-    # - name: *src
-    #   plugin:
-    #     name: &plugin barman-cloud.cloudnative-pg.io
-    #     isWALArchiver: true
-    #     parameters:
-    #       barmanObjectName: &store cloudflare-r2
-    #       serverName: postgres
-    - name: pgo-cluster
-      connectionParameters:
-        dbname: postgres
-        host: pgo-cluster-primary.default.svc
-        user: postgres
-      password:
-        key: password
-        name: pgo-cluster-pguser-postgres
+    - name: *src
+      plugin:
+        name: &plugin barman-cloud.cloudnative-pg.io
+        isWALArchiver: true
+        parameters:
+          barmanObjectName: &store cloudflare-r2
+          serverName: postgres
   imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie@sha256:e4f9958296aac318d23c12e5f97369b47a925ee6f26eef4e2064affceb2ddf36
   instances: 3
   postgresql:
@@ -73,12 +63,11 @@ spec:
       dataDurability: preferred
       method: any
       number: 1
-  # UNCOMMENT LATER
-  # plugins:
-  #   - name: *plugin
-  #     isWALArchiver: true
-  #     parameters:
-  #       barmanObjectName: *store
+  plugins:
+    - name: *plugin
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: *store
   storage:
     resizeInUseVolumes: true
     size: 5Gi
