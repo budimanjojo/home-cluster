@@ -47,7 +47,7 @@ authentication_backend:
   refresh_interval: 1m
   ldap:
     implementation: lldap
-    address: ldap://lldap.authentication-system.svc.cluster.local:3890
+    address: ldap://lldap.security.svc.cluster.local:3890
     timeout: 5s
     start_tls: false
     base_dn: dc=home,dc=cluster

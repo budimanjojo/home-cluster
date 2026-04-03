@@ -20,6 +20,9 @@ spec:
           enableServiceLinks: false
         containers:
           main:
+            env:
+              - name: X_AUTHELIA_CONFIG_FILTERS
+                value: template
             image:
               repository: ghcr.io/authelia/authelia
               tag: 4.39.15
