@@ -7,6 +7,7 @@ resources:
   - ./cluster.yaml
   - ./externalsecret.yaml
   - ./objectstore.yaml
+  - ./mutatingadmissionpolicy.yaml
   - ./podmonitor.yaml
   - ./scheduledbackup.yaml
   - ./server-ca.yaml
