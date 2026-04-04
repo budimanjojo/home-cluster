@@ -62,7 +62,7 @@ spec:
                   name: "postgres-root-ca",
                   configMap: Object.spec.volumes.configMap{
                     name: "postgres-root-ca",
-                    defaultMode: "0600"
+                    defaultMode: 384
                   }
                 }
               }]
@@ -73,7 +73,7 @@ spec:
                   name: "postgres-root-ca",
                   configMap: Object.spec.volumes.configMap{
                     name: "postgres-root-ca",
-                    defaultMode: "0600"
+                    defaultMode: 384
                   }
                 }]
               }]
@@ -107,7 +107,7 @@ spec:
                       name: "postgres-certs",
                       secret: Object.spec.volumes.secret{
                         secretName: object.metadata.annotations["postgres.internal/cert-secret-mount"],
-                        defaultMode: "0600"
+                        defaultMode: 384
                       }
                     }
                   }
