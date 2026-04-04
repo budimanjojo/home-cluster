@@ -63,7 +63,7 @@ spec:
       - name: authelia
         login: true
         disablePassword: true
-      - name: fireflyiii
+      - name: firefly-iii
         login: true
         disablePassword: true
       - name: homeassistant

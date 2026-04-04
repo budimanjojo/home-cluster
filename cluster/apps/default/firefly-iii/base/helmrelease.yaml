@@ -48,28 +48,31 @@ spec:
               DB_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-fireflyiii
-                    key: host
+                    name: firefly-iii-postgres-secret
+                    key: hostname
               DB_PORT:
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-fireflyiii
+                    name: firefly-iii-postgres-secret
                     key: port
               DB_DATABASE:
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-fireflyiii
+                    name: firefly-iii-postgres-secret
                     key: dbname
               DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-fireflyiii
-                    key: user
-              DB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: pgo-cluster-pguser-fireflyiii
-                    key: password
+                    name: firefly-iii-postgres-secret
+                    key: username
+              PGSQL_SSL_MODE:
+                value: verify-full
+              PGSQL_SSL_ROOT_CERT:
+                value: /var/run/secrets/postgres-root-ca/ca.crt
+              PGSQL_SSL_CERT:
+                value: /var/run/secrets/postgres-certs/tls.crt
+              PGSQL_SSL_KEY:
+                value: /var/run/secrets/postgres-certs/tls.key
           cronjob:
             image:
               repository: alpine
@@ -107,8 +110,8 @@ spec:
               - name: POSTGRES_HOST
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-fireflyiii
-                    key: host
+                    name: firefly-iii-postgres-secret
+                    key: hostname
     service:
       main:
         controller: firefly-iii

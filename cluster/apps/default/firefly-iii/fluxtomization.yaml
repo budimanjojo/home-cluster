@@ -15,6 +15,7 @@ spec:
       app.kubernetes.io/name: *name
   components:
     - ../../../../components/volsync
+    - ../../../../components/postgres-database
   postBuild:
     substitute:
       APP: *name
@@ -25,9 +26,7 @@ spec:
     namespace: flux-system
   wait: true
   dependsOn:
-    - name: shared-postgrescluster-pgo-cluster
-      namespace: default
+    - name: cloudnative-pg-cluster
+      namespace: database
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
