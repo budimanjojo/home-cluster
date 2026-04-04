@@ -92,26 +92,6 @@ spec:
                   secretKeyRef:
                     name: firefly-iii-secret
                     key: STATIC_CRON_TOKEN
-        initContainers:
-          wait-database:
-            image:
-              repository: alpine
-              tag: 3.23.0
-              pullPolicy: IfNotPresent
-            command:
-              - sh
-            args:
-              - -c
-              - >-
-                until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
-                do echo "Waiting for database";
-                done
-            env:
-              - name: POSTGRES_HOST
-                valueFrom:
-                  secretKeyRef:
-                    name: firefly-iii-postgres-secret
-                    key: hostname
     service:
       main:
         controller: firefly-iii
