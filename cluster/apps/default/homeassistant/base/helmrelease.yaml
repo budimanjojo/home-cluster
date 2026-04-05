@@ -54,7 +54,7 @@ spec:
               postgresql_uri:
                 valueFrom:
                   secretKeyRef:
-                    name: pgo-cluster-pguser-homeassistant
+                    name: homeassistant-postgres-secret
                     key: uri
     service:
       main:
