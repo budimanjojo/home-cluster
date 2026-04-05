@@ -18,6 +18,8 @@ spec:
                 - --show-error
                 - --fail
                 - "http://firefly-iii/api/v1/cron/${STATIC_CRON_TOKEN}"
+              command:
+                - curl
               env:
                 - name: STATIC_CRON_TOKEN
                   valueFrom:
