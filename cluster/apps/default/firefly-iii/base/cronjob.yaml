@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.0-standalone-strict/cronjob-batch-v1.json
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: firefly-iii-cronjob
+spec:
+  schedule: "0 */3 * * *" # at minute 0 past every 3rd hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: firefly-iii-cronjob
+              image: quay.io/curl/curl:8.18.0
+              args:
+                - --silent
+                - --show-error
+                - --fail
+                - "http://firefly-iii/api/v1/cron/${STATIC_CRON_TOKEN}"
+              env:
+                - name: STATIC_CRON_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      key: STATIC_CRON_TOKEN
+                      name: firefly-iii-secret
+          restartPolicy: OnFailure

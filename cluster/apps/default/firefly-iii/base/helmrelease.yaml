@@ -73,25 +73,6 @@ spec:
                 value: /var/run/secrets/postgres-certs/tls.crt
               PGSQL_SSL_KEY:
                 value: /var/run/secrets/postgres-certs/tls.key
-          cronjob:
-            image:
-              repository: alpine
-              tag: 3.23.0
-              pullPolicy: IfNotPresent
-            command:
-              - sh
-            args:
-              - -c
-              - >-
-                echo "0 */3 * * * wget -qO- http://firefly-iii:8080/api/v1/cron/$(STATIC_CRON_TOKEN)"
-                | crontab -
-                && crond -f -L /dev/stdout
-            env:
-              - name: STATIC_CRON_TOKEN
-                valueFrom:
-                  secretKeyRef:
-                    name: firefly-iii-secret
-                    key: STATIC_CRON_TOKEN
     service:
       main:
         controller: firefly-iii
