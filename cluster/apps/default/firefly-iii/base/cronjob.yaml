@@ -16,12 +16,10 @@ spec:
             - name: firefly-iii-cronjob
               image: quay.io/curl/curl:8.18.0
               args:
-                - --silent
-                - --show-error
-                - --fail
-                - "http://firefly-iii/api/v1/cron/${STATIC_CRON_TOKEN}"
+                - curl --silent --show-error --fail http://firefly-iii/api/v1/cron/${STATIC_CRON_TOKEN}
               command:
-                - curl
+                - sh
+                - -c
               env:
                 - name: STATIC_CRON_TOKEN
                   valueFrom:
