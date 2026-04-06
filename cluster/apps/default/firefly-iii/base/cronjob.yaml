@@ -4,6 +4,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: firefly-iii-cronjob
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   schedule: "0 */3 * * *" # at minute 0 past every 3rd hour
   jobTemplate:
