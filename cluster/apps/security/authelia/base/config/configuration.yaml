@@ -159,6 +159,21 @@ identity_providers:
           - groups
         userinfo_signed_response_alg: none
         claims_policy: default
+      - client_id: ocis
+        client_name: OwnCloud Infinite Scale
+        public: true
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes:
+          - openid
+          - profile
+          - groups
+          - email
+        redirect_uris:
+          - https://files.${SECRET_DOMAIN_0}/
+          - https://files.${SECRET_DOMAIN_0}/oidc-callback.html
+          - https://files.${SECRET_DOMAIN_0}/oidc-silent-redirect.html
+        userinfo_signed_response_alg: none
       - client_id: nextcloud
         client_name: Nextcloud
         client_secret: "{{ .OIDC_CLIENT_NEXTCLOUD }}"

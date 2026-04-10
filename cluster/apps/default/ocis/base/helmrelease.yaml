@@ -1,0 +1,134 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ocis
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: ocis
+  values:
+    controllers:
+      ocis:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-config:
+            image:
+              repository: &repository mirror.gcr.io/owncloud/ocis
+              tag: &tag 8.0.1
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                if [ ! -f /etc/ocis/ocis.yaml ]; then ocis init; else exit 0; fi
+            env:
+              OCIS_INSECURE: true
+
+        containers:
+          app:
+            image:
+              repository: *repository
+              tag: *tag
+            env:
+              DEMO_USERS: false
+              NOTIFICATIONS_SMTP_HOST: smtp.gmail.com
+              NOTIFICATIONS_SMTP_INSECURE: false
+              NOTIFICATIONS_SMTP_PORT: "587"
+              NOTIFICATIONS_SMTP_SENDER: OCIS Admin <admin@budimanjojo.com>
+              NOTIFICATIONS_SMTP_USERNAME: budimanjojo@gmail.com
+              OCIS_INSECURE: true
+              OCIS_LOG_COLOR: true
+              OCIS_LOG_LEVEL: info
+              OCIS_LOG_PRETTY: true
+              OCIS_URL: https://files.${SECRET_DOMAIN_0}
+              PROXY_DEBUG_ADDR: 0.0.0.0:9205
+              PROXY_HTTP_ADDR: 0.0.0.0:9200
+              PROXY_TLS: false
+              STORAGE_USERS_OCIS_ROOT: /data
+              # Authelia OIDC
+              # auto role assignment:
+              # docs: https://doc.owncloud.com/ocis/next/deployment/services/s-list/proxy.html#automatic-role-assignments
+              OCIS_OIDC_ISSUER: https://auth.${SECRET_DOMAIN_0}
+              PROXY_AUTOPROVISION_ACCOUNTS: true
+              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
+              PROXY_OIDC_REWRITE_WELLKNOWN: true
+              PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
+              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
+              PROXY_USER_OIDC_CLAIM: preferred_username
+              WEB_OIDC_CLIENT_ID: ocis
+              WEB_OIDC_METADATA_URL: https://auth.${SECRET_DOMAIN_0}/.well-known/openid-configuration
+              WEB_OIDC_SCOPE: openid profile email groups
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: ocis
+        ports:
+          http:
+            port: 9200
+            primary: true
+          metrics:
+            port: 9205
+    serviceMonitor:
+      app:
+        serviceName: "{{ .Release.Name }}"
+        endpoints:
+          - port: metrics
+    route:
+      app:
+        hostnames:
+          - files.${SECRET_DOMAIN_0}
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            port: 443
+    persistence:
+      config-proxy:
+        type: configMap
+        name: ocis-configmap
+        globalMounts:
+          - path: /etc/ocis/proxy.yaml
+            readOnly: true
+            subPath: proxy.yaml
+      data:
+        type: nfs
+        path: &nfsPath /Kubernetes-Volumes/ocis
+        server: &nfsServer 192.168.200.30
+        globalMounts:
+          - path: /etc/ocis
+            subPath: config
+          - path: /var/lib/ocis
+            subPath: data
+      storage-users:
+        type: nfs
+        path: *nfsPath
+        server: *nfsServer
+        globalMounts:
+          - path: /data
+            subPath: storage-users
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

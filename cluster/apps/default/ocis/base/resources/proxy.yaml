@@ -1,0 +1,14 @@
+---
+role_assignment:
+  driver: oidc
+  oidc_role_mapper:
+    role_claim: groups
+    role_mapping:
+      - role_name: admin
+        claim_value: ocis_admin
+      - role_name: sspaceadmin
+        claim_value: ocis_spaceadmin
+      - role_name: user
+        claim_value: ocis_user
+      - role_name: guest
+        claim_value: ocis_guest
