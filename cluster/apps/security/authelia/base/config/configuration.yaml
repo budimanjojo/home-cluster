@@ -174,6 +174,37 @@ identity_providers:
           - https://files.${SECRET_DOMAIN_0}/oidc-callback.html
           - https://files.${SECRET_DOMAIN_0}/oidc-silent-redirect.html
         userinfo_signed_response_alg: none
+      - client_id: xdXOt13JKxym1B1QcEncf2XDkLAexMBFwiT9j6EfhhHFJhs2KM9jbjTmf8JBXE69
+        client_name: OwnCloud Infinite Scale (Desktop client)
+        client_secret: UBntmLjC2yYCeHwsyj73Uwo9TAaecAetRwMw0xYcvNL9yRdLSUi0hUAHfvCHFeFh
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes:
+          - openid
+          - profile
+          - groups
+          - email
+        redirect_uris:
+          - http://127.0.0.1
+          - http://localhost
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
+      - client_id: e4rAsNUSIUs0lF4nbv9FmCeUkTlV9GdgTLDH1b5uie7syb90SzEVrbN7HIpmWJeD
+        client_name: OwnCloud Infinite Scale (Android client)
+        client_secret: dInFYGV33xKzhbRmpqQltYNdfLdJIfJ9L5ISoKhNoT9qZftpdWSP71VrpGR9pmoD
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes:
+          - openid
+          - profile
+          - groups
+          - email
+        redirect_uris:
+          - oc://android.owncloud.com
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
       - client_id: nextcloud
         client_name: Nextcloud
         client_secret: "{{ .OIDC_CLIENT_NEXTCLOUD }}"
