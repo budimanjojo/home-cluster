@@ -6,6 +6,7 @@ configMapGenerator:
   - name: ocis-configmap
     files:
       - proxy.yaml=./resources/proxy.yaml
+      - csp.yaml=./resources/csp.yaml
 generatorOptions:
   disableNameSuffixHash: true
 resources:
