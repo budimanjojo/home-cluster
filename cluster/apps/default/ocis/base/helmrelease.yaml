@@ -45,6 +45,7 @@ spec:
               OCIS_LOG_LEVEL: info
               OCIS_LOG_PRETTY: true
               OCIS_URL: https://files.${SECRET_DOMAIN_0}
+              PROXY_CSP_CONFIG_FILE_LOCATION: &csp /etc/ocis/csp.yaml
               PROXY_DEBUG_ADDR: 0.0.0.0:9205
               PROXY_HTTP_ADDR: 0.0.0.0:9200
               PROXY_TLS: false
@@ -111,6 +112,9 @@ spec:
           - path: /etc/ocis/proxy.yaml
             readOnly: true
             subPath: proxy.yaml
+          - path: *csp
+            readOnly: true
+            subPath: csp.yaml
       data:
         type: nfs
         path: &nfsPath /Kubernetes-Volumes/ocis
