@@ -3,12 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ocis
+  name: opencloud
 spec:
   targetNamespace: default
   interval: 1h
   prune: true
-  path: ./cluster/apps/default/ocis/base
+  path: ./cluster/apps/default/opencloud/base
   sourceRef:
     kind: GitRepository
     name: flux-system

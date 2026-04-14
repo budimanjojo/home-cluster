@@ -23,7 +23,7 @@ resources:
   - ./minio/fluxtomization.yaml
   - ./mosquitto/fluxtomization.yaml
   - ./nextcloud/fluxtomization.yaml
-  - ./ocis/fluxtomization.yaml
+  - ./opencloud/fluxtomization.yaml
   - ./prowlarr/fluxtomization.yaml
   - ./qbittorrent/fluxtomization.yaml
   - ./radarr/fluxtomization.yaml

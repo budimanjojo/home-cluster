@@ -5,10 +5,10 @@ role_assignment:
     role_claim: groups
     role_mapping:
       - role_name: admin
-        claim_value: ocis_admin
+        claim_value: oc_admin
       - role_name: spaceadmin
-        claim_value: ocis_spaceadmin
+        claim_value: oc_spaceadmin
       - role_name: user
-        claim_value: ocis_user
+        claim_value: oc_user
       - role_name: guest
-        claim_value: ocis_guest
+        claim_value: oc_guest

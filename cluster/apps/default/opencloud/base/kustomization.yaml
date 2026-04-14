@@ -3,7 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 configMapGenerator:
-  - name: ocis-configmap
+  - name: opencloud-configmap
     files:
       - proxy.yaml=./resources/proxy.yaml
       - csp.yaml=./resources/csp.yaml

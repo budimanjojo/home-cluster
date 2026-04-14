@@ -3,66 +3,57 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ocis
+  name: opencloud
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: ocis
+    name: opencloud
   values:
     controllers:
-      ocis:
+      opencloud:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-config:
-            image:
-              repository: &repository mirror.gcr.io/owncloud/ocis
-              tag: &tag 8.0.1
-            command:
-              - /bin/sh
-              - -c
-            args:
-              - |
-                if [ ! -f /etc/ocis/ocis.yaml ]; then ocis init; else exit 0; fi
-            env:
-              OCIS_INSECURE: true
-
         containers:
           app:
             image:
-              repository: *repository
-              tag: *tag
+              repository: mirror.gcr.io/opencloudeu/opencloud-rolling
+              tag: 6.0.0
+            command:
+              - /bin/sh
+              - -c
+              - opencloud init || true; opencloud server
             env:
-              DEMO_USERS: false
               NOTIFICATIONS_SMTP_HOST: smtp.gmail.com
               NOTIFICATIONS_SMTP_INSECURE: false
               NOTIFICATIONS_SMTP_PORT: "587"
-              NOTIFICATIONS_SMTP_SENDER: OCIS Admin <admin@budimanjojo.com>
+              NOTIFICATIONS_SMTP_SENDER: OpenCloud Admin <admin@budimanjojo.com>
               NOTIFICATIONS_SMTP_USERNAME: budimanjojo@gmail.com
-              OCIS_INSECURE: true
-              OCIS_LOG_COLOR: true
-              OCIS_LOG_LEVEL: info
-              OCIS_LOG_PRETTY: true
-              OCIS_URL: https://files.${SECRET_DOMAIN_0}
-              PROXY_CSP_CONFIG_FILE_LOCATION: &csp /etc/ocis/csp.yaml
-              PROXY_DEBUG_ADDR: 0.0.0.0:9205
-              PROXY_HTTP_ADDR: 0.0.0.0:9200
+              OC_ADMIN_USER_ID: ""
+              OC_INSECURE: true
+              OC_LOG_LEVEL: info
+              OC_URL: https://files.${SECRET_DOMAIN_0}
+              PROXY_CSP_CONFIG_FILE_LOCATION: &csp /etc/opencloud/csp.yaml
               PROXY_TLS: false
-              STORAGE_USERS_OCIS_ROOT: /data
               # Authelia OIDC
               # auto role assignment:
-              # docs: https://doc.owncloud.com/ocis/next/deployment/services/s-list/proxy.html#automatic-role-assignments
-              OCIS_OIDC_ISSUER: https://auth.${SECRET_DOMAIN_0}
+              # docs: https://docs.opencloud.eu/docs/next/admin/configuration/authentication-and-user-management/external-idp#automatic-role-assignments
+              GRAPH_USERNAME_MATCH: none
+              OC_EXCLUDE_RUN_SERVICES: idp
+              OC_OIDC_ISSUER: https://auth.${SECRET_DOMAIN_0}
               PROXY_AUTOPROVISION_ACCOUNTS: true
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
-              PROXY_OIDC_REWRITE_WELLKNOWN: true
+              PROXY_OIDC_REWRITE_WELLKNOWN: false
               PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
               PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
               PROXY_USER_OIDC_CLAIM: preferred_username
-              WEB_OIDC_CLIENT_ID: ocis
-              WEB_OIDC_METADATA_URL: https://auth.${SECRET_DOMAIN_0}/.well-known/openid-configuration
-              WEB_OIDC_SCOPE: openid profile email groups
+              PROXY_USER_CS3_CLAIM: username
+              WEBFINGER_ANDROID_OIDC_CLIENT_ID: opencloudandroid
+              WEBFINGER_ANDROID_OIDC_CLIENT_SCOPES: openid,profile,email,offline_access,groups
+              WEBFINGER_DESKTOP_OIDC_CLIENT_ID: openclouddesktop
+              WEBFINGER_DESKTOP_OIDC_CLIENT_SCOPES: openid,profile,email,offline_access,groups
+              WEBFINGER_WEB_OIDC_CLIENT_ID: opencloudweb
+              WEBFINGER_WEB_OIDC_CLIENT_SCOPES: openid,profile,email,groups
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -84,18 +75,10 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: ocis
+        controller: opencloud
         ports:
           http:
             port: 9200
-            primary: true
-          metrics:
-            port: 9205
-    serviceMonitor:
-      app:
-        serviceName: "{{ .Release.Name }}"
-        endpoints:
-          - port: metrics
     route:
       app:
         hostnames:
@@ -107,9 +90,9 @@ spec:
     persistence:
       config-proxy:
         type: configMap
-        name: ocis-configmap
+        name: opencloud-configmap
         globalMounts:
-          - path: /etc/ocis/proxy.yaml
+          - path: /etc/opencloud/proxy.yaml
             readOnly: true
             subPath: proxy.yaml
           - path: *csp
@@ -117,20 +100,13 @@ spec:
             subPath: csp.yaml
       data:
         type: nfs
-        path: &nfsPath /Kubernetes-Volumes/ocis
-        server: &nfsServer 192.168.200.30
+        path: /Kubernetes-Volumes/opencloud
+        server: 192.168.200.30
         globalMounts:
-          - path: /etc/ocis
+          - path: /etc/opencloud
             subPath: config
-          - path: /var/lib/ocis
+          - path: /var/lib/opencloud
             subPath: data
-      storage-users:
-        type: nfs
-        path: *nfsPath
-        server: *nfsServer
-        globalMounts:
-          - path: /data
-            subPath: storage-users
       tmpfs:
         type: emptyDir
         globalMounts:
