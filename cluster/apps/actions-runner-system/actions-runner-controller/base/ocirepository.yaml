@@ -8,7 +8,7 @@ spec:
   interval: 15m
   url: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
   ref:
-    tag: 0.13.1
+    tag: 0.14.1
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
