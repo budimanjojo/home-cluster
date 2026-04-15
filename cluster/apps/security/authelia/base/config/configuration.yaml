@@ -177,7 +177,9 @@ identity_providers:
           - https://files.${SECRET_DOMAIN_0}/oidc-callback.html
           - https://files.${SECRET_DOMAIN_0}/oidc-silent-redirect.html
         userinfo_signed_response_alg: none
-      - client_id: openclouddesktop
+      # TODO: waiting for https://github.com/opencloud-eu/desktop/issues/811
+      # then the client id will be openclouddesktop instead
+      - client_id: OpenCloudDesktop
         client_name: OpenCloud (Desktop client)
         lifespan: opencloud-client
         public: true
