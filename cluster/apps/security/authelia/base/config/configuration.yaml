@@ -181,6 +181,9 @@ identity_providers:
       # then the client id will be openclouddesktop instead
       - client_id: OpenCloudDesktop
         client_name: OpenCloud (Desktop client)
+        grant_types:
+          - authorization_code
+          - refresh_token
         lifespan: opencloud-client
         public: true
         authorization_policy: two_factor
@@ -196,6 +199,9 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: opencloudandroid
         client_name: OpenCloud (Android client)
+        grant_types:
+          - authorization_code
+          - refresh_token
         lifespan: opencloud-client
         public: true
         authorization_policy: two_factor
