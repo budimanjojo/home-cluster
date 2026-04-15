@@ -115,6 +115,10 @@ identity_providers:
       nextcloud_userinfo:
         custom_claims:
           is_nextcloud_admin: {}
+    lifespans:
+      custom:
+        opencloud-client:
+          refresh_token: 365 days
     scopes:
       nextcloud_userinfo:
         claims:
@@ -175,6 +179,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: openclouddesktop
         client_name: OpenCloud (Desktop client)
+        lifespan: opencloud-client
         public: true
         authorization_policy: two_factor
         scopes:
@@ -189,6 +194,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: opencloudandroid
         client_name: OpenCloud (Android client)
+        lifespan: opencloud-client
         public: true
         authorization_policy: two_factor
         scopes:
