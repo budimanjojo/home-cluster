@@ -29,31 +29,23 @@ spec:
               NOTIFICATIONS_SMTP_PORT: "587"
               NOTIFICATIONS_SMTP_SENDER: OpenCloud Admin <admin@budimanjojo.com>
               NOTIFICATIONS_SMTP_USERNAME: budimanjojo@gmail.com
-              OC_ADMIN_USER_ID: ""
               OC_INSECURE: true
               OC_LOG_LEVEL: info
-              OC_URL: https://files.${SECRET_DOMAIN_0}
-              PROXY_CSP_CONFIG_FILE_LOCATION: &csp /etc/opencloud/csp.yaml
               PROXY_TLS: false
-              # Authelia OIDC
-              # auto role assignment:
-              # docs: https://docs.opencloud.eu/docs/next/admin/configuration/authentication-and-user-management/external-idp#automatic-role-assignments
-              GRAPH_USERNAME_MATCH: none
-              OC_EXCLUDE_RUN_SERVICES: idp
-              OC_OIDC_ISSUER: https://auth.${SECRET_DOMAIN_0}
-              PROXY_AUTOPROVISION_ACCOUNTS: true
-              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
-              PROXY_OIDC_REWRITE_WELLKNOWN: false
-              PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
-              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
-              PROXY_USER_OIDC_CLAIM: preferred_username
-              PROXY_USER_CS3_CLAIM: username
-              WEBFINGER_ANDROID_OIDC_CLIENT_ID: opencloudandroid
-              WEBFINGER_ANDROID_OIDC_CLIENT_SCOPES: openid,profile,email,offline_access,groups
-              WEBFINGER_DESKTOP_OIDC_CLIENT_ID: openclouddesktop
-              WEBFINGER_DESKTOP_OIDC_CLIENT_SCOPES: openid,profile,email,offline_access,groups
-              WEBFINGER_WEB_OIDC_CLIENT_ID: opencloudweb
-              WEBFINGER_WEB_OIDC_CLIENT_SCOPES: openid,profile,email,groups
+              OC_URL: https://files.${SECRET_DOMAIN_0}
+              # we use external LDAP server so we don't have to deal with certificate maintenance chore
+              OC_ADMIN_USER_ID: "d0b5e14f-98b2-3568-8a93-e9ea99c77a87"
+              OC_EXCLUDE_RUN_SERVICES: idm
+              OC_LDAP_BIND_DN: cn=opencloud_bind,ou=people,dc=home,dc=cluster
+              OC_LDAP_INSECURE: true
+              OC_LDAP_DISABLED_USERS_GROUP_DN: cn=opencloud_disabled,ou=groups,dc=home,dc=cluster
+              OC_LDAP_DISABLE_USER_MECHANISM: group
+              OC_LDAP_GROUP_BASE_DN: ou=groups,dc=home,dc=cluster
+              OC_LDAP_GROUP_SCHEMA_ID: entryuuid
+              OC_LDAP_SERVER_WRITE_ENABLED: true
+              OC_LDAP_USER_BASE_DN: ou=people,dc=home,dc=cluster
+              OC_LDAP_USER_SCHEMA_ID: entryuuid
+              OC_LDAP_USER_FILTER: (&(objectClass=person)(memberOf=cn=opencloud_users,ou=groups,dc=home,dc=cluster))
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -88,16 +80,6 @@ spec:
             namespace: network
             port: 443
     persistence:
-      config-proxy:
-        type: configMap
-        name: opencloud-configmap
-        globalMounts:
-          - path: /etc/opencloud/proxy.yaml
-            readOnly: true
-            subPath: proxy.yaml
-          - path: *csp
-            readOnly: true
-            subPath: csp.yaml
       data:
         type: nfs
         path: /Kubernetes-Volumes/opencloud

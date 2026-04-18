@@ -115,10 +115,6 @@ identity_providers:
       nextcloud_userinfo:
         custom_claims:
           is_nextcloud_admin: {}
-    lifespans:
-      custom:
-        opencloud-client:
-          refresh_token: 365 days
     scopes:
       nextcloud_userinfo:
         claims:
@@ -163,57 +159,6 @@ identity_providers:
           - groups
         userinfo_signed_response_alg: none
         claims_policy: default
-      - client_id: opencloudweb
-        client_name: OpenCloud
-        public: true
-        authorization_policy: two_factor
-        scopes:
-          - openid
-          - profile
-          - groups
-          - email
-        redirect_uris:
-          - https://files.${SECRET_DOMAIN_0}/
-          - https://files.${SECRET_DOMAIN_0}/oidc-callback.html
-          - https://files.${SECRET_DOMAIN_0}/oidc-silent-redirect.html
-        userinfo_signed_response_alg: none
-      # TODO: waiting for https://github.com/opencloud-eu/desktop/issues/811
-      # then the client id will be openclouddesktop instead
-      - client_id: OpenCloudDesktop
-        client_name: OpenCloud (Desktop client)
-        grant_types:
-          - authorization_code
-          - refresh_token
-        lifespan: opencloud-client
-        public: true
-        authorization_policy: two_factor
-        scopes:
-          - openid
-          - profile
-          - groups
-          - email
-          - offline_access
-        redirect_uris:
-          - http://127.0.0.1
-          - http://localhost
-        userinfo_signed_response_alg: none
-      - client_id: opencloudandroid
-        client_name: OpenCloud (Android client)
-        grant_types:
-          - authorization_code
-          - refresh_token
-        lifespan: opencloud-client
-        public: true
-        authorization_policy: two_factor
-        scopes:
-          - openid
-          - profile
-          - groups
-          - email
-          - offline_access
-        redirect_uris:
-          - oc://android.opencloud.eu
-        userinfo_signed_response_alg: none
       - client_id: nextcloud
         client_name: Nextcloud
         client_secret: "{{ .OIDC_CLIENT_NEXTCLOUD }}"
