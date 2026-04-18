@@ -19,7 +19,7 @@ spec:
         - group: ""
           kind: Service
           name: authelia
-          namespace: authentication-system
+          namespace: security
           port: 9091
       path: /api/authz/ext-authz/
   targetRefs:
