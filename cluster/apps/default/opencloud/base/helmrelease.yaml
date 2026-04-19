@@ -38,8 +38,7 @@ spec:
               OC_EXCLUDE_RUN_SERVICES: idm
               OC_LDAP_BIND_DN: cn=opencloud_bind,ou=people,dc=home,dc=cluster
               OC_LDAP_INSECURE: true
-              OC_LDAP_DISABLED_USERS_GROUP_DN: cn=opencloud_disabled,ou=groups,dc=home,dc=cluster
-              OC_LDAP_DISABLE_USER_MECHANISM: group
+              OC_LDAP_DISABLE_USER_MECHANISM: none
               OC_LDAP_GROUP_BASE_DN: ou=groups,dc=home,dc=cluster
               OC_LDAP_GROUP_SCHEMA_ID: entryuuid
               OC_LDAP_SERVER_WRITE_ENABLED: true
