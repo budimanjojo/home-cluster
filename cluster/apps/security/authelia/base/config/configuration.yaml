@@ -95,10 +95,6 @@ notifier:
     username: budimanjojo@gmail.com
     password: "{{ .NOTIFIER_SMTP_PASSWORD }}"
     sender: Authelia Admin <admin@budimanjojo.com>
-definitions:
-  user_attributes:
-    is_nextcloud_admin:
-      expression: '"nextcloud-admins" in groups'
 identity_providers:
   oidc:
     hmac_secret: "{{ .OIDC_HMAC_SECRET }}"
@@ -112,13 +108,6 @@ identity_providers:
           - alt_emails
           - preferred_username
           - name
-      nextcloud_userinfo:
-        custom_claims:
-          is_nextcloud_admin: {}
-    scopes:
-      nextcloud_userinfo:
-        claims:
-          - is_nextcloud_admin
     jwks:
       - key: |
           {{- .OIDC_JWKS_0_KEY | b64dec | nindent 10 }}
@@ -159,29 +148,6 @@ identity_providers:
           - groups
         userinfo_signed_response_alg: none
         claims_policy: default
-      - client_id: nextcloud
-        client_name: Nextcloud
-        client_secret: "{{ .OIDC_CLIENT_NEXTCLOUD }}"
-        public: false
-        authorization_policy: two_factor
-        require_pkce: true
-        pkce_challenge_method: S256
-        claims_policy: nextcloud_userinfo
-        redirect_uris:
-          - https://nextcloud.${SECRET_DOMAIN_0}/apps/oidc_login/oidc
-        scopes:
-          - openid
-          - profile
-          - email
-          - groups
-          - nextcloud_userinfo
-        response_types:
-          - code
-        grant_types:
-          - authorization_code
-        access_token_signed_response_alg: none
-        userinfo_signed_response_alg: none
-        token_endpoint_auth_method: client_secret_basic
       - client_id: immich
         client_name: Immich
         client_secret: "{{ .OIDC_CLIENT_IMMICH }}"

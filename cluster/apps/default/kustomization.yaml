@@ -22,7 +22,6 @@ resources:
   - ./jellyseerr/fluxtomization.yaml
   - ./minio/fluxtomization.yaml
   - ./mosquitto/fluxtomization.yaml
-  - ./nextcloud/fluxtomization.yaml
   - ./opencloud/fluxtomization.yaml
   - ./prowlarr/fluxtomization.yaml
   - ./qbittorrent/fluxtomization.yaml
