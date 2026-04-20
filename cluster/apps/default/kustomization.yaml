@@ -28,7 +28,6 @@ resources:
   - ./radarr/fluxtomization.yaml
   - ./radicale/fluxtomization.yaml
   - ./recyclarr/fluxtomization.yaml
-  - ./shared/postgresclusters/fluxtomization.yaml
   - ./shared/redisclusters/fluxtomization.yaml
   - ./sonarr/fluxtomization.yaml
   - ./tqm/fluxtomization.yaml
