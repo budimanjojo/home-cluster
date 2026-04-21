@@ -72,6 +72,3 @@ spec:
       - name: immich
         login: true
         disablePassword: true
-      - name: nextcloud
-        login: true
-        disablePassword: true
