@@ -15,9 +15,7 @@ resources:
   - ./firefly-iii/fluxtomization.yaml
   - ./homeassistant/fluxtomization.yaml
   - ./homepage/fluxtomization.yaml
-  - ./immich/database/fluxtomization.yaml
-  - ./immich/machine-learning/fluxtomization.yaml
-  - ./immich/server/fluxtomization.yaml
+  - ./immich/fluxtomization.yaml
   - ./jellyfin/fluxtomization.yaml
   - ./jellyseerr/fluxtomization.yaml
   - ./minio/fluxtomization.yaml
