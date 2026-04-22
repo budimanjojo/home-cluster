@@ -8,6 +8,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   schedule: "0 */3 * * *" # at minute 0 past every 3rd hour
+  successfulJobsHistoryLimit: 0
   jobTemplate:
     spec:
       template:
