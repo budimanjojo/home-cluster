@@ -88,7 +88,7 @@ spec:
     persistence:
       data:
         type: nfs
-        path: /Kubernetes-Volumes/opencloud
+        path: /Kubernetes-Volumes/default-opencloud-data
         server: 192.168.200.30
         globalMounts:
           - path: /etc/opencloud
