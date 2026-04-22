@@ -144,3 +144,8 @@ spec:
                 subPath: cache
               - path: /.cache
                 subPath: dotCache
+
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
