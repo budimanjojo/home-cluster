@@ -6,62 +6,66 @@ metadata:
   name: autobrr
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: autobrr
   values:
     controllers:
-      cross-seed:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+      autobrr:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/autobrr/autobrr
-              tag: v1.71.0
+              tag: v1.76.0@sha256:f0f4d73fcd77700b1c98233562cd94a78b9bf685a7594a0aac4f8a9436b5044d
+            env:
+              AUTOBRR__CHECK_FOR_UPDATES: false
+              AUTOBRR__HOST: 0.0.0.0
+              AUTOBRR__PORT: &port 80
+              AUTOBRR__METRICS_ENABLED: true
+              AUTOBRR__METRICS_PORT: &metricsPort 9094
+              AUTOBRR__LOG_LEVEL: INFO
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 1
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/healthz/readiness
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 256Mi
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    port: &port 80
-                    path: /api/healthz/liveness
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            env:
-              AUTOBRR__HOST: 0.0.0.0
-              AUTOBRR__PORT: *port
-              AUTOBRR__CHECK_FOR_UPDATES: false
-    service:
-      main:
-        ports:
-          http:
-            port: *port
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     route:
-      main:
+      app:
         hostnames: [ "autobrr.${SECRET_DOMAIN_0}" ]
         parentRefs:
           - name: envoy-internal
@@ -70,6 +74,22 @@ spec:
           - backendRefs:
               - name: autobrr
                 port: *port
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+          metrics:
+            port: *metricsPort
+
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: metrics
+
     persistence:
       config:
         existingClaim: autobrr
+      tmp:
+        type: emptyDir
