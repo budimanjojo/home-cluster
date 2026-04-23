@@ -6,63 +6,72 @@ metadata:
   name: bazarr
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: bazarr
   values:
     controllers:
       bazarr:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
               repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.3
-            resources:
-              requests:
-                cpu: 15m
-                memory: 381Mi
-              limits:
-                memory: 816Mi
+              tag: 1.5.6@sha256:79fc37491f55c7e24427bcd669bce3df2d7415ca432a47ce9d53cc5988af8411
+            env:
+              BAZARR__PORT: &port 80
             probes:
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/system/ping
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 5
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 15m
+              limits:
+                memory: 816Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     service:
-      main:
-        controller: bazarr
+      app:
         ports:
           http:
-            port: 6767
+            port: *port
+
     route:
-      main:
+      app:
         hostnames: ["bazarr.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-external
             namespace: network
-        rules:
-          - backendRefs:
-              - name: bazarr
-                port: 6767
+
     persistence:
       config:
         existingClaim: bazarr
@@ -72,3 +81,5 @@ spec:
         path: /Media
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir
