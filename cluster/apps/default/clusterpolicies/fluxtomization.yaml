@@ -3,16 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name clusterpolicies
-  namespace: default
+  name: clusterpolicies
 spec:
+  targetNamespace: default
   interval: 1h
-  retryInterval: 2m
-  timeout: 5m
   prune: true
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
   path: ./cluster/apps/default/clusterpolicies/base
   sourceRef:
     kind: GitRepository
