@@ -87,7 +87,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      app:
+      immich:
         controller: immich
         ports:
           http:
@@ -124,7 +124,7 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: immich
                 port: *port
 
     persistence:

@@ -39,7 +39,7 @@ data:
             description: Photos and Videos Backup
             widget:
               type: immich
-              url: http://immich-app.default.svc.cluster.local:2283
+              url: http://immich.default.svc.cluster.local:2283
               key: {{HOMEPAGE_VAR_IMMICH_KEY}}
               version: 2
         - qBittorrent:
