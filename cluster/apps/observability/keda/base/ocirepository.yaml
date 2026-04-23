@@ -8,7 +8,7 @@ spec:
   interval: 15m
   url: oci://ghcr.io/home-operations/charts-mirror/keda
   ref:
-    tag: 2.18.3
+    tag: 2.19.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
