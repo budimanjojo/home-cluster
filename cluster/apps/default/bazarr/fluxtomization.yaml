@@ -5,6 +5,7 @@ kind: Kustomization
 metadata:
   name: bazarr
 spec:
+  targetNamespace: default
   interval: 1h
   prune: true
   components:
