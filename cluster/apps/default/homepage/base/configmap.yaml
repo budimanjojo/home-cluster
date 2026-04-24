@@ -12,6 +12,9 @@ data:
   kubernetes.yaml: |
     ---
     mode: cluster
+    gateway: true
+    ingress: false
+    traefik: false
 
   services.yaml: |
     ---
