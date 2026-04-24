@@ -6,42 +6,17 @@ metadata:
   name: jellyfin
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: jellyfin
   values:
     controllers:
       jellyfin:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 44
-              - 109
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/jellyfin/jellyfin
-              tag: 10.11.5
-            resources:
-              claims:
-                - name: gpu
-              requests:
-                cpu: 15m
-                memory: 866Mi
-              limits:
-                memory: 1390Mi
+              tag: 10.11.8sha256:93227545077893cc9516f28b3adb733b67bc4691f41b6167428a2a0e3220b81c
             probes:
               startup:
                 enabled: true
@@ -52,31 +27,64 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+            resources:
+              claims:
+                - name: gpu
+              requests:
+                cpu: 15m
+                memory: 866Mi
+              limits:
+                memory: 1390Mi
+
     defaultPodOptions:
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: jellyfin
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 44
+          - 109
+
     service:
-      main:
-        controller: jellyfin
+      app:
         ports:
           http:
             port: 8096
+
     route:
-      main:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Jellyfin
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: jellyfin.png
+          gethomepage.dev/href: https://jellyfin.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: Media Server
+          gethomepage.dev/widget.type: jellyfin
+          gethomepage.dev/widget.url: http://jellyfin.default.svc.cluster.local:8096
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_JELLYFIN_KEY}}" }}'
+          gethomepage.dev/widget.enableNowPlaying: "true"
         hostnames: ["jellyfin.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-external
             namespace: network
-        rules:
-          - backendRefs:
-              - name: jellyfin
-                port: 8096
+
     persistence:
       config:
         existingClaim: jellyfin
       config-cache:
-        existingClaim: jellyfin-cache
+        type: nfs
+        server: &nfsServer 192.168.200.30
+        path: /Kubernetes-Volumes/default-jellyfin-cache
         globalMounts:
           - path: /config/metadata
             subPath: metadata
@@ -86,16 +94,14 @@ spec:
             subPath: cache
       media:
         type: nfs
-        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        server: *nfsServer
         path: /Media
       tmps:
         type: emptyDir
-        advancedMounts:
-          jellyfin:
-            main:
-              - path: /cache
-                subPath: cache
-              - path: /config/log
-                subPath: log
-              - path: /tmp
-                subPath: tmp
+        globalMounts:
+          - path: /cache
+            subPath: cache
+          - path: /config/log
+            subPath: log
+          - path: /tmp
+            subPath: tmp
