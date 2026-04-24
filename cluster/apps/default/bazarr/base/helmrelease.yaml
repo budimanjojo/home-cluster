@@ -69,6 +69,7 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Bazarr
           gethomepage.dev/icon: bazarr.png
           gethomepage.dev/href: https://bazarr.${SECRET_DOMAIN_0}
           gethomepage.dev/description: Subtitles Management
