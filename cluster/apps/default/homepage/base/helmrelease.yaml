@@ -34,6 +34,9 @@ spec:
                   httpGet:
                     port: *port
                     path: /api/healthcheck
+                    httpHeaders:
+                      - name: Host
+                        value: *domain
               startup: *probes
               readiness: *probes
             resources:
