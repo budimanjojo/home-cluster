@@ -8,14 +8,7 @@ spec:
   interval: 15m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
+    name: firefly-iii
   values:
     defaultPodOptions:
       securityContext:
@@ -27,7 +20,7 @@ spec:
     controllers:
       firefly-iii:
         containers:
-          main:
+          app:
             image:
               repository: fireflyiii/core
               tag: version-6.4.14
@@ -81,14 +74,14 @@ spec:
               PGSQL_SSL_KEY:
                 value: /var/run/secrets/postgres-certs/tls.key
     service:
-      main:
+      app:
         controller: firefly-iii
         ports:
           http:
             port: 80
             targetPort: 8080
     route:
-      main:
+      app:
         hostnames: ["money.${SECRET_DOMAIN_1}"]
         parentRefs:
           - name: envoy-external
