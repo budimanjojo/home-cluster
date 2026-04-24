@@ -19,14 +19,6 @@ data:
   services.yaml: |
     ---
     - Media:
-        - Jellyseerr:
-            icon: jellyseerr.png
-            href: https://jellyseerr.${SECRET_DOMAIN_0}
-            description: Media Requests
-            widget:
-              type: jellyseerr
-              url: http://jellyseerr.default.svc.cluster.local
-              key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
         - qBittorrent:
             icon: qbittorrent.png
             href: https://qbit.${SECRET_DOMAIN_0}
