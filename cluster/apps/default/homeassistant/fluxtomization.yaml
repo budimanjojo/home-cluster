@@ -3,32 +3,25 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name homeassistant
-  namespace: default
+  name: homeassistant
 spec:
+  targetNamespace: default
   interval: 1h
-  retryInterval: 2m
-  timeout: 5m
   prune: true
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
   components:
     - ../../../../components/postgres-database
     - ../../../../components/volsync
   postBuild:
     substitute:
-      APP: *name
+      APP: homeassistant
   path: ./cluster/apps/default/homeassistant/base
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: database
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: csi-driver-nfs
-      namespace: nfs-system
