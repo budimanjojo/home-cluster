@@ -22,8 +22,7 @@ patches:
                       kind: HTTPRoute
                     patch: |
                       - op: add
-                        path: /metadata/annotations
-                        value:
-                          gatus.home-operations.com/endpoint: |-
-                            conditions:
-                              - "[STATUS] == any(401, 403)"
+                        path: /metadata/annotations/gatus.home-operations.com~1endpoint
+                        value: |-
+                          conditions:
+                            - "[STATUS] == any(401, 403)"
