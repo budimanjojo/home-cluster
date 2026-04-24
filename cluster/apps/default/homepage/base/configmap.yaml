@@ -36,15 +36,6 @@ data:
               type: jellyseerr
               url: http://jellyseerr.default.svc.cluster.local
               key: {{HOMEPAGE_VAR_JELLYSEERR_KEY}}
-        - Immich:
-            icon: immich.png
-            href: https://photos.${SECRET_DOMAIN_0}
-            description: Photos and Videos Backup
-            widget:
-              type: immich
-              url: http://immich.default.svc.cluster.local:2283
-              key: {{HOMEPAGE_VAR_IMMICH_KEY}}
-              version: 2
         - qBittorrent:
             icon: qbittorrent.png
             href: https://qbit.${SECRET_DOMAIN_0}

@@ -117,6 +117,17 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Immich
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: immich.png
+          gethomepage.dev/href: https://photos.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: Photos and Videos Backup
+          gethomepage.dev/widget.type: immich
+          gethomepage.dev/widget.url: http://immich.default.svc.cluster.local:2283
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_IMMICH_KEY}}" }}'
+          gethomepage.dev/widget.version: "2"
         hostnames:
           - photos.${SECRET_DOMAIN_0}
         parentRefs:
