@@ -67,6 +67,14 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/icon: bazarr.png
+          gethomepage.dev/href: https://bazarr.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: Subtitles Management
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: http://bazarr.default.svc.cluster.local
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_BAZARR_KEY}}" }}'
         hostnames: ["bazarr.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-external

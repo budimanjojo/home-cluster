@@ -70,14 +70,6 @@ data:
               type: sonarr
               url: http://sonarr.default.svc.cluster.local:8989
               key: {{HOMEPAGE_VAR_SONARR_KEY}}
-        - Bazarr:
-            icon: bazarr.png
-            href: https://bazarr.${SECRET_DOMAIN_0}
-            description: Subtitles Management
-            widget:
-              type: bazarr
-              url: http://bazarr.default.svc.cluster.local:6767
-              key: {{HOMEPAGE_VAR_BAZARR_KEY}}
     - Network:
         - AdGuardHome:
             icon: adguard-home.png
