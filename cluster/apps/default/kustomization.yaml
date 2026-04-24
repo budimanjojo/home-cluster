@@ -11,7 +11,6 @@ resources:
   - ./autobrr/fluxtomization.yaml
   - ./bazarr/fluxtomization.yaml
   - ./clusterpolicies/fluxtomization.yaml
-  - ./cross-seed/fluxtomization.yaml
   - ./firefly-iii/fluxtomization.yaml
   - ./homeassistant/fluxtomization.yaml
   - ./homepage/fluxtomization.yaml
