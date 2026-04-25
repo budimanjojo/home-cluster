@@ -68,6 +68,16 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Seerr
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: seerr.png
+          gethomepage.dev/href: https://seerr.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: Media Requests
+          gethomepage.dev/widget.type: seerr
+          gethomepage.dev/widget.url: http://seerr.default.svc.cluster.local
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_SEERR_KEY}}" }}'
         hostnames:
           - seerr.${SECRET_DOMAIN_0}
           - request.${SECRET_DOMAIN_0}
