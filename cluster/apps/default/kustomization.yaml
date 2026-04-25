@@ -16,7 +16,6 @@ resources:
   - ./homepage/fluxtomization.yaml
   - ./immich/fluxtomization.yaml
   - ./jellyfin/fluxtomization.yaml
-  - ./jellyseerr/fluxtomization.yaml
   - ./minio/fluxtomization.yaml
   - ./mosquitto/fluxtomization.yaml
   - ./opencloud/fluxtomization.yaml
@@ -25,6 +24,7 @@ resources:
   - ./radarr/fluxtomization.yaml
   - ./radicale/fluxtomization.yaml
   - ./recyclarr/fluxtomization.yaml
+  - ./seerr/fluxtomization.yaml
   - ./shared/redisclusters/fluxtomization.yaml
   - ./sonarr/fluxtomization.yaml
   - ./tqm/fluxtomization.yaml

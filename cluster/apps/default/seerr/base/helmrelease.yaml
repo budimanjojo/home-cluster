@@ -3,36 +3,45 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: jellyseerr
+  name: seerr
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: jellyseerr
+    name: seerr
   values:
     controllers:
-      jellyseerr:
+      seerr:
         containers:
           app:
             image:
-              repository: ghcr.io/fallenbagel/jellyseerr
-              tag: 2.7.3
+              repository: ghcr.io/seerr-team/seerr
+              tag: v3.2.0@sha256:c4cbd5121236ac2f70a843a0b920b68a27976be57917555f1c45b08a1e6b2aad
             env:
               LOG_LEVEL: info
               PORT: &port 80
             probes:
-              liveness: &probes
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /api/v1/status
                     port: *port
-                  initialDelaySeconds: 0
+                  failureThreshold: 5
                   periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 10m
@@ -59,36 +68,23 @@ spec:
 
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: Jellyseerr
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: jellyseerr.png
-          gethomepage.dev/href: https://jellyseerr.${SECRET_DOMAIN_0}
-          gethomepage.dev/description: Media Requests
-          gethomepage.dev/widget.type: jellyseerr
-          gethomepage.dev/widget.url: http://jellyseerr.default.svc.cluster.local
-          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}" }}'
-        hostnames: ["jellyseerr.${SECRET_DOMAIN_0}"]
+        hostnames:
+          - seerr.${SECRET_DOMAIN_0}
+          - request.${SECRET_DOMAIN_0}
         parentRefs:
           - name: envoy-internal
             namespace: network
 
     persistence:
       config:
-        existingClaim: jellyseerr
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/config
       config-cache:
         type: nfs
         server: 192.168.200.30
-        path: /Kubernetes-Volumes/default-jellyseerr-cache
+        path: /Kubernetes-Volumes/default-seerr-cache
         globalMounts:
           - path: /app/config/cache
-      tmps:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /app/config/logs
-            subPath: logs
-          - path: /tmp
-            subPath: tmp
