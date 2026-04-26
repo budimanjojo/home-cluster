@@ -16,7 +16,6 @@ resources:
   - ./homepage/fluxtomization.yaml
   - ./immich/fluxtomization.yaml
   - ./jellyfin/fluxtomization.yaml
-  - ./minio/fluxtomization.yaml
   - ./mosquitto/fluxtomization.yaml
   - ./opencloud/fluxtomization.yaml
   - ./prowlarr/fluxtomization.yaml
