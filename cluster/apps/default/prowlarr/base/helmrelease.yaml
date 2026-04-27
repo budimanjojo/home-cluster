@@ -68,6 +68,16 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Prowlarr
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: prowlarr.png
+          gethomepage.dev/href: https://prowlarr.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: Indexer Manager
+          gethomepage.dev/widget.type: prowlarr
+          gethomepage.dev/widget.url: http://prowlarr.default.svc.cluster.local
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_PROWLARR_KEY}}" }}'
         hostnames: ["prowlarr.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-external
