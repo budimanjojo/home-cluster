@@ -27,7 +27,7 @@ spec:
     algorithm: RSA
     encoding: PKCS8
     size: 2048
-  secretName: bitwarden-sdk-server-cert
+  secretName: bitwarden-sdk-server-ca
 ---
 # yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/issuer_v1.json
 apiVersion: cert-manager.io/v1
@@ -36,4 +36,4 @@ metadata:
   name: bitwarden-sdk-server-issuer
 spec:
   ca:
-    secretName: bitwarden-sdk-server-cert
+    secretName: bitwarden-sdk-server-ca
