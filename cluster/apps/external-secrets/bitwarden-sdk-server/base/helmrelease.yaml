@@ -10,14 +10,15 @@ spec:
     kind: OCIRepository
     name: bitwarden-sdk-server
   values:
+    image:
+      tls:
+        secretName: bitwarden-sdk-server-cert
     podAnnotations:
       secret.reloader.stakater.com/reload: bitwarden-sdk-server-cert,bitwarden-sdk-server-secret
     podSecurityContext:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
-    tls:
-      secretName: bitwarden-sdk-server-cert
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
