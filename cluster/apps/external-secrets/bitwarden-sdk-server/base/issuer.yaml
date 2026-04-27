@@ -20,6 +20,7 @@ spec:
   ipAddresses:
     - 127.0.0.1
     - ::1
+  isCA: true
   issuerRef:
     name: bitwarden-sdk-server-bootstrap-issuer
   privateKey:
