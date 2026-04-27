@@ -6,39 +6,20 @@ metadata:
   name: mosquitto
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: mosquitto
   values:
     controllers:
       mosquitto:
-        pod:
-          annotations:
-            reloader.stakater.com/auto: "true"
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+        annotations:
+          reloader.stakater.com/auto: "true"
+        type: statefulset
         containers:
-          main:
+          app:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
-            resources:
-              requests:
-                cpu: 15m
-                memory: 105Mi
-              limits:
-                memory: 105Mi
             probes:
               startup:
                 enabled: true
@@ -49,30 +30,51 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+            resources:
+              requests:
+                cpu: 15m
+                memory: 105Mi
+              limits:
+                memory: 105Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     service:
-      main:
-        controller: mosquitto
+      app:
         ports:
           mqtt:
             port: 1883
+
     configMaps:
       config:
         data:
           mosquitto.conf: |
-            listener 1883
             allow_anonymous true
+            autosave_interval 60
+            connection_messages false
+            listener 1883
+            per_listener_settings false
             persistence true
             persistence_location /data
-            connection_messages false
+
     persistence:
-      config:
+      config-file:
         type: configMap
-        name: mosquitto
-        advancedMounts:
-          mosquitto:
-            main:
-              - path: /mosquitto/config/mosquitto.conf
-                subPath: mosquitto.conf
-                readOnly: true
+        identifier: config
+        globalMounts:
+          - path: /mosquitto/config/mosquitto.conf
+            subPath: mosquitto.conf
+            readOnly: true
+
       data:
         existingClaim: mosquitto
