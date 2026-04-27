@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: bitwarden-sdk-server-bootstrap-issuer
+spec:
+  selfSigned: {}
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bitwarden-sdk-server-bootstrap-cert
+spec:
+  commonName: bitwarden-sdk-server-bootstrap-cert
+  dnsNames:
+    - bitwarden-sdk-server.external-secrets.svc.cluster.local
+    - localhost
+  ipAddresses:
+    - 127.0.0.1
+    - ::1
+  issuerRef:
+    name: bitwarden-sdk-server-bootstrap-issuer
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS8
+    size: 2048
+  secretName: bitwarden-sdk-server-cert
+---
+# yaml-language-server: $schema=https://schemas.budimanjojo.com/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: bitwarden-sdk-server-issuer
+spec:
+  ca:
+    secretName: bitwarden-sdk-server-cert

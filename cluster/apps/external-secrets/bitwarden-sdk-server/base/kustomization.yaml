@@ -7,4 +7,5 @@ resources:
   - ./clustersecretstore.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./issuer.yaml
   - ./ocirepository.yaml
