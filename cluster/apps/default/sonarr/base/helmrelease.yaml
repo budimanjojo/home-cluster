@@ -6,66 +6,88 @@ metadata:
   name: sonarr
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: sonarr
   values:
     controllers:
       sonarr:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.16
+              tag: 4.0.17@sha256:83607d2b741ec9469db09489e88c473ae6fdf7d85f3b55d4fa809b43e25a2a6c
+            env:
+              SONARR__SERVER__PORT: &port 80
+              SONARR__UPDATE__BRANCH: develop
             probes:
-              startup:
-                enabled: false
               liveness:
                 enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
               readiness:
                 enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 15m
                 memory: 443Mi
               limits:
                 memory: 2Gi
-    service:
-      main:
-        controller: sonarr
-        ports:
-          http:
-            port: 8989
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      media:
+        type: nfs
+        server: &nfsServer 192.168.200.30
+        path: /Media
+        globalMounts:
+          - path: /media
+      mediacover:
+        type: nfs
+        server: *nfsServer
+        path: /Kubernetes-Volumes/default-sonarr-mediacover
+        globalMounts:
+          - path: /config/MediaCover
+      tmp:
+        type: emptyDir
+
     route:
-      main:
+      app:
         hostnames: ["tv.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-external
             namespace: network
-        rules:
-          - backendRefs:
-              - name: sonarr
-                port: 8989
-    persistence:
-      config:
-        existingClaim: sonarr
-      media:
-        type: nfs
-        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
-        path: /Media
-        globalMounts:
-          - path: /media
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port

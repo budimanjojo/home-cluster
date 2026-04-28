@@ -3,29 +3,23 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name sonarr
-  namespace: default
+  name: sonarr
 spec:
   interval: 1h
-  retryInterval: 2m
-  timeout: 5m
   prune: true
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
   components:
     - ../../../../components/ext-auth
     - ../../../../components/volsync
     - ../../../../components/keda/nfs-scaler
   postBuild:
     substitute:
-      APP: *name
+      APP: sonarr
   path: ./cluster/apps/default/sonarr/base
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
