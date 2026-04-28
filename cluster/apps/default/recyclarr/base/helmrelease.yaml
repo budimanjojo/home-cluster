@@ -6,17 +6,9 @@ metadata:
   name: recyclarr
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: recyclarr
   values:
     controllers:
       recyclarr:
@@ -28,26 +20,29 @@ spec:
           successfulJobsHistory: 1
           failedJobsHistory: 1
           ttlSecondsAfterFinished: 86400
-        pod:
-          restartPolicy: Never
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/recyclarr/recyclarr
-              tag: 7.5.2
+              tag: 8.6.0@sha256:3c38ceeb54438dd8327e4e65c9b48ba601a6d20fff833342d93c9b0bc4b1930b
+            args: [sync]
+            env:
+              RECYCLARR_DATA_DIR: /tmp
+            envFrom:
+              - secretRef:
+                  name: recyclarr-secret
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 128Mi
-            args: [sync]
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities: {drop: [ALL]}
-            envFrom:
-              - secretRef:
-                  name: recyclarr-secret
+              readOnlyRootFilesystem: true
+        pod:
+          restartPolicy: Never
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -55,24 +50,16 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
     persistence:
       config:
-        existingClaim: recyclarr
+        existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
-        name: recyclarr-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yml
             readOnly: true
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          recyclarr:
-            main:
-              - path: /config/logs
-                subPath: logs
-              - path: /config/repositories
-                subPath: repositories
-              - path: /tmp
-                subPath: tmp
