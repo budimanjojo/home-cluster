@@ -65,10 +65,16 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        server: &nfsServer 192.168.200.30
         path: /Media
         globalMounts:
           - path: /media
+      mediacover:
+        type: nfs
+        server: *nfsServer
+        path: /Kubernetes-Volumes/default-radarr-mediacover
+        globalMounts:
+          - path: /config/MediaCover
       tmp:
         type: emptyDir
 
