@@ -6,31 +6,17 @@ metadata:
   name: radicale
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: radicale
   values:
     controllers:
       radicale:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/kozea/radicale
-              tag: 3.5.9
+              tag: 3.7.1@sha256:c3d3a8bbb7a4cc0accc407ff9ff80138179102b8c78b2c692780a1132d9e8c2b
             args:
               - --hosts
               - 0.0.0.0:5232
@@ -42,12 +28,6 @@ spec:
               - bcrypt
               - --storage-filesystem-folder
               - /var/lib/radicale/collections
-            resources:
-              requests:
-                cpu: 15m
-                memory: 105Mi
-              limits:
-                memory: 105Mi
             probes:
               startup:
                 enabled: true
@@ -58,22 +38,25 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-    service:
-      main:
-        controller: radicale
-        ports:
-          http:
-            port: 5232
-    route:
-      main:
-        hostnames: ["dav.${SECRET_DOMAIN_0}"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-        rules:
-          - backendRefs:
-              - name: radicale
-                port: 5232
+            resources:
+              requests:
+                cpu: 15m
+                memory: 105Mi
+              limits:
+                memory: 105Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     persistence:
       config:
         existingClaim: radicale
@@ -84,3 +67,18 @@ spec:
         name: radicale-secret
         globalMounts:
           - path: /secret
+      tmp:
+        type: emptyDir
+
+    route:
+      app:
+        hostnames: ["dav.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+
+    service:
+      app:
+        ports:
+          http:
+            port: 5232

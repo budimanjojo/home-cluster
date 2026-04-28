@@ -3,31 +3,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &name radicale
-  namespace: default
+  name: radicale
 spec:
+  targetNamespace: default
   interval: 1h
-  retryInterval: 2m
-  timeout: 5m
   prune: true
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
   components:
     - ../../../../components/volsync
   postBuild:
     substitute:
-      APP: *name
+      APP: radicale
   path: ./cluster/apps/default/radicale/base
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
+  wait: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: shared-postgrescluster-pgo-cluster
-      namespace: default
+    - name: cloudnative-pg-cluster
+      namespace: database
     - name: volsync
       namespace: volsync-system
