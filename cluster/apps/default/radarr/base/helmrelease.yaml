@@ -6,69 +6,81 @@ metadata:
   name: radarr
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: radarr
   values:
     controllers:
       radarr:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/radarr
-              tag: 5.28.0
-            resources:
-              requests:
-                cpu: 15m
-                memory: 352Mi
-              limits:
-                memory: 2Gi
+              tag: 6.2.0.10390@sha256:be596a2f896fdf15077af027f44500f73e1f6fb7b450a6494b37dd25b7cc5927
+            env:
+              RADARR__SERVER__PORT: &port 80
+              RADARR__UPDATE__BRANCH: develop
             probes:
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 5
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
-    service:
-      main:
-        controller: radarr
-        ports:
-          http:
-            port: 7878
-    route:
-      main:
-        hostnames: ["movie.${SECRET_DOMAIN_0}"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-        rules:
-          - backendRefs:
-              - name: radarr
-                port: 7878
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 15m
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     persistence:
       config:
-        existingClaim: radarr
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
         path: /Media
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir
+
+    route:
+      app:
+        hostnames: ["movie.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
