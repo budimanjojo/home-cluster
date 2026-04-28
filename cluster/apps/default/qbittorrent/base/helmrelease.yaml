@@ -134,6 +134,17 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: qBittorrent
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: qbittorrent.png
+          gethomepage.dev/href: https://qbit.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: Torrent Management
+          gethomepage.dev/widget.type: qbittorrent
+          gethomepage.dev/widget.url: http://qbittorrent.default.svc.cluster.local:8080
+          gethomepage.dev/widget.username: '{{ "{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}" }}'
+          gethomepage.dev/widget.password: '{{ "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}" }}'
         hostnames: ["qbit.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-internal
