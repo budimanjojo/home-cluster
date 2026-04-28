@@ -6,17 +6,9 @@ metadata:
   name: qbittorrent
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: qbittorrent
   values:
     controllers:
       qbittorrent:
@@ -43,20 +35,6 @@ spec:
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.40.3
-            resources:
-              limits:
-                squat.ai/tun: "1"
-            securityContext:
-              capabilities:
-                add: [ NET_ADMIN ]
-              allowPrivilegeEscalation: false
-            lifecycle:
-              postStart:
-                exec:
-                  command:
-                    - /bin/sh
-                    - -c
-                    - (ip rule del table 51820; ip -6 rule del table 51820) || true
             env:
               VPN_SERVICE_PROVIDER: custom
               VPN_TYPE: wireguard
@@ -72,55 +50,63 @@ spec:
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - (ip rule del table 51820; ip -6 rule del table 51820) || true
+            resources:
+              limits:
+                squat.ai/tun: "1"
+            securityContext:
+              capabilities:
+                add: [ NET_ADMIN ]
+              allowPrivilegeEscalation: false
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/qbittorrent
               tag: 5.1.4
+            env:
+              QBT_WEBUI_PORT: *port
+              QBT_TORRENTING_PORT: *torrentPort
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 100m
               limits:
                 memory: 4Gi
-            probes:
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
               runAsNonRoot: true
               allowPrivilegeEscalation: false
+              capabilites: {drop: ["ALL"]}
               readOnlyRootFilesystem: true
-              capabilities:
-                drop: [ALL]
-            env:
-              QBT_WEBUI_PORT: *port
-              QBT_TORRENTING_PORT: *torrentPort
-
-    service:
-      main:
-        controller: qbittorrent
-        ports:
-          http:
-            port: *port
-    route:
-      main:
-        hostnames: ["qbit.${SECRET_DOMAIN_0}"]
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - name: qbittorrent
-                port: *port
 
     persistence:
       config:
@@ -143,3 +129,23 @@ spec:
               - path: /etc/coredns/Corefile
                 subPath: Corefile
                 readOnly: true
+      tmp:
+        type: emptyDir
+
+    route:
+      app:
+        hostnames: ["qbit.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - name: qbittorrent
+                port: *port
+
+    service:
+      app:
+        controller: qbittorrent
+        ports:
+          http:
+            port: *port
