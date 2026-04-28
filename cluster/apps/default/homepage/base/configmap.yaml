@@ -28,14 +28,6 @@ data:
               url: http://qbittorrent.default.svc.cluster.local:8080
               username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
               password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
-        - Radarr:
-            icon: radarr.png
-            href: https://movie.${SECRET_DOMAIN_0}
-            description: Movies Management
-            widget:
-              type: radarr
-              url: http://radarr.default.svc.cluster.local:7878
-              key: {{HOMEPAGE_VAR_RADARR_KEY}}
         - Sonarr:
             icon: sonarr.png
             href: https://tv.${SECRET_DOMAIN_0}
