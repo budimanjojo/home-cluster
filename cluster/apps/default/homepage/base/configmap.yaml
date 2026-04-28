@@ -18,15 +18,6 @@ data:
 
   services.yaml: |
     ---
-    - Media:
-        - Sonarr:
-            icon: sonarr.png
-            href: https://tv.${SECRET_DOMAIN_0}
-            description: TV Shows Management
-            widget:
-              type: sonarr
-              url: http://sonarr.default.svc.cluster.local:8989
-              key: {{HOMEPAGE_VAR_SONARR_KEY}}
     - Network:
         - AdGuardHome:
             icon: adguard-home.png

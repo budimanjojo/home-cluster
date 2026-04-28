@@ -81,6 +81,16 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: Sonarr
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sonarr.png
+          gethomepage.dev/href: https://tv.${SECRET_DOMAIN_0}
+          gethomepage.dev/description: TV Shows Management
+          gethomepage.dev/widget.type: sonarr
+          gethomepage.dev/widget.url: http://sonarr.default.svc.cluster.local
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_SONARR_KEY}}" }}'
         hostnames: ["tv.${SECRET_DOMAIN_0}"]
         parentRefs:
           - name: envoy-external
