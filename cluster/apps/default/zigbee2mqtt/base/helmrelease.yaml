@@ -6,51 +6,17 @@ metadata:
   name: zigbee2mqtt
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: zigbee2mqtt
   values:
     controllers:
       zigbee2mqtt:
-        pod:
-          nodeSelector:
-            feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
-              tag: 2.7.1
-            resources:
-              requests:
-                cpu: 15m
-                memory: 150Mi
-              limits:
-                memory: 150Mi
-            securityContext:
-              privileged: true
-            probes:
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
+              tag: 2.9.2@sha256:2a21bbf7a664a149024bbe1f776e3151f28ed9db15948270dcbffb89544a41f0
             env:
               ZIGBEE2MQTT_DATA: /config
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: "true"
@@ -66,30 +32,69 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
               ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: "20"
               # frontend
-              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
               ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${SECRET_DOMAIN_0}
-    service:
-      main:
-        controller: zigbee2mqtt
-        ports:
-          http:
-            port: *port
-    route:
-      main:
-        hostnames: [ "zigbee.${SECRET_DOMAIN_0}" ]
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - name: zigbee2mqtt
-                port: *port
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 15m
+              limits:
+                memory: 150Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+        pod:
+          nodeSelector:
+            feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     persistence:
       config:
-        existingClaim: zigbee2mqtt
+        existingClaim: "{{ .Release.Name }}"
       usb:
         type: hostPath
         hostPathType: CharDevice
         hostPath: *usbdevice
         globalMounts:
           - path: *usbdevice
+
+    route:
+      app:
+        hostnames: [ "zigbee.${SECRET_DOMAIN_0}" ]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
