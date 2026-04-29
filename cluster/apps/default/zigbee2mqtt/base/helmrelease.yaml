@@ -64,10 +64,12 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: {drop: ["ALL"]}
+              privileged: true
               readOnlyRootFilesystem: true
         pod:
           nodeSelector:
             feature.node.kubernetes.io/usb-ff_1a86_7523.present: "true"
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
