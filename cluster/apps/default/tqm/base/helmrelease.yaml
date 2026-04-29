@@ -6,29 +6,13 @@ metadata:
   name: tqm
 spec:
   interval: 1h
-  timeout: 5m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
+    name: tqm
   dependsOn:
     - name: qbittorrent
       namespace: default
   values:
-    defaultPodOptions:
-      restartPolicy: Never
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     controllers:
       tqm:
         type: cronjob
@@ -43,7 +27,7 @@ spec:
           retag: &container
             image:
               repository: ghcr.io/home-operations/tqm
-              tag: 1.18.0
+              tag: 1.19.0@sha256:025ee0c0c8b75f4c7bffa90216eedb494b9884e092a47e9c49824fe63427808c
             args:
               - retag
               - qb
@@ -54,8 +38,8 @@ spec:
                 memory: 64Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities: {drop: [ALL]}
+              readOnlyRootFilesystem: true
         containers:
           clean:
             <<: *container
@@ -75,6 +59,16 @@ spec:
               - orphan
               - qb
               - --dry-run
+
+    defaultPodOptions:
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     persistence:
       config:
         type: emptyDir
@@ -89,7 +83,7 @@ spec:
             readOnly: true
       downloads:
         type: nfs
-        server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
+        server: 192.168.200.30
         path: /Media
         globalMounts:
           - path: /downloads
