@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qui
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: qui
+  values:
+    controllers:
+      qui:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/autobrr/qui
+              tag: v1.17.0@sha256:fb3832e68f66b056e1b049d16c40732661e7b73999bc642d4b11469a3ebbabd3
+            env:
+              QUI__AUTH_DISABLED: true
+              QUI__I_ACKNOWLEDGE_THIS_IS_A_BAD_IDEA: true
+              QUI__AUTH_DISABLED_ALLOWED_CIDRS: 0.0.0.0/0
+              QUI__HOST: 0.0.0.0
+              QUI__PORT: &port 80
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+                spec:
+                  failureThreshold: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  failureThreshold: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilites: {drop: ["ALL"]}
+              readOnlyRootFilesystem: true
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      downloads:
+        type: nfs
+        server: 192.168.200.30
+        path: /Media
+        globalMounts:
+          - path: /downloads
+            subPath: Downloads/qbittorrent
+            readOnly: true
+
+    route:
+      app:
+        hostnames: ["qui.${SECRET_DOMAIN_0}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port

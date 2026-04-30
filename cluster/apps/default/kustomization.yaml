@@ -20,6 +20,7 @@ resources:
   - ./opencloud/fluxtomization.yaml
   - ./prowlarr/fluxtomization.yaml
   - ./qbittorrent/fluxtomization.yaml
+  - ./qui/fluxtomization.yaml
   - ./radarr/fluxtomization.yaml
   - ./radicale/fluxtomization.yaml
   - ./recyclarr/fluxtomization.yaml
