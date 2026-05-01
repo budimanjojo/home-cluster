@@ -27,5 +27,4 @@ resources:
   - ./seerr/fluxtomization.yaml
   - ./shared/redisclusters/fluxtomization.yaml
   - ./sonarr/fluxtomization.yaml
-  - ./tqm/fluxtomization.yaml
   - ./zigbee2mqtt/fluxtomization.yaml
