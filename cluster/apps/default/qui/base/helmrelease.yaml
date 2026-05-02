@@ -76,7 +76,6 @@ spec:
         globalMounts:
           - path: /downloads
             subPath: Downloads/qbittorrent
-            readOnly: true
 
     route:
       app:
