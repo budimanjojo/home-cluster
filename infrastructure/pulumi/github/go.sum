@@ -283,6 +283,8 @@ github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+
 github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/pgavlin/fx v0.1.6 h1:r9jEg69DhNoCd3Xh0+5mIbdbS3PqWrVWujkY76MFRTU=
 github.com/pgavlin/fx v0.1.6/go.mod h1:KWZJ6fqBBSh8GxHYqwYCf3rYE7Gp2p0N8tJp8xv9u9M=
+github.com/pgavlin/fx/v2 v2.0.12 h1:SjjaJ68Dt8Z4zHwOpY/RPijd7lShs6xYupJbF9ra00M=
+github.com/pgavlin/fx/v2 v2.0.12/go.mod h1:M/nF/ooAOy+NUBooYYXl2REARzJ/giPJxfMs8fINfKc=
 github.com/pjbgf/sha1cd v0.3.0 h1:4D5XXmUUBUl/xQ6IjCkEAbqXskkq/4O7LmGn0AqMDs4=
 github.com/pjbgf/sha1cd v0.3.0/go.mod h1:nZ1rrWOcGJ5uZgEEVL1VUM9iRQiZvWdbZjkKyFzPPsI=
 github.com/pjbgf/sha1cd v0.3.2 h1:a9wb0bp1oC2TGwStyn0Umc/IGKQnEgF0vVaZ8QF8eo4=
@@ -309,6 +311,8 @@ github.com/pulumi/esc v0.14.3 h1:Zli+9LiSDT/W+Fsfr8tITxCo+5wn969tLrE4KLv44G8=
 github.com/pulumi/esc v0.14.3/go.mod h1:XnSxlt5NkmuAj304l/gK4pRErFbtqq6XpfX1tYT9Jbc=
 github.com/pulumi/esc v0.17.0 h1:oaVOIyFTENlYDuqc3pW75lQT9jb2cd6ie/4/Twxn66w=
 github.com/pulumi/esc v0.17.0/go.mod h1:XnSxlt5NkmuAj304l/gK4pRErFbtqq6XpfX1tYT9Jbc=
+github.com/pulumi/esc v0.24.0 h1:sCtiB0qbyrlU1ZNzJn4dTLYiChl8xeCBFbHWl1YoXJg=
+github.com/pulumi/esc v0.24.0/go.mod h1:eCOOkcDJS6eooGwdE4/E0+pOsvUWG254+KBmPCFwJpA=
 github.com/pulumi/pulumi-github/sdk/v6 v6.0.0 h1:mt0K+XpgAMrC5xeg3FSks9arrSXFRHnUYZH7qHYMMdw=
 github.com/pulumi/pulumi-github/sdk/v6 v6.0.0/go.mod h1:UE5vkZipqGU/kvj74r9w9PpB5NvjG6Jo97O3ubntisE=
 github.com/pulumi/pulumi-github/sdk/v6 v6.0.1 h1:pGhUUemmQNxIP4Bt63jr30DlC8miO7nVJS4I7IY+ZRs=
@@ -665,6 +669,8 @@ github.com/pulumi/pulumi/sdk/v3 v3.238.0 h1:V15ghoymebrhKsZeGRzs3rwmWD1MmuR7F2fx
 github.com/pulumi/pulumi/sdk/v3 v3.238.0/go.mod h1:J8QFD7dwiCGSvBlcYwECmX/b3JKNXR85bv6BbjhPV3U=
 github.com/pulumi/pulumi/sdk/v3 v3.239.0 h1:hFx6Oe+19OVemat33+gHQ4ZR6MSQaRUDPl85xIWBaN4=
 github.com/pulumi/pulumi/sdk/v3 v3.239.0/go.mod h1:J8QFD7dwiCGSvBlcYwECmX/b3JKNXR85bv6BbjhPV3U=
+github.com/pulumi/pulumi/sdk/v3 v3.241.0 h1:jfCD4gmHM1EqSHKb2vkf5gF+/MakLN2uPJ+CjXXl6+M=
+github.com/pulumi/pulumi/sdk/v3 v3.241.0/go.mod h1:P9VS6pQws3YBu67uszFRHn24n5AwzeMlyC2hIiHGWHg=
 github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
