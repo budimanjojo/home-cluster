@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: firefly-iii-cronjob
-              image: quay.io/curl/curl:8.18.0
+              image: quay.io/curl/curl:8.20.0
               args:
                 - curl --silent --show-error --fail http://firefly-iii/api/v1/cron/${STATIC_CRON_TOKEN}
               command:
