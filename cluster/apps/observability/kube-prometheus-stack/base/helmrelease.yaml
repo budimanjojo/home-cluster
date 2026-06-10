@@ -57,7 +57,7 @@ spec:
         scrapeConfigSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         retention: 7d
-        retentionSize: 30GB
+        retentionSize: 28GB
         resources:
           requests:
             cpu: 100m
@@ -69,7 +69,7 @@ spec:
               storageClassName: rook-ceph-block
               resources:
                 requests:
-                  storage: 28Gi
+                  storage: 30Gi
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
