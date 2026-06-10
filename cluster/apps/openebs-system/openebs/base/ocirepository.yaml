@@ -8,7 +8,7 @@ spec:
   interval: 15m
   url: oci://ghcr.io/openebs/charts/openebs
   ref:
-    tag: 4.4.0
+    tag: 4.5.0
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
