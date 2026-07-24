@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2026.4.3@sha256:328680ff068d032fed0b0f64c26bd474ae6983e25d633ac8debce858a4742698
+              tag: 2026.7.4@sha256:fc3c0b5f7c2ff61a81b3c84dfcc405d3ff28bfc73caf68fb5c31818515f3554e
             env:
               postgresql_uri:
                 valueFrom:
