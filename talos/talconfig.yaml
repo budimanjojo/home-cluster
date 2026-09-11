@@ -57,7 +57,7 @@ nodes:
     ipAddress: 192.168.200.22
     controlPlane: true
     installDiskSelector:
-      model: V-GEN12SM22AR256
+      model: Samsung SSD 870
     nameservers:
       - 1.1.1.1
       - 8.8.8.8
