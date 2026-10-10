@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v1.12.3@sha256:cc84f2f5eb3c7734353701ccbaa24ed02dacb0d119114e50e4251e2005f3990a
+              tag: v2.5.0@sha256:57c4a0531937889c0b968b120fe9c2560bbe036b5c9e18c49a9e2479de9975d1
             env:
               HOMEPAGE_ALLOWED_HOSTS: &domain homepage.${SECRET_DOMAIN_0}
               PORT: &port 80
