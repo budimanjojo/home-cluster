@@ -5,7 +5,7 @@ go 1.26.6
 require (
 	github.com/gookit/validate v1.6.0
 	github.com/pulumi/pulumi-github/sdk/v6 v6.15.1
-	github.com/pulumi/pulumi/sdk/v3 v3.274.0
+	github.com/pulumi/pulumi/sdk/v3 v3.274.1
 )
 
 require (
@@ -92,7 +92,7 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.24.0 // indirect
-	github.com/pulumi/pulumi-cloud-sdk/go v1.20261027.1310 // indirect
+	github.com/pulumi/pulumi-cloud-sdk/go v1.20261104.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
