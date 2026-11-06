@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/radarr
-              tag: 6.2.0.10390@sha256:be596a2f896fdf15077af027f44500f73e1f6fb7b450a6494b37dd25b7cc5927
+              tag: 7.0.1.10859@sha256:ffe1f4d7c30b33a1e1256e14ace0eefddf120b37d8defceba208e9c190772f8d
             env:
               RADARR__SERVER__PORT: &port 80
               RADARR__UPDATE__BRANCH: develop
