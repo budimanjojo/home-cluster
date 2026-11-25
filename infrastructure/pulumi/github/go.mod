@@ -5,7 +5,7 @@ go 1.26.6
 require (
 	github.com/gookit/validate v1.6.0
 	github.com/pulumi/pulumi-github/sdk/v6 v6.15.1
-	github.com/pulumi/pulumi/sdk/v3 v3.277.0
+	github.com/pulumi/pulumi/sdk/v3 v3.278.0
 )
 
 require (
